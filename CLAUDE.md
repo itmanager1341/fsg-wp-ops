@@ -44,14 +44,14 @@ Site code is NOT in this repo. It lives in:
 
 Each site repo only tracks `wp-content/themes/{custom}`, `wp-content/plugins/{custom}`,
 and `wp-content/mu-plugins/`. WP core, third-party plugins, and uploads are never
-tracked. Deployment is via GitHub Actions → WP Engine SSH Gateway.
+tracked. Deployment is via GitHub Actions → WP Engine SSH Gateway (rsync).
 
 ## WP Engine constraints (hard rules)
 
 - WP core is managed by WPE. Never modify `wp-admin/`, `wp-includes/`, or root
   `wp-*.php` files.
-- Never push directly to WP Engine's git remote. The last-pushed branch becomes
-  production. GitHub is the source of truth; GitHub Actions deploys.
+- Never push directly to WP Engine's git remote. GitHub is the source of truth;
+  GitHub Actions deploys via the official WPE action (SSH rsync, not Git Push).
 - All code changes land on Staging or Development first, never production first.
 - Use SSH Gateway + WP-CLI for operational tasks. Do not edit files via SFTP
   except in emergencies.
@@ -71,6 +71,33 @@ tracked. Deployment is via GitHub Actions → WP Engine SSH Gateway.
   `seo-baseline.md` — when doing related work. If a baseline doesn't exist, create it.
 - **Flag missing access.** If a task needs credentials, tools, or context I don't
   have, stop and say so before attempting workarounds.
+- **Check SOPs** in `docs/sops/` before improvising a procedure. If no SOP exists
+  for what you're doing, flag it.
+- **Don't write code without approval.** Present the plan first, get sign-off, then write.
+
+
+## ⛔ Production approval gate — non-negotiable
+
+**Never run any operation on production without explicit per-stage approval from Jonathan.**
+
+Blanket session approval for a task does NOT constitute production approval.
+Approval to run something on staging does NOT constitute production approval.
+
+The required flow for every Workflow B operation:
+
+```
+1. State the operation and risk level (🟢/🟡/🔴)
+2. Run on staging
+3. Verify: confirm HTTP 200, no PHP errors, feature behaves correctly
+4. STOP. Report what was verified.
+5. Ask: "Staging confirmed ✅ — ready to run on production. Approve?"
+6. Wait for explicit "yes" / "go ahead" / "approved" in chat
+7. Only then run on production
+```
+
+There are no exceptions to steps 5 and 6. "Staging verified" is never permission
+to proceed to production. The user must confirm in chat every time.
+
 
 ## Communication style
 
@@ -78,6 +105,8 @@ tracked. Deployment is via GitHub Actions → WP Engine SSH Gateway.
 - If the user's plan has a flaw, say so before executing.
 - Direct, practical, actionable. No theoretical frameworks or filler.
 - Challenge assumptions when there's a gap. Don't just agree.
+- When something doesn't work, check the simplest explanation first before
+  escalating to "platform issue" or "support ticket."
 
 
 ## Security
@@ -86,8 +115,7 @@ tracked. Deployment is via GitHub Actions → WP Engine SSH Gateway.
   files, chat history, or git. All are gitignored via `.gitignore`.
 - Secrets live in `.env` (gitignored) and are loaded via direnv through `.envrc`.
 - `.env.example` lists required variable names only — no values.
-- For GitHub Actions deploys, secrets live in repo-level or org-level GitHub
-  Secrets, not in code.
+- For GitHub Actions deploys, secrets live in repo-level GitHub Secrets, not in code.
 
 ## Tools available
 
@@ -101,3 +129,6 @@ tracked. Deployment is via GitHub Actions → WP Engine SSH Gateway.
 | Supabase MCP (itmanager1341) | For related projects (mpdash, seed-connect, etc.) |
 
 See `docs/architecture.md` for the full tooling/workflow map.
+See `docs/sops/ssh-session-startup.md` before any SSH-heavy session.
+
+---
