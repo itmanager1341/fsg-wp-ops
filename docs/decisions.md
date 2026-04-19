@@ -7,6 +7,44 @@ New decisions go at the top.
 
 ---
 
+## 2026-04-19 — Use WPE official GitHub Action (SSH rsync), not Git Push
+
+**Decision:** Deploy via `wpengine/github-action-wpe-site-deploy@v3` (SSH rsync),
+not via WP Engine Git Push (`git.wpengine.com`).
+
+**Rationale:**
+The original `deploy.yml` used WP Engine's Git Push feature, which requires a
+separate passphrase-free SSH key registered specifically for that feature, and
+`git push` to `git.wpengine.com`. After extended troubleshooting, it became clear
+that:
+
+1. WP Engine's official GitHub Action explicitly states it does NOT use Git Push.
+2. The official action uses SSH rsync via the SSH Gateway — the same connection
+   that already works for WP-CLI operations (`ssh thefivestar`).
+3. Git Push is a separate WPE feature with its own key requirements and complexity
+   that adds no benefit for our use case.
+
+The official action is simpler: one secret (`WPE_SSHG_KEY_PRIVATE`), one step,
+cache clear built in, no git remote configuration required.
+
+**Secrets after migration:**
+- `WPE_SSHG_KEY_PRIVATE` (repo-level) — private key of `id_ed25519_itmanager`
+- `WPE_SSH_PRIVATE_KEY`, `WPE_CREDS`, `WPE_INSTALL_ID_*` — all removed
+
+**Org-level secrets decision:** Skipped GitHub Organization creation. With only
+3 site repos, adding `WPE_SSHG_KEY_PRIVATE` as a repo secret to each on scaffold
+is faster than managing an org. Revisit if the portfolio grows beyond ~10 repos.
+
+**Alternatives considered:**
+- Keep Git Push approach — rejected due to complexity and separate key management
+- GitHub org for shared secrets — rejected due to overhead at current scale
+
+**Consequences:** `deploy.yml` is simpler and more maintainable. The `wpengine_ed25519`
+key generated during the Git Push investigation is now unused — it remains registered
+in WPE but is not referenced in any workflow.
+
+---
+
 ## 2026-04-18 — Two separate deployment workflows, not one pipeline
 
 **Decision:** Maintain a strict mental separation between code deployment (git-based)
@@ -17,8 +55,8 @@ GitHub Actions. Never track third-party plugins in git.
 These are fundamentally different classes of work:
 
 - Code changes (custom theme, custom plugins) are version-controlled in git and
-  deployed via GitHub Actions → WP Engine Git remote. Staging auto-deploys on
-  every push to main; production is a manual trigger with an approval gate.
+  deployed via GitHub Actions → WP Engine SSH rsync. Staging auto-deploys on
+  every push to main; production is a manual trigger.
 
 - Plugin and operational changes (updates, deactivations, deletions, cache, DB)
   happen directly on the WP Engine server via SSH + WP-CLI. GitHub is not in

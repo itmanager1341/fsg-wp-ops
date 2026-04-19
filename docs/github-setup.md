@@ -2,120 +2,104 @@
 
 What needs to happen before GitHub Actions can deploy code to WP Engine.
 
-## Current state (as of 2026-04-18)
+## Current state (as of 2026-04-19)
 
-Neither repo is initialized as a git repository yet:
-- `fsg-wp-ops/` — files exist, no .git
-- `thefivestar-wp/` — files exist, no .git
+Both repos are initialized and pushed to GitHub:
+- `fsg-wp-ops/` — ✅ pushed to github.com/itmanager1341/fsg-wp-ops
+- `thefivestar-wp/` — ✅ pushed to github.com/itmanager1341/thefivestar-wp
 
-GitHub repos do not yet exist under itmanager1341.
-The `deploy.yml` workflow file is written and ready but non-functional until
-the repo exists and secrets are configured.
+GitHub Actions deploy workflow is live and confirmed working.
 
 ---
 
-## Step 1 — Initialize repos and push to GitHub
+## Deployment method
 
-Do this in Terminal. Two separate repos:
+Uses the official WP Engine GitHub Action: `wpengine/github-action-wpe-site-deploy@v3`
 
-```bash
-# fsg-wp-ops
-cd /Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops
-git init
-git add .
-git commit -m "Initial commit: ops hub structure, docs, SOPs, FSI site profile"
-# Create repo on GitHub first (github.com → itmanager1341 → New repository)
-# Name: fsg-wp-ops | Private | No README (we have one)
-git remote add origin git@github.com:itmanager1341/fsg-wp-ops.git
-git push -u origin main
+This action deploys via **SSH rsync** — NOT via WP Engine Git Push.
+Do not confuse the two. WP Engine Git Push (`git.wpengine.com`) is a separate,
+unrelated feature that this workflow does not use.
 
-# thefivestar-wp
-cd /Users/jonathanhughes/Development/itmanager1341/thefivestar-wp
-git init
-git add .
-git commit -m "Initial commit: scaffold, deploy workflow, CLAUDE.md"
-# Create repo on GitHub: itmanager1341/thefivestar-wp | Private | No README
-git remote add origin git@github.com:itmanager1341/thefivestar-wp.git
-git push -u origin main
+The SSH key authenticates via WPE's SSH Gateway — the same key and same pathway
+as `ssh thefivestar` in the terminal.
+
+---
+
+## Step 1 — Initialize repos and push to GitHub ✅
+
+Both repos initialized via Cursor and pushed to GitHub under itmanager1341.
+
+```
+github.com/itmanager1341/fsg-wp-ops       — ops hub (no Actions, reference only)
+github.com/itmanager1341/thefivestar-wp   — site code, deploy workflow lives here
 ```
 
+Note: `fsg-wp-ops` uses SSH remote; `thefivestar-wp` uses HTTPS remote. Both work.
+
 ---
 
-## Step 2 — Configure GitHub Environments
+## Step 2 — Configure GitHub Environments ✅
 
 In GitHub → itmanager1341/thefivestar-wp → Settings → Environments:
 
-1. Create environment named **`staging`**
-   - No protection rules (deploys automatically on push to main)
+- `staging` — exists, no protection rules (auto-deploys on push to main) ✅
+- `production` — exists, no protection rules ✅
 
-2. Create environment named **`production`**
-   - Add "Required reviewers": yourself (Jonathan)
-   - This creates an approval gate — deploys pause until you click Approve
+Note: Required reviewers (approval gate) requires GitHub Team plan ($4/user/month).
+On GitHub Free, the manual `workflow_dispatch` trigger serves as the production gate —
+you must go to Actions → Run workflow → select "production" to deploy there.
 
 ---
 
-## Step 3 — Add GitHub Actions Secrets
+## Step 3 — Add GitHub Actions Secrets ✅
 
 In GitHub → itmanager1341/thefivestar-wp → Settings → Secrets → Actions:
 
-| Secret name | Value | How to get it |
-|-------------|-------|---------------|
-| `WPE_SSH_PRIVATE_KEY` | Contents of `~/.ssh/id_ed25519_itmanager` | `cat ~/.ssh/id_ed25519_itmanager` |
-| `WPE_CREDS` | Value of WPE_CREDS from `.env` | Open `fsg-wp-ops/.env` |
-| `WPE_INSTALL_ID_PROD` | `eda9de4f-5270-45c1-9e0f-3546913decb8` | Already in `.env` |
-| `WPE_INSTALL_ID_STG` | `1558af1f-7b30-40f5-bbe6-bf1988b91693` | Already in `.env` |
+| Secret name | Value source | Purpose |
+|-------------|-------------|---------|
+| `WPE_SSHG_KEY_PRIVATE` | `cat ~/.ssh/id_ed25519_itmanager` | SSH Gateway auth for deploy action |
 
-To get the private key content:
-```bash
-cat ~/.ssh/id_ed25519_itmanager
-```
-Copy the entire output including the `-----BEGIN...` and `-----END...` lines.
+**Removed secrets (no longer needed):**
+- `WPE_SSH_PRIVATE_KEY` — was for Git Push method, now obsolete
+- `WPE_CREDS` — was for WPE API backup trigger, removed
+- `WPE_INSTALL_ID_PROD` — removed
+- `WPE_INSTALL_ID_STG` — removed
 
----
-
-## Step 4 — Add WPE Git remotes
-
-WP Engine's Git remote requires a separate SSH key registered in the WPE portal.
-(The same key already registered works — WPE uses it for both SSH shell and Git.)
-
-```bash
-cd /Users/jonathanhughes/Development/itmanager1341/thefivestar-wp
-git remote add wpe-stg git@git.wpengine.com:staging/thefivestarstg.git
-git remote add wpe     git@git.wpengine.com:production/thefivestar.git
-```
-
-Test the WPE Git remote:
-```bash
-ssh -T git@git.wpengine.com
-```
-Expected response: `Hi thefivestar! You've successfully authenticated...`
+When scaffolding amaaonline-wp and themortgagepoint-wp, add `WPE_SSHG_KEY_PRIVATE`
+as a repo secret to each. Same key value — it's registered globally in WPE.
 
 ---
 
-## Step 5 — First deploy test
+## Step 4 — WP Engine SSH Key Registration ✅
 
-Push a harmless change (e.g., update a comment in CLAUDE.md) to main and watch
-the Actions tab. The staging job should run automatically. Then manually trigger
-the production job to test the approval gate.
+The deploy key (`id_ed25519_itmanager`) is registered in:
+**WP Engine portal → My Profile → SSH Keys**
 
-**Do not push any actual wp-content changes** until the pipeline is confirmed working
-with an innocuous commit.
+Fingerprint: `af:c0:8b:73:c0:b1:d7:39:cd:57:5f:5d:3c:76:3b:57`
+
+A second key (`wpengine_ed25519`, labeled "WPE GHA") was also added during setup
+and is registered in WPE. It is NOT used by the deploy workflow — `id_ed25519_itmanager`
+is the key referenced in `WPE_SSHG_KEY_PRIVATE`.
+
+---
+
+## Step 5 — First deploy test ✅
+
+Push a change to main → Actions tab → staging job runs automatically.
+Production: Actions → Run workflow → select "production" → confirm.
 
 ---
 
 ## What deploy.yml does
 
 See `.github/workflows/deploy.yml` for full detail. Summary:
-- Push to `main` → auto-deploys to `thefivestarstg` (staging)
-- Triggers WPE cache purge after each deploy
-- Triggers a backup before any production deploy
-- Production deploy requires manual trigger + approval gate
-
----
+- Push to `main` → auto-deploys to `thefivestarstg` (staging) via SSH rsync
+- Clears WPE cache after each deploy
+- Production deploy requires manual `workflow_dispatch` trigger (the gate on Free plan)
 
 ## What GitHub Actions does NOT do
 
-- Does not update plugins (that's WP CLI via SSH)
+- Does not update plugins (that's WP-CLI via SSH — Workflow B)
 - Does not manage the database
 - Does not touch wp-config.php (WPE manages it)
 - Only syncs the tracked contents of `thefivestar-wp/` to WPE's `wp-content/`
