@@ -1,6 +1,6 @@
 # Plugin Inventory: thefivestar.com
 
-Last updated: 2026-04-18 — **live WP-CLI output via SSH (source of truth)**
+Last updated: 2026-04-19 — Phase 1 cleanup complete
 WordPress 6.9.4 | The7 v14.3.0 | WPBakery mode
 
 ---
@@ -29,19 +29,19 @@ Update order: WPBakery → Ultimate Addons → Ads for WPBakery → The7 Core �
 | AIOSEO – Image SEO | `aioseo-image-seo` | active | 1.2.4 | |
 | AIOSEO – IndexNow | `aioseo-index-now` | active | 1.0.13 | Fast Bing/Yandex indexing ✅ |
 | AIOSEO – Link Assistant | `aioseo-link-assistant` | active | 1.1.13 | Internal linking ✅ |
-| AIOSEO – Local Business | `aioseo-local-business` | **active** | 1.3.12 | ⚠️ Not applicable to FSI — deactivate |
+| AIOSEO – Local Business | `aioseo-local-business` | **active** | 1.3.12 | ⚠️ Not applicable to FSI — deactivate (Phase 2) |
 | AIOSEO – News Sitemap | `aioseo-news-sitemap` | active | 1.0.21 | |
-| AIOSEO – Redirects | `aioseo-redirects` | active | 1.4.14 | ⚠️ PHP warning on line 73 |
-| AIOSEO – REST API | `aioseo-rest-api` | **active** | 1.0.9 | ⚠️ Only for headless — deactivate |
+| AIOSEO – Redirects | `aioseo-redirects` | active | 1.4.14 | ⚠️ PHP warning on line 73 — update pending (Goal 4) |
+| AIOSEO – REST API | `aioseo-rest-api` | **active** | 1.0.9 | ⚠️ Only for headless — deactivate (Phase 2) |
 | AIOSEO – Video Sitemap | `aioseo-video-sitemap` | active | 1.1.26 | |
-| Yoast SEO | `wordpress-seo` | inactive | 27.4 | ⚠️ Remove — redundant with AIOSEO Pro |
 | Yoast Duplicate Post | `duplicate-post` | active | 4.6 | Useful for content workflows; keep |
 | Broken Link Checker | `broken-link-checker-seo` | inactive | 1.2.10 | Run periodically — fine to keep inactive |
 | 301 Redirects | `eps-301-redirects` | active | 2.84 | Redirect management |
 
-**PHP warning:** `aioseo-redirects` throws `Attempt to read property "hasMinimumVersion" on array`
-at line 73. Plugin is active. Likely a version compatibility issue — check for update.
+**Removed 2026-04-19:** Yoast SEO (`wordpress-seo`) — redundant with AIOSEO Pro.
 
+**PHP warning:** `aioseo-redirects` throws `Attempt to read property "hasMinimumVersion" on array`
+at line 73. Plugin is active. Fix pending (Goal 4).
 
 ---
 
@@ -80,7 +80,8 @@ Core ad revenue infrastructure. Do not deactivate without revenue impact analysi
 | Image Optimizer | `image-optimization` | **inactive** | 1.7.3 | ⚠️ Activate or remove |
 | Slider Revolution | `revslider` | active | 6.7.38 | |
 | SVG Support | `svg-support` | active | 2.5.14 | |
-| Safe SVG | `safe-svg` | inactive | 2.4.0 | Duplicate of SVG Support — remove |
+
+**Removed 2026-04-19:** Safe SVG (`safe-svg`) — duplicate of SVG Support.
 
 ---
 
@@ -91,11 +92,12 @@ Core ad revenue infrastructure. Do not deactivate without revenue impact analysi
 | Classic Editor | `classic-editor` | active | 1.6.7 | Required for WPBakery |
 | Classic Widgets | `classic-widgets` | active | 0.3 | Required for WPBakery |
 | Elementor | `elementor` | active | 4.0.2 | |
-| Elementor Pro | `elementor-pro` | **active** | 4.0.2 | Was deactivated in earlier screenshot — now active; audit pages before removing |
+| Elementor Pro | `elementor-pro` | **active** | 4.0.2 | Audit pages before removing |
 | Shortcodes Ultimate | `shortcodes-ultimate` | active | 7.5.0 | |
 | Header Footer Code Manager | `header-footer-code-manager` | active | 1.1.44 | GTM, pixels, custom scripts |
-| matchheight | `matchheight` | inactive | 1.2.0 | Legacy jQuery equal-height — remove |
-| Blocksy Companion Pro | `blocksy-companion-pro` | inactive | 2.0.38 | ⚠️ For Blocksy theme, not The7 — remove |
+
+**Removed 2026-04-19:** matchheight (`matchheight`) — legacy jQuery, nothing uses it.
+**Removed 2026-04-19:** Blocksy Companion Pro (`blocksy-companion-pro`) — wrong theme companion.
 
 ---
 
@@ -136,13 +138,10 @@ These are auto-loaded by WP Engine. Do not attempt to deactivate.
 
 | Plugin | Action | Reason |
 |--------|--------|--------|
-| Yoast SEO (`wordpress-seo`) | **Remove** | Redundant with AIOSEO Pro |
-| Blocksy Companion Pro | **Remove** | Wrong theme companion |
-| matchheight | **Remove** | Legacy jQuery plugin |
-| Safe SVG | **Remove** | Duplicate of SVG Support |
-| AIOSEO – Local Business | **Deactivate** | Not applicable to FSI |
-| AIOSEO – REST API | **Deactivate** | Only for headless installs |
-| Elementor Pro | **Audit first** | Now active — check which pages use it |
+| AIOSEO – Local Business | **Deactivate** | Not applicable to FSI (Phase 2) |
+| AIOSEO – REST API | **Deactivate** | Only for headless installs (Phase 2) |
+| AIOSEO – Redirects | **Update** | PHP warning line 73 (Goal 4) |
+| Elementor Pro | **Audit first** | Active — check which pages use it |
 | MonsterInsights | **Decide** | Overlaps Site Kit for GA4 |
 | Image Optimizer | **Activate or remove** | Currently inactive |
 | OptiMonster | **Activate or remove** | Currently inactive |
@@ -150,3 +149,10 @@ These are auto-loaded by WP Engine. Do not attempt to deactivate.
 | AIOSEO – E-E-A-T | **Activate or remove** | Depends on author authority strategy |
 
 **Process:** Analyze → deactivate on staging → confirm site healthy → delete.
+
+---
+
+## WP-CLI notes
+
+- **Production** (`thefivestar`): WP-CLI works via SSH. WordPress core present at `/nas/content/live/thefivestar/`.
+- **Staging** (`thefivestarstg`): WP-CLI broken — WordPress core not present at `/sites/thefivestarstg/` (WPE mounts core at runtime on this environment). All plugin ops run on production directly for now. Flag to WPE support if staging WP-CLI is needed.
