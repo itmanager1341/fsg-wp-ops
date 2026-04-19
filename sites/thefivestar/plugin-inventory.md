@@ -1,6 +1,6 @@
 # Plugin Inventory: thefivestar.com
 
-Last updated: 2026-04-19 — Phase 1 cleanup complete
+Last updated: 2026-04-19 — Phase 1 + Phase 2 cleanup complete
 WordPress 6.9.4 | The7 v14.3.0 | WPBakery mode
 
 ---
@@ -29,10 +29,10 @@ Update order: WPBakery → Ultimate Addons → Ads for WPBakery → The7 Core �
 | AIOSEO – Image SEO | `aioseo-image-seo` | active | 1.2.4 | |
 | AIOSEO – IndexNow | `aioseo-index-now` | active | 1.0.13 | Fast Bing/Yandex indexing ✅ |
 | AIOSEO – Link Assistant | `aioseo-link-assistant` | active | 1.1.13 | Internal linking ✅ |
-| AIOSEO – Local Business | `aioseo-local-business` | **active** | 1.3.12 | ⚠️ Not applicable to FSI — deactivate (Phase 2) |
+| AIOSEO – Local Business | `aioseo-local-business` | **inactive** | 1.3.12 | Deactivated 2026-04-19 — not applicable to FSI |
 | AIOSEO – News Sitemap | `aioseo-news-sitemap` | active | 1.0.21 | |
 | AIOSEO – Redirects | `aioseo-redirects` | active | 1.4.14 | ⚠️ PHP warning on line 73 — update pending (Goal 4) |
-| AIOSEO – REST API | `aioseo-rest-api` | **active** | 1.0.9 | ⚠️ Only for headless — deactivate (Phase 2) |
+| AIOSEO – REST API | `aioseo-rest-api` | **inactive** | 1.0.9 | Deactivated 2026-04-19 — only for headless installs |
 | AIOSEO – Video Sitemap | `aioseo-video-sitemap` | active | 1.1.26 | |
 | Yoast Duplicate Post | `duplicate-post` | active | 4.6 | Useful for content workflows; keep |
 | Broken Link Checker | `broken-link-checker-seo` | inactive | 1.2.10 | Run periodically — fine to keep inactive |
@@ -41,7 +41,7 @@ Update order: WPBakery → Ultimate Addons → Ads for WPBakery → The7 Core �
 **Removed 2026-04-19:** Yoast SEO (`wordpress-seo`) — redundant with AIOSEO Pro.
 
 **PHP warning:** `aioseo-redirects` throws `Attempt to read property "hasMinimumVersion" on array`
-at line 73. Plugin is active. Fix pending (Goal 4).
+at line 73. Fix in progress (Goal 4).
 
 ---
 
@@ -138,8 +138,6 @@ These are auto-loaded by WP Engine. Do not attempt to deactivate.
 
 | Plugin | Action | Reason |
 |--------|--------|--------|
-| AIOSEO – Local Business | **Deactivate** | Not applicable to FSI (Phase 2) |
-| AIOSEO – REST API | **Deactivate** | Only for headless installs (Phase 2) |
 | AIOSEO – Redirects | **Update** | PHP warning line 73 (Goal 4) |
 | Elementor Pro | **Audit first** | Active — check which pages use it |
 | MonsterInsights | **Decide** | Overlaps Site Kit for GA4 |
@@ -148,11 +146,10 @@ These are auto-loaded by WP Engine. Do not attempt to deactivate.
 | EventON Lite | **Activate or remove** | Depends on events use case |
 | AIOSEO – E-E-A-T | **Activate or remove** | Depends on author authority strategy |
 
-**Process:** Analyze → deactivate on staging → confirm site healthy → delete.
-
 ---
 
 ## WP-CLI notes
 
-- **Production** (`thefivestar`): WP-CLI works via SSH. WordPress core present at `/nas/content/live/thefivestar/`.
-- **Staging** (`thefivestarstg`): WP-CLI broken — WordPress core not present at `/sites/thefivestarstg/` (WPE mounts core at runtime on this environment). All plugin ops run on production directly for now. Flag to WPE support if staging WP-CLI is needed.
+- **Production** (`thefivestar`): WP-CLI works via SSH.
+- **Staging** (`thefivestarstg`): WP-CLI now works — pushed from production 2026-04-19. WordPress core present. PHP 8.4 (vs production PHP 8.2).
+- **Dev** (`thefivestardev`): WP-CLI works. Active dev environment — devs working here. Last touched 2026-02-10.
