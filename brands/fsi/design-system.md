@@ -1,7 +1,6 @@
 # FSI Design System — Reference
 
-> Populate exact values from The7 → Theme Options after the next site audit.
-> Until then, use this as a checklist of what to capture.
+Last updated: 2026-04-19 — brand tokens confirmed from fsi-event-styles.php
 
 ## Page builder
 
@@ -11,31 +10,37 @@
 - Do not mix Gutenberg blocks into WPBakery pages
 - Classic Editor plugin must stay active
 - The7 Theme Settings → Optimize for: **WPBakery** (confirmed)
+- Elementor is installed but being phased out — do not use for new pages
 
 ## Theme: The7
 
-- Version: 6.9.4 (Dream-Theme)
+- Version: 14.3.0 (Dream-Theme, slug: `dt-the7`)
+- WP: 6.9.4
 - Mega Menu: enabled (Deprecated Mega-Menu Settings also enabled)
 - Custom post types active: Portfolio, Testimonials, Team, Photo Albums, Slideshows
 - "Apply The7 Typography to H1–H6 automatically": OFF
   Typography is set per-element in WPBakery.
 
-## Colors
+## Brand tokens
 
-_Capture from The7 → Theme Options → Colors during next audit._
+These are the confirmed, canonical FSI brand values. All custom CSS must use these.
+Do not hard-code hex values on individual pages — use the shared stylesheet classes.
 
-| Role | Hex | Notes |
-|------|-----|-------|
-| Primary | TBD | Main brand / CTA buttons |
-| Secondary | TBD | Accents |
-| Body text | TBD | |
-| Link | TBD | |
-| Header background | TBD | |
-| Footer background | TBD | |
+| Token | Hex | Use |
+|-------|-----|-----|
+| Navy (primary) | `#1f365c` | Backgrounds, borders, primary buttons, headings |
+| Gold (accent) | `#c9a040` | CTA buttons, accent borders, highlights |
+| Offwhite | `#f7f7f5` | Card backgrounds, subtle fills |
+| Muted text | `#666` | Secondary text, location/meta info |
+| Border | `#e0e0dc` | Card borders, dividers |
+| Light grey | `#cfd5de` | Hero taglines, date year text |
+| White | `#fff` | Page background, card fills |
+| Dark navy hover | `#162848` | Primary button hover state |
+| Dark gold hover | `#b8922e` | Gold button hover state |
 
 ## Typography
 
-_Capture from The7 → Theme Options → Typography._
+_Capture from The7 → Theme Options → Typography during next admin session._
 
 | Element | Font | Weight | Size |
 |---------|------|--------|------|
@@ -44,26 +49,13 @@ _Capture from The7 → Theme Options → Typography._
 | H2 | TBD | TBD | TBD |
 | Navigation | TBD | TBD | TBD |
 
-## Image standards
+## Shared stylesheet
 
-| Context | Dimensions | Format | Max size |
-|---------|-----------|--------|----------|
-| Featured image | 1200×630 | JPG | 200 KB |
-| Hero / slider | 1920×800 | JPG | 400 KB |
-| Inline article | 800×450 | JPG | 150 KB |
-| Team headshot | 400×400 | JPG | 80 KB |
-| Logo / icon | — | SVG or PNG | 50 KB |
+Custom styles for FSI pages are loaded via a mu-plugin, not inline CSS.
 
-## WPBakery elements in use
+**File:** `wp-content/mu-plugins/fsi-event-styles.php`
+**Repo:** `thefivestar-wp/wp-content/mu-plugins/fsi-event-styles.php`
+**Deployed to:** Staging ✅ | Production ❌ (pending — not yet promoted)
 
-- The7 Elements (The7-specific widgets)
-- Ultimate Addons for WPBakery (extended element library)
-- Slider Revolution (hero sliders)
-- Shortcodes Ultimate (supplemental shortcodes)
-
-## Notes for AI-generated layouts
-
-- Stay within WPBakery backend editor patterns
-- Do not generate Elementor or Gutenberg markup for FSI pages
-- Mega Menu edits go through WP Admin → Appearance → Menus
-- If generating CSS: check for child theme before adding to parent
+To use these styles, add class names to HTML elements. Do not add `style="..."` inline.
+See SOP: `docs/sops/new-event-page.md` for the full page-building workflow.

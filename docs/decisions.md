@@ -7,6 +7,46 @@ New decisions go at the top.
 
 ---
 
+## 2026-04-19 — WPBakery is the sole forward-going page builder; Elementor to be phased out
+
+**Decision:** All new page development on thefivestar.com uses WPBakery exclusively.
+Elementor and Elementor Pro will be removed once all Elementor-built pages are either
+rebuilt in WPBakery or permanently deactivated (set to draft/trash).
+
+**Rationale:**
+Live audit confirmed 18 pages with `_elementor_edit_mode = builder`:
+- 3 drafts (4973, 4834, 4828) — unnamed/throwaway Elementor pages, no user impact
+- 1 private (4909 — Home) — not publicly visible
+- 14 published pages — see `sites/thefivestar/elementor-migration.md` for full inventory
+
+Running two page builders simultaneously creates asset bloat (Elementor loads CSS/JS
+on every page regardless of whether that page uses it), maintenance surface, and
+training confusion for anyone editing the site. WPBakery is already the configured
+builder for The7 theme. Elementor is legacy.
+
+Most of the 14 live Elementor pages are event asset and lander pages that are outdated
+or low-traffic and should be reviewed for deactivation before any rebuild work begins.
+Migration scope is likely smaller than the raw count suggests.
+
+**Migration approach (phased):**
+1. Review all 14 published Elementor pages — identify which to trash vs. rebuild
+2. Trash confirmed-dead pages (reduces rebuild scope)
+3. Rebuild remaining pages in WPBakery on staging, verify, promote to production
+4. Once zero published pages have `_elementor_edit_mode = builder`, deactivate Elementor + Elementor Pro
+5. Verify staging, then delete both plugins from production
+
+**Alternatives considered:**
+- Keep both builders indefinitely — rejected; doubles asset load and maintenance burden
+- Migrate to Elementor fully — rejected; WPBakery is the configured The7 builder and
+  all infrastructure/training is WPBakery-oriented
+
+**Consequences:**
+- No new pages or sections to be built in Elementor
+- Elementor plugins stay installed but are lower priority until migration completes
+- See `sites/thefivestar/elementor-migration.md` for page-by-page tracking
+
+---
+
 ## 2026-04-19 — Use WPE official GitHub Action (SSH rsync), not Git Push
 
 **Decision:** Deploy via `wpengine/github-action-wpe-site-deploy@v3` (SSH rsync),

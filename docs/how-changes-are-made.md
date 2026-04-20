@@ -111,18 +111,48 @@ cat /path/to/local/file.php | ssh thefivestar wp eval-file -
 
 ---
 
+## Workflow C: Page and content creation
+
+Applies to: creating or editing pages, posts, and content in WP Admin.
+This is separate from both code deployment and plugin operations.
+
+```
+WP Admin (staging or production)
+  └─▶ Create/edit page with Classic Editor + WPBakery
+        └─▶ Use fsi-* class names from shared stylesheet (fsi-event-styles.php)
+              └─▶ Verify layout, links, mobile responsiveness
+                    └─▶ Publish
+```
+
+**Key rules:**
+- Do not paste raw HTML with inline `style="..."` — use class names from the shared stylesheet
+- New event pages: follow `docs/sops/new-event-page.md` exactly
+- The shared CSS mu-plugin must be deployed to the target environment before classes render
+- Content edits (text, dates, links) can go directly to production — no staging gate required
+- New pages with structural/layout changes: build on staging first, verify, then replicate on production
+
+**When this applies:**
+- Creating a new event page (`/events/{slug}/`)
+- Updating event details (dates, locations, Swoogo links)
+- Adding a new event card to the Events hub
+- Any WP Admin content edit
+
+---
+
 ## Which workflow for what
 
 | Task | Workflow | Staging first? |
 |------|----------|---------------|
 | Edit child theme CSS | A (git) | Yes — auto via Actions |
+| Add/update shared CSS stylesheet | A (git) | Yes — auto via Actions |
 | Add custom plugin | A (git) | Yes — auto via Actions |
 | Add mu-plugin | A (git) or B (wp eval-file) | Yes |
 | Deactivate a plugin | B (WP-CLI) | Yes — manual SSH |
 | Update a plugin | B (WP-CLI) | Yes — manual SSH |
 | Delete a plugin | B (WP-CLI) | Yes — manual SSH |
 | Purge cache | B (WP-CLI) | No — production direct is fine |
-| Update content | WP Admin | No — production direct is fine |
+| Create a new event page | C (WP Admin) | Yes for new layouts |
+| Update content (text, dates, links) | C (WP Admin) | No — production direct is fine |
 | DB search-replace | B (WP-CLI) | Yes — always |
 | Write file to server | B (wp eval-file) | Yes |
 

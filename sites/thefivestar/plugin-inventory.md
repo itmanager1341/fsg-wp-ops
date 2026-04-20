@@ -5,6 +5,25 @@ WordPress 6.9.4 | The7 v14.3.0 | WPBakery mode
 
 ---
 
+## Removal and deactivation history
+
+Changes applied as part of ongoing plugin cleanup. "Prod" column indicates whether the change has been promoted to production.
+
+| Date | Plugin | Slug | Pre-change state | Action | Prod |
+|------|--------|------|-----------------|--------|------|
+| 2026-04-19 | Yoast SEO | `wordpress-seo` | Inactive | Deleted | ✅ |
+| 2026-04-19 | Blocksy Companion Pro | `blocksy-companion-pro` | Inactive | Deleted | ✅ |
+| 2026-04-19 | matchheight | `matchheight` | Inactive | Deleted | ✅ |
+| 2026-04-19 | Safe SVG | `safe-svg` | Inactive | Deleted | ✅ |
+| 2026-04-19 | AIOSEO – Local Business | `aioseo-local-business` | Active | Deactivated | ✅ |
+| 2026-04-19 | AIOSEO – REST API | `aioseo-rest-api` | Active | Deactivated | ✅ |
+| 2026-04-19 | MonsterInsights | `google-analytics-for-wordpress` | Inactive | Deleted | ⏳ Staging only |
+| 2026-04-19 | Image Optimizer | `image-optimization` | Inactive | Deleted | ⏳ Staging only |
+| 2026-04-19 | OptiMonster | `optinmonster` | Inactive | Deleted | ⏳ Staging only |
+| 2026-04-19 | EventON Lite | `eventon-lite` | Inactive | Deleted | ⏳ Staging only |
+
+---
+
 ## WPBakery dependency chain
 
 Update these together, in order. Never update independently.
@@ -91,8 +110,8 @@ Core ad revenue infrastructure. Do not deactivate without revenue impact analysi
 |--------|------|--------|---------|-------|
 | Classic Editor | `classic-editor` | active | 1.6.7 | Required for WPBakery |
 | Classic Widgets | `classic-widgets` | active | 0.3 | Required for WPBakery |
-| Elementor | `elementor` | active | 4.0.2 | |
-| Elementor Pro | `elementor-pro` | **active** | 4.0.2 | Audit pages before removing |
+| Elementor | `elementor` | active | 4.0.2 | ⚠️ Legacy — 18 pages built with it; migration in progress (see elementor-migration.md) |
+| Elementor Pro | `elementor-pro` | active | 4.0.2 | ⚠️ Legacy — remove only after all Elementor pages rebuilt or trashed |
 | Shortcodes Ultimate | `shortcodes-ultimate` | active | 7.5.0 | |
 | Header Footer Code Manager | `header-footer-code-manager` | active | 1.1.44 | GTM, pixels, custom scripts |
 
@@ -138,13 +157,9 @@ These are auto-loaded by WP Engine. Do not attempt to deactivate.
 
 | Plugin | Action | Reason |
 |--------|--------|--------|
-| AIOSEO – Redirects | **Update** | PHP warning line 73 (Goal 4) |
-| Elementor Pro | **Audit first** | Active — check which pages use it |
-| MonsterInsights | **Decide** | Overlaps Site Kit for GA4 |
-| Image Optimizer | **Activate or remove** | Currently inactive |
-| OptiMonster | **Activate or remove** | Currently inactive |
-| EventON Lite | **Activate or remove** | Depends on events use case |
-| AIOSEO – E-E-A-T | **Activate or remove** | Depends on author authority strategy |
+| AIOSEO – Redirects | **Update** | PHP warning line 73 — pending upstream fix |
+| Elementor + Elementor Pro | **Phase out** | 18 pages built with it — see elementor-migration.md |
+| AIOSEO – E-E-A-T | **Hold** | Leave inactive — revisit when author authority strategy is defined |
 
 ---
 
