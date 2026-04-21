@@ -60,18 +60,25 @@ git remote add wpe-stg git@git.wpengine.com:staging/thefivestarstg.git
 git remote add wpe     git@git.wpengine.com:production/thefivestar.git
 ```
 
-## Open issues (from live audit 2026-04-18)
+## Open issues
 
-| Priority | Issue |
-|----------|-------|
-| 🟢 Low | No child theme exists — create `dt-the7-child` only when custom PHP or template overrides are needed (see docs/decisions.md) |
-| 🟡 Med | PHP warning in `aioseo-redirects`: `Attempt to read property "hasMinimumVersion" on array` (line 73) — plugin is active |
-| 🟡 Med | Yoast SEO installed (inactive) alongside AIOSEO Pro — remove entirely |
-| 🟡 Med | Elementor Pro active at v4.0.2 — active since last screenshot; audit which pages use it before removing |
-| 🟡 Med | Blocksy Companion Pro inactive — installed for Blocksy theme, not The7; remove |
-| 🟡 Med | MonsterInsights inactive — overlaps with Site Kit for GA4; decide which to keep |
-| 🟡 Med | Image Optimizer inactive — if not being used, remove or activate |
-| 🟡 Med | AIOSEO Local Business active but not applicable to FSI — deactivate |
-| 🟡 Med | AIOSEO REST API active but only needed for headless — deactivate |
-| 🟢 Low | OptiMonster, Safe SVG, EventON Lite inactive — remove or activate |
-| 🟢 Low | matchheight (jQuery equal-height) inactive — likely legacy; remove |
+Last reviewed: 2026-04-21
+
+| Priority | Issue | Status |
+|----------|-------|--------|
+| 🟢 Low | No child theme — create `dt-the7-child` only when custom PHP or template overrides needed | Deferred by decision |
+| 🟡 Med | PHP warning in `aioseo-redirects` line 73 — upstream bug, suppressed via mu-plugin | Suppressed ✅ |
+| 🟡 Med | Yoast SEO alongside AIOSEO Pro | Deleted ✅ |
+| 🟡 Med | Elementor Pro active on WPBakery site | Audited — phased out per decision. 18 pages, tracker in elementor-migration.md |
+| 🟡 Med | Blocksy Companion Pro — wrong theme | Deleted ✅ |
+| 🟡 Med | MonsterInsights — overlaps Site Kit | Deleted from staging ⏳ |
+| 🟡 Med | Image Optimizer inactive | Deleted from staging ⏳ |
+| 🟡 Med | AIOSEO Local Business — not applicable | Deactivated ✅ |
+| 🟡 Med | AIOSEO REST API — headless only | Deactivated ✅ |
+| 🟢 Low | OptiMonster inactive | Deleted from staging ⏳ |
+| 🟢 Low | Safe SVG — duplicate of SVG Support | Deleted ✅ |
+| 🟢 Low | EventON Lite inactive | Deleted from staging ⏳ |
+| 🟢 Low | matchheight — legacy jQuery | Deleted ✅ |
+| 🟡 Med | fsi-event-styles.php not on production | Pending production deploy ⏳ |
+| 🟡 Med | Event pages (LLSS, hub rebuild, nav) staging-only | Pending production promotion ⏳ |
+| 🔴 High | WPBakery chain update — no SOP yet | Not started |

@@ -123,3 +123,60 @@ https://api.wpengineapi.com/v1/
 
 Auth: `Authorization: Basic <base64(user_id:password)>` using API credentials
 (not admin password). See `docs/references/wpengine-api-cheatsheet.md`.
+
+---
+
+## WP core disappears from SSH container on idle staging
+
+WP Engine staging environments provision WP core separately for HTTP requests vs.
+SSH access. When WPE recycles an idle SSH container, core files vanish from the SSH
+filesystem. WP-CLI fails with "not a WordPress installation."
+
+**Fix:** Run at the start of every SSH session on staging or dev:
+```bash
+wp core download --skip-content
+```
+This does NOT affect the live site — WPE mounts core separately for HTTP. Takes ~30 seconds.
+This will keep happening. It's not something we caused; it's WPE's architecture.
+
+---
+
+## wp_update_nav_menu_item clears the title if not all fields passed
+
+Passing only `menu-item-url` to `wp_update_nav_menu_item` silently clears
+`post_title` on the nav item post, removing the label from the menu.
+
+**Rule:** Never use `wp_update_nav_menu_item` to change only the URL.
+Use `wp_update_post` on the nav item post ID to update title only,
+and `update_post_meta` to update `_menu_item_url` only.
+
+```php
+// Safe: update URL only
+update_post_meta($item_id, '_menu_item_url', $new_url);
+
+// Safe: update title only
+wp_update_post(array('ID' => $item_id, 'post_title' => 'Events'));
+```
+
+---
+
+## WPBakery vc_raw_html re-encoding is fragile — use plain HTML instead
+
+WPBakery stores raw HTML inside `vc_raw_html` shortcodes as base64(urlencode(html)).
+Attempting to decode, modify, and re-encode this content programmatically is error-prone
+— the re-encoded content frequently fails to render, showing only other WPBakery elements.
+
+**Rule for pages we control:** Push plain HTML via `wp eval-file -`. Do not wrap
+in WPBakery shortcodes. Classic Editor renders plain HTML directly in the content area.
+The theme's header, footer, and breadcrumbs still render — only the content zone changes.
+
+```php
+// Correct approach for event pages
+wp_update_post(array(
+    'ID'           => $page_id,
+    'post_content' => '<div class="fsi-page-wrap">...</div>',
+));
+```
+
+Only use WPBakery shortcodes when editing pages through the WPBakery Backend Editor UI.
+Do not attempt to construct or modify WPBakery shortcode blocks programmatically.

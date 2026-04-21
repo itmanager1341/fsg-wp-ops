@@ -100,6 +100,26 @@ fsi-page-wrap (outer div — wrap all content)
 - `.fsi-event-card`, `.fsi-event-date`, `.fsi-event-body`
 - `.fsi-event-label`, `.fsi-event-title`, `.fsi-event-location`
 - `.fsi-event-desc`, `.fsi-event-actions`
+- `.fsi-event-date__month`, `.fsi-event-date__day`, `.fsi-event-date__year`
+
+**v1.1 additions — image and callout patterns**
+- `.fsi-event-hero--image` — hero with background-image support (overlay built in)
+- `.fsi-image-block` — full-width image container (1100×440px)
+- `.fsi-img-placeholder` — styled placeholder with label/desc until real photo added
+- `.fsi-img-placeholder__label`, `.fsi-img-placeholder__desc`
+- `.fsi-photo-strip` — 3-up horizontal photo grid with captions
+- `.fsi-photo-strip__item`, `.fsi-photo-strip__caption`
+- `.fsi-callout-gold` — gold background callout (Next Summit, announcements)
+- `.fsi-callout-gold__eyebrow`, `.fsi-callout-gold__heading`, `.fsi-callout-gold__body`
+- `.fsi-callout-gold__detail`, `.fsi-callout-gold__link`
+- `.fsi-section-muted` — light grey reflective section (Recent Summit, recap content)
+- `.fsi-section-muted__heading`, `.fsi-section-muted__body`
+- `.fsi-membership-grid` — 2-col grid for membership cards
+- `.fsi-membership-card` — card with image top + body + CTA
+- `.fsi-membership-card__image`, `.fsi-membership-card__body`
+- `.fsi-membership-card__title`, `.fsi-membership-card__text`, `.fsi-membership-card__cta`
+- `.fsi-program-full` — full-width program element (e.g. Closing Reception)
+- `.fsi-section-intro` — intro paragraph above a grid section
 
 ---
 
@@ -220,7 +240,7 @@ Actions (Workflow A). It must be present on the target environment before the pa
 goes live or the classes will have no effect.
 
 **Current deployment status:**
-- Staging: ✅ deployed
+- Staging: ✅ deployed (v1.1)
 - Production: ❌ not yet promoted
 
 Before promoting any event page to production, confirm the mu-plugin is on production:

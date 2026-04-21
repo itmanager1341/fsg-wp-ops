@@ -3,9 +3,9 @@
 Use this as the opening message in the next Claude Desktop project chat.
 Updated at the end of each session with what was completed and what's next.
 
-Last updated: 2026-04-19
-Last completed: GitHub pipeline, plugin cleanup Phase 1 + 2, AIOSEO warning fix,
-                session efficiency improvements, SOP + rule updates
+Last updated: 2026-04-21
+Last completed: Elementor audit, plugin cleanup phase 3, event pages system,
+                Legal League Servicer Summit page, nav menu updates, docs overhaul
 
 ---
 
@@ -17,7 +17,7 @@ Continuing FSG Media WP ops. Before responding, read these files in order:
 
 1. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/CLAUDE.md`
 2. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/brands/fsi/CLAUDE.md`
-3. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/docs/how-changes-are-made.md`
+3. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/docs/how-we-update-the-site.md`
 4. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/docs/decisions.md`
 5. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/site-profile.md`
 6. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/plugin-inventory.md`
@@ -25,115 +25,146 @@ Continuing FSG Media WP ops. Before responding, read these files in order:
 
 Then confirm you've read them and summarize:
 - Current state of thefivestar.com (theme, PHP, environments, WP-CLI status)
-- The two deployment workflows and when each applies
+- The three deployment workflows and when each applies
 - The production approval gate rule (verbatim from CLAUDE.md)
 - What plugin cleanup has been completed and what remains
+- Current staging-only changes not yet promoted to production
 
 Do not proceed until that summary is confirmed.
 
 ---
 
-## Completed this session (2026-04-19)
+## Completed this session (2026-04-21)
 
-### Goal 1 — GitHub pipeline ✅
-- `fsg-wp-ops` and `thefivestar-wp` both initialized and pushed to GitHub (itmanager1341)
-- `thefivestar-wp` GitHub Environments created: `staging` (auto), `production` (manual trigger)
-- 4 secrets originally added, corrected to single `WPE_SSHG_KEY_PRIVATE` using official WPE action
-- `deploy.yml` rewritten: `wpengine/github-action-wpe-site-deploy@v3` (SSH rsync, not Git Push)
-- `.deployignore` added to protect WPE-managed files (mu-plugins, uploads, third-party plugins)
-- Pipeline confirmed working: staging auto-deploys on push to main ✅
+### Elementor audit ✅
+- Confirmed 18 pages use Elementor (`_elementor_edit_mode = builder`)
+- 3 drafts, 1 private, 14 published
+- Decision logged: WPBakery only going forward, Elementor phased out
+- Migration tracker created: `sites/thefivestar/elementor-migration.md`
+- Original audit query was wrong (`--post_type` defaulted to posts, not pages)
+  Correct query: `wp post list --post_type=any --meta_key=_elementor_edit_mode --meta_value=builder`
 
-### Goal 2 — Plugin cleanup Phase 1 ✅
-Deleted from production (were already inactive):
-- `wordpress-seo` — redundant with AIOSEO Pro
-- `blocksy-companion-pro` — wrong theme companion
-- `matchheight` — legacy jQuery
-- `safe-svg` — duplicate of SVG Support
+### Plugin cleanup phase 3 ✅ (staging only)
+Deleted from staging (not yet on production):
+- MonsterInsights (`google-analytics-for-wordpress`) — overlapped Site Kit
+- Image Optimizer (`image-optimization`) — inactive, unused
+- OptiMonster (`optinmonster`) — inactive, no active campaigns
+- EventON Lite (`eventon-lite`) — inactive, not used
 
-### Goal 3 — Plugin cleanup Phase 2 ✅
-Deactivated (staging verified → production):
-- `aioseo-local-business` — FSI is not a local business
-- `aioseo-rest-api` — not a headless install
+### Event pages system built ✅
+- Shared CSS mu-plugin: `fsi-event-styles.php` (v1.1) — deployed to staging via GitHub Actions
+  - v1.0: base layout, event cards, hero, grids, cards, buttons, features
+  - v1.1: image blocks, photo strip, gold callout, membership cards, muted section, program-full
+- Events hub (`/events/`, page ID 5089) — rebuilt with `fsi-*` classes, plain HTML (not WPBakery)
+- Velocity page (`/events/velocity/`, page ID 5088) — content synced from production to staging
+- Legal League Servicer Summit (`/events/legal-league-servicer-summit/`, page ID 5094) — fully built
+  - Evergreen structure, prescribed image placeholders throughout
+  - Hero, intro, Who Belongs, What Happens, Next Summit (gold callout), Recent Summit (photo strip),
+    Join the Community (membership cards), Event Details, Final CTA
 
-### Goal 4 — AIOSEO redirects PHP warning ✅
-- Confirmed: upstream AIOSEO bug — `getAddon()` returns array instead of object
-- No update available; suppressed via mu-plugin `fsg-suppress-aioseo-warning.php`
-- Applied to staging and production; warning gone from all WP-CLI output
-- Mu-plugin committed to `thefivestar-wp` repo
+### Navigation updated (staging) ✅
+- Main nav "Events" (item 2723) → `/events/`
+- Main nav "Events > Live" (item 2724) → `/events/`
+- Footer "Conferences" (item 2775) → `/events/`
+- Footer "Events" (item 2777) → `/events/`
+- Bug learned: `wp_update_nav_menu_item` clears title if all fields not passed.
+  Use `wp_update_post` on the nav item post ID to change title only.
 
-### Infrastructure fixes ✅
-- Staging WP-CLI repaired (`wp core download --skip-content`)
-- Staging pushed from production (WPE portal) — now a current clone
-- SSH known_hosts populated for all WPE environments
-- `~/.ssh/config` updated with dedicated `git.wpengine.com` entry
+### Documentation overhauled ✅
+- `docs/how-changes-are-made.md` — Workflow C added (page/content creation)
+- `docs/sops/new-event-page.md` — new SOP with full HTML template and v1.1 class reference
+- `docs/sops/deployment.md` — removed incorrect git.wpengine.com remote references
+- `brands/fsi/design-system.md` — real brand tokens documented
+- `docs/decisions.md` — Elementor/WPBakery decision logged
+- `sites/thefivestar/elementor-migration.md` — page-by-page tracker created
+- `sites/thefivestar/plugin-inventory.md` — removal history table, backlog updated
+- `docs/wpengine-gotchas.md` — 3 new gotchas added
+- `docs/next-chat-handoff.md` — this file (updated)
+- `docs/session-plan.md` — retired, replaced by next-chat-handoff.md
 
-### Documentation + rules updated ✅
-- `CLAUDE.md` — added explicit production approval gate (non-negotiable rule)
-- `docs/how-changes-are-made.md` — updated deployment method, SSH notes, file-writing method
-- `docs/sops/ssh-session-startup.md` — new SOP for SSH-heavy sessions
-- `docs/decisions.md` — WPE official action decision logged
+---
+
+## Current staging-only changes (not yet on production)
+
+These are on staging but have NOT been promoted to production. Jonathan must approve
+each before it goes live.
+
+| Change | Type | Staging | Production |
+|--------|------|---------|------------|
+| MonsterInsights deleted | Plugin | ✅ deleted | ❌ still exists |
+| Image Optimizer deleted | Plugin | ✅ deleted | ❌ still exists |
+| OptiMonster deleted | Plugin | ✅ deleted | ❌ still exists |
+| EventON Lite deleted | Plugin | ✅ deleted | ❌ still exists |
+| fsi-event-styles.php (v1.1) | mu-plugin (code) | ✅ deployed | ❌ not deployed |
+| Events hub rebuilt | Content | ✅ live | ✅ live (old version) |
+| Velocity page content | Content | ✅ synced | ✅ live (source) |
+| LLSS page | Content | ✅ live (new) | ❌ doesn't exist |
+| Nav: Events → /events/ | Menu | ✅ updated | ❌ still → /conferences/ |
+| Nav: Live → /events/ | Menu | ✅ updated | ❌ still → /conferences/ |
+
+**Priority order for production promotion:**
+1. `fsi-event-styles.php` — must go first (CSS required for all event pages)
+2. Plugin deletions — low risk, all were inactive
+3. LLSS page — after CSS is on production
+4. Nav changes — after LLSS page is on production
+5. Events hub rebuild — after nav is confirmed
 
 ---
 
 ## Next session goals (suggested order)
 
-### 1. Elementor Pro audit (🟡 Medium priority)
-Elementor Pro is active at v4.0.2 but the site runs on WPBakery. Need to determine:
-- Which pages (if any) use Elementor content
-- Whether those pages are live/published or drafts
-- Decision: keep Elementor for those pages, rebuild in WPBakery, or remove entirely
+### 1. Velocity page refactor (🟡 Medium)
+Velocity is still using inline styles from original build. Refactor to `fsi-*` classes
+to match the system. Do on staging, verify, then carry to production with the rest.
 
-```bash
-# Quick audit command to run on production
-ssh thefivestar wp post list --meta_key=_elementor_edit_mode --meta_value=builder \
-  --fields=ID,post_title,post_status --format=table
-```
+### 2. Promote staging changes to production (🔴 requires explicit approval per item)
+See table above. Promote in priority order. `fsi-event-styles.php` must go first.
 
-### 2. MonsterInsights decision (🟢 Low priority)
-MonsterInsights (`google-analytics-for-wordpress`) is inactive and overlaps with
-Site Kit by Google (active). Decision needed: keep one, remove the other. Site Kit
-is already active and doing the job. Recommendation: remove MonsterInsights.
-
-### 3. Remaining cleanup backlog (🟢 Low priority)
-From `plugin-inventory.md`:
-- `image-optimization` — activate or remove
-- `optinmonster` — activate or remove
-- `eventon-lite` — activate or remove (depends on events use case)
-- `aioseo-eeat` — activate or remove (depends on author authority strategy)
-
-### 4. WPBakery chain update (🔴 High priority when ready)
-The WPBakery dependency chain (WPBakery → Ultimate Addons → Ads for WPBakery →
-The7 Core → The7 theme) needs to be updated together, in order, on staging first.
-No SOP exists for this yet — create it before starting.
-
-Current versions:
+### 3. WPBakery chain update (🔴 High — create SOP first)
+No SOP exists yet. Create `docs/sops/wpbakery-chain-update.md` before touching anything.
+Update order: WPBakery → Ultimate Addons → Ads for WPBakery → The7 Core → The7 theme.
+Current versions (verify before starting — may have auto-updated):
 - WPBakery: 8.7.2
 - Ultimate Addons: 3.21.3
 - Ads for WPBakery: 2.0.0
 - The7 Core: 2.7.12
 
-Check current versions before starting — these may have been auto-updated by WPE.
+### 4. LLSS image population
+Photos from Dallas 2026 needed for:
+- Hero background (1900×600px)
+- Community photo block (1100×440px)
+- 3-photo strip in Recent Summit section (360×240px each)
+- Firm membership card image (480×220px)
 
-### 5. amaaonline-wp scaffolding (when FSI pipeline is fully proven)
-Per `docs/decisions.md`: don't scaffold until thefivestar-wp is confirmed working
-end-to-end. The pipeline is now proven. This can begin whenever ready.
+### 5. amaaonline-wp scaffolding (when ready)
+Pipeline proven on FSI. Can begin whenever Jonathan confirms.
 
 ---
 
-## Key facts to remember
+## Key facts
 
 **Environments:**
 - Production: `thefivestar` / PHP 8.2 / WP-CLI works ✅
-- Staging: `thefivestarstg` / PHP 8.4 / WP-CLI works ✅ (core downloaded 2026-04-19)
-- Dev: `thefivestardev` / PHP 8.4 / WP-CLI works ✅ / active dev environment (devs working here)
+- Staging: `thefivestarstg` / PHP 8.4 / WP-CLI works ✅
+- Dev: `thefivestardev` / PHP 8.4 / WP-CLI works ✅ / active dev environment
+
+**WP core on staging SSH container:** Disappears when WPE recycles the container (idle environments).
+Fix: `wp core download --skip-content`. Doesn't affect the live site. Run at start of every SSH session.
 
 **Deploy key:** `id_ed25519_itmanager` (SSH Gateway / WP-CLI)
-**GitHub Actions key:** `wpengine_ed25519` (registered in WPE as "WPE GHA", in GitHub as `WPE_SSHG_KEY_PRIVATE`)
+**GitHub Actions key:** `wpengine_ed25519` → secret `WPE_SSHG_KEY_PRIVATE`
 
-**File writing to WPE (no SCP):**
-```bash
-cat /path/to/local/file.php | ssh thefivestar wp eval-file -
-```
+**Event pages (staging):**
+- Events hub: page ID 5089, `/events/`
+- Velocity: page ID 5088, `/events/velocity/`
+- Legal League Servicer Summit: page ID 5094, `/events/legal-league-servicer-summit/`
+
+**fsi-event-styles.php:** v1.1 on staging. NOT on production.
+Repo: `thefivestar-wp/wp-content/mu-plugins/fsi-event-styles.php`
+
+**WPBakery content pages:** Do NOT use `vc_raw_html` encoding for pages we control.
+Push plain HTML via `wp eval-file -`. WPBakery encoding (base64 + URL-encode) is fragile
+and breaks on re-encode. Classic Editor renders plain HTML directly.
 
 **Production approval gate (from CLAUDE.md):**
 Run on staging → verify → STOP → report → ask "Approve?" → wait → then production.

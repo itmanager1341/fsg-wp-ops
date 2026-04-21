@@ -4,46 +4,32 @@ Applies to: code changes (themes, plugins, mu-plugins) pushed via Git.
 For plugin-only updates, see `sops/plugin-update.md`.
 For content changes, see `sops/content-update.md`.
 
----
-
-## One-time setup: Git remotes
-
-```bash
-cd thefivestar-wp
-
-# GitHub is origin (source of truth — already set)
-git remote -v
-
-# Add WPE remotes
-git remote add wpe-stg git@git.wpengine.com:staging/thefivestarstg.git
-git remote add wpe     git@git.wpengine.com:production/thefivestar.git
-```
-
-WPE SSH key must be registered: WPE portal → Users → SSH Keys.
+**Deployment method:** GitHub Actions → `wpengine/github-action-wpe-site-deploy@v3` (SSH rsync).
+We do NOT use WP Engine's Git Push (`git.wpengine.com`) — see `docs/decisions.md` for why.
 
 ---
 
 ## Standard flow: feature → staging → production
 
 ```bash
-# 1. Work on a branch
+# 1. Work on a branch locally
 git checkout -b feature/your-change
 
-# 2. Push to GitHub (opens PR, triggers CI if configured)
+# 2. Commit and push to GitHub
 git push origin feature/your-change
 
 # 3. Merge PR to main on GitHub
 
-# 4. GitHub Actions auto-deploys main → staging
-#    (watch: Actions tab → Deploy to WP Engine → staging job)
+# 4. GitHub Actions auto-deploys main → staging (watch Actions tab)
 
 # 5. Smoke test staging
 #    https://thefivestarstg.wpenginepowered.com
 
-# 6. Deploy to production (manual trigger in GitHub Actions)
+# 6. Deploy to production — manual trigger in GitHub Actions
 #    Actions → Deploy to WP Engine → Run workflow → environment: production
-#    Requires approval from the production environment gate.
 ```
+
+Secret required: `WPE_SSHG_KEY_PRIVATE` (repo-level) — private key of `id_ed25519_itmanager`.
 
 ---
 

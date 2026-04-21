@@ -84,10 +84,11 @@ Core ad revenue infrastructure. Do not deactivate without revenue impact analysi
 | Plugin | Slug | Status | Version | Notes |
 |--------|------|--------|---------|-------|
 | Site Kit by Google | `google-site-kit` | active | 1.176.0 | GA4 + Search Console |
-| MonsterInsights | `google-analytics-for-wordpress` | **inactive** | 10.1.2 | ⚠️ Overlaps with Site Kit — decide and remove one |
 | HubSpot (Leadin) | `leadin` | active | 11.3.45 | Forms, live chat, CRM |
 | Stream | `stream` | active-network | 4.1.2 | WP activity log |
-| OptiMonster | `optinmonster` | inactive | 2.16.22 | Remove if not actively used |
+
+**Deleted from staging 2026-04-21:** MonsterInsights (`google-analytics-for-wordpress`) — overlapped Site Kit. Pending production.
+**Deleted from staging 2026-04-21:** OptiMonster (`optinmonster`) — inactive, no active campaigns. Pending production.
 
 ---
 
@@ -96,10 +97,10 @@ Core ad revenue infrastructure. Do not deactivate without revenue impact analysi
 | Plugin | Slug | Status | Version | Notes |
 |--------|------|--------|---------|-------|
 | WP Rocket | `wp-rocket` | active | 3.21.1 | Current version ✅ |
-| Image Optimizer | `image-optimization` | **inactive** | 1.7.3 | ⚠️ Activate or remove |
 | Slider Revolution | `revslider` | active | 6.7.38 | |
 | SVG Support | `svg-support` | active | 2.5.14 | |
 
+**Deleted from staging 2026-04-21:** Image Optimizer (`image-optimization`) — inactive, unused. Pending production.
 **Removed 2026-04-19:** Safe SVG (`safe-svg`) — duplicate of SVG Support.
 
 ---
@@ -126,7 +127,8 @@ Core ad revenue infrastructure. Do not deactivate without revenue impact analysi
 |--------|------|--------|---------|-------|
 | Toolset Types | `types` | active | 3.6.1 | Custom post types and fields |
 | Toolset Views | `wp-views` | active | 3.6.21 | Content display |
-| EventON Lite | `eventon-lite` | inactive | 2.5.2 | Activate if events published; else remove |
+
+**Deleted from staging 2026-04-21:** EventON Lite (`eventon-lite`) — inactive, not used. Pending production.
 
 ---
 
