@@ -9,7 +9,7 @@ Last completed: Elementor audit, plugin cleanup phase 3, event pages system,
 
 ---
 
-## PROMPT TO PASTE INTO NEXT CHAT:
+## PROMPT TO PASTE INTO NEXT CHAT
 
 ---
 
@@ -24,6 +24,7 @@ Continuing FSG Media WP ops. Before responding, read these files in order:
 7. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/docs/sops/ssh-session-startup.md`
 
 Then confirm you've read them and summarize:
+
 - Current state of thefivestar.com (theme, PHP, environments, WP-CLI status)
 - The three deployment workflows and when each applies
 - The production approval gate rule (verbatim from CLAUDE.md)
@@ -37,6 +38,7 @@ Do not proceed until that summary is confirmed.
 ## Completed this session (2026-04-21)
 
 ### Elementor audit ✅
+
 - Confirmed 18 pages use Elementor (`_elementor_edit_mode = builder`)
 - 3 drafts, 1 private, 14 published
 - Decision logged: WPBakery only going forward, Elementor phased out
@@ -45,13 +47,16 @@ Do not proceed until that summary is confirmed.
   Correct query: `wp post list --post_type=any --meta_key=_elementor_edit_mode --meta_value=builder`
 
 ### Plugin cleanup phase 3 ✅ (staging only)
+
 Deleted from staging (not yet on production):
+
 - MonsterInsights (`google-analytics-for-wordpress`) — overlapped Site Kit
 - Image Optimizer (`image-optimization`) — inactive, unused
 - OptiMonster (`optinmonster`) — inactive, no active campaigns
 - EventON Lite (`eventon-lite`) — inactive, not used
 
 ### Event pages system built ✅
+
 - Shared CSS mu-plugin: `fsi-event-styles.php` (v1.1) — deployed to staging via GitHub Actions
   - v1.0: base layout, event cards, hero, grids, cards, buttons, features
   - v1.1: image blocks, photo strip, gold callout, membership cards, muted section, program-full
@@ -63,6 +68,7 @@ Deleted from staging (not yet on production):
     Join the Community (membership cards), Event Details, Final CTA
 
 ### Navigation updated (staging) ✅
+
 - Main nav "Events" (item 2723) → `/events/`
 - Main nav "Events > Live" (item 2724) → `/events/`
 - Footer "Conferences" (item 2775) → `/events/`
@@ -71,6 +77,7 @@ Deleted from staging (not yet on production):
   Use `wp_update_post` on the nav item post ID to change title only.
 
 ### Documentation overhauled ✅
+
 - `docs/how-changes-are-made.md` — Workflow C added (page/content creation)
 - `docs/sops/new-event-page.md` — new SOP with full HTML template and v1.1 class reference
 - `docs/sops/deployment.md` — removed incorrect git.wpengine.com remote references
@@ -103,6 +110,7 @@ each before it goes live.
 | Nav: Live → /events/ | Menu | ✅ updated | ❌ still → /conferences/ |
 
 **Priority order for production promotion:**
+
 1. `fsi-event-styles.php` — must go first (CSS required for all event pages)
 2. Plugin deletions — low risk, all were inactive
 3. LLSS page — after CSS is on production
@@ -114,29 +122,36 @@ each before it goes live.
 ## Next session goals (suggested order)
 
 ### 1. Velocity page refactor (🟡 Medium)
+
 Velocity is still using inline styles from original build. Refactor to `fsi-*` classes
 to match the system. Do on staging, verify, then carry to production with the rest.
 
 ### 2. Promote staging changes to production (🔴 requires explicit approval per item)
+
 See table above. Promote in priority order. `fsi-event-styles.php` must go first.
 
 ### 3. WPBakery chain update (🔴 High — create SOP first)
+
 No SOP exists yet. Create `docs/sops/wpbakery-chain-update.md` before touching anything.
 Update order: WPBakery → Ultimate Addons → Ads for WPBakery → The7 Core → The7 theme.
 Current versions (verify before starting — may have auto-updated):
+
 - WPBakery: 8.7.2
 - Ultimate Addons: 3.21.3
 - Ads for WPBakery: 2.0.0
 - The7 Core: 2.7.12
 
 ### 4. LLSS image population
+
 Photos from Dallas 2026 needed for:
+
 - Hero background (1900×600px)
 - Community photo block (1100×440px)
 - 3-photo strip in Recent Summit section (360×240px each)
 - Firm membership card image (480×220px)
 
 ### 5. amaaonline-wp scaffolding (when ready)
+
 Pipeline proven on FSI. Can begin whenever Jonathan confirms.
 
 ---
@@ -144,6 +159,7 @@ Pipeline proven on FSI. Can begin whenever Jonathan confirms.
 ## Key facts
 
 **Environments:**
+
 - Production: `thefivestar` / PHP 8.2 / WP-CLI works ✅
 - Staging: `thefivestarstg` / PHP 8.4 / WP-CLI works ✅
 - Dev: `thefivestardev` / PHP 8.4 / WP-CLI works ✅ / active dev environment
@@ -155,6 +171,7 @@ Fix: `wp core download --skip-content`. Doesn't affect the live site. Run at sta
 **GitHub Actions key:** `wpengine_ed25519` → secret `WPE_SSHG_KEY_PRIVATE`
 
 **Event pages (staging):**
+
 - Events hub: page ID 5089, `/events/`
 - Velocity: page ID 5088, `/events/velocity/`
 - Legal League Servicer Summit: page ID 5094, `/events/legal-league-servicer-summit/`
