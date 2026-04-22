@@ -7,7 +7,157 @@ New decisions go at the top.
 
 ---
 
-## 2026-04-19 — WPBakery is the sole forward-going page builder; Elementor to be phased out
+## 2026-04-22 — Portfolio standardization: Elementor + Elementor Pro everywhere (supersedes 2026-04-19)
+
+**Decision:** All FSG Media WordPress sites standardize on Elementor + Elementor Pro
+as the sole page builder. Every new page across thefivestar.com, amaaonline.com, and
+themortgagepoint.com is built in Elementor. Every updated page moves to Elementor as
+it's touched. WPBakery goes into maintenance-only mode on FSI and AMAA and is retired
+site-by-site as migration completes.
+
+**This supersedes the 2026-04-19 decision (WPBakery-only-forward, Elementor phase-out).
+That earlier decision rested on incorrect assumptions about the direction of FSI page
+development and the long-term viability of WPBakery.**
+
+**Rationale:**
+
+1. **WPBakery is upstream-stagnant.** Maintenance-mode releases, no theme builder
+   equivalent, shrinking developer ecosystem. Elementor has ~15M installs,
+   active feature development (Theme Builder, Flexbox containers, Loop Builder),
+   and a much deeper hiring pool.
+
+2. **MortgagePoint is the working reference.** 3,351 posts, 41 magazine issues,
+   31 podcasts, cross-site house ads, Advanced Ads + GAM, AIOSEO Pro, HubSpot,
+   Site Kit — all production-proven on Hello Elementor + Elementor Pro
+   (audit 2026-04-22). Nothing in the FSG stack requires WPBakery specifically.
+
+3. **Cross-site content syndication becomes native.** Importing MortgagePoint
+   posts into thefivestar.com is a real editorial intent. Between two Elementor
+   sites the post meta and block structure are schema-compatible. Between
+   Elementor (MP) and WPBakery (FSI) each imported post requires a manual
+   layout rebuild. That tax would accumulate forever.
+
+4. **Elementor Pro Theme Builder is a capability WPBakery lacks.** MortgagePoint
+   renders thousands of posts consistently via 36 published
+   `elementor_library` templates (Single Post, Archive Blog, Search Results, etc).
+   FSI needs this for event pages, and AMAA needs it for deal/tombstone CPTs.
+
+5. **WPBakery chain update is currently 🔴 High risk with no SOP on FSI.**
+   Eliminating the WPBakery stack retires this risk permanently. Replaced by
+   the Elementor + Elementor Pro + ElementsKit update chain, which is more
+   granular and lower-risk.
+
+6. **License supports it.** Elementor Pro Expert tier, 25 seats, 20 currently
+   assigned. Priority sites (thefivestar, amaaonline, mortgagepoint + their
+   staging/dev) need 6–9 seats. Defunct activations can be pruned; no license
+   purchase required.
+
+7. **AMAA already runs both builders.** 22 pages + 23 posts on Elementor today.
+   Picking one ends a hybrid state that currently loads both builder CSS/JS
+   sitewide. Picking Elementor aligns with portfolio direction.
+
+**Scope (all three WordPress sites):**
+
+| Site | Current | Target | Migration shape |
+|------|---------|--------|-----------------|
+| thefivestar.com | The7 + WPBakery (dominant) | Elementor + Elementor Pro | Build new pages in Elementor; rebuild the LLSS, Velocity, and Events hub pages first to establish templates; migrate remaining live pages as they're touched |
+| amaaonline.com | The7 + WPBakery + Elementor (hybrid) | Elementor + Elementor Pro | End the hybrid; migrate WPBakery pages; retain Toolset Views for deal/tombstone until Elementor Pro loop templates replace them |
+| themortgagepoint.com | Hello Elementor + Elementor Pro | No change | Reference implementation |
+
+**Theme direction — deferred as separate decision:** Hello Elementor is
+MortgagePoint's current theme and the obvious portfolio default. However:
+- The7 is fully compatible with Elementor Pro (both sites already run it alongside WPBakery).
+- The7 ships mega-menu, portfolio, testimonials, team CPTs out of the box that
+  Hello Elementor doesn't.
+- Swapping The7 → Hello Elementor on FSI/AMAA is a separate, larger effort
+  that includes rebuilding those theme-level features in Elementor Pro templates.
+
+**For now:** keep The7 on FSI and AMAA as the theme. Build new pages with
+Elementor (Elementor works fine inside The7). Evaluate Hello Elementor on a
+dev environment later, and commit to theme swap as a separate decision when
+the pattern is proven.
+
+**Migration approach for FSI (immediate):**
+
+1. Rebuild the three already-built event pages (Events hub, Velocity, LLSS) in
+   Elementor to establish the FSI event-page template pattern. These are the
+   pages where the shared stylesheet system (`fsi-event-styles.php`) is currently
+   backing plain-HTML content — they're the ideal first migration target because
+   the content is fresh, the structure is documented in `docs/sops/new-event-page.md`,
+   and the CSS token work is already done.
+2. As the template matures, convert it into an Elementor Pro saved template
+   or section library so subsequent event pages are created from the pattern,
+   not from scratch.
+3. Deprecate dead FSI pages (many of the ~200 are legacy per Jonathan's note).
+   Active-page count for migration is significantly lower than the raw count.
+4. Migrate live WPBakery pages as they're touched for editorial or structural
+   updates — no forced mass migration.
+5. Once all active FSI pages are Elementor-native and WPBakery page count is
+   zero, deactivate WPBakery chain on staging → verify → production.
+
+**Migration approach for AMAA (sequenced after FSI):**
+
+1. Apply FSI-proven Elementor patterns to AMAA's page types.
+2. Build Elementor Pro loop templates for `deal` and `tombstone` CPTs to
+   replace Toolset Views as they're touched.
+3. Event integration: replace EventON with ReMembers AMS event integration
+   (planned, external to this decision). EventON is not a portfolio-standard
+   plugin long-term.
+4. Wild Apricot SSO (`wild-apricot-login`) is being deprecated for all
+   memberships (planned, external to this decision). Not a constraint.
+5. After migration: deactivate WPBakery chain on AMAA. Resolve hybrid state.
+
+**Alternatives considered and rejected:**
+
+- **Stay on WPBakery portfolio-wide (2026-04-19 decision):** Rejected.
+  Blocks cross-site syndication, keeps 🔴 WPBakery chain risk, bets on a
+  maintenance-mode builder.
+- **Hybrid: Elementor on MP + AMAA, WPBakery on FSI:** Rejected. FSI's
+  intent to syndicate MP content makes a shared builder necessary.
+- **Move the portfolio to Gutenberg / Full Site Editing:** Rejected for now.
+  Editorial team is page-builder-oriented; Elementor Pro is already paid and
+  proven. Revisit in 2027+.
+- **Migrate to a different page builder (Bricks, Breakdance):** Rejected.
+  License already purchased on Elementor Pro; MortgagePoint already proves
+  the stack; no compelling case to re-platform twice.
+
+**Consequences:**
+
+- `docs/decisions.md` 2026-04-19 "WPBakery is the sole forward-going builder"
+  decision is superseded. Original text preserved below with supersede note
+  for log integrity.
+- `sites/thefivestar/elementor-migration.md` is retired — it tracked an
+  Elementor phase-out that is no longer policy. Replaced by
+  `sites/thefivestar/wpbakery-migration.md` (tracks WPBakery → Elementor).
+- `brands/fsi/CLAUDE.md` and `docs/how-we-update-the-site.md` updated to
+  reflect Elementor as the forward builder.
+- `docs/sops/wpbakery-chain-update.md` remains on the backlog but is lower
+  priority — the chain is now maintenance-only. If a critical update ships,
+  we still need the SOP; if not, the chain retires before the SOP is needed.
+- New SOPs needed: Elementor chain update (Elementor + Pro + ElementsKit + add-ons),
+  Elementor Pro license management, Elementor Pro Theme Builder template
+  pattern for event pages.
+- FSI's event-page CSS system (`fsi-event-styles.php`) persists but its role
+  changes: shared tokens live in the Elementor Pro kit (global styles); the
+  mu-plugin retains only CSS that Elementor's kit cannot express, or is
+  retired entirely if the kit covers everything.
+- Cross-site content syndication (FSI ← MP) becomes native capability after
+  FSI migration completes.
+
+**Open items pending Jonathan's input (not blockers to starting):**
+
+1. Theme direction (The7 kept vs Hello Elementor swap) — separate later decision
+2. Elementor Pro license cleanup — ~10 defunct site activations to prune before
+   adding FSI to the license
+3. Elementor Pro 3.35.1 → 4.0.3 update on MortgagePoint — needs proven path
+   before MP is promoted as "the pattern" for other sites
+
+---
+
+## 2026-04-19 — [SUPERSEDED 2026-04-22] WPBakery is the sole forward-going page builder; Elementor to be phased out
+
+**⚠️ Superseded by 2026-04-22 portfolio standardization decision (above).
+The stance below no longer reflects current direction. Retained for decision-log integrity.**
 
 **Decision:** All new page development on thefivestar.com uses WPBakery exclusively.
 Elementor and Elementor Pro will be removed once all Elementor-built pages are either
@@ -44,6 +194,10 @@ Migration scope is likely smaller than the raw count suggests.
 - No new pages or sections to be built in Elementor
 - Elementor plugins stay installed but are lower priority until migration completes
 - See `sites/thefivestar/elementor-migration.md` for page-by-page tracking
+
+**Supersede note 2026-04-22:** The "Elementor is legacy" framing was wrong —
+Elementor is the portfolio-standard builder and the active direction for new
+FSI page development. See 2026-04-22 entry.
 
 ---
 
@@ -113,7 +267,7 @@ no GitHub Actions involved.
 push auto-deploys to staging. Every plugin op runs on staging first. Production
 is touched deliberately and rarely.
 
-See `docs/how-changes-are-made.md` for the full reference.
+See `docs/how-we-update-the-site.md` for the full reference.
 
 ---
 
@@ -147,9 +301,16 @@ back if theme-level code work is planned.
 adds a file to manage/deploy with no immediate benefit and creates confusion about
 where theme customizations live.
 
+**Note 2026-04-22:** Under the Elementor standardization decision, The7 is retained
+for now. A child theme may still be unnecessary — Elementor Pro provides custom
+CSS per-section, per-page, and via the global kit. Revisit if/when Hello Elementor
+migration becomes active.
+
 ---
 
-## 2026-04-18 — WPBakery as primary page builder (not Elementor)
+## 2026-04-18 — [SUPERSEDED 2026-04-22] WPBakery as primary page builder (not Elementor)
+
+**⚠️ Superseded by 2026-04-22 portfolio standardization decision.**
 
 **Decision:** Keep WPBakery Page Builder as the primary builder for thefivestar.com.
 Do not migrate to Elementor even though Elementor Pro is now active.
@@ -165,6 +326,11 @@ rebuild them in WPBakery and remove it.
 
 **Consequences:** Elementor Pro stays installed pending audit. Classic Editor and
 Classic Widgets must remain active. The7 Theme Settings must stay in WPBakery mode.
+
+**Supersede note 2026-04-22:** The manual-rebuild concern still applies —
+there's no automated WPBakery → Elementor converter. But rebuilding is now
+the accepted cost to get the portfolio onto one maintained builder. See
+2026-04-22 entry.
 
 ---
 

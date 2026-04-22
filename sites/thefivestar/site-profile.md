@@ -29,7 +29,7 @@ Last audited: 2026-04-18 (live WP-CLI via SSH — source of truth)
 |-------|-------|
 | Theme | The7 by Dream-Theme |
 | Version | **14.3.0** (slug: `dt-the7`) |
-| Page builder mode | **WPBakery** (confirmed in Theme Settings) |
+| Page builder mode | **WPBakery** in Theme Settings (transitional — Elementor is the forward builder per 2026-04-22 decision; mode setting does not prevent Elementor pages from working) |
 | Mega Menu | Enabled |
 | DB auto-update | Enabled |
 | Legacy Deprecated Mega-Menu Settings | Enabled (existing nav relies on this) |
@@ -69,7 +69,7 @@ Last reviewed: 2026-04-21
 | 🟢 Low | No child theme — create `dt-the7-child` only when custom PHP or template overrides needed | Deferred by decision |
 | 🟡 Med | PHP warning in `aioseo-redirects` line 73 — upstream bug, suppressed via mu-plugin | Suppressed ✅ |
 | 🟡 Med | Yoast SEO alongside AIOSEO Pro | Deleted ✅ |
-| 🟡 Med | Elementor Pro active on WPBakery site | Audited — phased out per decision. 18 pages, tracker in elementor-migration.md |
+| — | Elementor Pro active with 18 pages | **On-standard under 2026-04-22 decision.** Migration tracker: `wpbakery-migration.md` |
 | 🟡 Med | Blocksy Companion Pro — wrong theme | Deleted ✅ |
 | 🟡 Med | MonsterInsights — overlaps Site Kit | Deleted from staging ⏳ |
 | 🟡 Med | Image Optimizer inactive | Deleted from staging ⏳ |
@@ -81,4 +81,4 @@ Last reviewed: 2026-04-21
 | 🟢 Low | matchheight — legacy jQuery | Deleted ✅ |
 | 🟡 Med | fsi-event-styles.php not on production | Pending production deploy ⏳ |
 | 🟡 Med | Event pages (LLSS, hub rebuild, nav) staging-only | Pending production promotion ⏳ |
-| 🔴 High | WPBakery chain update — no SOP yet | Not started |
+| 🟡 Med | WPBakery chain — maintenance-only under 2026-04-22 decision | SOP only needed if critical update ships before chain retires |

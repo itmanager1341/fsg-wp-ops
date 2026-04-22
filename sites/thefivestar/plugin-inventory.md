@@ -1,7 +1,10 @@
 # Plugin Inventory: thefivestar.com
 
-Last updated: 2026-04-19 — Phase 1 + Phase 2 cleanup complete
-WordPress 6.9.4 | The7 v14.3.0 | WPBakery mode
+Last updated: 2026-04-22 — annotations updated for portfolio standardization decision
+WordPress 6.9.4 | The7 v14.3.0 | Elementor forward (WPBakery in migration)
+
+Per 2026-04-22 decision: Elementor + Elementor Pro is the portfolio builder
+standard. WPBakery in maintenance-only mode. See `docs/decisions.md`.
 
 ---
 
@@ -24,18 +27,32 @@ Changes applied as part of ongoing plugin cleanup. "Prod" column indicates wheth
 
 ---
 
-## WPBakery dependency chain
+## WPBakery dependency chain (maintenance-only)
 
-Update these together, in order. Never update independently.
+Retires as migration completes. Defer updates when possible; if a critical
+security update ships, update together in order — never independently.
 
 | Plugin | Slug | Status | Version |
 |--------|------|--------|---------|
-| WPBakery Page Builder | `js_composer` | active | 8.7.2 |
-| Ultimate Addons for WPBakery | `Ultimate_VC_Addons` | active | 3.21.3 |
-| Ads for WPBakery (Visual Composer) | `ads-for-visual-composer` | active | 2.0.0 |
+| WPBakery Page Builder | `js_composer` | active (maintenance) | 8.7.2 |
+| Ultimate Addons for WPBakery | `Ultimate_VC_Addons` | active (maintenance) | 3.21.3 |
+| Ads for WPBakery (Visual Composer) | `ads-for-visual-composer` | active (maintenance) | 2.0.0 |
 | The7 Core (theme companion) | `dt-the7-core` | active | 2.7.12 |
 
 Update order: WPBakery → Ultimate Addons → Ads for WPBakery → The7 Core → The7 theme.
+
+## Elementor chain (forward)
+
+Forward builder per 2026-04-22 decision. Update on staging first, together,
+in rough order:
+
+| Plugin | Slug | Status | Version |
+|--------|------|--------|---------|
+| Elementor | `elementor` | active | 4.0.2 |
+| Elementor Pro | `elementor-pro` | active | 4.0.2 |
+
+License: Elementor Pro Expert tier, subscription 13620718, 25 activations.
+thefivestar.com is one of the assigned activations.
 
 ---
 
@@ -109,10 +126,10 @@ Core ad revenue infrastructure. Do not deactivate without revenue impact analysi
 
 | Plugin | Slug | Status | Version | Notes |
 |--------|------|--------|---------|-------|
-| Classic Editor | `classic-editor` | active | 1.6.7 | Required for WPBakery |
-| Classic Widgets | `classic-widgets` | active | 0.3 | Required for WPBakery |
-| Elementor | `elementor` | active | 4.0.2 | ⚠️ Legacy — 18 pages built with it; migration in progress (see elementor-migration.md) |
-| Elementor Pro | `elementor-pro` | active | 4.0.2 | ⚠️ Legacy — remove only after all Elementor pages rebuilt or trashed |
+| Classic Editor | `classic-editor` | active | 1.6.7 | Required while WPBakery pages exist — retires with WPBakery |
+| Classic Widgets | `classic-widgets` | active | 0.3 | Required while WPBakery pages exist — retires with WPBakery |
+| Elementor | `elementor` | active | 4.0.2 | **Forward builder** — see `wpbakery-migration.md` |
+| Elementor Pro | `elementor-pro` | active | 4.0.2 | **Forward builder** — Expert license (25 seats) |
 | Shortcodes Ultimate | `shortcodes-ultimate` | active | 7.5.0 | |
 | Header Footer Code Manager | `header-footer-code-manager` | active | 1.1.44 | GTM, pixels, custom scripts |
 
@@ -160,7 +177,7 @@ These are auto-loaded by WP Engine. Do not attempt to deactivate.
 | Plugin | Action | Reason |
 |--------|--------|--------|
 | AIOSEO – Redirects | **Update** | PHP warning line 73 — pending upstream fix |
-| Elementor + Elementor Pro | **Phase out** | 18 pages built with it — see elementor-migration.md |
+| WPBakery chain | **Migrate and retire** | See `wpbakery-migration.md` — forward builder is Elementor |
 | AIOSEO – E-E-A-T | **Hold** | Leave inactive — revisit when author authority strategy is defined |
 
 ---

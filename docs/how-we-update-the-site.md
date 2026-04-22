@@ -224,11 +224,11 @@ Examples: deleting any plugin, updating the WPBakery chain, any production DB wr
 Before any 🔴 operation, trigger a WPE backup and confirm it completes
 before touching anything.
 
-### WPBakery update chain — special case
+### WPBakery update chain — maintenance-only (transitional)
 
 WPBakery, Ultimate Addons, Ads for WPBakery, The7 Core, and The7 theme are
-tightly coupled. A version mismatch between any of them can break every page on
-the site. They must be updated together in this order:
+tightly coupled. A version mismatch between any of them can break every page
+built in WPBakery. They must be updated together in this order:
 
 1. WPBakery Page Builder
 2. Ultimate Addons for WPBakery
@@ -236,7 +236,27 @@ the site. They must be updated together in this order:
 4. The7 Core
 5. The7 theme (via Appearance → Themes, not WP-CLI)
 
-No SOP exists for this yet. Write the SOP before starting. 🔴 High risk.
+**Under the 2026-04-22 portfolio standardization decision, WPBakery is in
+maintenance-only mode on FSI and AMAA. Prefer to defer chain updates when
+possible and focus effort on Elementor migration.** If a critical security
+update to the WPBakery chain ships, follow the SOP (still 🔴 High risk until
+chain retires). No new pages are built on WPBakery regardless of chain state.
+
+No SOP exists yet. If a chain update becomes unavoidable, write
+`docs/sops/wpbakery-chain-update.md` before touching anything.
+
+### Elementor update chain
+
+Elementor + Elementor Pro + ElementsKit + any add-ons also form a chain,
+though more loosely coupled than WPBakery's. Update order:
+
+1. Elementor core
+2. Elementor Pro
+3. ElementsKit Lite (if installed)
+4. Other Elementor add-ons (Envato Elements, Essential Addons)
+5. Hello Elementor theme (MortgagePoint only, for now)
+
+Staging first. 🟡 Moderate risk. SOP pending.
 
 
 ---
@@ -254,24 +274,50 @@ Content lives in the database, not in files. There is no meaningful way to
 version-control page content in git — WPBakery shortcodes and post content are
 DB records, not source files. WP Admin is the correct tool for the DB.
 
-### Page builder: WPBakery
+### Page builder: Elementor + Elementor Pro (forward) / WPBakery (legacy, in migration)
 
-All FSI pages use WPBakery Page Builder via the Classic Editor.
+**Per the 2026-04-22 portfolio standardization decision, Elementor + Elementor
+Pro is the forward builder for all FSG Media WordPress sites.** All new pages
+are built in Elementor. Existing WPBakery pages migrate to Elementor as they
+are touched for editorial or structural updates.
 
-- Edit via WP Admin → Pages → Backend Editor
-- Do NOT switch a WPBakery page to Gutenberg — it renders raw shortcode text
-- Classic Editor plugin must remain active
-- Do NOT use Elementor for new pages — it is being phased out (see `elementor-migration.md`)
+**For new pages:**
+- Edit via WP Admin → Pages → Add New → switch to Elementor
+- Use the Elementor Pro global kit for colors, typography, spacing
+- Save reusable sections as Elementor Pro templates for cross-page use
+- Event pages: build from the FSI Event Page Elementor template (established
+  during the first migration wave — Events hub, Velocity, LLSS)
 
-### The shared stylesheet system — fsi-event-styles.php
+**For existing WPBakery pages:**
+- Edit via WP Admin → Pages → Backend Editor (WPBakery)
+- Do NOT switch a WPBakery page to Gutenberg or Elementor without doing the
+  full rebuild — switching builders mid-page renders broken content
+- If the page needs more than trivial content edits, rebuild it in Elementor
+  on staging as part of the migration
 
-All custom CSS for FSI event pages is centralized in a mu-plugin, not inline
-on individual pages. This enables responsive layouts and one-place brand token updates.
+**Plugin state during transition:**
+- Classic Editor and Classic Widgets remain active while WPBakery pages exist
+- Elementor + Elementor Pro are active everywhere (`docs/sops` for update chain)
+- See `sites/thefivestar/wpbakery-migration.md` for per-page migration status
+
+### The shared stylesheet system — fsi-event-styles.php (transitional)
+
+Custom CSS for FSI event pages is centralized in a mu-plugin (`fsi-event-styles.php`).
+Brand tokens: Navy `#1f365c` | Gold `#c9a040` | Offwhite `#f7f7f5`.
+
+**Transitional role during Elementor migration:**
+- Today: backs plain-HTML content on the Events hub, Velocity, and LLSS pages
+- Near-term: Elementor Pro global kit will own the brand tokens (colors, typography,
+  spacing). The mu-plugin's role shrinks to CSS the Elementor kit can't express
+- Long-term: may retire entirely once Elementor templates cover the patterns
+
+**While the mu-plugin still matters:**
 
 **Rule: never paste HTML with inline `style="..."` attributes.** Use class names.
 
-Available classes are documented in full in `docs/sops/new-event-page.md`.
-Brand tokens: Navy `#1f365c` | Gold `#c9a040` | Offwhite `#f7f7f5`
+Available classes are documented in `docs/sops/new-event-page.md`. New event
+pages built in Elementor use the Elementor Pro global kit directly and should
+not depend on these classes unless referenced inline in an HTML widget.
 
 The mu-plugin must be deployed (Workflow A) to an environment before its classes
 render. Check before building a page on production:
@@ -293,7 +339,16 @@ ssh thefivestar 'ls /sites/thefivestar/wp-content/mu-plugins/fsi-event-styles.ph
 
 ### Creating a new event page
 
-Follow `docs/sops/new-event-page.md` exactly. Summary:
+**Current transitional SOP uses plain-HTML-in-WPBakery with the
+`fsi-event-styles.php` class system.** See `docs/sops/new-event-page.md`.
+
+**This SOP is being replaced.** The first migration wave rebuilds the
+Events hub (5089), Velocity (5088), and Legal League Servicer Summit (5094)
+pages in Elementor to establish the FSI event-page Elementor template.
+Once that template is saved as an Elementor Pro section/template, new event
+pages are created from it — not from the HTML SOP.
+
+**Transitional summary (until Elementor template is established):**
 
 1. WP Admin → Pages → Add New → set parent to Events (ID 5089)
 2. Set slug: `event-name` (lowercase, hyphenated)
@@ -302,6 +357,9 @@ Follow `docs/sops/new-event-page.md` exactly. Summary:
 5. Verify URL resolves as `/events/{slug}/`
 6. Add hub card to `/events/` page (ID 5089)
 7. Verify on staging before touching production
+
+**After Elementor template is established:** new event pages are created
+directly in Elementor from the saved template. The plain-HTML SOP retires.
 
 ### Navigation changes
 
@@ -394,5 +452,5 @@ This is expected behavior, not a problem we caused.
 | `docs/wpengine-gotchas.md` | WPE-specific quirks and workarounds |
 | `docs/decisions.md` | Why we made architectural choices |
 | `sites/thefivestar/plugin-inventory.md` | Current plugin state and removal history |
-| `sites/thefivestar/elementor-migration.md` | Elementor phase-out tracker |
+| `sites/thefivestar/wpbakery-migration.md` | WPBakery → Elementor page migration tracker |
 | `docs/next-chat-handoff.md` | What's done, what's staging-only, what's next |
