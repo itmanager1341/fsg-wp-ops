@@ -3,10 +3,11 @@
 Use this as the opening message in the next Claude Desktop project chat.
 Updated at the end of each session with what was completed and what's next.
 
-Last updated: 2026-04-22
+Last updated: 2026-04-22 (evening — implementation order confirmed)
 Last completed: Portfolio-wide page-builder decision (Elementor standardization),
                 MortgagePoint + AMAA audits, three site profiles written,
-                6 docs updated to reflect new direction
+                6 docs updated to reflect new direction,
+                implementation order locked (LLSS first, then events portal, then Velocity, then membership/profession pages)
 
 ---
 
@@ -140,60 +141,141 @@ Priority order unchanged:
 
 ---
 
-## Next session goals (suggested order)
+## Next session priority order (confirmed 2026-04-22)
 
-### 1. Phase 1 — Establish FSI Elementor event-page template (🟡 Medium)
+**Top priority: convert already-built FSI pages to Elementor, then extend.**
 
-First concrete action under the new standardization decision. Build the FSI
-Event Page template in Elementor using the three existing event pages
-(Events hub 5089, Velocity 5088, LLSS 5094) as reference content.
+### Phase 1 — LLSS Elementor rebuild (establish the template) 🟡
+
+Start here. LLSS is the template source — every other event page conforms
+to this pattern after.
+
+URL: https://thefivestarstg.wpenginepowered.com/events/legal-league-servicer-summit/
+Page ID: 5094
 
 Subtasks:
-- Populate Elementor Pro global kit with FSI brand tokens (Navy #1f365c,
-  Gold #c9a040, Offwhite #f7f7f5 + typography scale)
-- Build the LLSS page in Elementor on staging as the template source
-- Save reusable sections as Elementor Pro templates (hero, callout, photo
-  strip, membership cards, event details, CTA)
-- Write `docs/sops/new-event-page-elementor.md` replacing the plain-HTML SOP
-- Verify Advanced Ads, HubSpot, AIOSEO, Site Kit all still function on the
-  Elementor version of the page
-- Then promote to production alongside the current staging queue
+1. Populate Elementor Pro global kit on staging with FSI brand tokens
+   (Navy `#1f365c`, Gold `#c9a040`, Offwhite `#f7f7f5`) + typography scale
+   + button/heading/section presets
+2. Rebuild LLSS in Elementor on staging (don't touch the existing WPBakery
+   version of the page until the Elementor version is verified — build the
+   Elementor version on a new staging page or duplicate)
+3. Save each section as a reusable Elementor Pro template:
+   - Hero (with background image, headline, subhead, CTA)
+   - Intro / Who Belongs
+   - What Happens
+   - Next Summit gold callout
+   - Recent Summit photo strip (3-up)
+   - Join the Community membership cards
+   - Event Details
+   - Final CTA
+4. Combine saved sections into one "FSI Event Page" Elementor Pro template
+5. Verify on staging: Advanced Ads render, HubSpot forms submit, AIOSEO meta
+   populates, Site Kit tracks, responsive behavior correct
+6. Write `docs/sops/new-event-page-elementor.md` replacing the plain-HTML SOP
+7. Ask for production approval → promote LLSS Elementor version to production
+8. Delete or archive the old WPBakery LLSS page after Elementor version is live
 
-### 2. Promote staging changes to production (🔴 per-item approval)
+### Phase 2 — Events portal (Events hub) 🟡
 
-See table above. Can proceed in parallel with Phase 1 work. Priority order:
-CSS mu-plugin, plugin deletions, LLSS page, nav changes, events hub.
+URL: https://thefivestarstg.wpenginepowered.com/events/
+Page ID: 5089
 
-### 3. FSI deprecation pass (🟡 Medium)
+Uses the global kit established in Phase 1. Event cards can reuse or adapt
+Phase 1 hero/CTA sections. Consider an Elementor Pro Loop widget driven by
+the Events parent/child page structure so adding a new event page automatically
+shows up in the hub.
 
-Identify the ~200 legacy pages that should be trashed rather than migrated.
-Will need GA4 / Site Kit access to filter by traffic. Reduces migration scope.
+### Phase 3 — Velocity 🟡
 
-### 4. Elementor Pro license cleanup (🟢 Low)
+URL: https://thefivestarstg.wpenginepowered.com/events/velocity/
+Page ID: 5088
 
-Prune defunct activations from the 20-of-25-used license. Candidates from
+Apply the FSI Event Page template from Phase 1. Velocity should fit the
+template cleanly; if any structural variations emerge, they become optional
+sections added to the template library (not divergent patterns).
+
+### Phase 4 — Membership / profession pages 🟡
+
+URL: https://thefivestarstg.wpenginepowered.com/memberships/real-estate-professionals/
+
+Next candidate after event pages. Likely requires a new "FSI Membership Page"
+Elementor Pro template (similar reusable-section approach as Phase 1 but
+with membership-specific sections: member benefits, eligibility, application
+CTA, member testimonials, pricing tiers if applicable).
+
+**Before starting Phase 4:** audit this page via WP-CLI (page ID, current
+builder, content structure) so we build against facts not guesses.
+
+### Phase 5 — Who We Are / institutional pages 🟡
+
+URL: https://thefivestarstg.wpenginepowered.com/who-we-are/
+
+Hub/institutional page type. May require a third template ("FSI Institutional
+Page") or may be a variant of the membership template. Decide after seeing
+the current structure.
+
+**Before starting Phase 5:** audit this page via WP-CLI.
+
+### Phase 6 — Remaining FSI event + membership + profession pages
+
+Once three templates exist (Event, Membership, Institutional) and the global
+kit is mature, remaining FSI page migrations are template-driven, not
+template-authoring. Pace accelerates.
+
+### Phase 7 — AMAA migration (deferred)
+
+Per 2026-04-22 decision: AMAA follows once FSI pattern is proven through
+Phases 1-6. AMAA-specific additions: deal/tombstone CPT loop templates,
+EventON → ReMembers AMS integration handoff, Wild Apricot SSO retirement.
+
+---
+
+## Parallel work (can happen alongside Phase 1-3)
+
+### Promote current staging changes to production (🔴 per-item approval)
+
+See staging-only table above. These predate the Elementor decision but are
+still worth shipping — they're plain-HTML-in-WPBakery pages that work and
+give users a functional Events section while Phase 1 template work happens.
+
+Priority order:
+1. `fsi-event-styles.php` mu-plugin — must go first (CSS required)
+2. Plugin deletions (MonsterInsights, Image Optimizer, OptiMonster, EventON Lite) — low risk
+3. LLSS page (plain HTML version)
+4. Nav changes (Events → /events/)
+5. Events hub rebuild (plain HTML version)
+
+After Phase 1 completes, the Elementor LLSS replaces the plain-HTML LLSS
+on production. Same for Events hub after Phase 2.
+
+### Elementor Pro license cleanup (🟢 Low, can happen anytime)
+
+Prune defunct activations from the 20-of-25 assigned. Candidates from
 Jonathan's list: `themsea.com`, `themplaunch.com`, `themp.flywheelsites.com`,
-`thefsiad.flywheelsites.com`, `localhost:10004`, `thefivestar.wpenginepowered.com/mediakit`,
-any other dormant sites. Verify with Jonathan which are truly inactive before
-removing activations.
+`thefsiad.flywheelsites.com`, `localhost:10004`,
+`thefivestar.wpenginepowered.com/mediakit`, potentially `fivestarforce.com`,
+`propertypresforum.com`, `legalleague100.com`, `mortgagediversitycouncil.com`,
+`thefivestarmedia.com`. Verify each before removing. Goal: clean to ~6-9
+active seats (thefivestar + amaaonline + mortgagepoint + their staging/dev).
 
-### 5. Elementor Pro update on MortgagePoint (🟡 Medium)
+### FSI deprecation pass (🟡 Medium, can happen anytime)
 
-MP is on Elementor Pro 3.35.1 while Elementor core is on 4.0.1 — there's a
-Pro 4.0.3 update available. Test on a staging/dev environment before doing
-this; version compatibility in the Elementor stack is tight. Needs to happen
-before MP is promoted as "the reference pattern" for FSI migration.
+Identify the ~200 legacy FSI pages that should be trashed rather than
+migrated. Needs GA4 / Site Kit data for traffic-based filtering. Reduces
+Phase 6 scope significantly.
 
-### 6. AMAA — defer until FSI Phase 1 is proven
+### Elementor Pro update on MortgagePoint (🟡 Medium, before MP becomes reference)
 
-Per sequencing in the decision: FSI migration proves the pattern, AMAA follows.
-AMAA work picks up once the FSI Elementor template library is mature.
+MP is on Elementor Pro 3.35.1; the ecosystem is on 4.0.3. Needs proven
+update path on a staging/dev environment before MP is cited as the reference
+pattern for FSI template decisions.
 
-### 7. WPBakery chain update (now 🟡, was 🔴)
+### WPBakery chain update (now 🟡, was 🔴)
 
-Downgraded under 2026-04-22 decision. Only needed if a critical update ships
-before the chain retires. Still: if it becomes unavoidable, write
-`docs/sops/wpbakery-chain-update.md` first.
+Downgraded under 2026-04-22 decision. Only needed if critical security
+update ships before the chain retires through FSI migration. Still: write
+`docs/sops/wpbakery-chain-update.md` first if it becomes unavoidable.
 
 ---
 
