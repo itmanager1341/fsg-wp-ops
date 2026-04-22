@@ -108,36 +108,38 @@ Six files updated/created:
 
 ---
 
-## Current staging-only changes (not yet on production)
+## Current staging-only changes
 
-Unchanged from last session — these are all WPBakery-era changes and still
-need to go out:
+Revised stance 2026-04-22 evening: **do NOT promote the WPBakery-era content
+pages to production.** We're in active development. Those pages are being
+replaced by Elementor versions in Phase 1-3 below. Promoting them to
+production only to replace them again is wasted work.
 
-| Change | Type | Staging | Production |
-|--------|------|---------|------------|
-| MonsterInsights deleted | Plugin | ✅ deleted | ❌ still exists |
-| Image Optimizer deleted | Plugin | ✅ deleted | ❌ still exists |
-| OptiMonster deleted | Plugin | ✅ deleted | ❌ still exists |
-| EventON Lite deleted | Plugin | ✅ deleted | ❌ still exists |
-| fsi-event-styles.php (v1.1) | mu-plugin (code) | ✅ deployed | ❌ not deployed |
-| Events hub rebuilt | Content | ✅ live | ✅ live (old version) |
-| Velocity page content | Content | ✅ synced | ✅ live (source) |
-| LLSS page | Content | ✅ live (new) | ❌ doesn't exist |
-| Nav: Events → /events/ | Menu | ✅ updated | ❌ still → /conferences/ |
-| Nav: Live → /events/ | Menu | ✅ updated | ❌ still → /conferences/ |
+| Change | Type | Staging | Production plan |
+|--------|------|---------|----------------|
+| MonsterInsights deleted | Plugin | ✅ deleted | Hygiene — can promote anytime, not urgent |
+| Image Optimizer deleted | Plugin | ✅ deleted | Hygiene — can promote anytime, not urgent |
+| OptiMonster deleted | Plugin | ✅ deleted | Hygiene — can promote anytime, not urgent |
+| EventON Lite deleted | Plugin | ✅ deleted | Hygiene — can promote anytime, not urgent |
+| fsi-event-styles.php (v1.1) | mu-plugin (code) | ✅ deployed | **Hold** — only backs staging HTML pages; retire with those pages |
+| Events hub rebuilt (HTML/WPBakery) | Content | ✅ live | **Hold** — will be replaced by Phase 2 Elementor version |
+| Velocity page content (HTML/WPBakery) | Content | ✅ synced | **Hold** — will be replaced by Phase 3 Elementor version |
+| LLSS page (HTML/WPBakery) | Content | ✅ live | **Hold** — will be replaced by Phase 1 Elementor version |
+| Nav: Events → /events/ | Menu | ✅ updated | **Hold** — wait until Elementor /events/ is live on production |
+| Nav: Live → /events/ | Menu | ✅ updated | **Hold** — same |
 
-**Decision implication:** These staging changes are worth promoting to
-production as-is. They don't block the Elementor migration. The event pages
-will get rebuilt in Elementor in Phase 1 anyway, but shipping the current
-plain-HTML versions gives real users a working Events section now. The CSS
-mu-plugin continues to matter during transition.
+**Why this changed from last session's plan:**
+- Development, not urgency-driven — no user is waiting for /events/
+- Every HTML/WPBakery page listed will be replaced by an Elementor version
+  in Phases 1-3
+- Nav changes point to Elementor URLs that don't exist on production yet
+- Plugin cleanups are independent of all this and can go anytime
 
-Priority order unchanged:
-1. `fsi-event-styles.php` — must go first
-2. Plugin deletions — low risk
-3. LLSS page
-4. Nav changes
-5. Events hub rebuild
+**Preservation pattern:** When an Elementor version is verified on staging,
+the original HTML/WPBakery staging page is **renamed** rather than deleted —
+slug becomes `{original-slug}-old` and title gets "(Old WPBakery)" appended.
+Keeps the content findable for rollback or reference. Trash after ~1-2 weeks
+of production confidence on the Elementor replacement.
 
 ---
 
@@ -153,69 +155,146 @@ to this pattern after.
 URL: https://thefivestarstg.wpenginepowered.com/events/legal-league-servicer-summit/
 Page ID: 5094
 
+**Global rule for all Elementor work — image sizing / CLS prevention:**
+Every image in every template has explicit `width` and `height` attributes
+so the browser reserves space before the image loads. This prevents layout
+shift (CLS) and eliminates the page-jump UX issue. Applies to: hero images,
+photo strip images, card images, logos, icons, any `<img>` or Elementor
+Image widget. Target dimensions are documented per section below. Elementor
+Image widget must have Width and Height set (not "auto"); if using Background
+Image sections, the section itself must have Min Height set in px so it
+reserves space.
+
 Subtasks:
-1. Populate Elementor Pro global kit on staging with FSI brand tokens
-   (Navy `#1f365c`, Gold `#c9a040`, Offwhite `#f7f7f5`) + typography scale
-   + button/heading/section presets
-2. Rebuild LLSS in Elementor on staging (don't touch the existing WPBakery
-   version of the page until the Elementor version is verified — build the
-   Elementor version on a new staging page or duplicate)
-3. Save each section as a reusable Elementor Pro template:
-   - Hero (with background image, headline, subhead, CTA)
-   - Intro / Who Belongs
-   - What Happens
-   - Next Summit gold callout
-   - Recent Summit photo strip (3-up)
-   - Join the Community membership cards
-   - Event Details
-   - Final CTA
-4. Combine saved sections into one "FSI Event Page" Elementor Pro template
-5. Verify on staging: Advanced Ads render, HubSpot forms submit, AIOSEO meta
-   populates, Site Kit tracks, responsive behavior correct
-6. Write `docs/sops/new-event-page-elementor.md` replacing the plain-HTML SOP
-7. Ask for production approval → promote LLSS Elementor version to production
-8. Delete or archive the old WPBakery LLSS page after Elementor version is live
+
+1. **Global kit setup (staging)**
+   - Populate Elementor Pro global kit with FSI brand tokens
+     (Navy `#1f365c`, Gold `#c9a040`, Offwhite `#f7f7f5`)
+   - Typography scale (H1/H2/H3, body, small) matching current FSI pages
+   - Button presets (primary navy, secondary gold, tertiary outline)
+   - Section padding presets
+   - Global image defaults: enforce explicit width/height in any image
+     widgets, set "Loading: Lazy" on below-fold images
+
+2. **Build LLSS Elementor version (staging, new page — do NOT edit the
+   existing WPBakery LLSS page)**
+   - Create a new staging page, slug `legal-league-servicer-summit-elementor`
+     (temporary slug — will swap slugs in step 7)
+   - Build using Elementor against the reference LLSS WPBakery content
+   - Parent: Events hub (ID 5089)
+
+3. **Save each section as a reusable Elementor Pro template**
+   All image dimensions listed are required on the image widget/section:
+   - **Hero** — background image 1900×600px min-height, headline, subhead, CTA
+   - **Intro / Who Belongs** — text + optional side image 560×400px
+   - **What Happens** — feature grid, icons 64×64px, card images 400×300px
+   - **Next Summit gold callout** — no images required; explicit min-height
+   - **Recent Summit photo strip** — 3 images, 360×240px each
+   - **Join the Community membership cards** — card images 480×220px each
+   - **Event Details** — text + optional location image 800×450px
+   - **Final CTA** — background image 1900×400px min-height
+
+4. **Combine saved sections into one "FSI Event Page" Elementor Pro template**
+   Users cloning this template get all sections pre-wired with correct
+   dimensions and global kit styling.
+
+5. **Verification on staging**
+   - Advanced Ads render in expected slots
+   - HubSpot forms submit (if any on page)
+   - AIOSEO meta and schema populate
+   - Site Kit tracks pageview
+   - Responsive behavior: desktop / tablet / mobile
+   - **CLS check:** Lighthouse / PageSpeed report — CLS score < 0.1
+   - No PHP errors in site health
+   - Load the page multiple times with slow network throttle (Chrome DevTools
+     "Slow 4G") — confirm no visible layout shift
+
+6. **Write the new SOP**
+   `docs/sops/new-event-page-elementor.md` replacing plain-HTML SOP. Include:
+   - How to clone the FSI Event Page template
+   - Per-section image dimension requirements (mandatory, not optional)
+   - How to update the Elementor Pro global kit
+   - Staging-first + approval gate rules
+   - `-old` rename pattern for migrating pages
+
+7. **Rename + swap (still on staging)**
+   - Rename original WPBakery LLSS: slug `legal-league-servicer-summit-old`,
+     title append "(Old WPBakery)"
+   - Rename Elementor version: slug `legal-league-servicer-summit`
+     (takes the canonical slot)
+   - Verify Elementor LLSS is at the original URL
+
+8. **Production promotion (🔴 explicit approval per CLAUDE.md gate)**
+   - Create the Elementor LLSS page on production (new page, not replacing
+     anything — LLSS doesn't exist on prod yet)
+   - Verify on production
+   - Do NOT promote the WPBakery -old versions to production; they only
+     exist on staging for safekeeping
 
 ### Phase 2 — Events portal (Events hub) 🟡
 
 URL: https://thefivestarstg.wpenginepowered.com/events/
 Page ID: 5089
 
-Uses the global kit established in Phase 1. Event cards can reuse or adapt
-Phase 1 hero/CTA sections. Consider an Elementor Pro Loop widget driven by
-the Events parent/child page structure so adding a new event page automatically
-shows up in the hub.
+Uses the global kit established in Phase 1. Event cards reuse Phase 1
+hero/CTA sections where applicable. Consider an Elementor Pro Loop widget
+driven by the Events parent/child page structure so new event pages
+auto-appear in the hub.
+
+Subtasks (condensed):
+1. Build Elementor version on staging — new page, slug `events-elementor` (temp)
+2. All images: explicit width/height — event card thumbnails 600×400px,
+   any background 1900×400px min-height
+3. Verify (same checks as Phase 1 step 5)
+4. Rename originals: existing Events hub slug → `events-old`, title append
+   "(Old WPBakery)"
+5. Rename Elementor version → slug `events`
+6. Promote to production with approval gate
 
 ### Phase 3 — Velocity 🟡
 
 URL: https://thefivestarstg.wpenginepowered.com/events/velocity/
 Page ID: 5088
 
-Apply the FSI Event Page template from Phase 1. Velocity should fit the
-template cleanly; if any structural variations emerge, they become optional
-sections added to the template library (not divergent patterns).
+Apply the FSI Event Page template from Phase 1. Should fit cleanly; any
+structural variations become optional template sections, not divergent
+patterns.
+
+Subtasks (condensed):
+1. Clone FSI Event Page template into new staging page, slug `velocity-elementor`
+2. Populate with Velocity content; all images meet dimension spec from Phase 1
+3. Verify
+4. Rename pattern: existing `velocity` → `velocity-old`; new version → `velocity`
+5. Promote with approval gate
 
 ### Phase 4 — Membership / profession pages 🟡
 
 URL: https://thefivestarstg.wpenginepowered.com/memberships/real-estate-professionals/
 
-Next candidate after event pages. Likely requires a new "FSI Membership Page"
-Elementor Pro template (similar reusable-section approach as Phase 1 but
-with membership-specific sections: member benefits, eligibility, application
-CTA, member testimonials, pricing tiers if applicable).
+Next candidate after event pages. Requires a new "FSI Membership Page"
+Elementor Pro template (same reusable-section approach as Phase 1, different
+sections): member benefits, eligibility, application CTA, member
+testimonials, pricing tiers where applicable.
 
 **Before starting Phase 4:** audit this page via WP-CLI (page ID, current
-builder, content structure) so we build against facts not guesses.
+builder, content structure, image inventory).
+
+Subtasks follow same pattern as Phase 1: staging build → image-sized sections
+→ save template → verify (Lighthouse CLS check) → `-old` rename pattern →
+approval gate → production.
 
 ### Phase 5 — Who We Are / institutional pages 🟡
 
 URL: https://thefivestarstg.wpenginepowered.com/who-we-are/
 
 Hub/institutional page type. May require a third template ("FSI Institutional
-Page") or may be a variant of the membership template. Decide after seeing
-the current structure.
+Page") or may be a variant of the membership template. Decide after auditing
+current structure.
 
 **Before starting Phase 5:** audit this page via WP-CLI.
+
+Subtasks follow same pattern as Phase 1: staging build → image-sized sections
+→ save template → verify → `-old` rename pattern → approval gate → production.
 
 ### Phase 6 — Remaining FSI event + membership + profession pages
 
@@ -233,21 +312,25 @@ EventON → ReMembers AMS integration handoff, Wild Apricot SSO retirement.
 
 ## Parallel work (can happen alongside Phase 1-3)
 
-### Promote current staging changes to production (🔴 per-item approval)
+### Plugin deletions to production (🟢 Low, hygiene)
 
-See staging-only table above. These predate the Elementor decision but are
-still worth shipping — they're plain-HTML-in-WPBakery pages that work and
-give users a functional Events section while Phase 1 template work happens.
+The 4 plugin deletions currently staging-only (MonsterInsights, Image Optimizer,
+OptiMonster, EventON Lite) are unrelated to the builder decision and can be
+promoted to production whenever convenient. All were inactive on production;
+deletion is cleanup, not feature work. Not urgent.
 
-Priority order:
-1. `fsi-event-styles.php` mu-plugin — must go first (CSS required)
-2. Plugin deletions (MonsterInsights, Image Optimizer, OptiMonster, EventON Lite) — low risk
-3. LLSS page (plain HTML version)
-4. Nav changes (Events → /events/)
-5. Events hub rebuild (plain HTML version)
+### Audit MonsterInsights usage on MortgagePoint (🟡 Medium)
 
-After Phase 1 completes, the Elementor LLSS replaces the plain-HTML LLSS
-on production. Same for Events hub after Phase 2.
+Before assuming MP should match FSI's "delete MonsterInsights" pattern, check
+whether MP actually uses MonsterInsights features that Site Kit doesn't
+provide — scroll depth tracking, outbound link tracking, author/category
+performance reports, forms tracking. If configured and used, keeping
+MonsterInsights on MP is legitimate; in that case, disable Site Kit's GA4
+module on MP (keep Site Kit only for Search Console) to prevent duplicate
+pageview counting. If not configured → delete like FSI did.
+
+This is a 5-minute audit of `wp option get monsterinsights_settings` on MP
+plus a visual check of the MonsterInsights dashboard configuration.
 
 ### Elementor Pro license cleanup (🟢 Low, can happen anytime)
 

@@ -31,6 +31,52 @@ Pages scheduled for deprecation are not migrated. They're trashed.
 
 ---
 
+## Principle: preserve originals via `-old` rename, not deletion
+
+When a page migrates to Elementor, the original WPBakery/HTML version is
+**renamed**, not deleted:
+
+- Slug: append `-old` → `legal-league-servicer-summit-old`, `velocity-old`, etc.
+- Title: append ` (Old WPBakery)` → "Legal League Servicer Summit (Old WPBakery)"
+- Status stays `publish` on staging so the content remains findable
+- Only happens AFTER the Elementor version is verified on staging
+- Old WPBakery pages are NOT promoted to production; they only exist on
+  staging for rollback/reference
+- Trash after ~1-2 weeks of production confidence on the Elementor replacement
+
+This keeps content findable, makes the migration's before/after obvious in
+WP Admin, and gives a rollback path if the Elementor version has issues we
+missed.
+
+---
+
+## Principle: explicit image dimensions on every image (CLS prevention)
+
+Every image in every Elementor template has explicit `width` and `height`
+attributes. This prevents Cumulative Layout Shift (CLS) — the page-jump
+behavior that happens when images load and push content around.
+
+**Rules:**
+
+- Elementor Image widget: set Width and Height explicitly (not "auto")
+- Background image sections: set Min Height in px so the section reserves
+  space before the image loads
+- Lazy loading: enabled by default for below-fold images
+- Target dimensions are specified per section in the FSI Event Page template
+  and in subsequent template specs (Membership, Institutional)
+- Lighthouse / PageSpeed CLS score < 0.1 is the acceptance criterion for
+  every migrated page
+- Chrome DevTools slow-network test: throttle to Slow 4G, load page, observe
+  no visible layout shift
+
+**Why this matters more than in WPBakery-era:** the current WPBakery pages
+use `fsi-event-styles.php` which has some fixed dimensions baked into
+classes. Elementor's widget-driven approach loses that discipline unless
+we're deliberate about it. Build it into the template spec from Phase 1 so
+every downstream page inherits correct behavior.
+
+---
+
 ## First migration wave — FSI event page template
 
 These three pages are rebuilt in Elementor first to establish the event-page
@@ -51,12 +97,31 @@ Ideal material for establishing a reusable Elementor Pro template.
 **Deliverables from the first wave:**
 
 - Elementor Pro global kit populated with FSI brand tokens
-  (Navy `#1f365c`, Gold `#c9a040`, Offwhite `#f7f7f5`) + typography scale
-- Elementor Pro template library entries for each event-page section
-  (hero, callout, photo strip, membership cards, event details, CTA)
+  (Navy `#1f365c`, Gold `#c9a040`, Offwhite `#f7f7f5`) + typography scale +
+  button/heading/section presets
+- Elementor Pro template library entries for each event-page section with
+  **explicit image dimensions baked into every image widget and min-heights
+  on every background-image section** (see CLS principle above)
 - One saved "FSI Event Page" template combining the sections
 - New SOP `docs/sops/new-event-page-elementor.md` replacing
-  `docs/sops/new-event-page.md`
+  `docs/sops/new-event-page.md` — must include image dimension table as a
+  mandatory section
+- `-old` rename applied to WPBakery LLSS after Elementor version verified
+  (both pages exist on staging; only Elementor version goes to production)
+
+**Image dimension spec for FSI Event Page template:**
+
+| Section | Element | Dimensions | Notes |
+|---------|---------|------------|-------|
+| Hero | Background image | 1900×600px min-height | Section min-height in px |
+| Intro/Who Belongs | Optional side image | 560×400px | Lazy load below fold |
+| What Happens | Feature icons | 64×64px | 4-up or 3-up grid |
+| What Happens | Card images | 400×300px | — |
+| Next Summit callout | (no images) | min-height required | Reserve space |
+| Recent Summit strip | 3 photos | 360×240px each | Row min-height |
+| Membership cards | Card images | 480×220px each | 3-up card layout |
+| Event Details | Optional location image | 800×450px | — |
+| Final CTA | Background image | 1900×400px min-height | Section min-height |
 
 ---
 

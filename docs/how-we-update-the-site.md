@@ -319,6 +319,29 @@ Available classes are documented in `docs/sops/new-event-page.md`. New event
 pages built in Elementor use the Elementor Pro global kit directly and should
 not depend on these classes unless referenced inline in an HTML widget.
 
+### Image dimensions are mandatory (CLS prevention)
+
+Every image on every page — Elementor, transitional WPBakery, or inline HTML —
+has explicit width and height dimensions. No exceptions.
+
+**Why:** browsers reserve space for images based on declared dimensions
+before the image loads. Without dimensions, content shifts down the page
+as each image loads (Cumulative Layout Shift / CLS). This is both a
+Core Web Vital (affects SEO ranking) and a visible UX defect.
+
+**How, by context:**
+
+| Context | How to set dimensions |
+|---------|----------------------|
+| Elementor Image widget | Width and Height fields (px, not "auto") |
+| Elementor section with background image | Min Height in px on the section |
+| `<img>` in inline HTML (transitional) | `width` and `height` HTML attributes |
+| `fsi-event-styles.php` `.fsi-img-placeholder` | Already sized via class — keep using |
+
+**Acceptance criterion for every migrated or new page:** Lighthouse / PageSpeed
+CLS score < 0.1, verified in Chrome DevTools with Slow 4G throttle so the
+test reflects a real-world slow connection.
+
 The mu-plugin must be deployed (Workflow A) to an environment before its classes
 render. Check before building a page on production:
 ```bash

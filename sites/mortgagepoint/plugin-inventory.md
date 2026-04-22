@@ -74,8 +74,36 @@ portal or elsewhere.
 | Plugin | Slug | Version | Notes |
 |--------|------|---------|-------|
 | Site Kit by Google | `google-site-kit` | 1.176.0 | GA4 + Search Console |
-| MonsterInsights | `google-analytics-for-wordpress` | 10.1.2 | **Redundant with Site Kit** — same cleanup as FSI staging |
+| MonsterInsights | `google-analytics-for-wordpress` | 10.1.2 | **Needs investigation before action** — see note below |
 | HubSpot (Leadin) | `leadin` | 11.3.45 | Forms, live chat, CRM |
+
+**MonsterInsights audit note (added 2026-04-22):** An earlier iteration of
+this inventory recommended deleting MonsterInsights to match FSI's cleanup.
+That was premature. MP is a publisher with ad revenue where MonsterInsights'
+value-add over Site Kit's basic GA4 integration is real:
+
+- Scroll depth tracking (how far readers get into articles)
+- Outbound link tracking (where clicks from articles go)
+- Author / category performance reports
+- Forms tracking
+- Enhanced ecommerce (if sponsored-content transactions are tracked)
+
+**Before deciding:** check `wp option get monsterinsights_settings` on MP
+and inspect the MonsterInsights dashboard configuration. If these features
+are configured and being used by editorial:
+
+- Keep MonsterInsights on MP
+- **Disable Site Kit's GA4 module specifically** (keep Site Kit for Search
+  Console only) — prevents GA4 pageview double-counting
+
+If MonsterInsights is just default/unconfigured on MP:
+
+- Delete it like FSI did
+- Site Kit's GA4 module remains active
+
+Running both with default GA tracking = doubled pageview counts in GA4
+reporting. That is always wrong. The right direction (delete MI vs disable
+Site Kit GA module) depends on which provides the features MP actually uses.
 
 ---
 
@@ -141,7 +169,7 @@ scaffolded).
 
 | Priority | Plugin | Reason |
 |----------|--------|--------|
-| 🟡 | MonsterInsights | Redundant with Site Kit (same cleanup done on FSI) |
+| 🟡 | MonsterInsights vs Site Kit | **Audit first** — don't assume FSI's deletion decision applies. See note below. |
 | 🟡 | Simple History | Redundant with Stream |
 | 🟡 | Better Search Replace | Migration tool left active |
 | 🟢 | ElementsKit Lite or Envato Elements | Likely only one is actively used; audit widget usage |
