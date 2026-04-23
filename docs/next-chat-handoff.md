@@ -3,11 +3,14 @@
 Use this as the opening message in the next Claude Desktop project chat.
 Updated at the end of each session with what was completed and what's next.
 
-Last updated: 2026-04-22 (evening — implementation order confirmed)
-Last completed: Portfolio-wide page-builder decision (Elementor standardization),
-                MortgagePoint + AMAA audits, three site profiles written,
-                6 docs updated to reflect new direction,
-                implementation order locked (LLSS first, then events portal, then Velocity, then membership/profession pages)
+Last updated: 2026-04-23 (The7 dependency audit completed)
+Last completed: The7 dependency audit on thefivestar.com production —
+                CPTs, shortcodes, widgets, nav, and homepage scoped for
+                eventual Hello Elementor swap cost. Findings memorialized
+                in `sites/thefivestar/the7-dependency-audit.md`.
+                Prior session (2026-04-22 evening): Portfolio-wide
+                Elementor standardization decision + implementation order
+                (LLSS → events portal → Velocity → membership/profession).
 
 ---
 
@@ -24,9 +27,10 @@ Continuing FSG Media WP ops. Before responding, read these files in order:
 5. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/site-profile.md`
 6. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/plugin-inventory.md`
 7. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/wpbakery-migration.md`
-8. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/mortgagepoint/site-profile.md`
-9. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/amaaonline/site-profile.md`
-10. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/docs/sops/ssh-session-startup.md`
+8. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/the7-dependency-audit.md`
+9. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/mortgagepoint/site-profile.md`
+10. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/amaaonline/site-profile.md`
+11. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/docs/sops/ssh-session-startup.md`
 
 Then confirm you've read them and summarize:
 
@@ -42,7 +46,62 @@ Do not proceed until that summary is confirmed.
 
 ---
 
-## Completed this session (2026-04-22)
+## Completed this session (2026-04-23)
+
+### The7 dependency audit on thefivestar.com production ✅
+
+Motivating question: Portfolio standardization decision (2026-04-22) defers
+the theme direction ("keep The7 vs swap to Hello Elementor") as separate
+later decision. Need real data on swap cost before committing to two themes
+across the portfolio.
+
+Method: SSH + WP-CLI read-only queries against production (`thefivestar`).
+
+Findings (full detail in `sites/thefivestar/the7-dependency-audit.md`):
+
+- **CPT data:** 17 records across 5 The7 CPTs; 3 CPTs empty; none actively
+  displayed via shortcode or widget. Near-zero swap cost for this layer.
+- **Shortcode consumption:** Only 3 pages reference `dt_team`; zero reference
+  the other 4 The7 CPTs. Low swap cost.
+- **Widgets in active areas:** 5 The7 widget instances, all simple chrome
+  (3 DT-Custom menus, 1 DT-Contact form, 1 DT-Contact info). Zero The7 CPT
+  widgets placed. Direct Elementor Pro equivalents exist. Low swap cost.
+- **TFSI primary nav:** 7 top-level items, 3 children, max depth 2, zero
+  mega-menu metadata despite the setting being enabled. Rebuilds as a
+  standard Elementor Pro Nav Menu widget. Low swap cost.
+- **Homepage (page 363, slug `home`):** Live WPBakery (20,290 chars of
+  shortcodes), with Revolution Slider hero driven through The7's slideshow
+  system and per-page The7 header/footer overrides. **Medium swap cost** —
+  one meaningful rebuild.
+- **Second Home page (4909, slug `home-2`, private):** Empty Elementor
+  stub, 189 chars, abandoned since Feb 2026.
+
+### Site profile slug corrections identified (not yet backported)
+
+The7 CPT slugs in `sites/thefivestar/site-profile.md` have two errors:
+- "Portfolio (slug: `project`)" — correct slug is `dt_portfolio`
+- "Slideshows" — correct slug is `dt_slideshow` (singular)
+
+Backport to site-profile.md in next session. The dependency audit doc has
+the correct slugs.
+
+### Decisions doc updated ✅
+
+`docs/decisions.md` 2026-04-22 entry, "Open items pending Jonathan's input"
+section, theme-direction item updated with a pointer to the audit doc and
+a summary of findings. Decision itself stays open — audit recommends
+revisiting at Phase 4 kickoff, not now.
+
+### Files written this session
+
+- `sites/thefivestar/the7-dependency-audit.md` (new, 218 lines)
+- `docs/decisions.md` (edited — theme-direction open item)
+- `docs/next-chat-handoff.md` (this file — metadata + new session block +
+  Open questions update)
+
+---
+
+## Completed previous session (2026-04-22)
 
 ### MortgagePoint audit ✅
 
@@ -416,7 +475,11 @@ iteration and eliminate "SSH container recycled" delays for development work.
 ## Open questions carried forward
 
 1. Theme direction — keep The7 on FSI and AMAA, or swap to Hello Elementor?
-   (Separate later decision; not a blocker for Phase 1)
+   Scoping audit completed 2026-04-23: `sites/thefivestar/the7-dependency-audit.md`.
+   Summary: swap is bounded-scope (low cost on CPTs / shortcodes / widgets /
+   nav; medium cost on homepage rebuild). Not a blocker for Phase 1-3.
+   Audit recommendation: revisit at Phase 4 kickoff with real migration
+   experience to inform the call.
 2. Design direction for the Phase 1 Elementor event-page template — reuse
    existing FSI visual language or introduce redesign concurrent with builder
    migration? (Recommend: reuse existing tokens to de-risk Phase 1; visual

@@ -146,7 +146,11 @@ the pattern is proven.
 
 **Open items pending Jonathan's input (not blockers to starting):**
 
-1. Theme direction (The7 kept vs Hello Elementor swap) — separate later decision
+1. Theme direction (The7 kept vs Hello Elementor swap) — separate later decision.
+   Scoping audit completed 2026-04-23: see `sites/thefivestar/the7-dependency-audit.md`.
+   Findings: CPT/shortcode/widget/nav layers are low-cost; homepage rebuild is
+   the one medium-cost item. Recommendation in the audit is to revisit this
+   question at Phase 4 kickoff, not now.
 2. Elementor Pro license cleanup — ~10 defunct site activations to prune before
    adding FSI to the license
 3. Elementor Pro 3.35.1 → 4.0.3 update on MortgagePoint — needs proven path
