@@ -54,6 +54,19 @@ in rough order:
 License: Elementor Pro Expert tier, subscription 13620718, 25 activations.
 thefivestar.com is one of the assigned activations.
 
+**Phase 1.3 status (2026-04-23):** Global Kit v1 live on staging. Kit spec at
+`elementor-global-kit-spec.md`; kit zip committed at `elementor-global-kit-v1.zip`.
+The7+Elementor CSS specificity finding noted — see
+`the7-elementor-specificity-notes.md`. Phase 1.11 promotes kit to production
+via Templates → Kits & Templates → Import.
+
+**Elementor v4 structural note:** v4 removed Theme Style, Typography, and
+Buttons panels from Site Settings. Global kit scope in v4 = Global Colors +
+Global Fonts + Layout + Custom CSS. Button styling is per-widget, saved as
+Global Widgets — Phase 1.4 deliverable. Older docs referencing
+`Elementor → Tools → Export Kit` are stale; v4 path is
+`Templates → Kits & Templates`.
+
 ---
 
 ## SEO

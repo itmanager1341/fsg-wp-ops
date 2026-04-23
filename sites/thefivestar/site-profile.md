@@ -1,6 +1,6 @@
 # Site Profile: thefivestar.com
 
-Last audited: 2026-04-18 (live WP-CLI via SSH — source of truth)
+Last audited: 2026-04-23 (Phase 1.3 verified Elementor 4.0.2 + Pro 4.0.2; The7 14.3.0)
 
 ## Install
 
@@ -23,19 +23,26 @@ Last audited: 2026-04-18 (live WP-CLI via SSH — source of truth)
 | Staging | `thefivestarstg` | https://thefivestarstg.wpenginepowered.com | 8.4 |
 | Dev | `thefivestardev` | https://thefivestardev.wpenginepowered.com | 8.4 |
 
-## Theme
+## Theme + builder stack
 
 | Field | Value |
 |-------|-------|
 | Theme | The7 by Dream-Theme |
-| Version | **14.3.0** (slug: `dt-the7`) |
-| Page builder mode | **WPBakery** in Theme Settings (transitional — Elementor is the forward builder per 2026-04-22 decision; mode setting does not prevent Elementor pages from working) |
+| Version | **14.3.0** (slug: `dt-the7`) — verified 2026-04-23 |
+| Elementor | **4.0.2** (active on staging; verify prod separately at Phase 1.11) |
+| Elementor Pro | **4.0.2** (active on staging) |
+| Page builder mode (theme option) | **WPBakery** in Theme Settings (transitional — Elementor is the forward builder per 2026-04-22 decision; mode setting does not prevent Elementor pages from working) |
 | Mega Menu | Enabled |
 | DB auto-update | Enabled |
 | Legacy Deprecated Mega-Menu Settings | Enabled (existing nav relies on this) |
 
 **Note:** The7 v14.3.0 is the current version — the WP Admin screenshot showed WordPress 6.9.4
 in the footer, which I earlier incorrectly recorded as The7's version. Corrected from live data.
+
+**Elementor v4 note:** v4 removed the Theme Style, Typography (H1-H6 panel), and
+Buttons panels that existed in v3.x. Global kit configuration is:
+Global Colors + Global Fonts + Layout + Custom CSS. Button presets in v4 are
+per-widget, saved as Global Widgets. See `elementor-global-kit-spec.md`.
 
 ## Active custom post types (via The7)
 
@@ -88,3 +95,40 @@ Last reviewed: 2026-04-21
 | 🟡 Med | fsi-event-styles.php not on production | Pending production deploy ⏳ |
 | 🟡 Med | Event pages (LLSS, hub rebuild, nav) staging-only | Pending production promotion ⏳ |
 | 🟡 Med | WPBakery chain — maintenance-only under 2026-04-22 decision | SOP only needed if critical update ships before chain retires |
+
+## Elementor Global Kit v1
+
+**Live on staging 2026-04-23.** Phase 1.3 complete.
+
+- Spec + token values: `elementor-global-kit-spec.md`
+- Kit export artifact: `elementor-global-kit-v1.zip` (5.4KB; 4 JSON files — site-settings, custom-fonts, custom-code, manifest)
+- Verification page: `/kit-test/` on staging (retain permanently as regression canary — do not delete)
+- Production promotion: Phase 1.11 via Templates → Kits & Templates import
+
+## Elementor Custom Code inventory
+
+Separate from Site Settings → Custom CSS. These blocks inject into page
+`<head>` via Elementor's Custom Code feature (not Site Settings; different UI).
+Discovered 2026-04-23 in the kit-export `custom-code.json`.
+
+| ID | Title | Location | Priority | Conditions |
+|----|-------|----------|----------|------------|
+| 4840 | Naylor | `elementor_head` | 1 | `include/general` (all pages) |
+| 4527 | Apollo | `elementor_head` | 1 | `include/general` (all pages) |
+
+Both are tracking-pixel injection blocks (sitewide). Flag for audit:
+- Confirm both are still-in-use integrations (Naylor = job board? Apollo = CRM?)
+- If either is stale, trash via Elementor → Custom Code
+- Not blocking Phase 1.4
+
+## The7 + Elementor CSS specificity
+
+Phase 1.3 surfaced that The7 out-specifies plain element selectors. Custom CSS
+must be scoped to Elementor widget classes (e.g. `.elementor-widget-heading
+.elementor-heading-title`) to take effect. Full findings + forward plan:
+`the7-elementor-specificity-notes.md`.
+
+**Implication:** Every Elementor widget type used in Phase 1-5 templates
+likely needs matching scoped override rules. Raises total cost of keeping
+The7 vs swapping to Hello Elementor — factored into Phase 4 kickoff
+theme-direction revisit.

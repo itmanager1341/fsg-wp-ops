@@ -57,6 +57,11 @@
 ## Do not
 
 - Do not create new pages in WPBakery. New pages = Elementor only.
+- Do not wire new pages into navigation (top nav, mobile nav, footer) without
+  explicit per-entry approval in chat. Publishing a new page is authorized;
+  exposing it via nav is not. Standing rule, not per-phase. Single pre-approved
+  exception: Phase 2 Events hub migration may replace the existing `/conferences/`
+  top-nav entry with `/events/`. No other nav changes inherit this approval.
 - Do not update WPBakery, Ultimate Addons, The7 Elements, or The7 theme independently
   — update as a group on staging (see `docs/sops/plugin-update.md`).
   Lower priority under the standardization decision but still required if the
@@ -67,14 +72,45 @@
 - Do not activate Gutenberg as the editor for WPBakery pages that haven't been
   migrated yet — they render raw shortcodes.
 
+## IA structure for Phase 4 (locked 2026-04-23)
+
+Phase 4 authors TWO templates, not one. Memberships and Communities are
+distinct IA structures and visually distinct templates.
+
+- **`/memberships/`** — existing member groups (FORCE, Legal League, AMDC,
+  PPEF, NMSA, MSEA) plus new Five Star Alliance Membership. Update in place.
+  Template: "FSI Membership Page."
+- **`/communities/`** — NEW subfolder. Children: Mortgage Finance, Legal, RE
+  Pro, Prop Pres (profession-based audience cuts). Greenfield authoring.
+  Template: "FSI Community Page" — visually distinct from Membership per
+  Jonathan's direction.
+
+`/memberships/` keeps its existing URL structure and parent nav entry;
+`/communities/` requires fresh nav approval before wiring.
+
 ## Transition state notes
 
+- **Phase 1.3 complete (2026-04-23):** Elementor Pro Global Kit v1 is live
+  on FSI staging. Kit spec: `sites/thefivestar/elementor-global-kit-spec.md`.
+  Kit export artifact: `sites/thefivestar/elementor-global-kit-v1.zip`.
+  Regression canary page: `/kit-test/` on staging — do not delete.
+- **The7 CSS specificity fights Elementor.** Any Custom CSS targeting plain
+  HTML elements (`h1, p, a`, etc.) will be overridden by The7. Scope CSS to
+  Elementor widget classes (`.elementor-widget-heading .elementor-heading-title`,
+  etc.). See `sites/thefivestar/the7-elementor-specificity-notes.md` for
+  the full finding. Every new widget type used in templates likely needs
+  matching scoped override rules.
+- **Elementor v4 note:** v4.0.2 on staging. v4 removed Theme Style,
+  Typography, and Buttons panels. Kit configuration = Global Colors + Global
+  Fonts + Layout + Custom CSS. Button presets are per-widget saved as Global
+  Widgets (Phase 1.4 deliverable). Kit export path is `Templates → Kits &
+  Templates`, not the older `Elementor → Tools → Export Kit`.
 - Classic Editor and Classic Widgets remain active while WPBakery pages exist.
   They can retire only after all pages are Elementor-native.
 - The7 Theme Settings page-builder mode: leave as-is for now. Elementor pages
   work inside The7 regardless of this setting. Touching it risks breaking
   existing WPBakery pages during transition.
 - `fsi-event-styles.php` mu-plugin stays deployed. During transition it backs
-  plain-HTML event pages. After migration, its role shrinks — most tokens move
-  into the Elementor Pro global kit; the mu-plugin retains only CSS the kit
-  can't express.
+  plain-HTML event pages. After Phase 1.4 LLSS ships, the Elementor Pro global
+  kit owns brand tokens; the mu-plugin retains only CSS the kit can't express
+  (may retire entirely by end of Phase 3).

@@ -288,6 +288,44 @@ are touched for editorial or structural updates.
 - Event pages: build from the FSI Event Page Elementor template (established
   during the first migration wave — Events hub, Velocity, LLSS)
 
+**Elementor v4 global kit reality (confirmed 2026-04-23 on staging,
+Elementor + Elementor Pro 4.0.2):**
+
+Elementor v4 removed the Theme Style, Typography (H1–H6 color panel), and
+Buttons panels that existed in v3.x. Site Settings in v4 is a short list:
+Global Colors, Global Fonts, Site Identity, Background, Layout, Lightbox,
+Page Transitions, Custom CSS, Additional Settings.
+
+- **Global colors** → Site Settings → Global Colors (4 standard + custom)
+- **Fonts** → Site Settings → Global Fonts (4 typography tokens)
+- **Breakpoints + content width** → Site Settings → Layout
+- **Heading color/size** → Site Settings → Custom CSS, scoped to Elementor
+  widget classes (see below)
+- **Buttons** → per-widget, saved as Global Widget — NOT a Site Settings
+  panel in v4
+- **Export the kit** → `Templates → Kits & Templates` (not `Elementor →
+  Tools → Export Kit` — that path is stale; v4 moved it)
+
+Kit artifact: `sites/thefivestar/elementor-global-kit-v1.zip` is the
+canonical export (5.4KB, 4 JSON files). Re-export and overwrite after any
+kit change.
+
+**The7 + Elementor CSS specificity rule** (confirmed 2026-04-23, FSI
+staging): The7's CSS targets Elementor widget classes directly
+(`.elementor-heading-title`, etc.) and out-specifies plain element
+selectors. Custom CSS like `h1, h2, h3 { color: ... }` will NOT take
+effect. Scope every rule to the Elementor widget class:
+
+```css
+.elementor-widget-heading .elementor-heading-title { color: #1f365c; }
+.elementor-widget-heading h2.elementor-heading-title { font-size: 26px; }
+```
+
+See `sites/thefivestar/the7-elementor-specificity-notes.md` for the full
+finding. Expect similar fights on body text, links, lists, buttons, and
+images. Each widget type used in templates likely needs matching override
+rules.
+
 **For existing WPBakery pages:**
 - Edit via WP Admin → Pages → Backend Editor (WPBakery)
 - Do NOT switch a WPBakery page to Gutenberg or Elementor without doing the

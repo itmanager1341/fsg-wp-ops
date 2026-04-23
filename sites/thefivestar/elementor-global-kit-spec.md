@@ -12,7 +12,9 @@ in Custom CSS (for global rules) or per-widget (for button presets saved
 as global widgets). Do NOT look for a "Buttons" or "Typography" section
 under Site Settings — they are not there.
 
-**Status:** Phase 1.3 in progress (WP Admin → Elementor → Site Settings).
+**Status:** Phase 1.3 COMPLETE (2026-04-23). Kit live on FSI staging,
+verified on `/kit-test/`. Kit zip exported and committed to
+`elementor-global-kit-v1.zip` (5.4KB, 4 JSON files — contents verified).
 **Source of truth:** this file.
 **Decision basis:** 2026-04-22 portfolio standardization + 2026-04-23
 design-direction lock (reuse existing visual language for Phase 1–3;
@@ -202,19 +204,42 @@ Phase 1.7 before the LLSS approval gate.
 
 ## 7. Export + persist
 
-After sections 1–4 are saved and verified:
+**Export path in Elementor v4.0.2 (verified 2026-04-23):**
 
-1. Site Settings → (close) → WP Admin → Elementor → Tools → Import / Export Kit
-2. Export Kit → include: Site Settings, Global Colors, Global Fonts, Layout, Custom CSS
-3. Exclude: Content (pages/posts — those migrate per phase)
-4. Download the `.zip` and save to:
+`WP Admin → Templates → Kits & Templates → Export`
 
-   ```
-   fsg-wp-ops/sites/thefivestar/elementor-global-kit-v1.zip
-   ```
+Older docs reference `Elementor → Tools → Export Kit`. That path is stale
+in v4 — the feature moved to the Templates menu. Export produces a `.zip`.
 
-5. Commit to the ops repo. This is the artifact transferred to production
-   in Phase 1.11 and to AMAA in Phase 7.
+**Include in the export:**
+- Site Settings (Global Colors, Global Fonts, Layout, Custom CSS)
+
+**Exclude from the export:**
+- Content (pages/posts — those migrate per phase)
+- Templates (phase-specific; exported separately once built)
+
+Save the zip as:
+
+```
+fsg-wp-ops/sites/thefivestar/elementor-global-kit-v1.zip
+```
+
+**Verified kit zip contents (2026-04-23 post-export inspection):** 5.4KB
+archive, 4 JSON files:
+
+| File | What's in it |
+|------|--------------|
+| `site-settings.json` | Global Colors (system + custom), Layout + breakpoints, `custom_css` (the heading CSS block) |
+| `custom-fonts.json` | Global Fonts (4 typography tokens) |
+| `custom-code.json` | Elementor "Custom Code" entries (separate from Custom CSS — site-wide head/body injection blocks). FSI has 2: Naylor + Apollo tracking pixels. **Note:** if promoting kit to production, these entries will import as well — verify prod already has them, or exclude before import |
+| `manifest.json` | Kit metadata, version info |
+
+This is the transferable artifact for Phase 1.11 (production promotion)
+and for AMAA in Phase 7 — kit contents are environment-agnostic.
+
+**Import on production (Phase 1.11):** WP Admin → Templates → Kits &
+Templates → Import. Review what imports (especially `custom-code.json`)
+before confirming.
 
 ---
 

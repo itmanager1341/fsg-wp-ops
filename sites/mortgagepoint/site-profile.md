@@ -243,9 +243,38 @@ this site needs it too — the warning fires here.
 | 🟡 Med | aioseo-redirects PHP warning NOT suppressed here | Same upstream bug as FSI. Deploy `fsg-suppress-aioseo-warning.php` via Workflow A |
 | 🟡 Med | Two Elementor add-on libraries (ElementsKit + Envato Elements) | Likely redundant — audit which widgets are actually used |
 | 🟢 Low | Legacy Main menu (8 items) still exists alongside Main 2026 | Trash after verifying nothing references it |
-| 🟢 Low | MonsterInsights (`google-analytics-for-wordpress`) active alongside Site Kit | Same redundancy that was cleaned up on FSI. Staging test, then remove |
+| 🟡 Med | MonsterInsights + Site Kit BOTH injecting GA4 (`G-3ZF6013VSR`) — double pageview counting | **Keep MonsterInsights; disable Site Kit's GA4 snippet.** Opposite of FSI pattern. See MonsterInsights audit below. |
 | 🟢 Low | Simple History + Stream both installed | Two activity-log plugins — pick one |
 | 🟢 Low | Hello Elementor has update 3.4.7 available | Low risk; schedule with next Elementor chain update |
+
+## MonsterInsights audit (2026-04-23)
+
+**Finding: keep MonsterInsights on MP — opposite of FSI pattern.**
+
+MP's MonsterInsights (`google-analytics-for-wordpress` v10.1.3) has
+real configured features that Site Kit doesn't replicate:
+
+| Feature | MonsterInsights value | Site Kit equivalent |
+|---------|----------------------|---------------------|
+| Affiliate link tracking | `/go/`, `/recommend/` labeled "affiliate" | Not available |
+| File download tracking | `doc,pdf,ppt,zip,xls,docx,pptx,xlsx` | Not available |
+| Enhanced link attribution | Enabled | Not available |
+| Demographics tracking | Enabled | Not available |
+| Email summaries | Weekly to `sasa.vidakovic@gmail.com` | Not available |
+
+Site Kit has `analytics-4` module active with `useSnippet: true`
+(measurement ID `G-3ZF6013VSR`). MonsterInsights also injects a GA4 tag.
+**Result: double pageview counting.**
+
+**Cleanup action (pending):** Site Kit → Analytics → disable snippet output.
+Keep Site Kit for Search Console + AdSense + PageSpeed Insights + Tag
+Manager + Ads modules (all active per `googlesitekit_active_modules`).
+Staging first (requires MP staging SSH alias — see Open Questions in
+next-chat-handoff). Explicit approval gate → production.
+
+**Contrast with FSI:** FSI's MonsterInsights install was default-config,
+no affiliate/download/attribution setup — that's why deletion made sense.
+Do NOT apply FSI's "delete MonsterInsights" playbook to MP.
 
 ## Portfolio fit — why this site matters to the thefivestar + amaaonline redesign decision
 
