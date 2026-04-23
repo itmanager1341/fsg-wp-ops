@@ -1,214 +1,241 @@
-# FSI Elementor Pro Global Kit — v1 Spec
+# FSI Elementor Pro Global Kit — v1 Spec (Elementor v4)
 
-Authoritative source for the Elementor Pro Site Settings / Global Kit on
-thefivestar.com staging. Every value below is extracted from the current
-production-proven `fsi-event-styles.php` v1.1 so visually-nothing changes
-when pages migrate from plain-HTML-in-WPBakery to Elementor.
+Authoritative source for the Elementor Pro Site Settings on thefivestar.com
+staging. Every value below is extracted from the production-proven
+`fsi-event-styles.php` v1.1 so visually-nothing changes when pages migrate
+from plain-HTML-in-WPBakery to Elementor.
 
-**Status:** Awaiting Phase 1.3 execution (WP Admin → Elementor → Site Settings).
-**Source of truth:** this file. Re-export the kit `.zip` to `elementor-global-kit-v1.zip`
-in this directory after any change so it's versionable and transferable to
-production.
+**Elementor version targeted: 4.0.x.** This spec has been corrected for v4
+— Elementor v4 removed the Theme Style, Typography (heading color/size as
+a panel), and Buttons panels that existed in v3.x. Those settings now live
+in Custom CSS (for global rules) or per-widget (for button presets saved
+as global widgets). Do NOT look for a "Buttons" or "Typography" section
+under Site Settings — they are not there.
 
-**Decision basis:** 2026-04-22 portfolio standardization + 2026-04-23 design
-direction lock (reuse existing visual language for Phase 1-3; redesign is a
-separate pass after Phase 3).
+**Status:** Phase 1.3 in progress (WP Admin → Elementor → Site Settings).
+**Source of truth:** this file.
+**Decision basis:** 2026-04-22 portfolio standardization + 2026-04-23
+design-direction lock (reuse existing visual language for Phase 1–3;
+redesign is a separate pass after Phase 3).
+
+---
+
+## Elementor v4 Site Settings — what panels exist
+
+From a live Site Settings panel on FSI staging (Elementor 4.0.x):
+
+**Design System:**
+- Global Colors ← configure
+- Global Fonts ← configure
+
+**Settings:**
+- Site Identity — skip (leave to The7 for now)
+- Background — skip (per-page, not global)
+- Layout ← configure (Content Width + Breakpoints)
+- Lightbox — skip (defaults fine)
+- Page Transitions — skip (defaults fine)
+- Custom CSS ← configure (heading colors + sizes)
+- Additional Settings — skip
+
+**What v4 does NOT have that older docs/spec v0 referenced:**
+- ❌ Theme Style panel
+- ❌ Typography panel (H1–H6 color pickers)
+- ❌ Buttons panel (preset styles)
+
+Button styles in v4 are built per-widget and saved as Global Widgets. We do
+this during Phase 1.4 (LLSS build), not during global-kit setup.
 
 ---
 
 ## 1. Global Colors
 
-WP Admin → Elementor → Site Settings → Global Colors
+Path: Site Settings → Design System → Global Colors
 
-| Name | Hex | Role |
+**Standard slots (4):**
+
+| Slot | Hex | Role |
 |------|-----|------|
 | Primary | `#1f365c` | Navy — brand primary, hero bg, card accents, primary buttons |
 | Secondary | `#c9a040` | Gold — accent, hero CTA, callout background, left-border features |
 | Text | `#444444` | Body text |
 | Accent | `#666666` | Muted text (event location, card meta) |
 
-**Custom colors (add under Custom Colors, not the 4 standard slots):**
+**Custom Colors (add via "+ Add Item" under Custom Colors):**
 
 | Name | Hex | Usage |
 |------|-----|-------|
 | Navy Hover | `#162848` | Primary button hover, navy link hover |
 | Gold Hover | `#b8922e` | Gold CTA hover |
 | Offwhite | `#f7f7f5` | Muted section background, card inner bg |
-| Border | `#e0e0dc` | Card borders, hr-style dividers |
+| Border | `#e0e0dc` | Card borders, dividers |
 | Light Grey | `#cfd5de` | Hero tagline subtext |
 | Gold Text Dark | `#3d2e00` | Text on gold bg (eyebrow, detail) |
-| Hero Overlay | `rgba(31, 54, 92, 0.85)` | Hero background image overlay |
+
+Hero overlay (`rgba(31, 54, 92, 0.85)`) is not settable as a Global Color —
+it has opacity and Global Colors are opaque-only. Applied as inline
+background overlay on hero sections.
 
 ---
 
 ## 2. Global Fonts
 
-WP Admin → Elementor → Site Settings → Global Fonts
+Path: Site Settings → Design System → Global Fonts
 
-Use The7 theme font (current site default) — do not introduce a new typeface
-for Phase 1. Capture whatever The7 is serving today under each role; the kit
-records the computed values so future theme swaps preserve typography.
+Keep The7's current font family (Arial based on the FSI screenshot).
+Capture the tokens — Elementor uses these as typography variables that
+widgets can bind to.
 
-| Role | Size | Weight | Line height | Notes |
-|------|------|--------|-------------|-------|
-| Primary | 16px | 400 | 1.6 | Body base |
-| Secondary | 15px | 400 | 1.55 | Muted section body, section intro |
-| Text | 14px | 400 | 1.55 | Card text, event descriptions, small |
-| Accent | 13px | 700 | 1 | Button labels, small headings |
+| Token | Family | Weight | Size | Line height | Notes |
+|-------|--------|--------|------|-------------|-------|
+| Primary | Arial | 400 | 16px | 1.6 | Body base |
+| Secondary | Arial | 400 | 15px | 1.55 | Muted section body, section intro |
+| Text | Arial | 400 | 14px | 1.55 | Card text, event descriptions |
+| Accent | Arial | 700 | 13px | 1 | Small caps, eyebrow, labels |
 
-**Headings (set via Typography → Headings, not Global Fonts):**
+**Global Fonts does not include a color field** — that's per-widget (or
+applied via the Custom CSS in section 4).
 
-| Tag | Size | Weight | Color | Notes |
-|-----|------|--------|-------|-------|
-| H1 | Theme default | — | Primary (`#1f365c`) | Page title — do not override unless current H1 diverges |
-| H2 | 26px | Theme default | Primary (`#1f365c`) | Section headings; callout gold heading size matches |
-| H3 | 20px | Theme default | Primary (`#1f365c`) | Event title, muted section heading |
-| H4 | 18px | Theme default | Primary (`#1f365c`) | Card title, membership card title |
-| Small | 11px | 700 | Primary (`#1f365c`) | Uppercase eyebrow text; set `text-transform: uppercase` + `letter-spacing: 1.2px` |
-
-**If The7 theme currently serves different weights/families than expected,
-capture what it's actually serving — not what we wish it served.** The
-visual continuity goal depends on matching current rendered output.
+If The7 serves a different family than Arial (verify in DevTools: inspect
+an `<h2>` on the live LLSS page, note `computed > font-family`), use
+whatever is actually rendering, not Arial by default.
 
 ---
 
-## 3. Buttons
+## 3. Layout
 
-WP Admin → Elementor → Site Settings → Buttons
-
-### Primary (navy solid — default action)
-
-| Property | Value |
-|----------|-------|
-| Typography size | 13px |
-| Typography weight | 700 |
-| Text color | `#ffffff` |
-| Background (normal) | `#1f365c` (Primary) |
-| Background (hover) | `#162848` (Navy Hover) |
-| Padding | 9px 22px |
-| Border radius | 4px |
-
-### Secondary — outline (navy border + white fill)
-
-| Property | Value |
-|----------|-------|
-| Typography size | 13px |
-| Typography weight | 700 |
-| Text color | `#1f365c` (Primary) |
-| Background (normal) | `#ffffff` |
-| Background (hover) | `#f0f4f8` |
-| Border | 2px solid `#1f365c` |
-| Padding | 9px 22px |
-| Border radius | 4px |
-
-### Gold — hero CTA (larger)
-
-Add as a third button style (Elementor → Site Settings → Buttons → Add Preset;
-or use a Custom CSS class `.btn-gold` scoped to the global kit).
-
-| Property | Value |
-|----------|-------|
-| Typography size | 16px |
-| Typography weight | 700 |
-| Text color | `#1f365c` (Primary) |
-| Background (normal) | `#c9a040` (Secondary) |
-| Background (hover) | `#b8922e` (Gold Hover) |
-| Padding | 14px 36px |
-| Border radius | 4px |
-
----
-
-## 4. Layout
-
-WP Admin → Elementor → Site Settings → Layout
+Path: Site Settings → Settings → Layout
 
 | Setting | Value | Notes |
 |---------|-------|-------|
-| Content Width | 1100px | Matches `fsi-page-wrap` max-width |
-| Widgets Space | 20px | Default gap between widgets |
+| Content Width | 1100 | Matches `.fsi-page-wrap` max-width |
+| Widgets Space | 20 | Default gap between stacked widgets |
 | Stretched Section Fit To | `body` | Full-width section containment |
 
-**Custom content-width widths for specific contexts** (set per-section, not global):
-- Narrow body text: 820px max (intro, muted section body)
-- Callout body text: 740px max
-
----
-
-## 5. Site Settings → Site Identity
-
-No changes. Leave The7 theme control intact during Phase 1-3. Revisit under
-the theme-direction decision (separate audit at Phase 4 kickoff).
-
----
-
-## 6. Image defaults — CLS prevention (critical)
-
-WP Admin → Elementor → Site Settings → Images (and Lightbox)
-
-| Setting | Value | Why |
-|---------|-------|-----|
-| Default Image Widget loading | `lazy` (below-fold), `eager` (above-fold overrides per widget) | Core Web Vitals |
-| Enforce explicit Width + Height on Image widget | **Yes** — training, not a toggle | Prevents CLS |
-
-**There is no single "enforce dimensions" toggle in Elementor.** This is a
-build-time discipline. Every Image widget on every page has explicit
-`width` and `height` values in pixels (not `auto`, not blank). Background-
-image sections have explicit `min-height` in px so the section reserves
-vertical space before the image loads.
-
-Acceptance criterion for every page built from this kit: Lighthouse CLS
-score < 0.1 under Slow 4G throttle.
-
----
-
-## 7. Responsive breakpoints
-
-WP Admin → Elementor → Site Settings → Layout → Breakpoints
+**Breakpoints** (Layout → Breakpoints section):
 
 | Breakpoint | Value | Notes |
 |------------|-------|-------|
-| Mobile | 480px | Small phone — matches current stylesheet |
-| Tablet | 768px | Larger phone / small tablet — matches current stylesheet |
-| Desktop | 1100px+ | Full layout |
+| Mobile | 480 | Matches `@media (max-width: 480px)` in current CSS |
+| Tablet | 768 | Matches `@media (max-width: 768px)` in current CSS |
+| Desktop | (derived) | Everything above 768px |
 
-Match the existing stylesheet breakpoints. Elementor's default tablet (768px)
-and mobile (767px) are very close — use 768px for tablet, 480px for mobile,
-which is what the current CSS uses.
-
----
-
-## 8. Export + persist
-
-After all settings above are saved:
-
-1. WP Admin → Elementor → Tools → Import / Export Kit → Export Kit
-2. Include: Site Settings (Global Colors, Global Fonts, Buttons, Layout, Images)
-3. Exclude: Content (Pages, Posts — those migrate individually per phase)
-4. Download the `.zip` and save it as:
-
-   ```
-   /Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/elementor-global-kit-v1.zip
-   ```
-
-5. Commit the zip to the ops repo. This is the transferable artifact for
-   production promotion in Phase 1.11 and for AMAA in Phase 7.
+Match the existing stylesheet exactly. Different breakpoint values would
+cause Elementor pages to respond at different widths than the current FSI
+pages — that breaks visual consistency during the transition.
 
 ---
 
-## 9. Verification checklist (after the kit is built)
+## 4. Custom CSS — heading colors + sizes
 
-Before moving to Phase 1.4 (LLSS page build):
+Path: Site Settings → Settings → Custom CSS
 
-- [ ] All 4 Global Colors set to the hex values above
-- [ ] 7 Custom Colors added for the extended palette
-- [ ] 3 Button presets (primary / outline / gold) visually match the current
-      event page buttons — side-by-side comparison with the WPBakery LLSS page
-- [ ] Typography renders identically to the current LLSS page at desktop,
-      tablet, and mobile widths
-- [ ] Content Width = 1100px
-- [ ] Export zip saved to the repo
-- [ ] A throwaway test page built with one of each (H1, H2, body paragraph,
-      primary button, gold button, section with offwhite bg) verifies the
-      kit is alive
+Elementor v4's CSS linter rejects CSS variables (`var(--e-global-color-*)`)
+inside `color:` properties. Use hardcoded hex values. Zero practical cost
+since we're not changing the Primary navy color.
 
-Once all boxes check, proceed to `llss-elementor-build-spec.md`.
+Paste:
+
+```css
+.elementor-heading-title { color: #1f365c !important; }
+
+h1.elementor-heading-title { font-size: 42px; line-height: 1.2; font-weight: 700; }
+h2.elementor-heading-title { font-size: 26px; line-height: 1.3; font-weight: 700; }
+h3.elementor-heading-title { font-size: 20px; line-height: 1.35; font-weight: 700; }
+h4.elementor-heading-title { font-size: 18px; line-height: 1.4; font-weight: 700; }
+```
+
+Save. The linter should go green. If it rejects anything, screenshot and
+flag — do not guess at workarounds.
+
+**Why this is scoped to `.elementor-heading-title` and not bare `h1, h2...`:**
+The7 targets Elementor's widget classes directly and out-specifies plain
+element selectors (verified on `/kit-test/` 2026-04-23). Scoping our rule
+to `.elementor-heading-title` does two things: beats The7's specificity
+without `!important` on sizes, and leaves The7's non-Elementor headings
+elsewhere on the site alone during transition. See
+`the7-elementor-specificity-notes.md` for the fuller finding and its
+implications for Phase 1.4+.
+
+**Why headings go in Custom CSS, not per-widget:** setting color per-widget
+means every Heading widget across every page needs the color set manually
+by whoever builds the page. One forgotten widget renders default grey text.
+Custom CSS applies globally — zero chance of drift.
+
+---
+
+## 5. Buttons — DEFERRED to Phase 1.4
+
+v4 has no Buttons panel in Site Settings. Buttons become a Phase 1.4 task:
+build the 3 styles (navy solid / navy outline / gold large) once on the
+LLSS page, right-click each → Save as Global Widget, then reuse from the
+global widget library across all future pages.
+
+Target specs (for Phase 1.4 reference, not for Site Settings):
+
+**Primary (navy solid):** 13px / weight 700 / white text / bg `#1f365c` /
+hover `#162848` / padding 9px 22px / radius 4px
+
+**Outline:** 13px / weight 700 / navy text / bg white / hover `#f0f4f8` /
+2px solid `#1f365c` border / padding 9px 22px / radius 4px
+
+**Gold (hero CTA):** 16px / weight 700 / navy text / bg `#c9a040` / hover
+`#b8922e` / padding 14px 36px / radius 4px
+
+---
+
+## 6. Image defaults — CLS prevention (discipline, not a toggle)
+
+Elementor has no global "enforce image dimensions" setting. CLS prevention
+is build-time discipline:
+
+- Every Image widget on every page: set Width and Height to explicit px
+  values (not `auto`, not blank)
+- Every background-image section: set Min Height in px
+- Below-fold images: Loading = Lazy (per-widget setting on the Image
+  widget's Advanced tab)
+- Above-fold images (hero): Loading = Eager
+
+Acceptance: Lighthouse CLS < 0.1 under Slow 4G throttle. Verify during
+Phase 1.7 before the LLSS approval gate.
+
+---
+
+## 7. Export + persist
+
+After sections 1–4 are saved and verified:
+
+1. Site Settings → (close) → WP Admin → Elementor → Tools → Import / Export Kit
+2. Export Kit → include: Site Settings, Global Colors, Global Fonts, Layout, Custom CSS
+3. Exclude: Content (pages/posts — those migrate per phase)
+4. Download the `.zip` and save to:
+
+   ```
+   fsg-wp-ops/sites/thefivestar/elementor-global-kit-v1.zip
+   ```
+
+5. Commit to the ops repo. This is the artifact transferred to production
+   in Phase 1.11 and to AMAA in Phase 7.
+
+---
+
+## 8. Verification gate before Phase 1.4
+
+Build a throwaway page at `/kit-test/` with:
+- H1 "Test Headline"
+- H2 "Section Heading"
+- Paragraph of lorem ipsum
+- Default Button widget (styled in 1.4, not here)
+
+Verify:
+
+- [ ] H1 + H2 render navy `#1f365c`
+- [ ] H2 is 26px; H3 (if tested) is 20px
+- [ ] Body is Arial 16px, line height ~1.6
+- [ ] Content width ~1100px (inspect in DevTools)
+- [ ] Tablet width (768–1100px) behaves correctly
+- [ ] Mobile width (<480px) behaves correctly
+- [ ] No console errors in DevTools
+- [ ] Kit zip exported and committed
+
+Once all boxes check, proceed to Phase 1.4 (LLSS build spec — written next
+session).

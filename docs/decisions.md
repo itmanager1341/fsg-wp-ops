@@ -7,6 +7,66 @@ New decisions go at the top.
 
 ---
 
+## 2026-04-23 — Nav-wiring requires explicit approval (globally)
+
+**Decision:** Any new navigation entry — top-nav, mobile nav, footer, any
+menu — requires explicit per-entry approval from Jonathan before being
+wired on production. Publishing a new page is authorized; exposing it via
+nav is not. This is a standing rule, not a per-phase rule.
+
+**Single pre-approved exception (standing):** The Phase 2 Events hub
+migration may replace the existing top-nav `/conferences/` entry with
+`/events/`. No other nav changes inherit this approval.
+
+**Rationale:** FSI's current nav reflects a specific go-to-market
+sequencing. Pages can be published and reviewed silently on production
+without exposing incomplete IA to users. Wiring to nav is the moment a new
+page becomes discoverable — that moment is business-sensitive and not
+delegable to engineering.
+
+**Consequences:**
+- Phase 2 events portal wiring pre-approved (the single exception).
+- Phase 4 `/communities/` nav wiring requires separate approval.
+- Phase 4 `/memberships/` updates don't require nav approval (existing
+  parent nav entry reused).
+- Build-and-stage discipline: always build new pages, verify on staging,
+  wire on staging, but hold production nav updates for approval.
+
+---
+
+## 2026-04-23 — Phase 4 splits into two distinct templates
+
+**Decision:** Phase 4 (originally "Membership / profession pages" as a
+single template in the 2026-04-22 portfolio standardization plan) splits
+into two visually-distinct Elementor Pro templates:
+
+1. **FSI Membership Page** — serving the `/memberships/` hub and its
+   children (FORCE, Legal League, AMDC, PPEF, NMSA, MSEA, and the new
+   Five Star Alliance Membership).
+2. **FSI Community Page** — serving the new `/communities/` hub and its
+   children (Mortgage Finance, Legal, RE Pro, Prop Pres).
+
+**Rationale:** Jonathan confirmed 2026-04-23 that memberships (member
+group affinity) and communities (profession-based audience cuts) serve
+different user intents and should look visually different. Treating them
+as one template would compromise both.
+
+**Consequences:**
+- Phase 4 scope doubles from template-count perspective (one → two).
+- Phase 5 (Who We Are / institutional) may become a third template or a
+  variant of one of these two; decide at Phase 5 kickoff after seeing
+  how similar the structural requirements end up being.
+- `/communities/` is greenfield — no existing pages to migrate, but also
+  no existing content or CSS to reference. Design work will be
+  comparatively larger than `/memberships/` which updates in place.
+- `/memberships/` retains its existing URL structure and existing child
+  pages — migration is in-place rebuild, not new page creation.
+
+**Handoff:** See `docs/next-chat-handoff.md` Phase 4 notes for current
+status and queue position.
+
+---
+
 ## 2026-04-22 — Portfolio standardization: Elementor + Elementor Pro everywhere (supersedes 2026-04-19)
 
 **Decision:** All FSG Media WordPress sites standardize on Elementor + Elementor Pro

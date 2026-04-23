@@ -3,14 +3,12 @@
 Use this as the opening message in the next Claude Desktop project chat.
 Updated at the end of each session with what was completed and what's next.
 
-Last updated: 2026-04-23 (The7 dependency audit completed)
-Last completed: The7 dependency audit on thefivestar.com production —
-                CPTs, shortcodes, widgets, nav, and homepage scoped for
-                eventual Hello Elementor swap cost. Findings memorialized
-                in `sites/thefivestar/the7-dependency-audit.md`.
-                Prior session (2026-04-22 evening): Portfolio-wide
-                Elementor standardization decision + implementation order
-                (LLSS → events portal → Velocity → membership/profession).
+Last updated: 2026-04-23 (Phase 1.3 complete — Elementor global kit live on staging)
+Last completed: MonsterInsights audit on MortgagePoint; CPT slug backport;
+                Phase 1.3 execution (Elementor Pro Global Kit v1 on FSI staging);
+                The7+Elementor CSS specificity finding captured;
+                IA update captured (Phase 4 splits into Memberships + Communities templates);
+                Nav-wiring rule tightened (all new nav entries require explicit approval)
 
 ---
 
@@ -28,462 +26,294 @@ Continuing FSG Media WP ops. Before responding, read these files in order:
 6. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/plugin-inventory.md`
 7. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/wpbakery-migration.md`
 8. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/the7-dependency-audit.md`
-9. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/mortgagepoint/site-profile.md`
-10. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/amaaonline/site-profile.md`
-11. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/docs/sops/ssh-session-startup.md`
+9. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/elementor-global-kit-spec.md`
+10. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/the7-elementor-specificity-notes.md`
+11. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/mortgagepoint/site-profile.md`
+12. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/amaaonline/site-profile.md`
+13. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/docs/sops/ssh-session-startup.md`
 
-Then confirm you've read them and summarize:
+Then confirm and summarize:
 
-- The 2026-04-22 portfolio standardization decision (what builder, what it
-  supersedes, what the first migration wave is)
-- Current state of thefivestar.com, amaaonline.com, themortgagepoint.com
-  (theme, builder, content volume at a glance)
-- The three deployment workflows (A/B/C) and when each applies
-- The production approval gate rule (verbatim from CLAUDE.md)
-- Current staging-only changes not yet promoted to production
+- Phase 1.3 outcome (kit live, CSS specificity finding, kit zip location)
+- Remaining Phase 1 subtasks (1.4 build LLSS → 1.11 prod promotion)
+- Phase 4 template split (Memberships + Communities distinct templates)
+- Nav-wiring rule (all new nav entries require explicit approval)
+- MortgagePoint MonsterInsights audit finding (keep MI, disable Site Kit GA4)
 
 Do not proceed until that summary is confirmed.
 
 ---
 
-## Completed this session (2026-04-23)
+## Completed this session (2026-04-23 afternoon)
 
-### The7 dependency audit on thefivestar.com production ✅
+### Phase 1.3 — Elementor Pro Global Kit v1 on FSI staging ✅
 
-Motivating question: Portfolio standardization decision (2026-04-22) defers
-the theme direction ("keep The7 vs swap to Hello Elementor") as separate
-later decision. Need real data on swap cost before committing to two themes
-across the portfolio.
+Executed via WP Admin (Workflow C) on `thefivestarstg.wpenginepowered.com`.
 
-Method: SSH + WP-CLI read-only queries against production (`thefivestar`).
+Settings applied:
+- **Global Colors** — 4 standard (Primary `#1f365c`, Secondary `#c9a040`,
+  Text `#444444`, Accent `#666666`) + 6 custom (Navy Hover, Gold Hover,
+  Offwhite, Border, Light Grey, Gold Text Dark)
+- **Global Fonts** — 4 tokens (Primary/Secondary/Text/Accent) matching
+  existing Arial + size/weight/line-height from `fsi-event-styles.php`
+- **Layout** — Content Width 1100px; breakpoints Mobile 480, Tablet 768
+- **Custom CSS** — heading color + H1-H4 sizes scoped to
+  `.elementor-widget-heading .elementor-heading-title`
 
-Findings (full detail in `sites/thefivestar/the7-dependency-audit.md`):
+Verification: `/kit-test/` staging page built with H1, H2, body, button.
+H1 renders 42px navy, H2 renders 26px navy, body Arial 16px, layout
+1100px-centered. **Kit-test page is retained as regression canary** — do
+not delete.
 
-- **CPT data:** 17 records across 5 The7 CPTs; 3 CPTs empty; none actively
-  displayed via shortcode or widget. Near-zero swap cost for this layer.
-- **Shortcode consumption:** Only 3 pages reference `dt_team`; zero reference
-  the other 4 The7 CPTs. Low swap cost.
-- **Widgets in active areas:** 5 The7 widget instances, all simple chrome
-  (3 DT-Custom menus, 1 DT-Contact form, 1 DT-Contact info). Zero The7 CPT
-  widgets placed. Direct Elementor Pro equivalents exist. Low swap cost.
-- **TFSI primary nav:** 7 top-level items, 3 children, max depth 2, zero
-  mega-menu metadata despite the setting being enabled. Rebuilds as a
-  standard Elementor Pro Nav Menu widget. Low swap cost.
-- **Homepage (page 363, slug `home`):** Live WPBakery (20,290 chars of
-  shortcodes), with Revolution Slider hero driven through The7's slideshow
-  system and per-page The7 header/footer overrides. **Medium swap cost** —
-  one meaningful rebuild.
-- **Second Home page (4909, slug `home-2`, private):** Empty Elementor
-  stub, 189 chars, abandoned since Feb 2026.
+Kit zip target location (awaiting Jonathan's export):
+`fsg-wp-ops/sites/thefivestar/elementor-global-kit-v1.zip`
 
-### Site profile slug corrections identified (not yet backported)
+### The7 + Elementor CSS specificity finding ✅ (documented)
 
-The7 CPT slugs in `sites/thefivestar/site-profile.md` have two errors:
-- "Portfolio (slug: `project`)" — correct slug is `dt_portfolio`
-- "Slideshows" — correct slug is `dt_slideshow` (singular)
+Phase 1.3 surfaced that The7 targets Elementor widget classes directly
+(`.elementor-heading-title`) and out-specifies plain element selectors.
+Plain `h1, h2, h3 { color: ... }` in Custom CSS doesn't take effect.
+Fix: scope every rule to `.elementor-widget-heading .elementor-heading-title`
+(specificity 0,0,2,1).
 
-Backport to site-profile.md in next session. The dependency audit doc has
-the correct slugs.
+Written to `sites/thefivestar/the7-elementor-specificity-notes.md`.
 
-### Decisions doc updated ✅
+**Implications:** expect similar specificity fights on body text, links,
+lists, buttons, and image styling. Each Elementor widget type used in
+templates likely needs a matching scoped override. This raises the
+"keep The7 vs swap to Hello Elementor" cost estimate meaningfully and
+should be revisited at Phase 4 kickoff with Phase 1 evidence in hand.
 
-`docs/decisions.md` 2026-04-22 entry, "Open items pending Jonathan's input"
-section, theme-direction item updated with a pointer to the audit doc and
-a summary of findings. Decision itself stays open — audit recommends
-revisiting at Phase 4 kickoff, not now.
+Flagged as future work: comprehensive specificity audit — build a page
+with every widget type we'll use in templates, catalogue which properties
+The7 overrides. ~30 min. Saves rework during Phase 1.4-1.6.
 
-### Files written this session
+### MonsterInsights audit on MortgagePoint ✅
 
-- `sites/thefivestar/the7-dependency-audit.md` (new, 218 lines)
-- `docs/decisions.md` (edited — theme-direction open item)
-- `docs/next-chat-handoff.md` (this file — metadata + new session block +
-  Open questions update)
+**Finding: keep MonsterInsights on MP, disable Site Kit's GA4 snippet.**
+
+Opposite of FSI pattern. MP's MonsterInsights has real configured features
+that Site Kit doesn't replicate:
+- Affiliate link tracking (`/go/`, `/recommend/`)
+- File download tracking (doc, pdf, ppt, zip, xls, docx, pptx, xlsx)
+- Enhanced link attribution
+- Demographics tracking
+
+Both tools currently inject the GA4 tag (`G-3ZF6013VSR`) — **double
+pageview counting**. Cleanup needed: Site Kit → Analytics → disable
+snippet output. Keep Site Kit for Search Console + AdSense + PageSpeed
+Insights dashboard modules only.
+
+Action still pending; recommended 5-min change during the next MP session.
+
+### CPT slug corrections backported ✅
+
+`sites/thefivestar/site-profile.md` updated — Portfolio is `dt_portfolio`
+(was `project`), Slideshows is `dt_slideshow` (was unlabeled), all 5 CPTs
+now show correct slugs and are cross-referenced to the dependency audit.
+
+### Phase 4 IA split locked (from Jonathan this session) ✅
+
+Phase 4 was originally "Membership / profession pages" — one template.
+Jonathan clarified these are two distinct IA structures with visually
+different templates:
+
+- **`/memberships/` hub** — existing member groups (FORCE, Legal League,
+  AMDC, PPEF, NMSA, MSEA) + new Five Star Alliance Membership. Update in
+  place. Template: "FSI Membership Page".
+- **`/communities/` hub** — NEW subfolder. Children: Mortgage Finance,
+  Legal, RE Pro, Prop Pres. Greenfield authoring. Template: "FSI Community
+  Page" (visually distinct from Membership).
+
+Phase 4 now authors **two** templates, not one. Phase 5 (Who We Are /
+institutional) may be a third or a variant of one of these two.
+
+### Nav-wiring rule tightened ✅
+
+Global rule for all new pages: **new pages can publish; new nav links
+stay staging-only until explicit approval.** Single pre-approved
+exception: the Phase 2 swap where `/events/` replaces `/conferences/` in
+the Events top-nav slot (`/conferences/` is what's currently wired).
+
+Any future nav addition — including `/communities/` when Phase 4 ships —
+requires fresh explicit approval. No inference, no assumption.
+
+### LLSS slug decision locked ✅
+
+Phase 1 uses the singular slug `legal-league-servicer-summit`. The plural
+`legal-league-servicers-summit` page (3579) on production is independent
+cleanup, not blocking. No redirect needed — per Jonathan, no meaningful
+traffic to fivestar.com means we're not optimizing for link equity on
+legacy URLs; at most add redirects on deprecated pages later.
+
+### Velocity scope clarified ✅
+
+- `thefivestar.com/velocity/` — old 2024 single-event lander. Unrelated
+  to Phase 3.
+- `thefivestar.com/events/velocity/` — the page Phase 3 replaces. Existing
+  page gets its content replaced by the new Elementor version.
 
 ---
 
-## Completed previous session (2026-04-22)
+## Next session priority: Phase 1.4 — LLSS Elementor build
 
-### MortgagePoint audit ✅
+### Prerequisites (must be true before starting)
 
-- Full stack audit via SSH + WP-CLI read-only queries
-- Hello Elementor 3.4.6 + Elementor 4.0.1 + Elementor Pro 3.35.1
-- Content: 3,351 posts, 102 pages, 41 publications, 31 podcasts, 85 people (guest-author)
-- 36 Elementor Pro theme-builder templates
-- 4 ad placements + 5 house ads (all cross-promoting FSI events)
-- Publishing cadence ~100/month consistent since 2025
-- Notable: DB prefix is `wp_lkihb5gwg6_` (non-default)
-- Written to `sites/mortgagepoint/site-profile.md` (267 lines)
-- Plugin inventory at `sites/mortgagepoint/plugin-inventory.md` (151 lines)
+1. Jonathan exports Elementor kit zip to `sites/thefivestar/elementor-global-kit-v1.zip`
+2. `/kit-test/` staging page retained (regression canary)
+3. Next session reads `sites/thefivestar/the7-elementor-specificity-notes.md`
+   before writing any CSS or building any widget
 
-### AMAA audit ✅
+### Subtasks
 
-- Theme: The7 14.3.1, same family as FSI
-- Hybrid state: WPBakery + Elementor Pro both active (22 pages + 23 posts on Elementor)
-- Content: 688 posts, 115 pages, 545 events, 178 deals, 127 tombstones, 24 podcasts
-- `wild-apricot-login` for SSO (being deprecated by FSG, not a constraint)
-- Full Toolset stack (Types, Views, Access, CRED, Layouts)
-- 85-item main menu — IA cleanup candidate
-- Written to `sites/amaaonline/site-profile.md` (247 lines)
-- Plugin inventory at `sites/amaaonline/plugin-inventory.md` (181 lines)
+**Step 1 — Write the LLSS build spec**
 
-### Portfolio standardization decision ✅
+`sites/thefivestar/llss-elementor-build-spec.md`. Section-by-section
+instructions for WP Admin (Workflow C). 8 sections from the template:
 
-**Decision:** Elementor + Elementor Pro is the sole page builder across
-thefivestar.com, amaaonline.com, and themortgagepoint.com. All new pages
-built in Elementor. WPBakery in maintenance-only mode; retires as migration
-completes. Written to `docs/decisions.md` 2026-04-22 entry.
+| # | Section | Key spec |
+|---|---------|----------|
+| 1 | Hero | Background image 1900×600px min-height; H1 + subhead + gold CTA |
+| 2 | Intro / Who Belongs | Optional side image 560×400px |
+| 3 | What Happens | Feature grid, icons 64×64, card images 400×300 |
+| 4 | Next Summit callout | Gold background, no images, min-height reserves space |
+| 5 | Recent Summit photo strip | 3 images, 360×240 each |
+| 6 | Membership cards | Card images 480×220 each |
+| 7 | Event Details | Optional location image 800×450 |
+| 8 | Final CTA | Background image 1900×400 min-height |
 
-**Supersedes:** 2026-04-19 "WPBakery only going forward" decision.
-Original entries preserved with supersede annotations.
+Each section spec includes: widgets used, global color bindings, explicit
+dimensions for images, CSS overrides likely needed (based on specificity
+findings), responsive behavior at 480/768 breakpoints.
 
-### Docs updated to reflect new direction ✅
+**Step 2 — Mid-phase checkpoint (Jonathan-approved in prior session)**
 
-Six files updated/created:
+Build ONLY Hero + Final CTA first. Save throwaway page. Verify:
+- Matches visual target from WPBakery LLSS reference
+- Lighthouse CLS < 0.1 under Slow 4G
+- Advanced Ads render in expected slots if present
+- No PHP errors
 
-1. `docs/decisions.md` — new 2026-04-22 entry at top; 2026-04-19 and earlier
-   2026-04-18 WPBakery decisions marked superseded (original text preserved)
-2. `brands/fsi/CLAUDE.md` — rewrote "WPBakery is the page builder" guidance
-   to reflect Elementor-forward direction; noted Classic Editor/Widgets are
-   retained only while WPBakery pages exist
-3. `docs/how-we-update-the-site.md` — Workflow C page-builder section rewritten;
-   WPBakery chain section reframed as maintenance-only; Elementor chain section
-   added; event page SOP marked transitional
-4. `sites/thefivestar/wpbakery-migration.md` — new tracker for WPBakery → Elementor
-   direction (replaces the superseded elementor-migration.md which was renamed
-   to `.superseded-2026-04-22`)
-5. `sites/thefivestar/site-profile.md` — open-issues table updated: Elementor
-   "phased out" → "on-standard"; WPBakery chain update 🔴 → 🟡 maintenance-only
-6. `sites/thefivestar/plugin-inventory.md` — WPBakery chain relabeled
-   maintenance-only; new Elementor chain section; Elementor plugins relabeled
-   from "Legacy" to "Forward builder"
+If checkpoint passes → build remaining 6 sections.
+If checkpoint fails → surface findings, re-plan before continuing.
 
-### Files written this session
+**Step 3 — Specificity audit widget-type inventory**
 
-- `sites/mortgagepoint/site-profile.md` (new)
-- `sites/mortgagepoint/plugin-inventory.md` (new)
-- `sites/amaaonline/site-profile.md` (new, then amended for Wild Apricot / EventON framing)
-- `sites/amaaonline/plugin-inventory.md` (new, then amended)
-- `sites/thefivestar/wpbakery-migration.md` (new — replaces elementor-migration.md)
+Before writing section specs, run a focused audit on `/kit-test/` or a
+new scratch page: add each widget type used in Phase 1-3 templates,
+note which properties The7 overrides. Catalogue into
+`the7-elementor-specificity-notes.md`. Saves iteration time in Step 1-2.
+
+Widgets to test: Heading (done), Text Editor, Button, Image, Icon Box,
+Image Box, Inner Section/Container, Spacer, Divider.
+
+**Step 4 — Hide The7 page-title bar on Elementor event pages**
+
+The7 Page Options (per-page, in WP Admin Page editor sidebar) → Page
+Title → Disable. Applied to LLSS, Velocity, Events hub as they're built.
+Prevents double-hero effect.
+
+**Step 5 — Subsequent steps per Phase 1 runbook**
+
+1.5 Save each section as Elementor Pro template →
+1.6 Combine into "FSI Event Page" master template →
+1.7 Full 8-check verification gate →
+1.8 Write `docs/sops/new-event-page-elementor.md` →
+1.9 Rename + swap on staging →
+1.10 🛑 Approval gate →
+1.11 Production promotion (create-new; LLSS doesn't exist on prod).
+
+---
+
+## Parallel work (can happen alongside Phase 1.4)
+
+### MortgagePoint — disable Site Kit GA4 snippet (15 min, 🟡 Med)
+
+Staging first (need MP staging SSH alias added to `~/.ssh/config`; not
+yet done). Then explicit approval gate → production. Resolves double-
+pageview issue.
+
+### FSI — plugin deletions to production (🟢 Low, Jonathan handles manually)
+
+Jonathan to execute: MonsterInsights, Image Optimizer, OptiMonster,
+EventON Lite. All currently deleted on staging; promote when convenient.
+
+### Elementor Pro license cleanup
+
+**Done per Jonathan this session** — 10 seats available on the license.
+Removed from open items.
+
+### MortgagePoint — Elementor Pro 3.35.1 → 4.0.3 upgrade path (🟡 Med)
+
+Needs MP staging SSH alias first. Then staging upgrade → verify →
+explicit approval gate → production. Unblocks Phase 7 (AMAA) reference.
+
+### FSI deprecation pass (🟡 Med)
+
+Identify ~200 legacy FSI pages that should be trashed rather than
+migrated. Needs GA4 / Site Kit data. Reduces Phase 6 scope significantly.
 
 ---
 
 ## Current staging-only changes
 
-Revised stance 2026-04-22 evening: **do NOT promote the WPBakery-era content
-pages to production.** We're in active development. Those pages are being
-replaced by Elementor versions in Phase 1-3 below. Promoting them to
-production only to replace them again is wasted work.
+Unchanged from 2026-04-22 stance — do NOT promote WPBakery-era content
+pages to production.
 
 | Change | Type | Staging | Production plan |
-|--------|------|---------|----------------|
-| MonsterInsights deleted | Plugin | ✅ deleted | Hygiene — can promote anytime, not urgent |
-| Image Optimizer deleted | Plugin | ✅ deleted | Hygiene — can promote anytime, not urgent |
-| OptiMonster deleted | Plugin | ✅ deleted | Hygiene — can promote anytime, not urgent |
-| EventON Lite deleted | Plugin | ✅ deleted | Hygiene — can promote anytime, not urgent |
-| fsi-event-styles.php (v1.1) | mu-plugin (code) | ✅ deployed | **Hold** — only backs staging HTML pages; retire with those pages |
-| Events hub rebuilt (HTML/WPBakery) | Content | ✅ live | **Hold** — will be replaced by Phase 2 Elementor version |
-| Velocity page content (HTML/WPBakery) | Content | ✅ synced | **Hold** — will be replaced by Phase 3 Elementor version |
-| LLSS page (HTML/WPBakery) | Content | ✅ live | **Hold** — will be replaced by Phase 1 Elementor version |
-| Nav: Events → /events/ | Menu | ✅ updated | **Hold** — wait until Elementor /events/ is live on production |
-| Nav: Live → /events/ | Menu | ✅ updated | **Hold** — same |
-
-**Why this changed from last session's plan:**
-- Development, not urgency-driven — no user is waiting for /events/
-- Every HTML/WPBakery page listed will be replaced by an Elementor version
-  in Phases 1-3
-- Nav changes point to Elementor URLs that don't exist on production yet
-- Plugin cleanups are independent of all this and can go anytime
-
-**Preservation pattern:** When an Elementor version is verified on staging,
-the original HTML/WPBakery staging page is **renamed** rather than deleted —
-slug becomes `{original-slug}-old` and title gets "(Old WPBakery)" appended.
-Keeps the content findable for rollback or reference. Trash after ~1-2 weeks
-of production confidence on the Elementor replacement.
+|--------|------|---------|-----------------|
+| MonsterInsights deleted | Plugin | ✅ | Hygiene — Jonathan handles when convenient |
+| Image Optimizer deleted | Plugin | ✅ | Hygiene — Jonathan handles |
+| OptiMonster deleted | Plugin | ✅ | Hygiene — Jonathan handles |
+| EventON Lite deleted | Plugin | ✅ | Hygiene — Jonathan handles |
+| fsi-event-styles.php v1.1 | mu-plugin | ✅ | Hold — retires with WPBakery event pages |
+| Events hub (HTML/WPBakery) | Content | ✅ | Hold — Phase 2 Elementor replaces |
+| Velocity (HTML/WPBakery) | Content | ✅ | Hold — Phase 3 Elementor replaces |
+| LLSS (HTML/WPBakery) | Content | ✅ | Hold — Phase 1 Elementor replaces |
+| Nav: Events → /events/ | Menu | ✅ | Hold — Phase 2 approval required |
+| Nav: Live → /events/ | Menu | ✅ | Hold — Phase 2 approval required |
+| Elementor Global Kit v1 | Site settings | ✅ | Phase 1.11 promotion via kit zip import |
+| /kit-test/ regression page | Content | ✅ | Keep staging-only permanently |
 
 ---
 
-## Next session priority order (confirmed 2026-04-22)
+## Key facts (unchanged from prior sessions)
 
-**Top priority: convert already-built FSI pages to Elementor, then extend.**
+**Portfolio standardization (2026-04-22):** Elementor + Elementor Pro
+across all 3 WP sites. WPBakery maintenance-only on FSI + AMAA.
 
-### Phase 1 — LLSS Elementor rebuild (establish the template) 🟡
+**Theme direction:** Deferred. 2026-04-23 audit says bounded-scope swap
+to Hello Elementor on FSI. Revisit at Phase 4 kickoff. **Early Phase 1
+evidence (specificity findings) pushes the scale toward Hello Elementor**
+— worth weighing at Phase 4 with more data.
 
-Start here. LLSS is the template source — every other event page conforms
-to this pattern after.
+**Environments (FSI):** Prod `thefivestar` PHP 8.2, Staging
+`thefivestarstg` PHP 8.4, Dev `thefivestardev` PHP 8.4. WP-CLI works on
+all three; staging requires `wp core download --skip-content` if
+container recycled.
 
-URL: https://thefivestarstg.wpenginepowered.com/events/legal-league-servicer-summit/
-Page ID: 5094
+**Production approval gate:** Staging verified ✅ → STOP → report → ask
+"Approve?" → wait for explicit "yes" in chat → production. No exceptions.
 
-**Global rule for all Elementor work — image sizing / CLS prevention:**
-Every image in every template has explicit `width` and `height` attributes
-so the browser reserves space before the image loads. This prevents layout
-shift (CLS) and eliminates the page-jump UX issue. Applies to: hero images,
-photo strip images, card images, logos, icons, any `<img>` or Elementor
-Image widget. Target dimensions are documented per section below. Elementor
-Image widget must have Width and Height set (not "auto"); if using Background
-Image sections, the section itself must have Min Height set in px so it
-reserves space.
+**Nav-wiring rule:** New pages publish freely on staging; new nav
+entries require explicit approval before production wiring. Exception:
+Phase 2 `/events/` replaces `/conferences/` is pre-approved.
 
-Subtasks:
-
-1. **Global kit setup (staging)**
-   - Populate Elementor Pro global kit with FSI brand tokens
-     (Navy `#1f365c`, Gold `#c9a040`, Offwhite `#f7f7f5`)
-   - Typography scale (H1/H2/H3, body, small) matching current FSI pages
-   - Button presets (primary navy, secondary gold, tertiary outline)
-   - Section padding presets
-   - Global image defaults: enforce explicit width/height in any image
-     widgets, set "Loading: Lazy" on below-fold images
-
-2. **Build LLSS Elementor version (staging, new page — do NOT edit the
-   existing WPBakery LLSS page)**
-   - Create a new staging page, slug `legal-league-servicer-summit-elementor`
-     (temporary slug — will swap slugs in step 7)
-   - Build using Elementor against the reference LLSS WPBakery content
-   - Parent: Events hub (ID 5089)
-
-3. **Save each section as a reusable Elementor Pro template**
-   All image dimensions listed are required on the image widget/section:
-   - **Hero** — background image 1900×600px min-height, headline, subhead, CTA
-   - **Intro / Who Belongs** — text + optional side image 560×400px
-   - **What Happens** — feature grid, icons 64×64px, card images 400×300px
-   - **Next Summit gold callout** — no images required; explicit min-height
-   - **Recent Summit photo strip** — 3 images, 360×240px each
-   - **Join the Community membership cards** — card images 480×220px each
-   - **Event Details** — text + optional location image 800×450px
-   - **Final CTA** — background image 1900×400px min-height
-
-4. **Combine saved sections into one "FSI Event Page" Elementor Pro template**
-   Users cloning this template get all sections pre-wired with correct
-   dimensions and global kit styling.
-
-5. **Verification on staging**
-   - Advanced Ads render in expected slots
-   - HubSpot forms submit (if any on page)
-   - AIOSEO meta and schema populate
-   - Site Kit tracks pageview
-   - Responsive behavior: desktop / tablet / mobile
-   - **CLS check:** Lighthouse / PageSpeed report — CLS score < 0.1
-   - No PHP errors in site health
-   - Load the page multiple times with slow network throttle (Chrome DevTools
-     "Slow 4G") — confirm no visible layout shift
-
-6. **Write the new SOP**
-   `docs/sops/new-event-page-elementor.md` replacing plain-HTML SOP. Include:
-   - How to clone the FSI Event Page template
-   - Per-section image dimension requirements (mandatory, not optional)
-   - How to update the Elementor Pro global kit
-   - Staging-first + approval gate rules
-   - `-old` rename pattern for migrating pages
-
-7. **Rename + swap (still on staging)**
-   - Rename original WPBakery LLSS: slug `legal-league-servicer-summit-old`,
-     title append "(Old WPBakery)"
-   - Rename Elementor version: slug `legal-league-servicer-summit`
-     (takes the canonical slot)
-   - Verify Elementor LLSS is at the original URL
-
-8. **Production promotion (🔴 explicit approval per CLAUDE.md gate)**
-   - Create the Elementor LLSS page on production (new page, not replacing
-     anything — LLSS doesn't exist on prod yet)
-   - Verify on production
-   - Do NOT promote the WPBakery -old versions to production; they only
-     exist on staging for safekeeping
-
-### Phase 2 — Events portal (Events hub) 🟡
-
-URL: https://thefivestarstg.wpenginepowered.com/events/
-Page ID: 5089
-
-Uses the global kit established in Phase 1. Event cards reuse Phase 1
-hero/CTA sections where applicable. Consider an Elementor Pro Loop widget
-driven by the Events parent/child page structure so new event pages
-auto-appear in the hub.
-
-Subtasks (condensed):
-1. Build Elementor version on staging — new page, slug `events-elementor` (temp)
-2. All images: explicit width/height — event card thumbnails 600×400px,
-   any background 1900×400px min-height
-3. Verify (same checks as Phase 1 step 5)
-4. Rename originals: existing Events hub slug → `events-old`, title append
-   "(Old WPBakery)"
-5. Rename Elementor version → slug `events`
-6. Promote to production with approval gate
-
-### Phase 3 — Velocity 🟡
-
-URL: https://thefivestarstg.wpenginepowered.com/events/velocity/
-Page ID: 5088
-
-Apply the FSI Event Page template from Phase 1. Should fit cleanly; any
-structural variations become optional template sections, not divergent
-patterns.
-
-Subtasks (condensed):
-1. Clone FSI Event Page template into new staging page, slug `velocity-elementor`
-2. Populate with Velocity content; all images meet dimension spec from Phase 1
-3. Verify
-4. Rename pattern: existing `velocity` → `velocity-old`; new version → `velocity`
-5. Promote with approval gate
-
-### Phase 4 — Membership / profession pages 🟡
-
-URL: https://thefivestarstg.wpenginepowered.com/memberships/real-estate-professionals/
-
-Next candidate after event pages. Requires a new "FSI Membership Page"
-Elementor Pro template (same reusable-section approach as Phase 1, different
-sections): member benefits, eligibility, application CTA, member
-testimonials, pricing tiers where applicable.
-
-**Before starting Phase 4:** audit this page via WP-CLI (page ID, current
-builder, content structure, image inventory).
-
-Subtasks follow same pattern as Phase 1: staging build → image-sized sections
-→ save template → verify (Lighthouse CLS check) → `-old` rename pattern →
-approval gate → production.
-
-### Phase 5 — Who We Are / institutional pages 🟡
-
-URL: https://thefivestarstg.wpenginepowered.com/who-we-are/
-
-Hub/institutional page type. May require a third template ("FSI Institutional
-Page") or may be a variant of the membership template. Decide after auditing
-current structure.
-
-**Before starting Phase 5:** audit this page via WP-CLI.
-
-Subtasks follow same pattern as Phase 1: staging build → image-sized sections
-→ save template → verify → `-old` rename pattern → approval gate → production.
-
-### Phase 6 — Remaining FSI event + membership + profession pages
-
-Once three templates exist (Event, Membership, Institutional) and the global
-kit is mature, remaining FSI page migrations are template-driven, not
-template-authoring. Pace accelerates.
-
-### Phase 7 — AMAA migration (deferred)
-
-Per 2026-04-22 decision: AMAA follows once FSI pattern is proven through
-Phases 1-6. AMAA-specific additions: deal/tombstone CPT loop templates,
-EventON → ReMembers AMS integration handoff, Wild Apricot SSO retirement.
-
----
-
-## Parallel work (can happen alongside Phase 1-3)
-
-### Plugin deletions to production (🟢 Low, hygiene)
-
-The 4 plugin deletions currently staging-only (MonsterInsights, Image Optimizer,
-OptiMonster, EventON Lite) are unrelated to the builder decision and can be
-promoted to production whenever convenient. All were inactive on production;
-deletion is cleanup, not feature work. Not urgent.
-
-### Audit MonsterInsights usage on MortgagePoint (🟡 Medium)
-
-Before assuming MP should match FSI's "delete MonsterInsights" pattern, check
-whether MP actually uses MonsterInsights features that Site Kit doesn't
-provide — scroll depth tracking, outbound link tracking, author/category
-performance reports, forms tracking. If configured and used, keeping
-MonsterInsights on MP is legitimate; in that case, disable Site Kit's GA4
-module on MP (keep Site Kit only for Search Console) to prevent duplicate
-pageview counting. If not configured → delete like FSI did.
-
-This is a 5-minute audit of `wp option get monsterinsights_settings` on MP
-plus a visual check of the MonsterInsights dashboard configuration.
-
-### Elementor Pro license cleanup (🟢 Low, can happen anytime)
-
-Prune defunct activations from the 20-of-25 assigned. Candidates from
-Jonathan's list: `themsea.com`, `themplaunch.com`, `themp.flywheelsites.com`,
-`thefsiad.flywheelsites.com`, `localhost:10004`,
-`thefivestar.wpenginepowered.com/mediakit`, potentially `fivestarforce.com`,
-`propertypresforum.com`, `legalleague100.com`, `mortgagediversitycouncil.com`,
-`thefivestarmedia.com`. Verify each before removing. Goal: clean to ~6-9
-active seats (thefivestar + amaaonline + mortgagepoint + their staging/dev).
-
-### FSI deprecation pass (🟡 Medium, can happen anytime)
-
-Identify the ~200 legacy FSI pages that should be trashed rather than
-migrated. Needs GA4 / Site Kit data for traffic-based filtering. Reduces
-Phase 6 scope significantly.
-
-### Elementor Pro update on MortgagePoint (🟡 Medium, before MP becomes reference)
-
-MP is on Elementor Pro 3.35.1; the ecosystem is on 4.0.3. Needs proven
-update path on a staging/dev environment before MP is cited as the reference
-pattern for FSI template decisions.
-
-### WPBakery chain update (now 🟡, was 🔴)
-
-Downgraded under 2026-04-22 decision. Only needed if critical security
-update ships before the chain retires through FSI migration. Still: write
-`docs/sops/wpbakery-chain-update.md` first if it becomes unavoidable.
-
----
-
-## Key facts
-
-**Portfolio standardization decision (2026-04-22):**
-- Forward builder: Elementor + Elementor Pro across all 3 WP sites
-- WPBakery on FSI + AMAA: maintenance-only, retires as migration completes
-- Theme direction: The7 stays on FSI and AMAA for now (Hello Elementor swap
-  is a separate later decision). MortgagePoint stays on Hello Elementor.
-- Elementor Pro license: Expert tier, 25 seats, subscription 13620718
-
-**Environments (FSI):**
-- Production: `thefivestar` / PHP 8.2 / WP-CLI works ✅
-- Staging: `thefivestarstg` / PHP 8.4 / WP-CLI works ✅
-- Dev: `thefivestardev` / PHP 8.4 / WP-CLI works ✅
-
-**WP core on staging SSH container:** Disappears when WPE recycles the
-container. Fix: `wp core download --skip-content`. Doesn't affect the live
-site. Run at start of every SSH session.
-
-**Deploy key:** `id_ed25519_itmanager` (SSH Gateway / WP-CLI)
-**GitHub Actions key:** `wpengine_ed25519` → secret `WPE_SSHG_KEY_PRIVATE`
-
-**Event pages (staging):**
-- Events hub: page ID 5089, `/events/`
-- Velocity: page ID 5088, `/events/velocity/`
-- Legal League Servicer Summit: page ID 5094, `/events/legal-league-servicer-summit/`
-
-**fsi-event-styles.php:** v1.1 on staging. NOT on production.
-Repo: `thefivestar-wp/wp-content/mu-plugins/fsi-event-styles.php`.
-Role: transitional — Elementor Pro global kit will own brand tokens after
-Phase 1.
-
-**WPBakery content pages during transition:** Do NOT use `vc_raw_html`
-encoding for pages we control. Push plain HTML via `wp eval-file -`.
-(Still applies to the remaining WPBakery-era staging work; after Phase 1,
-Elementor replaces this pattern.)
-
-**Production approval gate (from CLAUDE.md):**
-Run on staging → verify → STOP → report → ask "Approve?" → wait → then production.
-No exceptions. Blanket task approval ≠ production approval.
-
-**Staging content loss — root cause identified:**
-Not a WPE platform issue. Claude sessions starting fresh have historically
-pulled production → staging to "baseline" a page, silently overwriting staging-only
-work. Fix: staging is authoritative for unreleased work. Read staging state
-before any write. Track page-level staging-only state in this handoff file.
-
-**Local WP setup:** Pending separate deliverable. Will enable faster code
-iteration and eliminate "SSH container recycled" delays for development work.
+**Elementor Pro Expert license:** 25 seats, 10 available after cleanup.
 
 ---
 
 ## Open questions carried forward
 
-1. Theme direction — keep The7 on FSI and AMAA, or swap to Hello Elementor?
-   Scoping audit completed 2026-04-23: `sites/thefivestar/the7-dependency-audit.md`.
-   Summary: swap is bounded-scope (low cost on CPTs / shortcodes / widgets /
-   nav; medium cost on homepage rebuild). Not a blocker for Phase 1-3.
-   Audit recommendation: revisit at Phase 4 kickoff with real migration
-   experience to inform the call.
-2. Design direction for the Phase 1 Elementor event-page template — reuse
-   existing FSI visual language or introduce redesign concurrent with builder
-   migration? (Recommend: reuse existing tokens to de-risk Phase 1; visual
-   redesign is a separate pass)
-3. Elementor Pro 3.x → 4.x upgrade path on MortgagePoint — needs proven path
-   before MP is promoted as reference
-4. FSI deprecation pass — which pages truly dead? Needs GA4 / Site Kit data
+1. **Theme direction** — The7 vs Hello Elementor. Audit-completed
+   2026-04-23. Revisit at Phase 4 kickoff with Phase 1-3 specificity
+   evidence in hand. Preliminary Phase 1 evidence leans toward Hello
+   Elementor but insufficient to decide.
+2. **Visual design for event-page template** — LOCKED as "reuse existing
+   visual language for Phase 1-3; redesign is a separate pass after
+   Phase 3."
+3. **Elementor Pro 3.35.1 → 4.0.3 on MortgagePoint** — needs proven path
+   on MP staging before MP is cited as reference.
+4. **FSI deprecation pass** — needs GA4 / Site Kit data.
+5. **MP staging SSH alias** — not yet in `~/.ssh/config`. Add before any
+   MP staging work.
