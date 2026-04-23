@@ -39,8 +39,14 @@ in the footer, which I earlier incorrectly recorded as The7's version. Corrected
 
 ## Active custom post types (via The7)
 
-Portfolio (slug: `project`), Testimonials, Team (slug: `dt_team`),
-Photo Albums (slug: `dt_gallery`), Slideshows.
+Portfolio (slug: `dt_portfolio`), Testimonials (slug: `dt_testimonials`),
+Team (slug: `dt_team`), Photo Albums (slug: `dt_gallery`),
+Slideshows (slug: `dt_slideshow`).
+
+Slugs corrected 2026-04-23 per `the7-dependency-audit.md` — previous entries
+had Portfolio as `project` (wrong) and Slideshows unlabeled. 17 records total
+across all 5 CPTs; 3 CPTs are empty. None actively displayed via shortcode
+or widget — see audit doc for swap-cost implications.
 
 ## Child theme
 
