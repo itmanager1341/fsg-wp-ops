@@ -1,0 +1,28 @@
+{
+  "_authoring_notes": [
+    "Section 4 — Next Summit gold callout. REFACTORED 2026-04-26 to Option B.",
+    "Outer Elementor container is boxed (1100px) with NO background — the gold visual comes from .fsi-callout-gold inside the HTML widget. Outer just provides padding for vertical breathing room above/below the callout card.",
+    "Removed my prior gold-bg outer container + Heading widgets + button widgets — all of that is now in the HTML chunk. The .fsi-callout-gold class handles bg, padding, border-radius."
+  ],
+  "id": "next-summit-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "20", "right": "20", "bottom": "20", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "16", "right": "16", "bottom": "16", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "next-summit-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div class=\"fsi-callout-gold\">\n  <p class=\"fsi-callout-gold__eyebrow\">Next Summit</p>\n  <h2 class=\"fsi-callout-gold__heading\">Spring 2027 | Washington D.C.</h2>\n  <p class=\"fsi-callout-gold__body\">The 2027 Legal League Servicer Summit will be hosted at The National Press Club in Washington D.C. during Government Forum Week, creating a single week in the capital for the legal and servicing communities to engage directly with the regulatory and policy environment shaping the industry.</p>\n  <p class=\"fsi-callout-gold__body\">Firms attending Government Forum can extend their week to include the Summit without a second trip. Attorneys attending the Summit gain access to the Government Forum conversations happening the same week.</p>\n  <p class=\"fsi-callout-gold__detail\">Registration opens in winter 2026. Legal League members receive priority registration.</p>\n  <a href=\"#\" class=\"fsi-btn fsi-btn--primary\">Get Summit Updates</a>\n  <br>\n  <a href=\"/events/five-star-government-forum/\" class=\"fsi-callout-gold__link\">Learn about Government Forum &rarr;</a>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

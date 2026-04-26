@@ -261,18 +261,49 @@ Staging first. 🟡 Moderate risk. SOP pending.
 
 ---
 
-## Workflow C — Content and page changes via WP Admin
+## Workflow C — Content and page changes
 
-### What this is
+**As of 2026-04-25 (`docs/decisions.md` AI-first Elementor authoring),
+Workflow C splits in two:**
 
-Creating or editing pages, posts, navigation, and any content managed through
-the WordPress admin interface. No git, no SSH, no WP-CLI involved.
+- **C1 (default for Elementor work):** JSON authoring in the repo + WP-CLI
+  push. Source-of-truth lives in `sites/{site}/elementor-kit/` and
+  `sites/{site}/elementor-templates/`. Use this for: kit changes (Site
+  Settings, Global Colors, Global Fonts, Layout, Custom CSS), saved sections,
+  saved page templates, and direct page-content authoring via
+  `_elementor_data`. SOP: `docs/sops/elementor-json-authoring.md`.
 
-### Why WP Admin for content (not git or SSH)
+- **C2 (escape hatch — UI in WP Admin):** Reserved for the cases the WP-CLI
+  surface doesn't cover. Specifically:
+  - **One-time widget schema discovery.** Build one reference instance of a
+    widget type in the UI, export `_elementor_data`, decompose into
+    `widget-references/`. From then on, that widget type is JSON-authorable.
+  - **Theme Builder display conditions.** UI has validation; CLI surface is
+    thin.
+  - **Popup display rules and triggers.**
+  - **Dynamic-tag wiring** that depends on plugin context the CLI doesn't
+    expose.
+  - **Non-Elementor content edits:** plain text/date/link updates on existing
+    WPBakery pages, blog posts, news articles, nav menu items, featured
+    images. All of these stay in WP Admin.
 
-Content lives in the database, not in files. There is no meaningful way to
-version-control page content in git — WPBakery shortcodes and post content are
-DB records, not source files. WP Admin is the correct tool for the DB.
+This split applies to Elementor work only. WPBakery pages remain UI-only
+(WPBakery has no equivalent JSON-authoring surface) and are in
+maintenance-only mode anyway.
+
+### Why content-via-database, not files
+
+Content lives in the database, not in files. WPBakery shortcodes and post
+content are DB records. The DB is the runtime; the repo is the source.
+
+For Elementor (post-2026-04-25): the `_elementor_data` JSON for any
+authored-in-repo page lives in `sites/{site}/elementor-templates/`, gets
+pushed via `wp eval-file -` and `wp elementor library import` (or
+`update_post_meta`), then exists in the DB as the runtime copy. The repo is
+the source; the DB is rebuildable from it.
+
+For WPBakery: WP Admin is the only sane tool. Don't try to version-control
+WPBakery shortcodes — they're not source files.
 
 ### Page builder: Elementor + Elementor Pro (forward) / WPBakery (legacy, in migration)
 
@@ -281,12 +312,20 @@ Pro is the forward builder for all FSG Media WordPress sites.** All new pages
 are built in Elementor. Existing WPBakery pages migrate to Elementor as they
 are touched for editorial or structural updates.
 
-**For new pages:**
-- Edit via WP Admin → Pages → Add New → switch to Elementor
-- Use the Elementor Pro global kit for colors, typography, spacing
-- Save reusable sections as Elementor Pro templates for cross-page use
-- Event pages: build from the FSI Event Page Elementor template (established
-  during the first migration wave — Events hub, Velocity, LLSS)
+**Authoring path: JSON in repo → WP-CLI push (C1, default).** See
+`docs/sops/elementor-json-authoring.md`. Pages, sections, and kit changes
+all flow through this path. UI is the schema-discovery oracle and the
+escape hatch for the few things CLI doesn't cover (see C2 list above).
+
+**For new pages (Elementor):**
+- Author the page's `_elementor_data` as JSON in
+  `sites/thefivestar/elementor-templates/{type}/{slug}.json`
+- Compose from widget references in `widget-references/`
+- Push via WP-CLI per the SOP; `wp elementor flush_css` after every push
+- Verify with Playwright `getComputedStyle` + full-page screenshot before
+  declaring done
+- Event pages: compose from the FSI Event Page section library
+  (`elementor-templates/event-page/`)
 
 **Elementor v4 global kit reality (confirmed 2026-04-23 on staging,
 Elementor + Elementor Pro 4.0.2):**
@@ -506,7 +545,8 @@ This is expected behavior, not a problem we caused.
 
 | Document | What it covers |
 |----------|---------------|
-| `docs/sops/new-event-page.md` | Full SOP for creating event pages, all CSS classes |
+| `docs/sops/elementor-json-authoring.md` | **C1 (default for Elementor work)** — JSON authoring + WP-CLI push pipeline |
+| `docs/sops/new-event-page.md` | Legacy WPBakery event-page SOP — retires when Phase 1.4 ships |
 | `docs/sops/plugin-update.md` | Step-by-step plugin update procedure |
 | `docs/sops/deployment.md` | GitHub Actions deployment detail |
 | `docs/sops/ssh-session-startup.md` | SSH agent setup for any SSH-heavy session |

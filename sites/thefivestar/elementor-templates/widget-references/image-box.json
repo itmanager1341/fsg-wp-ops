@@ -1,0 +1,19 @@
+{
+  "comment": "v4.0.2 schema reference for Elementor image-box widget \u2014 captured 2026-04-26 from /kit-test/ page 5099",
+  "container": {
+    "id": "d3bee65",
+    "elType": "container",
+    "settings": [],
+    "isInner": false
+  },
+  "widget": {
+    "id": "87e4bfa",
+    "elType": "widget",
+    "settings": {
+      "title_text": "image box",
+      "description_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
+    },
+    "elements": [],
+    "widgetType": "image-box"
+  }
+}

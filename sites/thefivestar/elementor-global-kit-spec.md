@@ -15,10 +15,22 @@ under Site Settings — they are not there.
 **Status:** Phase 1.3 COMPLETE (2026-04-23). Kit live on FSI staging,
 verified on `/kit-test/`. Kit zip exported and committed to
 `elementor-global-kit-v1.zip` (5.4KB, 4 JSON files — contents verified).
-**Source of truth:** this file.
+**Source of truth:** `sites/thefivestar/elementor-kit/*.json` (mirror of the
+kit zip contents). This spec doc describes the *intent* and the rationale;
+the JSON files are the executable truth. When they disagree, the JSON wins
+and this doc gets updated.
 **Decision basis:** 2026-04-22 portfolio standardization + 2026-04-23
 design-direction lock (reuse existing visual language for Phase 1–3;
-redesign is a separate pass after Phase 3).
+redesign is a separate pass after Phase 3) + 2026-04-25 AI-first Elementor
+authoring (`docs/decisions.md`).
+
+**2026-04-25 reality reconciliation** (after first round-trip via WP-CLI):
+
+| Spec said | Reality on staging | Resolution |
+|-----------|--------------------|------------|
+| Body fonts: Arial 16/15/14/13 | Roboto / Roboto Slab 16/15/14/13 | Spec wrong; kit uses Roboto. Updated below. |
+| 6 custom colors (Navy Hover, Gold Hover, Offwhite, Border, Light Grey, Gold Text Dark) | 10 custom colors (above 6 + Hero Overlay `#1F365CD9`, Velocity CP Light Yellow `#F2F1AE`, Velocity CP Blue `#00A0E6`, claude gray `#6B7A8D`) | 4 extra colors documented below; Hero Overlay invalidates spec note that v4 doesn't support alpha. |
+| Mobile breakpoint 480 | `viewport_mobile` stored as null in `_elementor_page_settings` | v4 stores breakpoints differently than v3; need follow-up audit. Tablet (`viewport_md=768`) and desktop (`viewport_lg=1025`) confirmed. |
 
 ---
 
@@ -62,20 +74,49 @@ Path: Site Settings → Design System → Global Colors
 | Text | `#444444` | Body text |
 | Accent | `#666666` | Muted text (event location, card meta) |
 
-**Custom Colors (add via "+ Add Item" under Custom Colors):**
+**Custom Colors — 17 slots (live on staging 2026-04-25 after renumber):**
 
-| Name | Hex | Usage |
-|------|-----|-------|
-| Navy Hover | `#162848` | Primary button hover, navy link hover |
-| Gold Hover | `#b8922e` | Gold CTA hover |
-| Offwhite | `#f7f7f5` | Muted section background, card inner bg |
-| Border | `#e0e0dc` | Card borders, dividers |
-| Light Grey | `#cfd5de` | Hero tagline subtext |
-| Gold Text Dark | `#3d2e00` | Text on gold bg (eyebrow, detail) |
+The kit was renumbered 2026-04-25 to preserve prod page back-compatibility.
+See `docs/decisions.md` 2026-04-25 entry "Restore prod custom-color slot
+IDs". Full audit in `docs/sops/elementor-json-authoring.md` section
+"Color slot ID convention".
 
-Hero overlay (`rgba(31, 54, 92, 0.85)`) is not settable as a Global Color —
-it has opacity and Global Colors are opaque-only. Applied as inline
-background overlay on hero sections.
+**Pre-existing prod slots (DO NOT bind new pages to these — preserved for
+prod page back-compat only):**
+
+| Slot ID | Name | Hex | Notes |
+|---------|------|-----|-------|
+| `f64043d` | Velocity Blue | `#0086DB` | Used by Exit Intent popup (4497), Five Star Access (4993) |
+| `fd98090` | Velocity Lighter Blue | `#EEAC04` | Currently 0 prod refs (vestigial slot) |
+| `7836aae` | Velocity Yellow | `#EEAC04` | Used by Five Star Access (4993) |
+| `9bb2763` | Velocity Red | `#D12726` | Used by Exit Intent popup (4497) |
+| `9e77118` | Velocity White | `#FFFFFF` | Used by Exit Intent, Education, Five Star Access, Velocity |
+| `2922fdd` | Velocity CP Red | `#D02422` | Used by Velocity (4436) |
+| `73bb18d` | Velocity CP Orange | `#F09A1E` | Used by Velocity (4436) |
+| `bd029dc` | Velocity CP Light Yellow | `#F2F1AE` | Velocity event accent |
+| `60190b2` | Velocity CP Blue | `#00A0E6` | Velocity event accent |
+| `dc145d8` | claude gray | `#6B7A8D` | (purpose unknown — flag for cleanup pass) |
+
+**FSI brand-kit slots (bind new event/membership/community pages to these):**
+
+| Slot ID | Name | Hex | Usage |
+|---------|------|-----|-------|
+| `fsi01nh` | Navy Hover | `#162848` | Primary button hover, navy link hover |
+| `fsi02gh` | Gold Hover | `#B8922E` | Gold CTA hover |
+| `fsi03ow` | Offwhite | `#F7F7F5` | Muted section background, card inner bg |
+| `fsi04bd` | Border | `#E0E0DC` | Card borders, dividers |
+| `fsi05lg` | Light Grey | `#CFD5DE` | Hero tagline subtext |
+| `fsi06gt` | Gold Text Dark | `#3D2E00` | Text on gold bg (eyebrow, detail) |
+| `fsi07ho` | Hero Overlay | `#1F365CD9` | Hero overlay (8-digit hex `RRGGBBAA`) |
+
+**Note on Hero Overlay:** the original spec assumed v4 Global Colors
+couldn't hold alpha. Reality is v4 accepts 8-digit hex (`RRGGBBAA`).
+`#1F365CD9` is `rgba(31, 54, 92, 0.85)`. Slot `fsi07ho` is bindable.
+
+**Slot ID convention going forward:** `fsi[NN][initials]` for FSI brand
+additions. Next free is `fsi08xx`. Pre-existing 7-char IDs are preserved
+for back-compat — never overwrite their title/hex without first running
+the pre-flight slot-usage query (see SOP).
 
 ---
 
@@ -83,23 +124,26 @@ background overlay on hero sections.
 
 Path: Site Settings → Design System → Global Fonts
 
-Keep The7's current font family (Arial based on the FSI screenshot).
-Capture the tokens — Elementor uses these as typography variables that
-widgets can bind to.
+**Live on staging 2026-04-25:**
 
-| Token | Family | Weight | Size | Line height | Notes |
-|-------|--------|--------|------|-------------|-------|
-| Primary | Arial | 400 | 16px | 1.6 | Body base |
-| Secondary | Arial | 400 | 15px | 1.55 | Muted section body, section intro |
-| Text | Arial | 400 | 14px | 1.55 | Card text, event descriptions |
-| Accent | Arial | 700 | 13px | 1 | Small caps, eyebrow, labels |
+| Token | Family | Size | Notes |
+|-------|--------|------|-------|
+| Primary | Roboto | 16px | Body base |
+| Secondary | Roboto Slab | 15px | Section intro / muted body |
+| Text | Roboto | 14px | Card text, event descriptions |
+| Accent | Roboto | 13px | Small caps, eyebrow, labels |
+
+**Verified via Playwright `getComputedStyle` on `/kit-test/` 2026-04-25:**
+body paragraph renders `Roboto, sans-serif`, 14px (matches Text token).
+Heading widgets render `Roboto, sans-serif` (matches Primary family).
+
+**Original spec said Arial.** That assumption was wrong. The7 doesn't
+override Elementor's font-family token (it overrides size/color/weight via
+its widget-class selectors — see specificity notes). Roboto is what's
+actually live.
 
 **Global Fonts does not include a color field** — that's per-widget (or
 applied via the Custom CSS in section 4).
-
-If The7 serves a different family than Arial (verify in DevTools: inspect
-an `<h2>` on the live LLSS page, note `computed > font-family`), use
-whatever is actually rendering, not Arial by default.
 
 ---
 
@@ -113,17 +157,18 @@ Path: Site Settings → Settings → Layout
 | Widgets Space | 20 | Default gap between stacked widgets |
 | Stretched Section Fit To | `body` | Full-width section containment |
 
-**Breakpoints** (Layout → Breakpoints section):
+**Breakpoints** — verified on staging 2026-04-25:
 
-| Breakpoint | Value | Notes |
-|------------|-------|-------|
-| Mobile | 480 | Matches `@media (max-width: 480px)` in current CSS |
-| Tablet | 768 | Matches `@media (max-width: 768px)` in current CSS |
-| Desktop | (derived) | Everything above 768px |
+| Breakpoint | Storage key | Value | Notes |
+|------------|-------------|-------|-------|
+| Tablet | `viewport_md` | 768 | ✅ matches spec |
+| Desktop | `viewport_lg` | 1025 | (live-only — not in original spec) |
+| Mobile | `viewport_mobile` | `null` | ⚠️ stored as null; v4 may use a different storage path. **Open audit item** before relying on a 480px mobile breakpoint in section CSS. |
 
-Match the existing stylesheet exactly. Different breakpoint values would
-cause Elementor pages to respond at different widths than the current FSI
-pages — that breaks visual consistency during the transition.
+The original spec target was Mobile 480 / Tablet 768. Tablet matches.
+Desktop and mobile storage need a v4-specific re-audit — spec value alone
+cannot be trusted until we verify how v4 actually delivers the mobile
+breakpoint to the rendered CSS.
 
 ---
 

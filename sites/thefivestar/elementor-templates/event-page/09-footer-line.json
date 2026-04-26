@@ -1,0 +1,32 @@
+{
+  "_authoring_notes": [
+    "Section 9 — small footer-line strip with contact info / inline links. Sits below the Final CTA hero.",
+    "From WPBakery source: <div style='text-align:center; padding:20px 0 12px; border-top:2px solid #ddd;'><p><strong>Legal League Servicer Summit</strong> | Five Star Institute | <a>Legal League Membership</a> | <a>legalleague@thefivestar.com</a> | (214) 525-6700</p></div>",
+    "Spec was 8 sections originally; this is a 9th to match WPBakery exactly. Renumber if/when the template is generalized for Phase 2/3."
+  ],
+  "id": "footer-line-section",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "20", "right": "20", "bottom": "12", "left": "20", "isLinked": false},
+    "border_border": "solid",
+    "border_width": {"unit": "px", "top": "2", "right": "0", "bottom": "0", "left": "0", "isLinked": false},
+    "border_color": "#DDDDDD",
+    "flex_direction": "column",
+    "flex_align_items": "center"
+  },
+  "elements": [
+    {
+      "id": "footer-line-text",
+      "elType": "widget",
+      "widgetType": "text-editor",
+      "settings": {
+        "editor": "<p style=\"font-size:14px; text-align:center; margin:0;\"><strong>Legal League Servicer Summit</strong>&nbsp; |&nbsp; Five Star Institute&nbsp; |&nbsp; <a href=\"/memberships/financial-services-attorneys/\">Legal League Membership</a>&nbsp; |&nbsp; <a href=\"mailto:legalleague@thefivestar.com\">legalleague@thefivestar.com</a>&nbsp; |&nbsp; (214) 525-6700</p>",
+        "align": "center"
+      },
+      "elements": []
+    }
+  ]
+}

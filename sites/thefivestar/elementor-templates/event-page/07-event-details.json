@@ -1,0 +1,28 @@
+{
+  "_authoring_notes": [
+    "Section 7 — Event Details 3-up: When / Where / Questions. REFACTORED 2026-04-26 to Option B.",
+    "Outer container boxed; HTML widget mirrors the WPBakery markup exactly (inline styles + .fsi-grid-3 layout).",
+    "Note: original markup uses inline styles on the inner cards (background:#f7f7f5, border, etc.) rather than class names. That's a smell in the source but it's what's currently rendering on the WPBakery page — preserving it for visual parity."
+  ],
+  "id": "event-details-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "20", "right": "20", "bottom": "60", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "20", "right": "16", "bottom": "40", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "event-details-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div class=\"fsi-grid-3\" style=\"margin-bottom:48px;\">\n  <div style=\"text-align:center; background:#f7f7f5; border:1px solid #e0e0dc; border-radius:4px; padding:24px 16px;\">\n    <h4 style=\"margin-bottom:8px;\">When</h4>\n    <p style=\"font-size:16px; font-weight:600; color:#1f365c;\">Spring 2027</p>\n    <p style=\"color:#666; font-size:14px;\">Exact dates confirmed in winter 2026</p>\n    <p style=\"margin-top:8px;\"><a href=\"#\" style=\"font-size:14px;\">Get Summit Updates &rarr;</a></p>\n  </div>\n  <div style=\"text-align:center; background:#f7f7f5; border:1px solid #e0e0dc; border-radius:4px; padding:24px 16px;\">\n    <h4 style=\"margin-bottom:8px;\">Where</h4>\n    <p style=\"font-size:16px; font-weight:600; color:#1f365c;\">The National Press Club</p>\n    <p style=\"color:#666;\">Washington, D.C.</p>\n  </div>\n  <div style=\"text-align:center; background:#f7f7f5; border:1px solid #e0e0dc; border-radius:4px; padding:24px 16px;\">\n    <h4 style=\"margin-bottom:8px;\">Questions</h4>\n    <p style=\"color:#666;\">Contact the Legal League team</p>\n    <p style=\"margin-top:8px;\"><a href=\"mailto:legalleague@thefivestar.com\" style=\"font-size:14px;\">legalleague@thefivestar.com</a></p>\n  </div>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

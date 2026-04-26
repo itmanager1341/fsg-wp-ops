@@ -1,0 +1,30 @@
+{
+  "_authoring_notes": [
+    "Section 2 — Intro paragraphs + community photo + 'Who Belongs' 3-card grid.",
+    "REFACTORED 2026-04-26 from widget tree → HTML widget per Option B (visual parity with WPBakery).",
+    "Outer Elementor container provides: boxed 1100px, padding for breathing room.",
+    "Inner HTML widget contains the existing fsi-page-wrap markup chunk — styling comes from fsi-event-styles.php mu-plugin (.fsi-intro, .fsi-image-block, .fsi-section-heading, .fsi-grid-3, .fsi-card-gold, .fsi-card-navy, .fsi-card__title, .fsi-card__text).",
+    "When fsi-event-styles.php eventually retires (Hello Elementor swap or kit migration), these classes need to either move into the kit Custom CSS or stay in a successor mu-plugin."
+  ],
+  "id": "intro-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "60", "right": "20", "bottom": "60", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "40", "right": "16", "bottom": "40", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "intro-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div class=\"fsi-intro\">\n  <p>The Legal League Servicer Summit is where the financial services bar and the mortgage servicing industry sit down together. A full day of education, direct dialogue, and the professional relationships that define how servicers and their counsel navigate every stage of the housing lifecycle.</p>\n  <p style=\"margin-top:12px;\">Programming is shaped by the Legal League Advisory Council and built for how attorneys, firm leaders, and servicer legal teams actually work. The Summit is intimate by design: small enough for substantive conversation, large enough for the full industry to be in the room.</p>\n</div>\n\n<div class=\"fsi-image-block\">\n  <div class=\"fsi-img-placeholder\" style=\"height:440px;\">\n    <p class=\"fsi-img-placeholder__label\">Community Photo</p>\n    <p class=\"fsi-img-placeholder__desc\">Horizontal photo &mdash; attorneys in conversation, networking moment, or full room during a session. 1100x440px JPG. Upload to Media Library and replace this block with an img tag.</p>\n  </div>\n</div>\n\n<h2 class=\"fsi-section-heading\">Who Belongs at the Summit</h2>\n\n<div class=\"fsi-grid-3\">\n  <div class=\"fsi-card-gold\">\n    <h3 class=\"fsi-card__title\">Legal League Member Firms</h3>\n    <p class=\"fsi-card__text\">The credentialed core of the financial services bar. Legal League member firms are the practices that represent servicers, GSEs, and financial institutions at every stage of the housing lifecycle. The Summit is your community's home event, the room your Advisory Council programs, and the platform your firm's work is built into.</p>\n  </div>\n  <div class=\"fsi-card-navy\">\n    <h3 class=\"fsi-card__title\">Financial Services Attorneys</h3>\n    <p class=\"fsi-card__text\">Foreclosure, bankruptcy, default, and mortgage servicing attorneys building practices around the servicing industry. If your docket touches the full default lifecycle, this is the community and the event built for how you work.</p>\n  </div>\n  <div class=\"fsi-card-navy\">\n    <h3 class=\"fsi-card__title\">Mortgage Servicers and In-House Counsel</h3>\n    <p class=\"fsi-card__text\">Servicer legal, compliance, and default operations teams attend the Summit as guests of the association. The program is designed around the issues that land on your desk and the outside counsel you depend on to resolve them.</p>\n  </div>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

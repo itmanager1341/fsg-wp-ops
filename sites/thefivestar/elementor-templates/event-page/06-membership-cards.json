@@ -1,0 +1,27 @@
+{
+  "_authoring_notes": [
+    "Section 6 — Join the Legal League Community + 2 large membership cards. REFACTORED 2026-04-26 to Option B.",
+    "Outer container boxed; HTML widget contains .fsi-section-heading + .fsi-section-intro + .fsi-membership-grid + 2 .fsi-membership-card children with image placeholders, body, CTAs."
+  ],
+  "id": "membership-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "60", "right": "20", "bottom": "60", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "40", "right": "16", "bottom": "40", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "membership-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<h2 class=\"fsi-section-heading\">Join the Legal League Community</h2>\n\n<p class=\"fsi-section-intro\">The Summit is one moment in a year-round community. Firm membership is the primary way to participate &mdash; it includes Summit access, Advisory Council eligibility, and year-round engagement with the community that represents the financial services bar.</p>\n\n<div class=\"fsi-membership-grid\">\n  <div class=\"fsi-membership-card\">\n    <div class=\"fsi-membership-card__image\">\n      <div class=\"fsi-img-placeholder\" style=\"height:220px;\">\n        <p class=\"fsi-img-placeholder__label\">Firm Membership Photo</p>\n        <p class=\"fsi-img-placeholder__desc\">Attorneys in conversation or Legal League community moment. 480x220px JPG.</p>\n      </div>\n    </div>\n    <div class=\"fsi-membership-card__body\">\n      <h3 class=\"fsi-membership-card__title\">Legal League Firm Membership</h3>\n      <p class=\"fsi-membership-card__text\">For law firms practicing in financial services, mortgage servicing, foreclosure, and bankruptcy law. Firm membership includes Summit participation, Advisory Council eligibility, directory listing in the Legal League member directory, CLE programming access, and year-round participation in the community that represents the mortgage servicing industry.</p>\n      <div class=\"fsi-membership-card__cta\">\n        <a href=\"/memberships/financial-services-attorneys/\" class=\"fsi-btn fsi-btn--primary\">Learn about firm membership &rarr;</a>\n      </div>\n    </div>\n  </div>\n  <div class=\"fsi-membership-card\">\n    <div class=\"fsi-membership-card__image\">\n      <div class=\"fsi-img-placeholder\" style=\"height:220px;\">\n        <p class=\"fsi-img-placeholder__label\">Corporate Member Photo</p>\n        <p class=\"fsi-img-placeholder__desc\">Service provider or vendor engagement moment. 480x220px JPG.</p>\n      </div>\n    </div>\n    <div class=\"fsi-membership-card__body\">\n      <h3 class=\"fsi-membership-card__title\">Corporate Membership</h3>\n      <p class=\"fsi-membership-card__text\">For technology providers, service companies, and vendors serving the financial services bar and the mortgage servicing industry. Corporate membership provides engagement access at the Summit and across the Legal League community year-round. Current enrollment is available at the Associate tier ($10,000 per year).</p>\n      <div class=\"fsi-membership-card__cta\">\n        <a href=\"mailto:legalleague@thefivestar.com\" class=\"fsi-btn fsi-btn--outline\">Contact us about corporate membership &rarr;</a>\n      </div>\n    </div>\n  </div>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

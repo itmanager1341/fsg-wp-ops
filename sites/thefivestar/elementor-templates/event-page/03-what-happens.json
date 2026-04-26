@@ -1,0 +1,27 @@
+{
+  "_authoring_notes": [
+    "Section 3 — 'What Happens at the Summit' intro + 4-feature 2x2 grid + Closing Reception strip.",
+    "REFACTORED 2026-04-26 to Option B (HTML widget). Outer container is boxed; HTML widget contains .fsi-section-heading + .fsi-section-intro + .fsi-grid-2 + .fsi-feature blocks + .fsi-program-full Closing Reception."
+  ],
+  "id": "what-happens-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "60", "right": "20", "bottom": "60", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "40", "right": "16", "bottom": "40", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "what-happens-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<h2 class=\"fsi-section-heading\">What Happens at the Summit</h2>\n\n<p class=\"fsi-section-intro\">A single-day program, purpose-built for practitioners. You will hear from mortgage servicers, GSEs, and government officials speaking into the issues driving the industry. Each session is shaped by the Legal League Advisory Council and scoped for working attorneys who need takeaways they can apply on Monday morning.</p>\n\n<div class=\"fsi-grid-2\">\n  <div class=\"fsi-feature\">\n    <h4>Industry Leadership Panel</h4>\n    <p>Mortgage servicers, GSE representatives, and government officials on stage together, working through the policy, operational, and legal issues driving the industry. The signature session of the Summit.</p>\n  </div>\n  <div class=\"fsi-feature\">\n    <h4>CLE Programming</h4>\n    <p>Continuing legal education credits delivered through Advisory Council-shaped sessions. Case law intensives, procedural updates, and practice-area content for attorneys actively practicing servicer-side.</p>\n  </div>\n  <div class=\"fsi-feature\">\n    <h4>Regulatory and Policy Briefings</h4>\n    <p>The year ahead in federal and state default policy. Sessions covering CFPB activity, state-level legislation, court procedural changes, and the regulatory climate shaping servicer and firm practice.</p>\n  </div>\n  <div class=\"fsi-feature\">\n    <h4>Advisory Council Forum</h4>\n    <p>Open session with the Legal League Advisory Council. Member firm priorities, programming direction for the year ahead, and the industry positions Legal League carries into its regulatory and advocacy work.</p>\n  </div>\n</div>\n\n<div class=\"fsi-program-full\">\n  <h4>Closing Reception</h4>\n  <p>The day closes with open networking built around the Legal League member community. The room every attorney in this practice area wants to be in once a year.</p>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+[
+  {
+    "id": "470ab04",
+    "elType": "container",
+    "settings": [],
+    "elements": [
+      {
+        "id": "f5924d3",
+        "elType": "widget",
+        "settings": {
+          "title": "Test Headline",
+          "header_size": "h1"
+        },
+        "elements": [],
+        "widgetType": "heading"
+      }
+    ],
+    "isInner": false
+  },
+  {
+    "id": "5b531ac",
+    "elType": "container",
+    "settings": [],
+    "elements": [
+      {
+        "id": "d8a2a93",
+        "elType": "widget",
+        "settings": {
+          "title": "Section Heading"
+        },
+        "elements": [],
+        "widgetType": "heading"
+      }
+    ],
+    "isInner": false
+  },
+  {
+    "id": "b1560db",
+    "elType": "container",
+    "settings": [],
+    "elements": [
+      {
+        "id": "253b474",
+        "elType": "widget",
+        "settings": [],
+        "elements": [],
+        "widgetType": "text-editor"
+      }
+    ],
+    "isInner": false
+  },
+  {
+    "id": "d85b3b2",
+    "elType": "container",
+    "settings": [],
+    "elements": [
+      {
+        "id": "8cdad7d",
+        "elType": "widget",
+        "settings": {
+          "text": "Click here"
+        },
+        "elements": [],
+        "widgetType": "button"
+      }
+    ],
+    "isInner": false
+  },
+  {
+    "id": "7b10140",
+    "elType": "container",
+    "settings": [],
+    "elements": [
+      {
+        "id": "8d7a5b2",
+        "elType": "widget",
+        "settings": {
+          "image_size": "custom",
+          "image_custom_dimension": {
+            "width": "600",
+            "height": "400"
+          }
+        },
+        "elements": [],
+        "widgetType": "image"
+      },
+      {
+        "id": "2a79117",
+        "elType": "widget",
+        "settings": [],
+        "elements": [],
+        "widgetType": "image"
+      }
+    ],
+    "isInner": false
+  },
+  {
+    "id": "a85856c",
+    "elType": "container",
+    "settings": [],
+    "elements": [
+      {
+        "id": "0de2d59",
+        "elType": "widget",
+        "settings": [],
+        "elements": [],
+        "widgetType": "spacer"
+      }
+    ],
+    "isInner": false
+  },
+  {
+    "id": "a833cbf",
+    "elType": "container",
+    "settings": [],
+    "elements": [
+      {
+        "id": "a4951b4",
+        "elType": "widget",
+        "settings": {
+          "text": "Divider"
+        },
+        "elements": [],
+        "widgetType": "divider"
+      }
+    ],
+    "isInner": false
+  },
+  {
+    "id": "534f4dd",
+    "elType": "container",
+    "settings": [],
+    "elements": [],
+    "isInner": false
+  },
+  {
+    "id": "9480935",
+    "elType": "container",
+    "settings": {
+      "flex_direction": "row",
+      "flex_gap": {
+        "unit": "px",
+        "size": 0,
+        "column": "0",
+        "row": "0"
+      }
+    },
+    "elements": [
+      {
+        "id": "16380d7",
+        "elType": "container",
+        "settings": {
+          "flex_direction": "column",
+          "content_width": "full",
+          "width": {
+            "unit": "%",
+            "size": "50"
+          }
+        },
+        "elements": [
+          {
+            "id": "b2eef5b",
+            "elType": "widget",
+            "settings": {
+              "title": "Test"
+            },
+            "elements": [],
+            "widgetType": "heading"
+          }
+        ],
+        "isInner": true
+      },
+      {
+        "id": "e877bd9",
+        "elType": "container",
+        "settings": {
+          "flex_direction": "column",
+          "content_width": "full",
+          "width": {
+            "unit": "%",
+            "size": "50"
+          }
+        },
+        "elements": [],
+        "isInner": true
+      }
+    ],
+    "isInner": false
+  },
+  {
+    "id": "d3bee65",
+    "elType": "container",
+    "settings": [],
+    "elements": [
+      {
+        "id": "87e4bfa",
+        "elType": "widget",
+        "settings": {
+          "title_text": "image box",
+          "description_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
+        },
+        "elements": [],
+        "widgetType": "image-box"
+      }
+    ],
+    "isInner": false
+  }
+]

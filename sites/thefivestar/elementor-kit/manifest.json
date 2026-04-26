@@ -1,0 +1,638 @@
+{
+    "name": "elementor-global-kit-v1-zip",
+    "title": "elementor-global-kit-v1.zip",
+    "description": null,
+    "author": "Sasa",
+    "version": "3.0",
+    "elementor_version": "4.0.2",
+    "created": "2026-04-23 22:30:36",
+    "thumbnail": false,
+    "site": "https://thefivestarstg.wpenginepowered.com",
+    "theme": {
+        "name": "The7",
+        "theme_uri": "https://the7.io/",
+        "version": "14.3.0",
+        "slug": "dt-the7"
+    },
+    "experiments": [
+        "e_font_icon_svg",
+        "additional_custom_breakpoints",
+        "container",
+        "e_optimized_markup",
+        "theme_builder_v2",
+        "e_pro_free_trial_popup",
+        "nested-elements",
+        "pages_panel",
+        "e_atomic_elements",
+        "e_classes",
+        "global_classes_should_enforce_capabilities",
+        "e_variables",
+        "e_opt_in_v4_page",
+        "e_opt_in_v4",
+        "e_components",
+        "e_interactions",
+        "e_widget_creation",
+        "import-export-customization",
+        "e_pro_atomic_form",
+        "mega-menu",
+        "e_pro_variables",
+        "e_pro_interactions",
+        "in_editor_feedback",
+        "editor_events"
+    ],
+    "site-settings": {
+        "theme": true,
+        "globalColors": true,
+        "globalFonts": true,
+        "themeStyleSettings": true,
+        "generalSettings": true,
+        "experiments": true,
+        "customCode": true,
+        "customIcons": true,
+        "customFonts": true
+    },
+    "plugins": [
+        {
+            "name": "301 Redirects",
+            "plugin": "eps-301-redirects/eps-301-redirects",
+            "pluginUri": "https://wp301redirects.com/",
+            "version": "2.84"
+        },
+        {
+            "name": "Ads for WPBakery Page Builder (formerly Visual Composer)",
+            "plugin": "ads-for-visual-composer/advanced-ads-vc",
+            "pluginUri": "https://wpadvancedads.com",
+            "version": "2.0.0"
+        },
+        {
+            "name": "Advanced Ads",
+            "plugin": "advanced-ads/advanced-ads",
+            "pluginUri": "https://wpadvancedads.com",
+            "version": "2.0.19"
+        },
+        {
+            "name": "Advanced Ads Pro",
+            "plugin": "advanced-ads-pro/advanced-ads-pro",
+            "pluginUri": "https://wpadvancedads.com/add-ons/advanced-ads-pro/",
+            "version": "3.0.10"
+        },
+        {
+            "name": "Advanced Ads \u2013 AMP Ads",
+            "plugin": "advanced-ads-responsive/responsive-ads",
+            "pluginUri": "https://wpadvancedads.com/add-ons/responsive-ads/",
+            "version": "2.0.5"
+        },
+        {
+            "name": "Advanced Ads \u2013 Google Ad Manager Integration",
+            "plugin": "advanced-ads-gam/advanced-ads-gam",
+            "pluginUri": "https://wpadvancedads.com/add-ons/google-ad-manager/",
+            "version": "3.0.3"
+        },
+        {
+            "name": "Advanced Ads \u2013 Sticky Ads",
+            "plugin": "advanced-ads-sticky-ads/sticky-ads",
+            "pluginUri": "http://wpadvancedads.com/add-ons/sticky-ads/",
+            "version": "2.0.5"
+        },
+        {
+            "name": "Advanced Ads \u2013 Tracking",
+            "plugin": "advanced-ads-tracking/tracking",
+            "pluginUri": "https://wpadvancedads.com/add-ons/tracking/",
+            "version": "3.0.11"
+        },
+        {
+            "name": "AIOSEO - Author SEO (E-E-A-T)",
+            "plugin": "aioseo-eeat/aioseo-eeat",
+            "pluginUri": "https://aioseo.com",
+            "version": "1.2.10"
+        },
+        {
+            "name": "AIOSEO - Image SEO",
+            "plugin": "aioseo-image-seo/aioseo-image-seo",
+            "pluginUri": "https://aioseo.com",
+            "version": "1.2.4"
+        },
+        {
+            "name": "AIOSEO - IndexNow",
+            "plugin": "aioseo-index-now/aioseo-index-now",
+            "pluginUri": "https://aioseo.com",
+            "version": "1.0.13"
+        },
+        {
+            "name": "AIOSEO - Link Assistant",
+            "plugin": "aioseo-link-assistant/aioseo-link-assistant",
+            "pluginUri": "https://aioseo.com",
+            "version": "1.1.13"
+        },
+        {
+            "name": "AIOSEO - Local Business",
+            "plugin": "aioseo-local-business/aioseo-local-business",
+            "pluginUri": "https://aioseo.com",
+            "version": "1.3.12"
+        },
+        {
+            "name": "AIOSEO - News Sitemap",
+            "plugin": "aioseo-news-sitemap/aioseo-news-sitemap",
+            "pluginUri": "https://aioseo.com",
+            "version": "1.0.21"
+        },
+        {
+            "name": "AIOSEO - Redirects",
+            "plugin": "aioseo-redirects/aioseo-redirects",
+            "pluginUri": "https://aioseo.com",
+            "version": "1.4.14"
+        },
+        {
+            "name": "AIOSEO - REST API",
+            "plugin": "aioseo-rest-api/aioseo-rest-api",
+            "pluginUri": "https://aioseo.com",
+            "version": "1.0.9"
+        },
+        {
+            "name": "AIOSEO - Video Sitemap",
+            "plugin": "aioseo-video-sitemap/aioseo-video-sitemap",
+            "pluginUri": "https://aioseo.com",
+            "version": "1.1.26"
+        },
+        {
+            "name": "Akismet Anti-spam: Spam Protection",
+            "plugin": "akismet/akismet",
+            "pluginUri": "https://akismet.com/",
+            "version": "5.6"
+        },
+        {
+            "name": "All in One SEO Pro",
+            "plugin": "all-in-one-seo-pack-pro/all_in_one_seo_pack",
+            "pluginUri": "https://aioseo.com/",
+            "version": "4.9.6.2"
+        },
+        {
+            "name": "Broken Link Checker by AIOSEO",
+            "plugin": "broken-link-checker-seo/aioseo-broken-link-checker",
+            "pluginUri": "https://aioseo.com/broken-link-checker",
+            "version": "1.2.10"
+        },
+        {
+            "name": "Classic Editor",
+            "plugin": "classic-editor/classic-editor",
+            "pluginUri": "https://wordpress.org/plugins/classic-editor/",
+            "version": "1.6.7"
+        },
+        {
+            "name": "Classic Widgets",
+            "plugin": "classic-widgets/classic-widgets",
+            "pluginUri": "https://wordpress.org/plugins/classic-widgets/",
+            "version": "0.3"
+        },
+        {
+            "name": "Elementor",
+            "plugin": "elementor/elementor",
+            "pluginUri": "https://elementor.com/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash",
+            "version": "4.0.2"
+        },
+        {
+            "name": "Elementor Pro",
+            "plugin": "elementor-pro/elementor-pro",
+            "pluginUri": "https://go.elementor.com/wp-dash-wp-plugins-author-uri/",
+            "version": "4.0.2"
+        },
+        {
+            "name": "Header Footer Code Manager",
+            "plugin": "header-footer-code-manager/99robots-header-footer-code-manager",
+            "pluginUri": "https://draftpress.com/products",
+            "version": "1.1.44"
+        },
+        {
+            "name": "HubSpot All-In-One Marketing - Forms, Popups, Live Chat",
+            "plugin": "leadin/leadin",
+            "pluginUri": "http://www.hubspot.com/integrations/wordpress",
+            "version": "11.3.45"
+        },
+        {
+            "name": "Shortcodes Ultimate",
+            "plugin": "shortcodes-ultimate/shortcodes-ultimate",
+            "pluginUri": "https://getshortcodes.com/",
+            "version": "7.5.0"
+        },
+        {
+            "name": "Site Kit by Google",
+            "plugin": "google-site-kit/google-site-kit",
+            "pluginUri": "https://sitekit.withgoogle.com",
+            "version": "1.176.0"
+        },
+        {
+            "name": "Slider Revolution",
+            "plugin": "revslider/revslider",
+            "pluginUri": "https://www.sliderrevolution.com/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=info",
+            "version": "6.7.38"
+        },
+        {
+            "name": "Stream",
+            "plugin": "stream/stream",
+            "pluginUri": "https://xwp.co/work/stream/",
+            "version": "4.1.2"
+        },
+        {
+            "name": "SVG Support",
+            "plugin": "svg-support/svg-support",
+            "pluginUri": "http://wordpress.org/plugins/svg-support/",
+            "version": "2.5.14"
+        },
+        {
+            "name": "The7 Elements",
+            "plugin": "dt-the7-core/dt-the7-core",
+            "pluginUri": "",
+            "version": "2.7.12"
+        },
+        {
+            "name": "Toolset Types",
+            "plugin": "types/wpcf",
+            "pluginUri": "https://toolset.com/?utm_source=typesplugin&utm_campaign=types&utm_medium=plugins-list-full-version&utm_term=Visit plugin site",
+            "version": "3.6.1"
+        },
+        {
+            "name": "Toolset Views",
+            "plugin": "wp-views/wp-views",
+            "pluginUri": "https://toolset.com/?utm_source=viewsplugin&utm_campaign=views&utm_medium=plugins-list-full-version&utm_term=Visit plugin site",
+            "version": "3.6.21"
+        },
+        {
+            "name": "Ultimate Addons for WPBakery Page Builder",
+            "plugin": "Ultimate_VC_Addons/Ultimate_VC_Addons",
+            "pluginUri": "https://brainstormforce.com/demos/ultimate/",
+            "version": "3.21.3"
+        },
+        {
+            "name": "WPBakery Page Builder",
+            "plugin": "js_composer/js_composer",
+            "pluginUri": "https://wpbakery.com",
+            "version": "8.7.2"
+        },
+        {
+            "name": "WP Rocket",
+            "plugin": "wp-rocket/wp-rocket",
+            "pluginUri": "https://wp-rocket.me",
+            "version": "3.21.1"
+        },
+        {
+            "name": "Yoast Duplicate Post",
+            "plugin": "duplicate-post/duplicate-post",
+            "pluginUri": "https://yoast.com/wordpress/plugins/duplicate-post/",
+            "version": "4.6"
+        }
+    ],
+    "custom-fonts": {
+        "Akhand": {
+            "ID": 4760,
+            "post_title": "Akhand",
+            "post_content": "",
+            "post_status": "publish",
+            "font_type": {
+                "Akhand": "custom"
+            },
+            "font_files": [
+                {
+                    "font_weight": "normal",
+                    "font_style": "normal",
+                    "woff": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "woff2": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "ttf": {
+                        "id": "4762",
+                        "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/07/Akhand.ttf"
+                    },
+                    "svg": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "eot": {
+                        "id": "",
+                        "url": ""
+                    }
+                },
+                {
+                    "font_weight": "bold",
+                    "font_style": "normal",
+                    "woff": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "woff2": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "ttf": {
+                        "id": "4763",
+                        "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/07/Akhand-Bold.ttf"
+                    },
+                    "svg": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "eot": {
+                        "id": "",
+                        "url": ""
+                    }
+                },
+                {
+                    "font_weight": "900",
+                    "font_style": "normal",
+                    "woff": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "woff2": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "ttf": {
+                        "id": "4764",
+                        "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/07/Akhand-Black.ttf"
+                    },
+                    "svg": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "eot": {
+                        "id": "",
+                        "url": ""
+                    }
+                }
+            ],
+            "font_face": "@font-face {\n\tfont-family: 'Akhand';\n\tfont-style: normal;\n\tfont-weight: normal;\n\tfont-display: auto;\n\tsrc: url('https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/07/Akhand.ttf') format('truetype');\n}\n@font-face {\n\tfont-family: 'Akhand';\n\tfont-style: normal;\n\tfont-weight: bold;\n\tfont-display: auto;\n\tsrc: url('https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/07/Akhand-Bold.ttf') format('truetype');\n}\n@font-face {\n\tfont-family: 'Akhand';\n\tfont-style: normal;\n\tfont-weight: 900;\n\tfont-display: auto;\n\tsrc: url('https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/07/Akhand-Black.ttf') format('truetype');\n}\n",
+            "font_variables": [],
+            "font_variable_ranges": [],
+            "attachments": [
+                {
+                    "id": 4762,
+                    "title": "Akhand",
+                    "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/07/Akhand.ttf"
+                },
+                {
+                    "id": 4763,
+                    "title": "Akhand Bold",
+                    "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/07/Akhand-Bold.ttf"
+                },
+                {
+                    "id": 4764,
+                    "title": "Akhand Black",
+                    "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/07/Akhand-Black.ttf"
+                }
+            ]
+        },
+        "Comic Book Regular": {
+            "ID": 4485,
+            "post_title": "Comic Book Regular",
+            "post_content": "",
+            "post_status": "publish",
+            "font_type": {
+                "Comic Book Regular": "custom"
+            },
+            "font_files": [
+                {
+                    "font_weight": "normal",
+                    "font_style": "normal",
+                    "woff": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "woff2": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "ttf": {
+                        "id": "4486",
+                        "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Regular.ttf"
+                    },
+                    "svg": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "eot": {
+                        "id": "",
+                        "url": ""
+                    }
+                }
+            ],
+            "font_face": "@font-face {\n\tfont-family: 'Comic Book Regular';\n\tfont-style: normal;\n\tfont-weight: normal;\n\tfont-display: auto;\n\tsrc: url('https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Regular.ttf') format('truetype');\n}\n",
+            "font_variables": [],
+            "font_variable_ranges": [],
+            "attachments": [
+                {
+                    "id": 4486,
+                    "title": "Comic Book Regular",
+                    "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Regular.ttf"
+                }
+            ]
+        },
+        "Comic Book Bold Italic": {
+            "ID": 4483,
+            "post_title": "Comic Book Bold Italic",
+            "post_content": "",
+            "post_status": "publish",
+            "font_type": {
+                "Comic Book Bold Italic": "custom"
+            },
+            "font_files": [
+                {
+                    "font_weight": "normal",
+                    "font_style": "normal",
+                    "woff": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "woff2": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "ttf": {
+                        "id": "4484",
+                        "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Bold-Italic.ttf"
+                    },
+                    "svg": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "eot": {
+                        "id": "",
+                        "url": ""
+                    }
+                }
+            ],
+            "font_face": "@font-face {\n\tfont-family: 'Comic Book Bold Italic';\n\tfont-style: normal;\n\tfont-weight: normal;\n\tfont-display: auto;\n\tsrc: url('https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Bold-Italic.ttf') format('truetype');\n}\n",
+            "font_variables": [],
+            "font_variable_ranges": [],
+            "attachments": [
+                {
+                    "id": 4484,
+                    "title": "Comic Book Bold Italic",
+                    "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Bold-Italic.ttf"
+                }
+            ]
+        },
+        "Comic Book Bold": {
+            "ID": 4481,
+            "post_title": "Comic Book Bold",
+            "post_content": "",
+            "post_status": "publish",
+            "font_type": {
+                "Comic Book Bold": "custom"
+            },
+            "font_files": [
+                {
+                    "font_weight": "normal",
+                    "font_style": "normal",
+                    "woff": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "woff2": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "ttf": {
+                        "id": "4482",
+                        "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Bold.ttf"
+                    },
+                    "svg": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "eot": {
+                        "id": "",
+                        "url": ""
+                    }
+                }
+            ],
+            "font_face": "@font-face {\n\tfont-family: 'Comic Book Bold';\n\tfont-style: normal;\n\tfont-weight: normal;\n\tfont-display: auto;\n\tsrc: url('https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Bold.ttf') format('truetype');\n}\n",
+            "font_variables": [],
+            "font_variable_ranges": [],
+            "attachments": [
+                {
+                    "id": 4482,
+                    "title": "Comic Book Bold",
+                    "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Bold.ttf"
+                }
+            ]
+        },
+        "Comic Book Italic": {
+            "ID": 4479,
+            "post_title": "Comic Book Italic",
+            "post_content": "",
+            "post_status": "publish",
+            "font_type": {
+                "Comic Book Italic": "custom"
+            },
+            "font_files": [
+                {
+                    "font_weight": "normal",
+                    "font_style": "normal",
+                    "woff": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "woff2": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "ttf": {
+                        "id": "4480",
+                        "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Italic.ttf"
+                    },
+                    "svg": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "eot": {
+                        "id": "",
+                        "url": ""
+                    }
+                }
+            ],
+            "font_face": "@font-face {\n\tfont-family: 'Comic Book Italic';\n\tfont-style: normal;\n\tfont-weight: normal;\n\tfont-display: auto;\n\tsrc: url('https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Italic.ttf') format('truetype');\n}\n",
+            "font_variables": [],
+            "font_variable_ranges": [],
+            "attachments": [
+                {
+                    "id": 4480,
+                    "title": "Comic Book Italic",
+                    "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Italic.ttf"
+                }
+            ]
+        },
+        "Bangers": {
+            "ID": 4475,
+            "post_title": "Bangers",
+            "post_content": "",
+            "post_status": "publish",
+            "font_type": {
+                "Bangers": "custom"
+            },
+            "font_files": [
+                {
+                    "font_weight": "normal",
+                    "font_style": "normal",
+                    "woff": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "woff2": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "ttf": {
+                        "id": "4476",
+                        "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Bangers.ttf"
+                    },
+                    "svg": {
+                        "id": "",
+                        "url": ""
+                    },
+                    "eot": {
+                        "id": "",
+                        "url": ""
+                    }
+                }
+            ],
+            "font_face": "@font-face {\n\tfont-family: 'Bangers';\n\tfont-style: normal;\n\tfont-weight: normal;\n\tfont-display: auto;\n\tsrc: url('https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Bangers.ttf') format('truetype');\n}\n",
+            "font_variables": [],
+            "font_variable_ranges": [],
+            "attachments": [
+                {
+                    "id": 4476,
+                    "title": "Bangers",
+                    "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Bangers.ttf"
+                }
+            ]
+        }
+    },
+    "custom-code": {
+        "4840": {
+            "ID": 4840,
+            "post_title": "Naylor",
+            "post_content": "",
+            "post_status": "publish",
+            "location": "elementor_head",
+            "priority": "1",
+            "conditions": [
+                "include/general"
+            ]
+        },
+        "4527": {
+            "ID": 4527,
+            "post_title": "Apollo",
+            "post_content": "",
+            "post_status": "publish",
+            "location": "elementor_head",
+            "priority": "1",
+            "conditions": [
+                "include/general"
+            ]
+        }
+    }
+}

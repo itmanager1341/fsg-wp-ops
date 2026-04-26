@@ -1,0 +1,224 @@
+<!--
+Source-of-truth copy reference for the LLSS Elementor rebuild.
+Pulled from staging page 5094 (slug: legal-league-servicer-summit) on 2026-04-26.
+
+This is the WPBakery + plain-HTML content, frozen at the time of the Elementor
+rebuild authoring. Use this file as the authoritative copy reference when
+populating the 8 section JSON files in elementor-templates/event-page/.
+
+Image placeholders in the original (.fsi-img-placeholder blocks) indicate
+photo assets still TODO. Image specs are inline as HTML comments.
+
+Structure mapping (WPBakery → Elementor section):
+  1. fsi-event-hero (top)            → 01-hero.json
+  2. fsi-intro + community photo     → 02-intro-who-belongs.json (combined with Who Belongs)
+  3. WHO BELONGS + 3 cards           → (also in 02 — same logical section)
+  4. WHAT HAPPENS + 4 features + Closing Reception → 03-what-happens.json
+  5. fsi-callout-gold (NEXT SUMMIT)  → 04-next-summit.json
+  6. fsi-section-muted (Dallas 2026 + photo strip) → 05-recent-summit-strip.json
+  7. JOIN THE COMMUNITY + 2 membership cards → 06-membership-cards.json
+  8. EVENT DETAILS (3-up When/Where/Questions) → 07-event-details.json
+  9. FINAL CTA (Join Us in Washington) → 08-final-cta.json
+-->
+
+<div class="fsi-page-wrap">
+
+  <!-- HERO: background-image to be set in WP Admin once photo is selected -->
+  <!-- IMAGE NEEDED: Conference room wide shot or panel in progress, 1900x600px JPG -->
+  <!-- Set as inline background-image style on .fsi-event-hero--image once uploaded to Media Library -->
+  <div class="fsi-event-hero fsi-event-hero--image" style="background-image:url('');">
+    <p class="fsi-event-hero__date">Next Summit: Spring 2027 &nbsp;|&nbsp; The National Press Club, Washington D.C.</p>
+    <p style="color:#cfd5de; font-size:15px; margin-bottom:4px;">Hosted during Government Forum Week.</p>
+    <p class="fsi-event-hero__tagline">The annual gathering of the Legal League community.</p>
+    <div class="fsi-event-hero__cta">
+      <a href="/memberships/financial-services-attorneys/" class="fsi-btn fsi-btn--gold">Join Legal League</a>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="fsi-intro">
+    <p>The Legal League Servicer Summit is where the financial services bar and the mortgage servicing industry sit down together. A full day of education, direct dialogue, and the professional relationships that define how servicers and their counsel navigate every stage of the housing lifecycle.</p>
+    <p style="margin-top:12px;">Programming is shaped by the Legal League Advisory Council and built for how attorneys, firm leaders, and servicer legal teams actually work. The Summit is intimate by design: small enough for substantive conversation, large enough for the full industry to be in the room.</p>
+  </div>
+
+  <!-- IMAGE BLOCK: Community photo -->
+  <!-- IMAGE NEEDED: Horizontal community photo -- handshakes, hallway conversation, or full room during session. 1100x440px JPG -->
+  <div class="fsi-image-block">
+    <div class="fsi-img-placeholder" style="height:440px;">
+      <p class="fsi-img-placeholder__label">Community Photo</p>
+      <p class="fsi-img-placeholder__desc">Horizontal photo -- attorneys in conversation, networking moment, or full room during a session. 1100x440px JPG. Upload to Media Library and replace this block with an img tag.</p>
+    </div>
+  </div>
+
+  <!-- WHO BELONGS -->
+  <h2 class="fsi-section-heading">Who Belongs at the Summit</h2>
+
+  <div class="fsi-grid-3">
+    <div class="fsi-card-gold">
+      <h3 class="fsi-card__title">Legal League Member Firms</h3>
+      <p class="fsi-card__text">The credentialed core of the financial services bar. Legal League member firms are the practices that represent servicers, GSEs, and financial institutions at every stage of the housing lifecycle. The Summit is your community's home event, the room your Advisory Council programs, and the platform your firm's work is built into.</p>
+    </div>
+    <div class="fsi-card-navy">
+      <h3 class="fsi-card__title">Financial Services Attorneys</h3>
+      <p class="fsi-card__text">Foreclosure, bankruptcy, default, and mortgage servicing attorneys building practices around the servicing industry. If your docket touches the full default lifecycle, this is the community and the event built for how you work.</p>
+    </div>
+    <div class="fsi-card-navy">
+      <h3 class="fsi-card__title">Mortgage Servicers and In-House Counsel</h3>
+      <p class="fsi-card__text">Servicer legal, compliance, and default operations teams attend the Summit as guests of the association. The program is designed around the issues that land on your desk and the outside counsel you depend on to resolve them.</p>
+    </div>
+  </div>
+
+  <!-- WHAT HAPPENS -->
+  <h2 class="fsi-section-heading">What Happens at the Summit</h2>
+
+  <p class="fsi-section-intro">A single-day program, purpose-built for practitioners. You will hear from mortgage servicers, GSEs, and government officials speaking into the issues driving the industry. Each session is shaped by the Legal League Advisory Council and scoped for working attorneys who need takeaways they can apply on Monday morning.</p>
+
+  <div class="fsi-grid-2">
+    <div class="fsi-feature">
+      <h4>Industry Leadership Panel</h4>
+      <p>Mortgage servicers, GSE representatives, and government officials on stage together, working through the policy, operational, and legal issues driving the industry. The signature session of the Summit.</p>
+    </div>
+    <div class="fsi-feature">
+      <h4>CLE Programming</h4>
+      <p>Continuing legal education credits delivered through Advisory Council-shaped sessions. Case law intensives, procedural updates, and practice-area content for attorneys actively practicing servicer-side.</p>
+    </div>
+    <div class="fsi-feature">
+      <h4>Regulatory and Policy Briefings</h4>
+      <p>The year ahead in federal and state default policy. Sessions covering CFPB activity, state-level legislation, court procedural changes, and the regulatory climate shaping servicer and firm practice.</p>
+    </div>
+    <div class="fsi-feature">
+      <h4>Advisory Council Forum</h4>
+      <p>Open session with the Legal League Advisory Council. Member firm priorities, programming direction for the year ahead, and the industry positions Legal League carries into its regulatory and advocacy work.</p>
+    </div>
+  </div>
+
+  <!-- Closing Reception: full-width strip -->
+  <div class="fsi-program-full">
+    <h4>Closing Reception</h4>
+    <p>The day closes with open networking built around the Legal League member community. The room every attorney in this practice area wants to be in once a year.</p>
+  </div>
+
+  <!-- NEXT SUMMIT: gold callout -->
+  <div class="fsi-callout-gold">
+    <p class="fsi-callout-gold__eyebrow">Next Summit</p>
+    <h2 class="fsi-callout-gold__heading">Spring 2027 | Washington D.C.</h2>
+    <p class="fsi-callout-gold__body">The 2027 Legal League Servicer Summit will be hosted at The National Press Club in Washington D.C. during Government Forum Week, creating a single week in the capital for the legal and servicing communities to engage directly with the regulatory and policy environment shaping the industry.</p>
+    <p class="fsi-callout-gold__body">Firms attending Government Forum can extend their week to include the Summit without a second trip. Attorneys attending the Summit gain access to the Government Forum conversations happening the same week.</p>
+    <p class="fsi-callout-gold__detail">Registration opens in winter 2026. Legal League members receive priority registration.</p>
+    <a href="#" class="fsi-btn fsi-btn--primary">Get Summit Updates</a>
+    <br>
+    <a href="/events/five-star-government-forum/" class="fsi-callout-gold__link">Learn about Government Forum &rarr;</a>
+  </div>
+
+  <!-- RECENT SUMMIT: Dallas 2026 -->
+  <div class="fsi-section-muted">
+    <h2 class="fsi-section-muted__heading">Spring 2026 | Dallas, Texas</h2>
+    <p class="fsi-section-muted__body">The most recent Legal League Servicer Summit convened March 25-26, 2026 in Dallas, bringing together member firms, servicer legal and default operations teams, and industry stakeholders for two days of programming covering case law, regulatory policy, and the operational issues shaping the 2026 servicing landscape.</p>
+    <p class="fsi-section-muted__body">The 2026 Summit marked the last Dallas edition before the Summit's 2027 move to Washington D.C. in conjunction with Government Forum Week.</p>
+
+    <!-- PHOTO STRIP: 3 photos from Dallas 2026 -->
+    <!-- IMAGE NEEDED x3: (1) Panel on stage -- 360x240px JPG, (2) Networking/reception moment -- 360x240px JPG, (3) Room wide shot or group -- 360x240px JPG -->
+    <div class="fsi-photo-strip">
+      <div class="fsi-photo-strip__item">
+        <div class="fsi-img-placeholder" style="height:240px;">
+          <p class="fsi-img-placeholder__label">Dallas 2026 -- Panel</p>
+          <p class="fsi-img-placeholder__desc">Panel on stage. 360x240px JPG.</p>
+        </div>
+        <p class="fsi-photo-strip__caption">Industry Leadership Panel, Dallas 2026</p>
+      </div>
+      <div class="fsi-photo-strip__item">
+        <div class="fsi-img-placeholder" style="height:240px;">
+          <p class="fsi-img-placeholder__label">Dallas 2026 -- Networking</p>
+          <p class="fsi-img-placeholder__desc">Networking or reception moment. 360x240px JPG.</p>
+        </div>
+        <p class="fsi-photo-strip__caption">Closing Reception, Dallas 2026</p>
+      </div>
+      <div class="fsi-photo-strip__item">
+        <div class="fsi-img-placeholder" style="height:240px;">
+          <p class="fsi-img-placeholder__label">Dallas 2026 -- Room</p>
+          <p class="fsi-img-placeholder__desc">Wide room shot or group. 360x240px JPG.</p>
+        </div>
+        <p class="fsi-photo-strip__caption">Legal League Servicer Summit, Dallas 2026</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- JOIN THE COMMUNITY -->
+  <h2 class="fsi-section-heading">Join the Legal League Community</h2>
+
+  <p class="fsi-section-intro">The Summit is one moment in a year-round community. Firm membership is the primary way to participate -- it includes Summit access, Advisory Council eligibility, and year-round engagement with the community that represents the financial services bar.</p>
+
+  <div class="fsi-membership-grid">
+    <div class="fsi-membership-card">
+      <!-- IMAGE NEEDED: Attorneys in conversation or a recognizable Legal League/FSI moment. 480x220px JPG -->
+      <div class="fsi-membership-card__image">
+        <div class="fsi-img-placeholder" style="height:220px;">
+          <p class="fsi-img-placeholder__label">Firm Membership Photo</p>
+          <p class="fsi-img-placeholder__desc">Attorneys in conversation or Legal League community moment. 480x220px JPG.</p>
+        </div>
+      </div>
+      <div class="fsi-membership-card__body">
+        <h3 class="fsi-membership-card__title">Legal League Firm Membership</h3>
+        <p class="fsi-membership-card__text">For law firms practicing in financial services, mortgage servicing, foreclosure, and bankruptcy law. Firm membership includes Summit participation, Advisory Council eligibility, directory listing in the Legal League member directory, CLE programming access, and year-round participation in the community that represents the mortgage servicing industry.</p>
+        <div class="fsi-membership-card__cta">
+          <a href="/memberships/financial-services-attorneys/" class="fsi-btn fsi-btn--primary">Learn about firm membership &rarr;</a>
+        </div>
+      </div>
+    </div>
+    <div class="fsi-membership-card">
+      <div class="fsi-membership-card__image">
+        <div class="fsi-img-placeholder" style="height:220px;">
+          <p class="fsi-img-placeholder__label">Corporate Member Photo</p>
+          <p class="fsi-img-placeholder__desc">Service provider or vendor engagement moment. 480x220px JPG.</p>
+        </div>
+      </div>
+      <div class="fsi-membership-card__body">
+        <h3 class="fsi-membership-card__title">Corporate Membership</h3>
+        <p class="fsi-membership-card__text">For technology providers, service companies, and vendors serving the financial services bar and the mortgage servicing industry. Corporate membership provides engagement access at the Summit and across the Legal League community year-round. Current enrollment is available at the Associate tier ($10,000 per year).</p>
+        <div class="fsi-membership-card__cta">
+          <a href="mailto:legalleague@thefivestar.com" class="fsi-btn fsi-btn--outline">Contact us about corporate membership &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EVENT DETAILS -->
+  <div class="fsi-grid-3" style="margin-bottom:48px;">
+    <div style="text-align:center; background:#f7f7f5; border:1px solid #e0e0dc; border-radius:4px; padding:24px 16px;">
+      <h4 style="margin-bottom:8px;">When</h4>
+      <p style="font-size:16px; font-weight:600; color:#1f365c;">Spring 2027</p>
+      <p style="color:#666; font-size:14px;">Exact dates confirmed in winter 2026</p>
+      <p style="margin-top:8px;"><a href="#" style="font-size:14px;">Get Summit Updates &rarr;</a></p>
+    </div>
+    <div style="text-align:center; background:#f7f7f5; border:1px solid #e0e0dc; border-radius:4px; padding:24px 16px;">
+      <h4 style="margin-bottom:8px;">Where</h4>
+      <p style="font-size:16px; font-weight:600; color:#1f365c;">The National Press Club</p>
+      <p style="color:#666;">Washington, D.C.</p>
+    </div>
+    <div style="text-align:center; background:#f7f7f5; border:1px solid #e0e0dc; border-radius:4px; padding:24px 16px;">
+      <h4 style="margin-bottom:8px;">Questions</h4>
+      <p style="color:#666;">Contact the Legal League team</p>
+      <p style="margin-top:8px;"><a href="mailto:legalleague@thefivestar.com" style="font-size:14px;">legalleague@thefivestar.com</a></p>
+    </div>
+  </div>
+
+  <!-- FINAL CTA -->
+  <div class="fsi-event-hero" style="margin-bottom:48px;">
+    <h2 style="color:#fff; margin-bottom:12px;">Join Us in Washington</h2>
+    <p class="fsi-event-hero__tagline">A full day of education, direct dialogue with servicers, GSEs, and government officials, and the professional community built for the financial services bar. Hosted during Government Forum Week at The National Press Club.</p>
+    <div class="fsi-event-hero__cta">
+      <a href="#" class="fsi-btn fsi-btn--gold">Get Summit Updates</a>
+    </div>
+  </div>
+
+  <!-- FOOTER LINE -->
+  <div style="text-align:center; padding:20px 0 12px; border-top:2px solid #ddd;">
+    <p>
+      <strong>Legal League Servicer Summit</strong> &nbsp;|&nbsp; Five Star Institute &nbsp;|&nbsp;
+      <a href="/memberships/financial-services-attorneys/">Legal League Membership</a> &nbsp;|&nbsp;
+      <a href="mailto:legalleague@thefivestar.com">legalleague@thefivestar.com</a> &nbsp;|&nbsp;
+      (214) 525-6700
+    </p>
+  </div>
+
+</div>

@@ -1,0 +1,28 @@
+{
+  "_authoring_notes": [
+    "Section 5 — Spring 2026 Dallas recap + 3-photo strip. REFACTORED 2026-04-26 to Option B.",
+    "Outer Elementor container is boxed (1100px); the .fsi-section-muted div in the HTML widget provides the muted bg/styling.",
+    "3-photo strip uses .fsi-photo-strip with 3 .fsi-photo-strip__item children, each with .fsi-img-placeholder + caption. CSS handles the responsive columns."
+  ],
+  "id": "recent-summit-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "40", "right": "20", "bottom": "40", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "30", "right": "16", "bottom": "30", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "recent-summit-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div class=\"fsi-section-muted\">\n  <h2 class=\"fsi-section-muted__heading\">Spring 2026 | Dallas, Texas</h2>\n  <p class=\"fsi-section-muted__body\">The most recent Legal League Servicer Summit convened March 25-26, 2026 in Dallas, bringing together member firms, servicer legal and default operations teams, and industry stakeholders for two days of programming covering case law, regulatory policy, and the operational issues shaping the 2026 servicing landscape.</p>\n  <p class=\"fsi-section-muted__body\">The 2026 Summit marked the last Dallas edition before the Summit's 2027 move to Washington D.C. in conjunction with Government Forum Week.</p>\n\n  <div class=\"fsi-photo-strip\">\n    <div class=\"fsi-photo-strip__item\">\n      <div class=\"fsi-img-placeholder\" style=\"height:240px;\">\n        <p class=\"fsi-img-placeholder__label\">Dallas 2026 -- Panel</p>\n        <p class=\"fsi-img-placeholder__desc\">Panel on stage. 360x240px JPG.</p>\n      </div>\n      <p class=\"fsi-photo-strip__caption\">Industry Leadership Panel, Dallas 2026</p>\n    </div>\n    <div class=\"fsi-photo-strip__item\">\n      <div class=\"fsi-img-placeholder\" style=\"height:240px;\">\n        <p class=\"fsi-img-placeholder__label\">Dallas 2026 -- Networking</p>\n        <p class=\"fsi-img-placeholder__desc\">Networking or reception moment. 360x240px JPG.</p>\n      </div>\n      <p class=\"fsi-photo-strip__caption\">Closing Reception, Dallas 2026</p>\n    </div>\n    <div class=\"fsi-photo-strip__item\">\n      <div class=\"fsi-img-placeholder\" style=\"height:240px;\">\n        <p class=\"fsi-img-placeholder__label\">Dallas 2026 -- Room</p>\n        <p class=\"fsi-img-placeholder__desc\">Wide room shot or group. 360x240px JPG.</p>\n      </div>\n      <p class=\"fsi-photo-strip__caption\">Legal League Servicer Summit, Dallas 2026</p>\n    </div>\n  </div>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

@@ -1,0 +1,330 @@
+[
+    {
+        "ID": 4760,
+        "post_title": "Akhand",
+        "post_content": "",
+        "post_status": "publish",
+        "font_type": {
+            "Akhand": "custom"
+        },
+        "font_files": [
+            {
+                "font_weight": "normal",
+                "font_style": "normal",
+                "woff": {
+                    "id": "",
+                    "url": ""
+                },
+                "woff2": {
+                    "id": "",
+                    "url": ""
+                },
+                "ttf": {
+                    "id": "4762",
+                    "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/07/Akhand.ttf"
+                },
+                "svg": {
+                    "id": "",
+                    "url": ""
+                },
+                "eot": {
+                    "id": "",
+                    "url": ""
+                }
+            },
+            {
+                "font_weight": "bold",
+                "font_style": "normal",
+                "woff": {
+                    "id": "",
+                    "url": ""
+                },
+                "woff2": {
+                    "id": "",
+                    "url": ""
+                },
+                "ttf": {
+                    "id": "4763",
+                    "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/07/Akhand-Bold.ttf"
+                },
+                "svg": {
+                    "id": "",
+                    "url": ""
+                },
+                "eot": {
+                    "id": "",
+                    "url": ""
+                }
+            },
+            {
+                "font_weight": "900",
+                "font_style": "normal",
+                "woff": {
+                    "id": "",
+                    "url": ""
+                },
+                "woff2": {
+                    "id": "",
+                    "url": ""
+                },
+                "ttf": {
+                    "id": "4764",
+                    "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/07/Akhand-Black.ttf"
+                },
+                "svg": {
+                    "id": "",
+                    "url": ""
+                },
+                "eot": {
+                    "id": "",
+                    "url": ""
+                }
+            }
+        ],
+        "font_face": "@font-face {\n\tfont-family: 'Akhand';\n\tfont-style: normal;\n\tfont-weight: normal;\n\tfont-display: auto;\n\tsrc: url('https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/07/Akhand.ttf') format('truetype');\n}\n@font-face {\n\tfont-family: 'Akhand';\n\tfont-style: normal;\n\tfont-weight: bold;\n\tfont-display: auto;\n\tsrc: url('https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/07/Akhand-Bold.ttf') format('truetype');\n}\n@font-face {\n\tfont-family: 'Akhand';\n\tfont-style: normal;\n\tfont-weight: 900;\n\tfont-display: auto;\n\tsrc: url('https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/07/Akhand-Black.ttf') format('truetype');\n}\n",
+        "font_variables": [],
+        "font_variable_ranges": [],
+        "attachments": [
+            {
+                "id": 4762,
+                "title": "Akhand",
+                "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/07/Akhand.ttf"
+            },
+            {
+                "id": 4763,
+                "title": "Akhand Bold",
+                "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/07/Akhand-Bold.ttf"
+            },
+            {
+                "id": 4764,
+                "title": "Akhand Black",
+                "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/07/Akhand-Black.ttf"
+            }
+        ]
+    },
+    {
+        "ID": 4485,
+        "post_title": "Comic Book Regular",
+        "post_content": "",
+        "post_status": "publish",
+        "font_type": {
+            "Comic Book Regular": "custom"
+        },
+        "font_files": [
+            {
+                "font_weight": "normal",
+                "font_style": "normal",
+                "woff": {
+                    "id": "",
+                    "url": ""
+                },
+                "woff2": {
+                    "id": "",
+                    "url": ""
+                },
+                "ttf": {
+                    "id": "4486",
+                    "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Regular.ttf"
+                },
+                "svg": {
+                    "id": "",
+                    "url": ""
+                },
+                "eot": {
+                    "id": "",
+                    "url": ""
+                }
+            }
+        ],
+        "font_face": "@font-face {\n\tfont-family: 'Comic Book Regular';\n\tfont-style: normal;\n\tfont-weight: normal;\n\tfont-display: auto;\n\tsrc: url('https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Regular.ttf') format('truetype');\n}\n",
+        "font_variables": [],
+        "font_variable_ranges": [],
+        "attachments": [
+            {
+                "id": 4486,
+                "title": "Comic Book Regular",
+                "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Regular.ttf"
+            }
+        ]
+    },
+    {
+        "ID": 4483,
+        "post_title": "Comic Book Bold Italic",
+        "post_content": "",
+        "post_status": "publish",
+        "font_type": {
+            "Comic Book Bold Italic": "custom"
+        },
+        "font_files": [
+            {
+                "font_weight": "normal",
+                "font_style": "normal",
+                "woff": {
+                    "id": "",
+                    "url": ""
+                },
+                "woff2": {
+                    "id": "",
+                    "url": ""
+                },
+                "ttf": {
+                    "id": "4484",
+                    "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Bold-Italic.ttf"
+                },
+                "svg": {
+                    "id": "",
+                    "url": ""
+                },
+                "eot": {
+                    "id": "",
+                    "url": ""
+                }
+            }
+        ],
+        "font_face": "@font-face {\n\tfont-family: 'Comic Book Bold Italic';\n\tfont-style: normal;\n\tfont-weight: normal;\n\tfont-display: auto;\n\tsrc: url('https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Bold-Italic.ttf') format('truetype');\n}\n",
+        "font_variables": [],
+        "font_variable_ranges": [],
+        "attachments": [
+            {
+                "id": 4484,
+                "title": "Comic Book Bold Italic",
+                "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Bold-Italic.ttf"
+            }
+        ]
+    },
+    {
+        "ID": 4481,
+        "post_title": "Comic Book Bold",
+        "post_content": "",
+        "post_status": "publish",
+        "font_type": {
+            "Comic Book Bold": "custom"
+        },
+        "font_files": [
+            {
+                "font_weight": "normal",
+                "font_style": "normal",
+                "woff": {
+                    "id": "",
+                    "url": ""
+                },
+                "woff2": {
+                    "id": "",
+                    "url": ""
+                },
+                "ttf": {
+                    "id": "4482",
+                    "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Bold.ttf"
+                },
+                "svg": {
+                    "id": "",
+                    "url": ""
+                },
+                "eot": {
+                    "id": "",
+                    "url": ""
+                }
+            }
+        ],
+        "font_face": "@font-face {\n\tfont-family: 'Comic Book Bold';\n\tfont-style: normal;\n\tfont-weight: normal;\n\tfont-display: auto;\n\tsrc: url('https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Bold.ttf') format('truetype');\n}\n",
+        "font_variables": [],
+        "font_variable_ranges": [],
+        "attachments": [
+            {
+                "id": 4482,
+                "title": "Comic Book Bold",
+                "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Bold.ttf"
+            }
+        ]
+    },
+    {
+        "ID": 4479,
+        "post_title": "Comic Book Italic",
+        "post_content": "",
+        "post_status": "publish",
+        "font_type": {
+            "Comic Book Italic": "custom"
+        },
+        "font_files": [
+            {
+                "font_weight": "normal",
+                "font_style": "normal",
+                "woff": {
+                    "id": "",
+                    "url": ""
+                },
+                "woff2": {
+                    "id": "",
+                    "url": ""
+                },
+                "ttf": {
+                    "id": "4480",
+                    "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Italic.ttf"
+                },
+                "svg": {
+                    "id": "",
+                    "url": ""
+                },
+                "eot": {
+                    "id": "",
+                    "url": ""
+                }
+            }
+        ],
+        "font_face": "@font-face {\n\tfont-family: 'Comic Book Italic';\n\tfont-style: normal;\n\tfont-weight: normal;\n\tfont-display: auto;\n\tsrc: url('https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Italic.ttf') format('truetype');\n}\n",
+        "font_variables": [],
+        "font_variable_ranges": [],
+        "attachments": [
+            {
+                "id": 4480,
+                "title": "Comic Book Italic",
+                "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Comic-Book-Italic.ttf"
+            }
+        ]
+    },
+    {
+        "ID": 4475,
+        "post_title": "Bangers",
+        "post_content": "",
+        "post_status": "publish",
+        "font_type": {
+            "Bangers": "custom"
+        },
+        "font_files": [
+            {
+                "font_weight": "normal",
+                "font_style": "normal",
+                "woff": {
+                    "id": "",
+                    "url": ""
+                },
+                "woff2": {
+                    "id": "",
+                    "url": ""
+                },
+                "ttf": {
+                    "id": "4476",
+                    "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Bangers.ttf"
+                },
+                "svg": {
+                    "id": "",
+                    "url": ""
+                },
+                "eot": {
+                    "id": "",
+                    "url": ""
+                }
+            }
+        ],
+        "font_face": "@font-face {\n\tfont-family: 'Bangers';\n\tfont-style: normal;\n\tfont-weight: normal;\n\tfont-display: auto;\n\tsrc: url('https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Bangers.ttf') format('truetype');\n}\n",
+        "font_variables": [],
+        "font_variable_ranges": [],
+        "attachments": [
+            {
+                "id": 4476,
+                "title": "Bangers",
+                "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2024/03/Bangers.ttf"
+            }
+        ]
+    }
+]

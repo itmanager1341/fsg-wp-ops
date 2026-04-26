@@ -1,0 +1,198 @@
+{
+  "_authoring_notes": [
+    "Section 1 — Hero. Authored 2026-04-26 per llss-elementor-build-spec.md.",
+    "Brand colors bind to fsi* slot IDs (NOT the legacy 7-char IDs which hold prod Velocity colors).",
+    "Image URL placeholder — replace with real hero image (1900x600px) before Phase 1.4 mid-checkpoint. Source: WPBakery LLSS page 5094 has a TODO for a 'Conference room wide shot or panel in progress'.",
+    "Element IDs use deterministic prefixes (hero-*) for readable diffs across re-pushes.",
+    "Outermost element is the section's outer Container — Phase 1.4 Step 4 composes the page _elementor_data as an array of these section files."
+  ],
+  "id": "hero-section",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "full",
+    "min_height": {
+      "unit": "px",
+      "size": 600,
+      "sizes": []
+    },
+    "min_height_mobile": {
+      "unit": "px",
+      "size": 400,
+      "sizes": []
+    },
+    "min_height_tablet": {
+      "unit": "px",
+      "size": 500,
+      "sizes": []
+    },
+    "flex_direction": "column",
+    "flex_justify_content": "center",
+    "flex_align_items": "center",
+    "background_background": "classic",
+    "background_image": {
+      "url": "",
+      "id": "",
+      "_TODO": "Upload 1900x600px hero image to Media Library; populate url + id"
+    },
+    "background_position": "center center",
+    "background_size": "cover",
+    "background_repeat": "no-repeat",
+    "background_attachment": "scroll",
+    "background_overlay_background": "classic",
+    "background_overlay_color": "#1F365C",
+    "background_overlay_opacity": {"unit": "px", "size": 0.85, "sizes": []},
+    "_NOTE": "Overlay color hardcoded (per v4+The7 button/overlay binding workaround). Opacity now explicit 0.85 — the kit/Elementor default --overlay-opacity:0.5 was halving our intended alpha.",
+    "padding": {
+      "unit": "px",
+      "top": "100",
+      "right": "40",
+      "bottom": "100",
+      "left": "40",
+      "isLinked": false
+    },
+    "padding_mobile": {
+      "unit": "px",
+      "top": "70",
+      "right": "20",
+      "bottom": "70",
+      "left": "20",
+      "isLinked": false
+    }
+  },
+  "elements": [
+    {
+      "id": "hero-inner",
+      "elType": "container",
+      "isInner": true,
+      "settings": {
+        "content_width": "boxed",
+        "boxed_width": {
+          "unit": "px",
+          "size": 1100,
+          "sizes": []
+        },
+        "flex_direction": "column",
+        "flex_align_items": "center",
+        "flex_gap": {
+          "unit": "px",
+          "size": 20,
+          "column": "20",
+          "row": "20"
+        }
+      },
+      "elements": [
+        {
+          "id": "hero-h1",
+          "elType": "widget",
+          "widgetType": "heading",
+          "settings": {
+            "title": "Legal League Servicer Summit",
+            "header_size": "h1",
+            "align": "center",
+            "title_color": "#FFFFFF"
+          },
+          "elements": []
+        },
+        {
+          "id": "hero-save-the-date-card",
+          "elType": "container",
+          "isInner": true,
+          "_authoring_notes": "Save-the-Date sub-callout. Wraps event-line/subhead/tagline/CTA in a darker navy box that sits inside the hero overlay — matches WPBakery's fsi-event-hero__date boxed styling. Background is rgba(0,0,0,0.25) which compounds with the parent overlay for a darker reading.",
+          "settings": {
+            "content_width": "boxed",
+            "boxed_width": {"unit": "px", "size": 720, "sizes": []},
+            "flex_direction": "column",
+            "flex_align_items": "center",
+            "flex_gap": {"unit": "px", "size": 12, "column": "12", "row": "12"},
+            "background_background": "classic",
+            "background_color": "rgba(0, 0, 0, 0.28)",
+            "padding": {"unit": "px", "top": "32", "right": "32", "bottom": "32", "left": "32", "isLinked": true},
+            "padding_mobile": {"unit": "px", "top": "24", "right": "20", "bottom": "24", "left": "20", "isLinked": false},
+            "border_radius": {"unit": "px", "top": "6", "right": "6", "bottom": "6", "left": "6", "isLinked": true},
+            "margin": {"unit": "px", "top": "16", "right": "0", "bottom": "0", "left": "0", "isLinked": false}
+          },
+          "elements": [
+            {
+              "id": "hero-event-line",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<p style=\"font-size:19px; line-height:1.4; margin-bottom:0; font-weight:600;\"><strong>Next Summit: Spring 2027</strong>&nbsp; |&nbsp; The National Press Club, Washington D.C.</p>",
+                "align": "center",
+                "text_color": "#FFFFFF"
+              },
+              "elements": []
+            },
+            {
+              "id": "hero-subhead",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<p style=\"font-size:15px; margin-bottom:0;\">Hosted during Government Forum Week.</p>",
+                "align": "center",
+                "text_color": "",
+                "__globals__": {
+                  "text_color": "globals/colors?id=fsi05lg"
+                }
+              },
+              "elements": []
+            },
+            {
+              "id": "hero-tagline",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<p style=\"font-size:21px; line-height:1.4; margin-top:8px; margin-bottom:0;\">The annual gathering of the Legal League community.</p>",
+                "align": "center",
+                "text_color": "#FFFFFF"
+              },
+              "elements": []
+            },
+            {
+              "id": "hero-cta",
+              "elType": "widget",
+              "widgetType": "button",
+              "settings": {
+                "text": "Join Legal League",
+                "link": {
+                  "url": "/memberships/financial-services-attorneys/",
+                  "is_external": "",
+                  "nofollow": ""
+                },
+                "align": "center",
+                "size": "custom",
+                "typography_typography": "custom",
+                "typography_font_size": {"unit": "px", "size": 16, "sizes": []},
+                "typography_font_weight": "700",
+                "button_text_color": "#1F365C",
+                "background_color": "#C9A040",
+                "hover_color": "#1F365C",
+                "button_background_hover_color": "#B8922E",
+                "_NOTE": "Hardcoded brand colors per v4+The7 button-binding workaround. See specificity notes.",
+                "text_padding": {
+                  "unit": "px",
+                  "top": "14",
+                  "right": "36",
+                  "bottom": "14",
+                  "left": "36",
+                  "isLinked": false
+                },
+                "border_radius": {
+                  "unit": "px",
+                  "top": "4",
+                  "right": "4",
+                  "bottom": "4",
+                  "left": "4",
+                  "isLinked": true
+                },
+                "_button_margin": {"unit": "px", "top": "12", "right": "0", "bottom": "0", "left": "0", "isLinked": false}
+              },
+              "elements": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

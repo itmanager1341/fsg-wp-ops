@@ -16,16 +16,176 @@ Elementor 4.0.2 + Elementor Pro 4.0.2 + The7 14.3.0.
 - 2026-04-23 Phase 1.3 global kit landed
 - 2026-04-23 design direction lock (reuse existing FSI visual language for Phase 1–3)
 - 2026-04-23 nav-wiring rule (publish ≠ wire)
+- 2026-04-25 AI-first JSON authoring (Workflow C1; SOP at `docs/sops/elementor-json-authoring.md`)
+- 2026-04-25 custom-color slot renumber (brand colors live at `fsi*` slot IDs; legacy IDs preserved for prod back-compat)
+
+**⚠️ Slot ID binding rule (critical, 2026-04-25):**
+
+When section JSON binds to a brand color via `globals/colors?id=...`, use the
+**`fsi*` slot IDs**, not the legacy 7-char hex-ish IDs:
+
+| Brand color | Slot ID to bind | Hex |
+|-------------|-----------------|-----|
+| Navy Hover | `fsi01nh` | `#162848` |
+| Gold Hover | `fsi02gh` | `#B8922E` |
+| Offwhite | `fsi03ow` | `#F7F7F5` |
+| Border | `fsi04bd` | `#E0E0DC` |
+| Light Grey | `fsi05lg` | `#CFD5DE` |
+| Gold Text Dark | `fsi06gt` | `#3D2E00` |
+| Hero Overlay | `fsi07ho` | `#1F365CD9` |
+
+The legacy 7-char IDs (`f64043d`, `fd98090`, `7836aae`, `9bb2763`,
+`9e77118`, `2922fdd`, `73bb18d`) are reserved for prod page back-compat
+and currently hold Velocity event colors on prod. Binding new sections to
+those will produce a regression on prod after Phase 1.11. See
+`sites/thefivestar/elementor-global-kit-spec.md` for the full slot audit.
 
 **Reference pages (existing WPBakery staging content):**
 - LLSS: page 5094, slug `legal-league-servicer-summit`, parent 5089 (Events), publish
 - Events hub: page 5089, slug `events`, top-level, publish
 - Velocity: page 5088
 
-**Kit artifact:** `sites/thefivestar/elementor-global-kit-v1.zip` (5.4KB, 4 JSON).
+**Kit artifact:** `sites/thefivestar/elementor-global-kit-v1.zip` (6174 bytes, rebuilt 2026-04-25 with 17 custom colors).
+**Kit source-of-truth:** `sites/thefivestar/elementor-kit/*.json` (loose JSON, version-controlled).
 **Kit spec:** `sites/thefivestar/elementor-global-kit-spec.md`.
 **Specificity notes:** `sites/thefivestar/the7-elementor-specificity-notes.md`.
 **Migration tracker:** `sites/thefivestar/wpbakery-migration.md`.
+**Widget schema oracle:** `sites/thefivestar/elementor-templates/widget-references/`.
+**WPBakery LLSS visual baseline:** `sites/thefivestar/visual-baselines/llss-wpbakery-2026-04-26-{1440,768,420}.png`.
+
+---
+
+## ⚠️ Updated 2026-04-26: Option B pattern — HTML widgets for content sections
+
+**This spec was originally written assuming widget-tree authoring for every
+section. After Phase 1.4 verification surfaced that widget trees were
+recreating visual designs encoded in `fsi-event-styles.php` CSS classes
+(e.g., translating `.fsi-card-gold` into solid-fill widget settings,
+losing the actual Offwhite + 4px gold top-border styling), the
+implementation pivoted to Option B: Elementor structural containers + ONE
+HTML widget per content section.** See `docs/decisions.md` 2026-04-26
+entry "Option B" for the full rationale, performance numbers, and
+trade-offs.
+
+**Implementation status (2026-04-26):**
+
+| Section | Approach | File |
+|---------|----------|------|
+| 1 Hero | Elementor widget tree (bg image + overlay + Save-the-Date sub-card benefit from Elementor primitives) | `01-hero.json` |
+| 2 Intro / Who Belongs | **HTML widget** containing `.fsi-intro` + `.fsi-image-block` + `.fsi-grid-3` cards | `02-intro-who-belongs.json` |
+| 3 What Happens | **HTML widget** containing `.fsi-section-heading` + `.fsi-grid-2` features + `.fsi-program-full` | `03-what-happens.json` |
+| 4 Next Summit | **HTML widget** containing single `.fsi-callout-gold` block | `04-next-summit.json` |
+| 5 Recent Summit Strip | **HTML widget** containing `.fsi-section-muted` + `.fsi-photo-strip` | `05-recent-summit-strip.json` |
+| 6 Membership Cards | **HTML widget** containing `.fsi-membership-grid` + 2 `.fsi-membership-card` | `06-membership-cards.json` |
+| 7 Event Details | **HTML widget** containing 3-up `.fsi-grid-3` (inline-styled cards) | `07-event-details.json` |
+| 8 Final CTA | Elementor widget tree (bg image + overlay) | `08-final-cta.json` |
+| 9 Footer-line | Elementor widget tree (small inline contact-info strip) | `09-footer-line.json` |
+
+The detailed per-section guidance below (structural diagrams, Settings
+tables, predicted overrides) describes the original widget-tree approach.
+For sections 2-7 these are **historical reference** — the actual
+implementation lives in the HTML widget content, derived directly from
+`llss-wpbakery-content.html`. For sections 1, 8, 9 the original guidance
+still applies.
+
+**Authoring conventions (post-Option-B):**
+- HTML strings live in the `html` setting of the section's HTML widget
+- Source-of-truth: the JSON files in `elementor-templates/event-page/`
+- Visual styling: comes from `fsi-event-styles.php` mu-plugin (already
+  enqueued portfolio-wide). When that retires, migrate the rules to kit
+  Custom CSS or a successor mu-plugin.
+- Image swaps: replace `<div class="fsi-img-placeholder">...</div>` with
+  `<img src="..." alt="..." width="..." height="..." loading="lazy" />`
+  inside the HTML widget content. Do this via the JSON workflow (preferred)
+  or via the Elementor editor's HTML widget code panel.
+- Element IDs follow the existing convention (e.g., `intro-html`,
+  `what-happens-html`)
+
+---
+
+## How this spec maps to JSON authoring (Workflow C1)
+
+This spec describes the **design intent** of the FSI Event Page template
+section by section: structure, widgets, color bindings, image dimensions,
+predicted CSS overrides, responsive behavior, and verification. It was
+originally written assuming Elementor UI authoring, but **the execution
+path is now JSON-in-repo + WP-CLI push** per `docs/decisions.md`
+2026-04-25 and the SOP at `docs/sops/elementor-json-authoring.md`.
+
+**Translating "Settings" tables to `_elementor_data` JSON:**
+
+- "Outer Container" / "Inner Container" rows → JSON nodes with
+  `elType: container`. Width/min-height/padding/background are properties
+  inside the container's `settings` object. Use `widget-references/inner-section.json`
+  as the schema reference for nested 2-column layouts.
+- "Heading widget" / "Text Editor widget" / "Button widget" → JSON nodes
+  with `elType: widget`, `widgetType: heading | text-editor | button`.
+  Settings keyed by Elementor's control IDs (`title`, `header_size`, `text`,
+  `link`, `align`, etc.) — derive the exact key set from
+  `widget-references/kit-test-page-5099.json`.
+- "Image Box widget" → `widgetType: image-box` per `widget-references/image-box.json`.
+- **Icon Box has been replaced** — see Section 3 below for the
+  Image+Heading+Text in container pattern.
+
+**Color bindings — slot ID rules:**
+
+Brand colors bind ONLY to `fsi*` slot IDs (per kit renumber 2026-04-25).
+The legacy 7-char slot IDs hold prod Velocity colors and MUST NOT be bound
+by new sections. See kit spec for the full table.
+
+| Color name in this doc | Slot ID to bind in JSON | Hex |
+|------------------------|-------------------------|-----|
+| Primary (system) | `primary` | `#1F365C` (navy) |
+| Secondary (system) | `secondary` | `#C9A040` (gold) |
+| Text (system) | `text` | `#444444` |
+| Accent (system) | `accent` | `#666666` |
+| Navy Hover | `fsi01nh` | `#162848` |
+| Gold Hover | `fsi02gh` | `#B8922E` |
+| Offwhite | `fsi03ow` | `#F7F7F5` |
+| Border | `fsi04bd` | `#E0E0DC` |
+| Light Grey | `fsi05lg` | `#CFD5DE` |
+| Gold Text Dark | `fsi06gt` | `#3D2E00` |
+| Hero Overlay (alpha) | `fsi07ho` | `#1F365CD9` |
+
+In JSON, a global color binding looks like:
+`"__globals__": { "color": "globals/colors?id=primary" }` for system or
+`"__globals__": { "background_color": "globals/colors?id=fsi02gh" }` for `fsi*`.
+
+**Typography:** kit uses Roboto (Primary 16px, Text 14px, Accent 13px) and
+Roboto Slab (Secondary 15px). NOT Arial — older drafts of this doc said
+Arial; that was incorrect. Don't override font-family per-widget unless
+intentional.
+
+**JSON file layout:**
+
+Each section becomes one file in `sites/thefivestar/elementor-templates/event-page/`:
+
+```
+01-hero.json
+02-intro-who-belongs.json
+03-what-happens.json
+04-next-summit.json
+05-recent-summit-strip.json
+06-membership-cards.json
+07-event-details.json
+08-final-cta.json
+```
+
+Each file contains the JSON for that section's outer Container (one
+top-level entry per file). Element IDs use deterministic, readable
+prefixes (e.g., `hero-section`, `hero-h1`, `hero-cta`) so diffs across
+re-pushes are readable.
+
+**Composing the page:** the page's `_elementor_data` is the array of all
+8 section containers in order, plus the The7 page-title disable meta.
+Push via `update_post_meta(_elementor_data)` per the SOP (NOT
+`wp elementor library import_dir` — that creates separate template posts;
+we want the sections inlined into the page's data).
+
+**Optional parallel:** save each section as a reusable Elementor Pro
+saved template via `wp elementor library import` so Phases 2-3 (Events
+hub, Velocity) can clone them independently. Inlined-into-page-data and
+saved-template are independent stores — both can coexist.
 
 ---
 
@@ -153,7 +313,7 @@ Container (full-width mode) [id: hero]
 | Background Position | Center Center |
 | Background Size | Cover |
 | Background Attachment | Scroll |
-| Background Overlay | Color `rgba(31, 54, 92, 0.85)` — inline, NOT a global color |
+| Background Overlay | Bind to global `fsi07ho` Hero Overlay = `#1F365CD9` (rgba(31, 54, 92, 0.85)). Note: kit spec was previously wrong about v4 not supporting alpha — it does, via 8-digit hex. Use the global, not inline color. |
 | Padding | 80px top / 80px bottom / 40px left / 40px right (desktop) |
 | Padding (mobile) | 60px top / 60px bottom / 20px left / 20px right |
 
@@ -182,8 +342,8 @@ Container (full-width mode) [id: hero]
 |---|---|
 | Content | Pull from baseline WPBakery page (single paragraph) |
 | Alignment | Center |
-| Color | Custom Color `Light Grey` = `#cfd5de` |
-| Typography | Global → Primary (Arial 400 16px 1.6) |
+| Color | Bind to `fsi05lg` Light Grey = `#CFD5DE` |
+| Typography | Global → Primary (Roboto 400 16px 1.6 — kit token) |
 
 ### Settings — Button widget (gold CTA)
 
@@ -193,10 +353,10 @@ Container (full-width mode) [id: hero]
 | Link | Registration URL from baseline |
 | Size | Custom (don't use `sm`/`md`/`lg` presets — they fight The7) |
 | Alignment | Center |
-| Typography | 16px / 700 |
-| Text Color | Global → Primary (`#1f365c` — navy on gold) |
-| Background Color | Global → Secondary (`#c9a040` — gold) |
-| Hover Background | Custom Color `Gold Hover` = `#b8922e` |
+| Typography | Roboto 16px / 700 |
+| Text Color | Bind to system `primary` (`#1F365C` navy — navy text on gold) |
+| Background Color | Bind to system `secondary` (`#C9A040` gold) |
+| Hover Background | Bind to `fsi02gh` Gold Hover = `#B8922E` |
 | Padding | 14px top/bottom, 36px left/right |
 | Border Radius | 4px |
 | Border | None |
@@ -444,20 +604,29 @@ Container (boxed, 1100px) [id: intro]
 
 ## Section 3 — What Happens
 
-Feature grid explaining what attendees do at LLSS. 3–4 card layout with
-icons + short descriptions. If there are larger "moments" or feature
-cards below, they use the 400×300 card images.
+Feature grid explaining what attendees do at LLSS. 4-card top row + 3-card
+optional bottom row.
+
+**Authoring note (2026-04-26):** Original spec used Elementor's Icon Box
+widget. After the widget schema oracle bootstrap discovered The7 has
+hijacked the Icon Box panel entries (see
+`the7-elementor-specificity-notes.md`), this section was rewritten to use
+the **Image + Heading + Text in container** pattern instead. Same visual
+outcome, theme-agnostic, JSON-authorable from the existing widget references.
 
 ### Structure
 
 ```
-Container (boxed, 1100px) [id: what-happens]
+Container (boxed, 1100px) [id: what-happens-section]
   ├─ Heading widget             → "What Happens at LLSS" H2, centered
   ├─ Container (row, 4 columns desktop / 2 tablet / 1 mobile)
-  │   ├─ Icon Box widget × 4    → icon + title + short desc
+  │   └─ Container × 4 (one per feature card)
+  │       ├─ Image widget       → 64×64 icon image
+  │       ├─ Heading widget     → H3 feature title
+  │       └─ Text Editor widget → 1-2 sentence description
   │
   └─ Container (row, 3 columns desktop / 1 mobile) [optional second row]
-      ├─ Image Box widget × 3   → image + title + description
+      └─ image-box widget × 3   → image + title + description (Elementor's image-box)
 ```
 
 ### Settings — outer Container
@@ -465,69 +634,89 @@ Container (boxed, 1100px) [id: what-happens]
 | Field | Value |
 |---|---|
 | Width | Boxed |
-| Background | Custom Color `Offwhite` = `#f7f7f5` |
-| Padding | 80px top/bottom desktop |
+| Max Width | 1100px |
+| Background | Bind to `fsi03ow` Offwhite = `#F7F7F5` |
+| Padding | 80px top/bottom desktop / 60px mobile |
 
-### Settings — Icon Box widget
+### Settings — feature-card Container (each of 4)
 
 | Field | Value |
 |---|---|
-| Icon | From Elementor library (or custom SVG) |
-| **Icon size** | **64×64** (mandatory — set explicitly, not auto) |
-| Title | Short label (H3 or H4) |
+| Width | Auto (filled by parent flex) |
+| Padding | 24px all sides |
+| Background | none (sits on Offwhite section bg) |
+| Gap | 12px between widgets inside |
+| Content alignment | Center |
+
+### Settings — feature-card Image widget (the 64×64 icon)
+
+| Field | Value |
+|---|---|
+| Image source | Custom SVG or PNG icon |
+| **Image size** | **Custom** with `image_custom_dimension: { width: 64, height: 64 }` (mandatory CLS prevention; matches widget-references/kit-test-page-5099.json image schema) |
+| Image alignment | Center |
+| Loading | Lazy (below fold likely) |
+
+### Settings — feature-card Heading widget
+
+| Field | Value |
+|---|---|
+| Title | Short feature label |
+| HTML Tag | H3 |
+| Alignment | Center |
+| Color | Inherits from kit Custom CSS (`.elementor-widget-heading h3.elementor-heading-title` = navy `#1F365C`, 20px, weight 700) |
+
+### Settings — feature-card Text Editor widget
+
+| Field | Value |
+|---|---|
+| Content | 1-2 sentences |
+| Alignment | Center |
+| Color | Inherits Text token (`#444444` Roboto 14px) |
+
+### Settings — second-row image-box widget (each of 3, if used)
+
+Per `widget-references/image-box.json` schema. Set:
+
+| Field | Value |
+|---|---|
+| Image | Upload (per baseline) |
+| `image_size` | `custom` |
+| `image_custom_dimension` | `{ width: 400, height: 300 }` |
+| Title | Feature name (H3 default styling — 16px weight 400 — appropriate for card titles per specificity audit) |
 | Description | 1–2 sentences |
 | Alignment | Center |
-| Icon Color | Global → Secondary (gold) |
-| Title Color | Global → Primary (navy) |
-| Description Color | Global → Text |
-| Spacing (icon → title) | 16px |
-| Spacing (title → desc) | 8px |
-
-### Settings — Image Box widget (if used in second row)
-
-| Field | Value |
-|---|---|
-| Image | Upload |
-| **Image Width** | **400** |
-| **Image Height** | **300** |
-| Title | Feature name |
-| Description | 1–2 sentences |
-| Alignment | Center or left (per baseline) |
 
 ### Predicted overrides
 
-```css
-/* Icon Box title — The7 likely sizes and colors this */
-.elementor-widget-icon-box .elementor-icon-box-title {
-  color: #1f365c;
-  font-size: 20px;
-  font-weight: 700;
-}
-.elementor-widget-icon-box .elementor-icon-box-description {
-  color: #444444;
-  font-size: 15px;
-  line-height: 1.55;
-}
+The Image+Heading+Text pattern uses Elementor widgets we already know
+from the schema oracle. Verified specificity findings:
 
-/* Icon size enforcement */
-.elementor-widget-icon-box .elementor-icon svg,
-.elementor-widget-icon-box .elementor-icon i {
-  width: 64px;
-  height: 64px;
-}
-```
+- Headings inside cards: scoped CSS in kit applies — H3 navy 20px weight 700 ✅
+- Text Editor: inherits Text token Roboto 14px `#444444` ✅
+- Image: renders at exact `image_custom_dimension` when set ✅
+- image-box: title 16px weight 400 (default; appropriate for cards) ✅
+
+**No new scoped CSS rules expected for this section.** If verification surfaces
+a The7 override, add to kit `custom_css` and apply via direct meta-write
+per the SOP.
 
 ### Verification
 
-- [ ] Icons render at exactly 64×64
-- [ ] Icon boxes evenly spaced, aligned top
-- [ ] Responsive: 4-col → 2-col → 1-col at breakpoints
-- [ ] Hover state on icon boxes (if baseline uses hover) matches
-- [ ] Image boxes (if used): dimensions 400×300 explicit, no distortion
+- [ ] Icon images render at exactly 64×64 (DevTools width/height attrs)
+- [ ] 4-card row evenly spaced, aligned top, gap consistent
+- [ ] Responsive: 4-col → 2-col → 1-col at 768/480 breakpoints
+- [ ] Card backgrounds inherit Offwhite from outer container
+- [ ] Heading H3 navy 20px, centered
+- [ ] Description Text 14px, centered, readable
+- [ ] Second-row image-box (if used): dimensions 400×300 explicit, no
+      distortion, no CLS shift on load
+- [ ] No console errors, DOM uses Elementor v4 `e-con` containers
 
 ### Save as template
 
-`FSI Event — What Happens`.
+`FSI Event — What Happens` (saved as Elementor Pro library template via
+`wp elementor library import` for Phase 2/3 reuse).
 
 ---
 
@@ -563,15 +752,15 @@ Container (full-width) [id: next-summit]
 |---|---|
 | Tag | `span` or `p` |
 | Text | `NEXT SUMMIT` (all caps in source, don't rely on text-transform) |
-| Typography | Global → Accent (Arial 700 13px, line-height 1) |
-| Color | Custom Color `Gold Text Dark` = `#3d2e00` |
+| Typography | Global → Accent (Roboto 700 13px, line-height 1) |
+| Color | Bind to `fsi06gt` Gold Text Dark = `#3D2E00` |
 | Letter Spacing | 2px |
 
 ### Settings — H2
 
 | Field | Value |
 |---|---|
-| Color | Custom Color `Gold Text Dark` (`#3d2e00`) — not navy |
+| Color | Bind to `fsi06gt` Gold Text Dark = `#3D2E00` — not navy |
 | Size | 26px (inherits from kit Custom CSS) |
 
 ### Settings — Button (outline variant)
@@ -710,7 +899,7 @@ Padding 80px top/bottom, background white.
 | Field | Value |
 |---|---|
 | Background | White |
-| Border | 1px solid Custom Color `Border` = `#e0e0dc` |
+| Border | 1px solid bound to `fsi04bd` Border = `#E0E0DC` |
 | Border Radius | 6px |
 | Padding | 24px all sides (inside card, below image) |
 | Box Shadow | None (or subtle per baseline) |
@@ -736,7 +925,7 @@ Color Global → Primary (navy). Size inherits from kit (20px).
 | Size | Custom (not `sm`/`md`/`lg` — fights The7) |
 | Background | Global → Primary (navy) |
 | Text Color | White `#FFFFFF` |
-| Hover Background | Custom Color `Navy Hover` = `#162848` |
+| Hover Background | Bind to `fsi01nh` Navy Hover = `#162848` |
 | Padding | 9px 22px |
 | Font Size | 13px / 700 |
 | Border Radius | 4px |
@@ -997,22 +1186,51 @@ Don't delete `new-event-page.md`. Keep until Phases 2–3 complete.
 
 ## Step 7 — Production promotion (Phase 1.11 — NOT in scope for Phase 1.4)
 
-Deferred to Phase 1.11. For reference only:
+Deferred to Phase 1.11. Updated 2026-04-25 for the AI-first JSON workflow.
+All steps are CLI-driven; no UI required.
 
-1. Staging verified per Step 3 above
-2. Explicit "yes" in chat from Jonathan
-3. Import Global Kit zip on production via Templates → Kits & Templates → Import
-4. Import FSI Event Page master template on production
-5. Create new page on production, slug `legal-league-servicer-summit`
-   (doesn't exist on prod — this is create-new, not replace)
-6. Apply The7 Page Options → Page Title → Disable on production page
-7. Populate with LLSS content (easiest: export staging page Elementor JSON, import on prod)
-8. Run Step 3 verification checklist against the production URL
+1. **Staging verified** per Step 3 above
+2. **Explicit "yes" in chat from Jonathan** (production approval gate per `docs/CLAUDE.md`)
+3. **Pre-flight check** — query prod for `_elementor_data` references
+   to `fsi*` slot IDs (should be zero — first time these slots ship to
+   prod). Confirm prod kit ID via `wp option get elementor_active_kit`.
+4. **Promote kit to prod via direct meta-write** (NOT `wp elementor kit import` —
+   that's broken for kit-content edits per the SOP). Steps:
+   - Push `sites/thefivestar/elementor-kit/site-settings.json` to prod via
+     `wp eval-file -` base64 push, persistent uploads location
+   - Direct write to prod active kit: `update_post_meta($prod_kit_id, '_elementor_page_settings', $decoded_settings)`
+   - Backup prod's pre-write kit settings to `_elementor_page_settings_backup_<timestamp>`
+     post meta on the kit post (instant rollback path)
+   - `Elementor\Plugin::$instance->files_manager->clear_cache()`
+   - Verify prod's 4 affected pages (Exit Intent 4497, Education 4560,
+     Five Star Access 4993, Velocity 4436) still render unchanged via
+     Playwright `getComputedStyle` — no Velocity slot regressions
+5. **Create LLSS page on prod via CLI:**
+   - `wp post create --post_type=page --post_status=publish --post_parent=<events_parent_id> --post_title="Legal League Servicer Summit" --post_name=legal-league-servicer-summit`
+     (slug doesn't exist on prod — this is create-new, not replace)
+   - `update_post_meta($new_page_id, '_dt_header_title', 'disabled')` — The7 page-title bar suppression
+   - `update_post_meta($new_page_id, '_elementor_data', wp_slash($json))` — composed page content
+   - `update_post_meta($new_page_id, '_elementor_edit_mode', 'builder')`
+   - `update_post_meta($new_page_id, '_elementor_template_type', 'wp-page')`
+   - `update_post_meta($new_page_id, '_elementor_version', '4.0.2')`
+   - `update_post_meta($new_page_id, '_elementor_pro_version', '4.0.2')`
+6. **Run `wp elementor replace_urls https://thefivestarstg.wpenginepowered.com https://thefivestar.com`**
+   on prod to clean any embedded staging URLs in `_elementor_data` (image
+   src refs, etc.)
+7. **`wp elementor flush_css`** on prod
+8. **Run Step 3 verification checklist** against the production URL
+   (Playwright getComputedStyle + screenshots at 1440/768/420 + 8 functional checks)
 9. **DO NOT wire into nav.** Per nav-wiring rule, publishing ≠ wiring.
-   Page exists at its canonical URL but stays unlinked until separate
-   per-entry nav approval. Jonathan drives that decision.
-10. WPBakery `-old` page stays staging-only forever (until Phase 1.11
+   Page exists at canonical URL but stays unlinked until separate per-entry
+   nav approval. Jonathan drives that decision.
+10. **WPBakery `-old` page stays staging-only forever** (until Phase 1.11
     trash decision)
+11. **Optionally promote saved templates:** push the per-section JSON to
+    prod via `wp elementor library import_dir` so Phases 2-3 (Events hub,
+    Velocity) can clone them on prod from the same library entries.
+
+**No UI work in Phase 1.11.** Every step above is `wp eval-file -` or
+`wp elementor` CLI. Visual verification is Playwright + Lighthouse.
 
 ---
 

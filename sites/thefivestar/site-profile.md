@@ -93,7 +93,8 @@ Last reviewed: 2026-04-21
 | 🟢 Low | EventON Lite inactive | Deleted from staging ⏳ |
 | 🟢 Low | matchheight — legacy jQuery | Deleted ✅ |
 | 🟡 Med | fsi-event-styles.php not on production | Pending production deploy ⏳ |
-| 🟡 Med | Event pages (LLSS, hub rebuild, nav) staging-only | Pending production promotion ⏳ |
+| 🟡 Med | LLSS Elementor at canonical staging slug (page 5106 since 2026-04-26) | Pending Phase 1.11 production promotion ⏳ |
+| 🟡 Med | Events hub (5089) + Velocity (5088) Elementor migration | Pending Phase 2 + Phase 3 |
 | 🟡 Med | WPBakery chain — maintenance-only under 2026-04-22 decision | SOP only needed if critical update ships before chain retires |
 
 ## Elementor Global Kit v1

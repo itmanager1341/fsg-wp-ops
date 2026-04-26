@@ -7,6 +7,365 @@ New decisions go at the top.
 
 ---
 
+## 2026-04-26 — Phase 1.4 Step 7: LLSS Elementor at canonical staging slug
+
+**Decision:** Slug swap executed on staging:
+- Page 5094 (WPBakery LLSS) renamed to `legal-league-servicer-summit-old`,
+  title "Legal League Servicer Summit (Old WPBakery)"
+- Page 5106 (Elementor LLSS) renamed to `legal-league-servicer-summit`,
+  title "Legal League Servicer Summit"
+
+**Status:** Live at the canonical staging URL
+`https://thefivestarstg.wpenginepowered.com/events/legal-league-servicer-summit/`.
+Production unchanged (page never existed on prod at the canonical singular
+slug — Phase 1.11 production promotion is a create-new operation, not a
+replace).
+
+**Rollback:** WPBakery version preserved at `-old` slug for reference and
+fallback. Trash decision deferred to ~1-2 weeks post-prod-promotion.
+
+**Verification (Playwright + curl):**
+- Canonical URL serves wrapper class `.elementor-5106` with all 9 Option B
+  sections
+- `-old` URL serves `.fsi-page-wrap` WPBakery markup with "(Old WPBakery)"
+  title
+- No `_wp_old_slug` redirects in play; no `eps-301-redirects` rules
+  conflicting
+- WPE Varnish + Elementor CSS + WP Rocket all flushed via `WpeCommon::purge_varnish_cache()`
+  + `Elementor\Plugin::$instance->files_manager->clear_cache()` + `wp cache flush`
+
+**Next gate:** Phase 1.11 production promotion. Awaiting explicit Jonathan
+approval per the standing production-approval rule. The kit promotion +
+LLSS create-new on prod will use the same direct meta-write workflow
+proven on staging.
+
+---
+
+## 2026-04-26 — Option B: Elementor structural containers + HTML widgets for content sections
+
+**Decision:** For event-page sections that don't need Elementor-native
+structural features (background image, overlay, animation, dynamic tags),
+use ONE Elementor HTML widget per section containing the existing
+`fsi-page-wrap` markup. Keep Elementor widget trees ONLY for sections
+where Elementor's primitives earn their keep — Hero (full-width + bg
+image + overlay + Save-the-Date sub-card), Final CTA (same), Footer-line
+(too small to refactor).
+
+**Rationale:**
+
+1. **Visual fidelity.** The widget-tree approach was reinventing visual
+   designs encoded in `fsi-event-styles.php` CSS classes (e.g.,
+   `.fsi-card-gold` = Offwhite card + 4px gold top border). Recreating
+   that as widget settings repeatedly produced inferior, heavier visuals
+   (solid-fill cards) and lost the CSS author's nuance. HTML widget +
+   existing CSS = pixel-identical to source design.
+
+2. **Performance.** LLSS retrofit measurements (2026-04-26):
+   - `_elementor_data` size: 39,958 → 22,032 bytes (-45%)
+   - Elementor widgets: 59 → 15 (-75%)
+   - Flexbox containers: 35 → 12 (-66%)
+   - DOM `.elementor-element` count: ~100+ → 27 (-73%)
+   - Per-page CSS file size: ~9 KB → ~3-4 KB
+   - Faster TTI, smaller DB read on every page render, smaller initial
+     CSS download
+
+3. **Editorial workflow unchanged.** WPBakery editors already paste HTML
+   markup into raw-HTML widgets; HTML widget editing in Elementor is the
+   same pattern. AI-first JSON authoring continues unchanged — HTML
+   strings live in the JSON files in version control.
+
+4. **Cross-site syndication still works.** Elementor pages with HTML
+   widgets are syndication-compatible the same way pure-widget-tree
+   Elementor pages are.
+
+5. **Reusability for Phase 2/3.** Clone the Elementor section structure,
+   copy/paste the HTML chunks, swap event-specific copy.
+
+**When to use widget tree (the carve-outs):**
+
+| Use case | Reason widget tree wins |
+|----------|------------------------|
+| Hero / Final CTA with bg image + overlay | Elementor handles overlay opacity, full-width vs boxed, parallax cleanly |
+| Buttons that need `__globals__` color binding | Globals work on widget-tree buttons (with the workarounds documented earlier) |
+| Animation triggers, motion effects, dynamic tags | Only available on Elementor widgets, not HTML markup |
+| Theme Builder page templates | Need Elementor widgets for conditions and dynamic content |
+
+**When to use HTML widget (the default for content):**
+
+| Use case | Reason HTML widget wins |
+|----------|------------------------|
+| Cards/grids with existing CSS class system | CSS handles layout/colors/spacing; widget settings would re-encode them |
+| Photo strips, image galleries with captions | CSS classes encode positioning; HTML is concise |
+| Inline-styled content blocks | HTML preserves intent without translation overhead |
+| Anything where the source HTML is short and well-styled by an existing class system | Don't reinvent the design |
+
+**Trade-offs we accept:**
+
+- **Editorial UX inside HTML widget**: editors edit raw HTML in the
+  Elementor code editor, not via drag-drop image pickers. For event
+  pages where images are populated once per event, this is fine. For
+  marketing pages with frequent image swaps, a hybrid (HTML widget for
+  layout + Elementor Image widget for the image slots) is the right
+  pattern — costs more JSON complexity, gains image-picker UX.
+- **Coupling to `fsi-event-styles.php` mu-plugin.** The CSS source needs
+  to stay deployed. When/if it retires (Hello Elementor swap, kit
+  consolidation), the rules need to migrate into the kit Custom CSS
+  block or a successor plugin. Documented per-section in JSON
+  `_authoring_notes`.
+- **Elementor template export doesn't carry CSS.** If the FSI Event Page
+  template is exported to a fresh site without `fsi-event-styles.php`,
+  cards look unstyled. Mitigation: ship the CSS alongside the template
+  in the SOP for Phase 7 AMAA.
+
+**Architectural pattern (canonical):**
+
+```
+{
+  "id": "section-name",
+  "elType": "container",      // Elementor outer container
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",  // or "full"
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": { ... },        // structural padding
+    "padding_mobile": { ... }
+  },
+  "elements": [
+    {
+      "id": "section-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div class=\"fsi-grid-3\">\n  <div class=\"fsi-card-gold\">\n    <h3 class=\"fsi-card__title\">...</h3>\n    <p class=\"fsi-card__text\">...</p>\n  </div>\n  ...\n</div>"
+      }
+    }
+  ]
+}
+```
+
+**Documented in:**
+- `docs/sops/elementor-json-authoring.md` lesson #15
+- `sites/thefivestar/llss-elementor-build-spec.md` (per-section author notes)
+- This decision log entry
+
+**Applies to:** FSI event pages (LLSS, Velocity, Events hub). Reassessable
+when other content types come up — membership / community pages might
+benefit from the same pattern depending on their CSS class systems.
+
+---
+
+## 2026-04-25 — AI-first Elementor authoring; pin Elementor versions on FSI
+
+**Decision:** Elementor templates, pages, and kits are authored as JSON files in
+this repo and pushed to staging via WP-CLI. The Elementor UI is not an
+authoring tool for production content. UI is reserved for: (a) one-time schema
+discovery (build a reference instance to learn a widget's settings shape), and
+(b) operations the WP-CLI surface doesn't cover (Theme Builder display
+conditions, popup display rules, dynamic-tag wiring).
+
+**Companion decision:** Pin Elementor + Elementor Pro on FSI staging at the
+versions where this workflow was proven (4.0.2 / 4.0.2). Disable WP auto-update
+for both. Upgrades are deliberate, with re-export of the kit and widget schema
+oracle to catch any internal-data-structure drift before authoring against the
+new version.
+
+**Verified CLI surface on FSI staging Elementor 4.0.2 (2026-04-25):**
+
+| Command | Use |
+|---------|-----|
+| `wp elementor kit import <zip> [--include=site-settings,templates,content] --user=<id>` | Import kit zip (admin user required) |
+| `wp elementor kit export <path>` | Export current kit |
+| `wp elementor kit revert` | Atomic rollback of last kit import |
+| `wp elementor library import <file>` | Single template import |
+| `wp elementor library import_dir <path>` | Bulk template import from directory |
+| `wp elementor flush_css` | Regenerate per-page CSS cache (run after every import or `_elementor_data` write) |
+| `wp elementor replace_urls <old> <new>` | Rewrite hardcoded URLs (staging→prod) |
+
+**Push pipe (verified end-to-end 2026-04-25):**
+
+WPE SSH Gateway whitelists commands; SCP and `cat > file` are blocked. Binary
+push uses `wp eval-file -` reading PHP from stdin that base64-decodes the
+payload and writes to `wp_upload_dir()['basedir']`. Persistent location matters
+because `/tmp/` is container-scoped (not survivable across SSH sessions on WPE).
+
+**Round-trip proof (2026-04-25):** Re-imported the existing
+`elementor-global-kit-v1.zip` to staging via the CLI path; Site Settings
+preserved exactly; `/kit-test/` rendered identically (H1 Roboto 42px navy
+`#1F365C`, H2 Roboto 26px navy, body Roboto 14px `#444444`). Computed-style
+values match kit spec values when fetched via Playwright `getComputedStyle`.
+
+**Rationale:**
+
+1. **Repo as source of truth.** Site state is the database; the database is not
+   diff-able. JSON files in this repo are diff-able, blame-able, and reviewable.
+   Phase 1.3 was UI-only; capturing the kit now revealed 3 spec/reality drifts
+   (Arial vs Roboto, 4 undocumented custom colors, breakpoint storage) that
+   would have stayed silent indefinitely without the round-trip.
+2. **Cross-site replication.** A kit zip + import script reproduces the same
+   kit on AMAA staging when Phase 7 starts. UI builds don't replicate.
+3. **Reproducible recovery.** If staging is wiped or rolled back, the kit and
+   all event-page templates rebuild from the repo with no manual UI work.
+4. **AI-driven authoring is viable.** Widget settings in v4 are sparse — only
+   deltas from kit defaults are stored. Verified on `/kit-test/` page 5099:
+   8 widget instances, average ~3 properties each. Cold-authoring widget JSON
+   from a known-good schema reference is tractable.
+
+**Out of scope for JSON authoring (UI remains the right tool):**
+- Elementor Pro Theme Builder display conditions (UI has validation; CLI
+  surface is thin)
+- Popup display rules and triggers
+- Dynamic tag wiring (depends on plugin context the CLI doesn't expose)
+- One-time widget schema discovery — build one in UI, export `_elementor_data`,
+  then close the loop and never edit in UI again
+
+**Guardrails:**
+
+1. **Version pin.** Elementor + Elementor Pro on FSI pinned at 4.0.2 / 4.0.2.
+   Document upgrade with a re-export-and-verify pass before authoring proceeds
+   on the new version.
+2. **Bootstrap from UI.** New widget types: build one reference instance in UI,
+   export `_elementor_data`, decompose into
+   `sites/thefivestar/elementor-templates/widget-references/`. From then on,
+   author from the reference — never cold.
+3. **Cache flush after every push.** `wp elementor flush_css` runs after every
+   kit import and every direct `_elementor_data` write. Skipping this leaves
+   stale per-page CSS files and produces "why doesn't this look right" debugging.
+4. **Visual verify gate.** Every push is followed by Playwright (or Chrome MCP)
+   to fetch computed styles AND a screenshot. The verified pass is the gate;
+   "import succeeded" is not.
+5. **Use `--include=site-settings` when only kit-level changes are intended.**
+   Full kit import re-imports custom-code (Naylor, Apollo) and templates,
+   which can duplicate or override existing prod state if not intended.
+6. **`wp elementor kit revert` is the atomic rollback.** Available immediately
+   after any import. Document it as the first response when an import causes
+   visible regression.
+7. **Persistent location for the push.** `wp_upload_dir()['basedir'] /
+   cli-imports/` is the staging convention. Always clean up after import.
+8. **Admin user required for kit import.** `--user=<id>` is mandatory.
+   FSI admin: `jhughes` / ID 816.
+
+**Workflow C splits accordingly** in `docs/how-we-update-the-site.md`:
+- **C1 (default):** JSON-driven authoring + WP-CLI push
+- **C2 (escape hatch):** WP Admin UI for the listed out-of-scope cases above
+
+**SOP:** `docs/sops/elementor-json-authoring.md`.
+
+**Consequences:**
+
+- Phase 1.3 is restated as "live + version-controlled" — the UI-built kit is
+  now mirrored as JSON in `sites/thefivestar/elementor-kit/`. Re-exports go on
+  top of those files (overwrite, not append).
+- Phase 1.4 LLSS build runs on this workflow from the start. Pre-work #2 in
+  the next-chat-handoff is rewritten to: bootstrap widget schema oracle by
+  exporting `/kit-test-widgets/` once, then author all 8 LLSS sections as JSON.
+- Phase 7 AMAA portfolio expansion gets the kit zip + the tooling pattern for
+  free.
+- The decision-log nav-wiring rule (2026-04-23) and Phase 4 IA split
+  (2026-04-23) are unchanged.
+
+**Alternatives considered and rejected:**
+
+- **Continue UI-only authoring.** Rejected. Three spec/reality drifts in a
+  4-day-old kit is the proof that UI-only is unauditable.
+- **Build a custom Elementor authoring DSL.** Rejected. The native JSON IS the
+  contract. Adding a translation layer doubles the failure surface and gains
+  nothing for our scale.
+
+**Addendum 2026-04-25 (post-verification of `wp elementor kit import`):**
+
+`wp elementor kit import` is unsafe for routine kit-content updates on
+Elementor 4.0.2. Two distinct failure modes verified on FSI staging:
+
+1. **`--include=site-settings` is a silent no-op.** Returns
+   `Success: Kit imported successfully` but the import session has
+   `runners: []` (zero runners). Active kit unchanged. Verified by
+   reading `_elementor_page_settings` after import — bytewise identical
+   to before.
+2. **Without `--include`, runners fire BUT custom_colors are APPENDED, not
+   REPLACED.** Discovered after a renumber import produced a kit with 27
+   custom_colors (duplicate `_id` for every slot). Elementor's resolution
+   of `globals/colors?id=...` becomes undefined when slot IDs duplicate.
+   Also: trashes original `elementor_snippet` posts (Naylor, Apollo) and
+   creates new ones with new IDs. Also: creates a new kit post and
+   switches `elementor_active_kit` to point at it.
+
+**Revised authoring path for kit Site Settings (custom colors, system
+colors, custom CSS, layout, typography):** direct meta-write to
+`_elementor_page_settings` on the active kit post via `update_post_meta`,
+bracketed by:
+- mandatory backup to a timestamped meta key
+  (`_elementor_page_settings_backup_YYYY_MM_DD_HHMMSS`) BEFORE the write
+- `Elementor\Plugin::$instance->files_manager->clear_cache()` AFTER
+
+**Revised use cases for `wp elementor kit import`:** restricted to
+greenfield contexts only — first-time import on a fresh site, or
+cross-site promotion (FSI→AMAA in Phase 7) where the destination has no
+kit yet. Routine kit edits use direct meta-write.
+
+**`wp elementor kit revert`** verified as a working atomic rollback after
+`kit import`. It does NOT untrash trashed `elementor_snippet` posts
+(verified 2026-04-25); manual `wp post update <id> --post_status=publish`
+needed for those.
+
+SOP `docs/sops/elementor-json-authoring.md` was rewritten 2026-04-25 to
+reflect this revised pathway. Original 2026-04-25 SOP content recommending
+`kit import --include=site-settings` was wrong and has been replaced.
+
+---
+
+## 2026-04-25 — Restore prod custom-color slot IDs; brand colors get `fsi*` slot IDs
+
+**Decision:** The 7 custom-color slot IDs that Sasa overwrote during Phase
+1.3 setup (`f64043d`, `fd98090`, `7836aae`, `9bb2763`, `9e77118`,
+`2922fdd`, `73bb18d`) are restored on staging to their original prod
+Velocity values. The 7 brand colors (Navy Hover, Gold Hover, Offwhite,
+Border, Light Grey, Gold Text Dark, Hero Overlay) live at NEW slot IDs
+prefixed `fsi*` (`fsi01nh` through `fsi07ho`). Net 17 custom-color slots
+on the staging kit.
+
+**Why:** prod kit 4004 was last modified 2025-11-04 (5 months stale
+relative to staging). 4 prod pages bind to the 7 contested slot IDs:
+
+| Page | Slots used | Risk if kit promoted as-is |
+|------|-----------|---------------------------|
+| 4497 Exit Intent (popup) | 3 slots, 5 refs | HIGH — popup button breaks visually |
+| 4560 Education (active page) | 1 slot, 5 refs | MEDIUM — backgrounds white→grey |
+| 4993 Five Star Access (active page) | 3 slots, 4 refs | HIGH — links become near-invisible |
+| 4436 Velocity (deprecation candidate) | 3 slots, 17 refs | VERY HIGH — full identity flip |
+
+Renumber preserves the 7 contested slots' original Velocity values, so
+prod pages render unchanged after Phase 1.11 promotion. Brand colors are
+additive at new IDs.
+
+**System color slots** (`primary`, `secondary`, `text`, `accent`) were
+also overwritten by Phase 1.3 with FSI brand values, but per a separate
+audit only deprecation-candidate pages reference them on prod. Negligible
+risk; no remediation needed.
+
+**Slot ID convention going forward:**
+- `fsi[NN][initials]` for FSI brand-kit additions (`fsi08xx` next)
+- Pre-existing 7-char hex-ish slot IDs preserved for prod-page back-compat
+- Before changing any slot's title or hex, query both prod and staging
+  for `globals/colors?id=<slot>` references in `_elementor_data`
+  (procedure documented in SOP)
+
+**Consequences:**
+
+- Staging kit 4004 now has 17 custom_colors. Source-of-truth
+  `sites/thefivestar/elementor-kit/site-settings.json` reflects this.
+- New event-page templates (Phase 1.4 onwards) bind to `fsi*` slot IDs
+  for brand colors. They MUST NOT bind to the 7 restored Velocity slots.
+- Phase 1.11 kit promotion to prod is now non-destructive for the 4
+  affected prod pages. Velocity colors preserved at original slots; brand
+  colors added alongside at `fsi*` slots.
+- Velocity page 4436 deprecation can proceed independently per the
+  `wpbakery-migration.md` deprecation list — no urgency from this
+  decision.
+
+**Kit spec:** `sites/thefivestar/elementor-global-kit-spec.md` updated.
+
+---
+
 ## 2026-04-23 — Nav-wiring requires explicit approval (globally)
 
 **Decision:** Any new navigation entry — top-nav, mobile nav, footer, any

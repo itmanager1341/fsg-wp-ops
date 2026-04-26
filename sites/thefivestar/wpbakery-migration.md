@@ -8,11 +8,26 @@ migration completes).
 the opposite direction (Elementor phase-out) and is now retired. The 2026-04-19
 "WPBakery only going forward" decision has been superseded.
 
-**Migration status:** 🟡 First wave (event pages) — not started.
-Elementor page count on FSI: ~18 (pre-standardization decision — those are
-now "already ahead" of the curve, though some are scheduled for deprecation).
+**Migration status:** 🟢 First wave (LLSS) MIGRATED ON STAGING (2026-04-26).
+Production promotion (Phase 1.11) pending Jonathan approval.
+
+Phase 1.4 LLSS Elementor live at canonical staging slug:
+- `https://thefivestarstg.wpenginepowered.com/events/legal-league-servicer-summit/`
+  → Elementor page 5106
+- `https://thefivestarstg.wpenginepowered.com/events/legal-league-servicer-summit-old/`
+  → original WPBakery page 5094 (preserved for fallback)
+
+Elementor page count on FSI: ~19 (~18 pre-existing + LLSS Elementor).
 WPBakery page count on FSI: the bulk of active pages plus ~200 legacy pages
 many of which will be deprecated rather than migrated.
+
+**Architectural pattern proven 2026-04-26:** Option B (Elementor structural
+containers + HTML widgets containing existing `fsi-page-wrap` markup).
+Hero + Final CTA stay as Elementor widget trees (bg image + overlay benefit
+from Elementor primitives); content sections become single HTML widgets
+that leverage `fsi-event-styles.php` CSS for visual fidelity. See
+`docs/decisions.md` 2026-04-26 entry. This is the cloneable pattern for
+Phase 2 (Events hub) and Phase 3 (Velocity).
 
 ---
 
@@ -85,9 +100,10 @@ section/template and becomes the source for all future event pages.
 
 | ID | Slug | Current state | Target state |
 |----|------|---------------|--------------|
-| 5089 | `/events/` | Plain HTML inside WPBakery + `fsi-event-styles.php` classes | Elementor hub layout with event cards (Loop widget or saved section) |
-| 5088 | `/events/velocity/` | Plain HTML inside WPBakery (content synced from production) | Elementor event page from the template |
-| 5094 | `/events/legal-league-servicer-summit/` | Plain HTML inside WPBakery, fully built per `docs/sops/new-event-page.md` | Elementor event page from the template |
+| 5089 | `/events/` | Plain HTML inside WPBakery + `fsi-event-styles.php` classes | Elementor hub layout with event cards (Loop widget or saved section) — Phase 2 |
+| 5088 | `/events/velocity/` | Plain HTML inside WPBakery (content synced from production) | Elementor event page from the template — Phase 3 |
+| 5094 | `legal-league-servicer-summit-old` (renamed 2026-04-26) | Plain HTML inside WPBakery, fully built per `docs/sops/new-event-page.md` | **MIGRATED to Elementor page 5106 at canonical slug `/events/legal-league-servicer-summit/`** (staging only — prod promotion pending Phase 1.11) |
+| 5106 | `/events/legal-league-servicer-summit/` | **Elementor — Option B pattern (9 sections JSON in repo)** | Production promotion via Phase 1.11 |
 
 **Why these three:** content is fresh, CSS tokens already documented,
 structure is clear (hero, intro, Who Belongs, What Happens, Next Summit,

@@ -94,6 +94,150 @@ Hello Elementor strengthens meaningfully.
    there. May be possible to neuter specific overrides without swapping
    themes.
 
+## Phase 1.4 widget bootstrap audit (2026-04-26)
+
+Captured via Playwright `getComputedStyle` on `/kit-test/` page 5099 after
+the post-bootstrap cleanup. All widgets confirmed Elementor-native (no The7
+namespace).
+
+| Widget | Title rendering | Body/desc rendering | Need scoped CSS? |
+|--------|-----------------|---------------------|------------------|
+| `heading` | navy `#1F365C`, Roboto, sized per scoped Custom CSS (H1 42px / H2 26px / H3 20px / H4 18px), weight 700 | n/a | ✅ Already in kit |
+| `text-editor` (paragraph) | n/a | `#444444`, Roboto 14px (Text token) | ✅ Default kit binding |
+| `button` | white text on navy bg | n/a | Default OK for now; per-section overrides expected |
+| `image` (with explicit dims) | n/a | n/a | ✅ Renders at exact width/height when dims set in widget settings |
+| `image-box` | H3 `.elementor-image-box-title`, navy `#1F365C`, Roboto **16px weight 400** (default Elementor card-title style) | `#444444` Roboto 14px | ❌ No override needed — card-title sizing is intentional and appropriate. Override per-section if a specific layout calls for larger card titles. |
+| `spacer` | n/a | n/a | n/a |
+| `divider` | n/a | n/a | Default OK |
+| nested `container` (Inner Section) | n/a | renders as v4 Flexbox `e-con-full e-flex e-con e-child`; 2-column layout = 550px columns at 1100px content width; gap 20px; padding 10px | ❌ No override needed |
+
+**Key finding:** `image-box` titles use `.elementor-image-box-title`, NOT
+`.elementor-heading-title`. Our kit's heading scope rules don't apply to
+image-box titles by design. They render at Elementor's default card-style
+(16px / weight 400) — appropriate for membership/event card patterns in
+Phase 1.4.
+
+If a future section needs image-box titles styled like H3 section headings,
+add this scoped rule to the kit `custom_css`:
+
+```css
+.elementor-widget-image-box .elementor-image-box-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+```
+
+For Phase 1.4 LLSS, **don't add it yet** — keep image-box at default until
+a section actually needs it.
+
+## v4 + The7 button/overlay global-binding finding (2026-04-26)
+
+**Finding:** When an Elementor v4.0.2 widget binds a color via `__globals__`
+(e.g., `"__globals__": { "background_color": "globals/colors?id=secondary" }`),
+the per-page CSS that Elementor generates contains the correct
+`background-color: var(--e-global-color-secondary)` declaration. The CSS
+variable resolves correctly on the element (`getComputedStyle().getPropertyValue('--e-global-color-secondary')`
+returns `#C9A040`). But the rendered button still shows `#666666` (Accent),
+not gold.
+
+**Root cause (verified via Playwright cssRules walk on FSI staging
+2026-04-26):** Elementor's per-page CSS rule for the button reads:
+
+```css
+.elementor-5106 .elementor-element.elementor-element-hero-cta .elementor-button {
+  background-color: var(--e-global-color-secondary);
+  background-image: var(--e-global-color-secondary);
+  ...
+}
+```
+
+The `background-image: var(--color)` declaration is invalid (variable
+resolves to a color, not a URL/gradient). When the browser parses this
+rule, the `background-color` declaration disappears alongside the invalid
+`background-image`. The browser's `cssText` of the parsed rule shows ONLY
+font-weight, border-radius, padding — no background. This leaves The7's
+lower-specificity `.elementor-button { background: var(--the7-btn-bg) }`
+rule winning by default.
+
+The same pattern affects `::before` overlay rules. The per-page CSS for
+section overlays reads:
+
+```css
+.elementor-5106 .elementor-element.elementor-element-hero-section::before, ... {
+  background-color: var(--e-global-color-fsi07ho);
+  --background-overlay: '';
+}
+```
+
+The browser drops `background-color` here too. The overlay element is
+positioned but has no color, leaving the section transparent over its
+background.
+
+**Workaround:** Hardcode brand color hex values directly in the JSON
+`settings` object instead of using `__globals__` bindings, for these
+specific widgets:
+
+- **Buttons:** `button_text_color`, `background_color`, `hover_color`,
+  `button_background_hover_color` — hardcode hex strings, not globals
+- **Container overlays:** `background_overlay_color` — hardcode hex string
+
+Other widgets (Heading via Custom CSS, Text Editor `text_color`, etc.)
+DO honor `__globals__` correctly because their per-page CSS doesn't have
+the conflicting `background-image: var(--color)` companion declaration.
+
+**Verified working pattern (Phase 1.4 mid-checkpoint, 2026-04-26):**
+
+```json
+{
+  "widgetType": "button",
+  "settings": {
+    "text": "Join Legal League",
+    "button_text_color": "#1F365C",
+    "background_color": "#C9A040",
+    "hover_color": "#1F365C",
+    "button_background_hover_color": "#B8922E"
+  }
+}
+```
+
+```json
+{
+  "elType": "container",
+  "settings": {
+    "background_overlay_background": "classic",
+    "background_overlay_color": "#1F365CD9"
+  }
+}
+```
+
+**Trade-off:** if brand kit colors change, button + overlay JSON across
+all sections needs hex value updates. For Phase 1.4-1.11 with stable
+brand colors, this is acceptable. Revisit on Hello Elementor swap — the
+issue is specifically The7's `.elementor-button { background: ... }` and
+the v4 `background-image: var(--color)` companion. Hello Elementor
+doesn't have the The7 override; v4's invalid `background-image` would
+still likely cause issues but without an aggressive theme override the
+per-element `background-color` might apply.
+
+**Future verification idea:** test if removing `background-image:
+var(--color)` from per-page CSS fixes the issue (would need a custom
+plugin to filter Elementor's CSS generator). Likely not worth the
+maintenance overhead.
+
+## Skipped widget: Icon Box (2026-04-26 decision)
+
+Standard Elementor `icon-box` was NOT bootstrapped. The7 registers two
+confusingly-labeled widgets in the panel under "Pro" and basic categories,
+both of which turned out to be `the7_icon_box_widget` and
+`the7_image_box_widget` respectively (named "Icon Box Pro" but rendered as
+The7's image box). Three rounds of UI clicking didn't produce the standard
+Elementor `icon-box`.
+
+**Decision:** Skip Icon Box. Phase 1.4 LLSS "What Happens" feature grid
+builds icons via **Image (icon, 64×64) + Heading + Text Editor inside a
+container** instead. Same visual outcome, theme-agnostic, no widget
+dependency. If Phase 4+ needs `icon-box` specifically, bootstrap then.
+
 ## Related
 
 - `sites/thefivestar/the7-dependency-audit.md` — original theme-direction audit

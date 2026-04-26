@@ -1,0 +1,57 @@
+{
+  "comment": "v4.0.2 schema reference for nested-container (Inner Section) \u2014 captured 2026-04-26 from /kit-test/ page 5099 (cleaned). Top-level container holding two child containers as a 2-column layout. Empty inner containers; populate as needed when authoring sections.",
+  "wrapper_container": {
+    "id": "9480935",
+    "elType": "container",
+    "settings": {
+      "flex_direction": "row",
+      "flex_gap": {
+        "unit": "px",
+        "size": 0,
+        "column": "0",
+        "row": "0"
+      }
+    },
+    "isInner": false
+  },
+  "children": [
+    {
+      "id": "16380d7",
+      "elType": "container",
+      "settings": {
+        "flex_direction": "column",
+        "content_width": "full",
+        "width": {
+          "unit": "%",
+          "size": "50"
+        }
+      },
+      "elements": [
+        {
+          "id": "b2eef5b",
+          "elType": "widget",
+          "settings": {
+            "title": "Test"
+          },
+          "elements": [],
+          "widgetType": "heading"
+        }
+      ],
+      "isInner": true
+    },
+    {
+      "id": "e877bd9",
+      "elType": "container",
+      "settings": {
+        "flex_direction": "column",
+        "content_width": "full",
+        "width": {
+          "unit": "%",
+          "size": "50"
+        }
+      },
+      "elements": [],
+      "isInner": true
+    }
+  ]
+}
