@@ -325,7 +325,7 @@ escape hatch for the few things CLI doesn't cover (see C2 list above).
 - Verify with Playwright `getComputedStyle` + full-page screenshot before
   declaring done
 - Event pages: compose from the FSI Event Page section library
-  (`elementor-templates/event-page/`)
+  (`elementor-templates/event-pages/legal-league-servicer-summit/`)
 
 **Elementor v4 global kit reality (confirmed 2026-04-23 on staging,
 Elementor + Elementor Pro 4.0.2):**

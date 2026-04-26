@@ -90,7 +90,7 @@ still applies.
 
 **Authoring conventions (post-Option-B):**
 - HTML strings live in the `html` setting of the section's HTML widget
-- Source-of-truth: the JSON files in `elementor-templates/event-page/`
+- Source-of-truth: the JSON files in `elementor-templates/event-pages/legal-league-servicer-summit/`
 - Visual styling: comes from `fsi-event-styles.php` mu-plugin (already
   enqueued portfolio-wide). When that retires, migrate the rules to kit
   Custom CSS or a successor mu-plugin.
@@ -158,7 +158,7 @@ intentional.
 
 **JSON file layout:**
 
-Each section becomes one file in `sites/thefivestar/elementor-templates/event-page/`:
+Each section becomes one file in `sites/thefivestar/elementor-templates/event-pages/legal-league-servicer-summit/`:
 
 ```
 01-hero.json

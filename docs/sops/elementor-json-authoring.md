@@ -28,10 +28,13 @@ sites/thefivestar/
     widget-references/                    # READ-ONLY widget schema oracle
       kit-test-page-5099.json
       <widget-type>.json (per type)
-    event-page/                           # Phase 1.4 — LLSS section sources
-      01-hero.json
-      02-intro-who-belongs.json
-      ...
+    event-pages/                          # One subdirectory per event page (URL slug = directory name)
+      legal-league-servicer-summit/       # Phase 1.4 LLSS section sources
+        01-hero.json
+        02-intro-who-belongs.json
+        ...09-footer-line.json
+      velocity/                            # Phase 3 Velocity (next session)
+      events/                              # Phase 2 Events hub (later)
   visual-baselines/                       # Pre/post screenshots from verification runs
     kit-test-post-roundtrip-2026-04-25.png
 ```
@@ -242,7 +245,7 @@ meta key approach above.
 
 ## Template / section import
 
-Phase 1.4 sections live in `sites/thefivestar/elementor-templates/event-page/`.
+Phase 1.4 sections live in `sites/thefivestar/elementor-templates/event-pages/legal-league-servicer-summit/`.
 Each `.json` file is one Elementor template export.
 
 ```bash
@@ -272,7 +275,7 @@ For pages where the content (not a template) is authored as JSON in the repo:
 
 ```bash
 PAGE_ID=5094
-JSON_DATA=$(cat sites/thefivestar/elementor-templates/event-page/llss-page.json | python3 -c "import json,sys; print(json.dumps(json.load(sys.stdin)))")
+JSON_DATA=$(cat sites/thefivestar/elementor-templates/event-pages/legal-league-servicer-summit/llss-page.json | python3 -c "import json,sys; print(json.dumps(json.load(sys.stdin)))")
 
 # Write the JSON-encoded data + required Elementor meta
 echo "<?php

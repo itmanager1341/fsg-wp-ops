@@ -4,19 +4,18 @@ Use this as the opening message in the next Claude Desktop project chat.
 Updated at the end of each session with what was completed and what's next.
 
 Last updated: 2026-04-26 (LLSS Elementor LIVE on staging at canonical
-              slug; pending image content population + Phase 1.11 prod
-              promotion approval)
+              slug; LLSS image content gathered separately by Jonathan;
+              NEXT: Velocity event page build using Option B template)
 Last completed: Phase 1.4 LLSS rebuild fully through Step 5 + Step 7.
                 All 9 sections rendering at staging canonical slug. Option B
-                pattern (Elementor structural containers + HTML widgets for
-                content sections) proven: 45% smaller _elementor_data, 75%
-                fewer widgets, visual parity with WPBakery design via
-                fsi-event-styles.php CSS. Decision logged in decisions.md
-                2026-04-26. Migration tracker updated.
-Next phase: Image content population (Jonathan uploads to Media Library,
-                sends URLs in chat, I update JSON files + push). After
-                images visually verified → Jonathan approves Phase 1.11 →
-                production promotion via the proven CLI workflow.
+                pattern proven: 45% smaller _elementor_data, 75% fewer
+                widgets, visual parity with WPBakery via fsi-event-styles.php
+                CSS. Decision logged in decisions.md 2026-04-26.
+Next phase: PHASE 3 — Velocity (page 5088) Elementor rebuild using same
+                Option B template proven for LLSS. In parallel: Jonathan
+                gathering LLSS images per the shotlist below, paste URLs
+                in chat when ready. After Velocity verified + LLSS images
+                placed → Phase 1.11 production promotion approval gate.
 
 ---
 
@@ -43,17 +42,23 @@ Continuing FSG Media WP ops. Before responding, read these files in order:
 
 15. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/llss-elementor-build-spec.md` (look at top "Updated 2026-04-26: Option B pattern" block first)
 16. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/llss-wpbakery-content.html` (authoritative copy reference)
-17. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/elementor-templates/event-page/` (the 9 section JSON files — quick scan)
+17. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/elementor-templates/event-pages/legal-league-servicer-summit/` (the 9 section JSON files — quick scan)
 
 Then confirm you've read them and summarize:
 
 - The 2026-04-26 Option B decision (Elementor structural containers + HTML
   widgets for content sections) — what it solved, why we pivoted, the
   performance numbers
-- Where each of the 9 LLSS sections lives in `elementor-templates/event-page/`
+- Where each of the 9 LLSS sections lives in `elementor-templates/event-pages/legal-league-servicer-summit/`
   and which are widget tree (1, 8, 9) vs HTML widget (2-7)
 - The image-swap workflow for HTML widget content (placeholder div →
   `<img>` tag inside the JSON's `html` setting)
+- **The next-step plan: Phase 3 Velocity build** using the Option B
+  template proven for LLSS (page 5088 → new Elementor page → Option B
+  HTML widget pattern → slug swap). Directory naming question to ask
+  Jonathan first.
+- LLSS image shotlist (8 slots) — what Jonathan needs to gather and
+  paste URLs for in parallel
 - Verification artifacts: `visual-baselines/llss-elementor-optionB-2026-04-26-{1440,768,420}.png`
   + the WPBakery side-by-side baselines
 - The 2026-04-25 AI-first Elementor authoring decision (C1/C2 split, version pin)
@@ -241,8 +246,9 @@ needed.
 | Step 3: Full-page verification | ✅ DONE | 10/10 Option B audit pass; computed-style spot checks; screenshots at 3 viewports |
 | Step 4: Rename + swap | ✅ DONE | 5094 → `-old`, 5106 → canonical (2026-04-26) |
 | Step 5: 🛑 Approval gate | ✅ DONE | Jonathan approved Step 7 (2026-04-26) |
-| Step 6: New SOP `docs/sops/new-event-page-elementor.md` | ⏳ PENDING | Should write before Phase 2/3 use Option B pattern. Documents: clone Option B sections, populate event-specific copy, image dimension reference, push pipeline. |
-| Step 7 (Phase 1.11): Production promotion | ⏳ PENDING | Awaiting explicit Jonathan approval. Path documented in earlier handoff entries. |
+| Step 6: New SOP `docs/sops/new-event-page-elementor.md` | ⏳ PENDING | Best written DURING Phase 3 Velocity build — the Velocity build IS the second use of the Option B template, so the SOP captures the abstracted pattern from LLSS+Velocity together. |
+| Step 7 (Phase 1.11): Production promotion | ⏳ PENDING | Awaiting (a) LLSS image content placement, (b) explicit Jonathan approval. Path documented in earlier handoff entries. |
+| **Phase 3: Velocity event page build** | ⏳ NEXT | Page 5088 → new Elementor page → Option B template clone from LLSS. Front-loaded as first-thing-next-session. |
 
 **Pre-prod content tasks (not in spec):**
 - 🟢 **Image content population** (front-loaded above as first-thing-next-session)
@@ -255,44 +261,148 @@ needed.
 - `_elementor_page_settings_backup_*` meta-key pruning on kit 4004 + page 5106 (keep 2-3 most recent)
 - Velocity page 4436 deprecation pass (uses 3 of 7 contested slot IDs but renumber preserves them; not urgent)
 
-### 🟢 First-thing-next-session — image content population
+### 🟢 First-thing-next-session — Phase 3: Velocity event page build (Option B template)
 
-LLSS Elementor staging page has **6 image placeholders** + **2 background
-image slots** waiting for real photos. Workflow (Jonathan-driven):
+**Why this is next:** LLSS Phase 1.4 is structurally complete (waiting on
+image content from Jonathan). Velocity is the next event page in the
+migration queue per the 2026-04-22 portfolio standardization plan. Same
+Option B template applies — fast cloning vs. starting from scratch.
 
-1. **Jonathan uploads images** to Media Library via WP Admin
+**Source page on staging:** **page 5088**, slug `velocity` under parent
+Events 5089. Plain HTML inside WPBakery using the same `fsi-page-wrap` /
+`fsi-event-styles.php` class system as LLSS.
+
+**Reference outputs from LLSS** (the canonical Option B template):
+- `sites/thefivestar/elementor-templates/event-pages/legal-league-servicer-summit/01-hero.json`
+  through `09-footer-line.json`
+- `sites/thefivestar/llss-wpbakery-content.html` (source-of-truth copy)
+- `sites/thefivestar/llss-elementor-build-spec.md` (per-section guidance)
+- `sites/thefivestar/visual-baselines/llss-elementor-optionB-2026-04-26-{1440,768,420}.png`
+
+**Conventions already settled — do NOT re-litigate:**
+
+- **URL slug:** `/events/<event-slug>/`. Velocity will live at `/events/velocity/`,
+  the same way LLSS lives at `/events/legal-league-servicer-summit/`.
+- **Repo directory:** `sites/thefivestar/elementor-templates/event-pages/<event-slug>/`.
+  Each event = one subdirectory, directory name matches URL slug 1:1.
+  `event-pages/velocity/` is already created (empty) for the next session
+  to populate.
+- **Section JSON file naming:** `01-hero.json` through `09-footer-line.json`
+  (or fewer if Velocity's content doesn't need all 9). Numeric prefix
+  sets composition order in `_elementor_data`.
+- **Section approach:** Sections 1, 8, 9 = Elementor widget tree.
+  Sections 2-7 = single HTML widget per section containing the existing
+  `fsi-page-wrap` markup chunk.
+
+**Build sequence for next session:**
+
+1. **Pull Velocity source content from staging:**
+   ```bash
+   echo '<?php echo get_post(5088)->post_content;' | ssh thefivestarstg 'wp eval-file - 2>/dev/null' \
+     > /Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/velocity-wpbakery-content.html
+   ```
+   Mirrors what we did for LLSS (`llss-wpbakery-content.html`). Saves the
+   authoritative copy reference.
+
+2. **Capture WPBakery Velocity baselines** for side-by-side comparison
+   (Playwright at 1440 / 768 / 420 against
+   `https://thefivestarstg.wpenginepowered.com/events/velocity/`). Save to
+   `visual-baselines/velocity-wpbakery-2026-04-XX-{viewport}.png`.
+
+3. **Map Velocity's content to the 9-section structure.** Most sections
+   should fit directly. If Velocity has different sections than LLSS
+   (e.g., a "Sponsors" section, or no "Recent Event" recap because it's a
+   first-time event), adapt — Option B accommodates any structure as
+   long as the source HTML uses `fsi-event-styles.php` classes.
+
+4. **Author section JSON files in `event-pages/velocity/`** by copying
+   the LLSS files from `event-pages/legal-league-servicer-summit/`:
+   - Sections 1, 8, 9 (Hero, Final CTA, Footer-line) = widget tree
+     (copy LLSS files, swap copy + image slots)
+   - Sections 2-7 (Content) = HTML widget per section (copy LLSS
+     wrapper structure, swap the `html` setting with Velocity's
+     equivalent markup chunk)
+   - Use deterministic IDs prefixed with `velocity-` instead of LLSS
+     prefixes to avoid collisions if these end up exported as templates
+
+5. **Create new Elementor page on staging via CLI** — same script pattern
+   as LLSS Step 0:
+   ```bash
+   wp post create --post_type=page --post_status=publish \
+     --post_parent=5089 --post_title="Velocity (Elementor)" \
+     --post_name=velocity-elementor --post_author=816
+   ```
+   Then `update_post_meta` for `_elementor_edit_mode`,
+   `_elementor_template_type`, `_elementor_version`, `_elementor_pro_version`,
+   `_dt_header_title='disabled'`, and `_elementor_data='[]'` (initial empty).
+
+6. **Compose + push the section JSON** via the proven `wp eval-file`
+   pipeline. Same `update_post_meta(_elementor_data, wp_slash($json))`
+   + `Elementor\Plugin::$instance->files_manager->clear_cache()` +
+   `wp cache flush` + `rm -rf wp-rocket/*` flow.
+
+7. **Visual verify** at 1440 / 768 / 420 vs the WPBakery Velocity baselines.
+   Run the same Playwright `getComputedStyle` audit pattern (cards,
+   callouts, grids, buttons) — but Option B + same CSS classes makes this
+   guaranteed-by-construction. Should pass on first push.
+
+8. **Slug swap** when verified: 5088 → `velocity-old` (title "Velocity
+   (Old WPBakery)"), new page → `velocity` canonical slug. Same approach
+   as LLSS Step 7.
+
+9. **Approval gate before production promotion** — separate Phase 3.11
+   gate, after LLSS Phase 1.11.
+
+**Estimated build time:** ~60-90 min depending on Velocity's content
+complexity. Most of it is mechanical translation now that the Option B
+template + push pipeline are proven.
+
+**Caveats / what to watch:**
+- If Velocity uses CSS classes NOT in `fsi-event-styles.php` (e.g.,
+  Velocity-specific styling), those classes won't apply on the Elementor
+  page. Solve by either: (a) adding the missing classes to the kit Custom
+  CSS, OR (b) keeping the classes in `fsi-event-styles.php` if they're
+  shared across events
+- The Velocity gold callout for "Next Event" will use `.fsi-callout-gold`
+  same as LLSS — colors handled by the existing CSS
+
+---
+
+### 🟡 Parallel work: LLSS image content (when Jonathan has gathered images)
+
+**Status:** Phase 1.4 LLSS is structurally complete on staging at
+canonical slug. **Image content is the only remaining gap before
+Phase 1.11 production promotion approval.**
+
+**Shotlist for Jonathan to gather:**
+
+| # | Slot | Section | Dimensions | Subject matter | Notes |
+|---|------|---------|------------|----------------|-------|
+| 1 | Hero background | 1 | **1900×600** | Conference room wide shot OR panel in progress | Should evoke "annual gathering" — wide angle, attendees ideally visible. Becomes the moodsetter for the page. |
+| 2 | Community photo | 2 | **1100×440** | Attorneys in conversation, networking moment, OR full room during a session | Horizontal landscape. Sits between intro paragraphs and "Who Belongs" cards. WPBakery comment: "handshakes, hallway conversation, or full room during session" |
+| 3 | Photo strip — Panel | 5 | **360×240** | Dallas 2026 panel on stage | Wide ratio. Caption: "Industry Leadership Panel, Dallas 2026" |
+| 4 | Photo strip — Networking | 5 | **360×240** | Dallas 2026 networking or reception moment | Caption: "Closing Reception, Dallas 2026" |
+| 5 | Photo strip — Room | 5 | **360×240** | Dallas 2026 wide room shot or group | Caption: "Legal League Servicer Summit, Dallas 2026" |
+| 6 | Firm Membership card | 6 | **480×220** | Attorneys in conversation OR Legal League community moment | Pairs with "Legal League Firm Membership" copy |
+| 7 | Corporate Membership card | 6 | **480×220** | Service provider or vendor engagement moment | Pairs with "Corporate Membership" copy |
+| 8 | Final CTA background | 8 | **1900×400** | Same as Hero OR Washington DC themed (National Press Club exterior, capitol skyline, attendees in DC, etc.) | Ties to "Join Us in Washington" headline. If only one shot is available, reuse Hero. |
+
+**File format suggestions:** JPG for photos (smaller file size). 80% JPEG
+quality is fine. Save filenames descriptively (`llss-hero-conference-room.jpg`,
+`llss-dallas-2026-panel.jpg`, etc.) — they end up in the Media Library and
+make future audits easier.
+
+**Workflow when images are ready:**
+
+1. Jonathan uploads to Media Library via WP Admin
    (`https://thefivestarstg.wpenginepowered.com/wp-admin/upload.php`)
-2. **Jonathan pastes URLs into chat** with this format:
-
-```
-Hero bg (1900×600): <url>
-Final CTA bg (1900×400): <url>  (can reuse Hero or use a different shot)
-Community photo (1100×440): <url>
-Photo strip 1 (360×240, panel): <url>
-Photo strip 2 (360×240, networking): <url>
-Photo strip 3 (360×240, room): <url>
-Membership card 1 firm (480×220): <url>
-Membership card 2 corporate (480×220): <url>
-```
-
-3. **AI updates the 4 affected JSON files**:
-   - `01-hero.json` → set `background_image: { url, id }`
-   - `02-intro-who-belongs.json` → swap community-photo placeholder div
-     for `<img>` tag inside the HTML widget
-   - `05-recent-summit-strip.json` → 3 placeholder swaps
-   - `06-membership-cards.json` → 2 placeholder swaps
-   - `08-final-cta.json` → set `background_image: { url, id }`
-
-4. **AI pushes via standard `wp eval-file` pipeline** + `wp elementor flush_css` + WP Rocket flush
-
-5. **AI captures fresh screenshots at 3 viewports** for visual sign-off
-
-6. **Jonathan visually approves** → ready for Phase 1.11 production promotion
-
-If Jonathan would rather do swaps via the Elementor UI instead of JSON,
-the workflow is: open page in Elementor editor → click on the placeholder
-div → swap HTML in the code panel. JSON workflow keeps source-of-truth in
-git; UI workflow is faster but un-versioned.
+2. Jonathan pastes URLs into chat — for each image, the Media Library's
+   "Copy URL to clipboard" button gives the absolute URL
+3. AI updates the 5 affected JSON files (`01-hero.json`, `02-intro-who-belongs.json`,
+   `05-recent-summit-strip.json`, `06-membership-cards.json`, `08-final-cta.json`)
+4. AI pushes via the standard pipeline + flushes
+5. AI captures fresh screenshots at 3 viewports for visual sign-off
+6. Jonathan visually approves → Phase 1.11 production promotion gate
 
 ### Phase 1.4 Step 7 slug swap COMPLETE on staging ✅ (2026-04-26)
 
@@ -602,7 +712,7 @@ Corrected to strip ONLY the exact authoring-only set
 ### Phase 1.4 Step 2 mid-checkpoint pair authored ✅ (2026-04-26)
 
 Two of eight section JSON files in
-`sites/thefivestar/elementor-templates/event-page/`:
+`sites/thefivestar/elementor-templates/event-pages/legal-league-servicer-summit/`:
 
 - **`01-hero.json`** (5507 bytes) — outer container with full-width +
   600px min-height + bg image placeholder + `fsi07ho` overlay binding;
@@ -950,7 +1060,7 @@ predicted from pre-work #2, responsive behavior at 480/768.
 For each of 8 sections, write a JSON file:
 
 ```
-sites/thefivestar/elementor-templates/event-page/
+sites/thefivestar/elementor-templates/event-pages/legal-league-servicer-summit/
   01-hero.json
   02-intro-who-belongs.json
   03-what-happens.json
