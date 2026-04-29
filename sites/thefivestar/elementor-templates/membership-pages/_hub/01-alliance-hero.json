@@ -1,10 +1,10 @@
 {
   "_authoring_notes": [
-    "Phase 4a-hub Section 1 — Memberships hub HERO. REVISED 2026-04-28 EOD per Jonathan's hub-rebalancing direction.",
-    "Replaces the prior featured-Alliance hero (which was ~620px tall with logo + 4-up benefits + 2 CTAs — dominated the page).",
-    "Now: simple navy hub hero matching Communities hub structure. Eyebrow + H1 + tagline. Alliance gets its own umbrella band in Section 02.",
-    "Roboto Slab + text-transform:none overrides REMOVED — H1 inherits The7 default (Open Sans Condensed UPPERCASE bold). Brings Memberships hub typography in line with all other FSI Elementor pages.",
-    "Eyebrow 'Professional Memberships' replaces prior 'Membership Foundation' (latter was tied to the featured-Alliance treatment that's been demoted)."
+    "Phase 4a-hub Section 1: Memberships hub HERO. Original revised 2026-04-28 EOD per Jonathan's hub-rebalancing direction; copy revised again 2026-04-29 PM (current).",
+    "Replaces the prior featured-Alliance hero (which was ~620px tall with logo + 4-up benefits + 2 CTAs; dominated the page).",
+    "Now: simple navy hub hero matching Communities hub structure. Eyebrow + H1 + tagline. Alliance Foundation strip lives in Section 04.",
+    "Roboto Slab + text-transform:none overrides REMOVED. H1 inherits The7 default (Open Sans Condensed UPPERCASE bold). Brings Memberships hub typography in line with all other FSI Elementor pages.",
+    "2026-04-29 copy revision (Jonathan): H1 changed from 'The seven memberships that organize this work.' to 'The seven memberships that move this industry forward.' Sub rewritten to name all 7 memberships inline (NMSA, MSEA, Legal League, FORCE, PPEF, AMDC, Five Star Alliance) and reframe as 'serving your profession in the mortgage and housing industries.'"
   ],
   "id": "mhub-alliance-hero-outer",
   "elType": "container",
@@ -24,7 +24,7 @@
       "elType": "widget",
       "widgetType": "html",
       "settings": {
-        "html": "<div style=\"max-width:920px; margin:0 auto;\">\n  <p style=\"color:#c9a040; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:2.5px; margin:0 0 16px;\">Professional Memberships</p>\n  <h1 style=\"color:#ffffff; margin:0 0 16px;\">The seven memberships that organize this work.</h1>\n  <p style=\"color:#cfd5de; font-size:18px; line-height:1.55; max-width:780px; margin:0;\">Five Star Institute's professional memberships are the formal organizations through which practitioners join, govern, and lead the housing lifecycle. Every membership is by application; Five Star Alliance is the universal foundation underneath them all.</p>\n</div>"
+        "html": "<div style=\"max-width:920px; margin:0 auto;\">\n  <p style=\"color:#c9a040; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:2.5px; margin:0 0 16px;\">Professional Memberships</p>\n  <h1 style=\"color:#ffffff; margin:0 0 16px;\">The seven memberships that move this industry forward.</h1>\n  <p style=\"color:#cfd5de; font-size:18px; line-height:1.55; max-width:780px; margin:0;\">Five Star Institute's professional memberships: NMSA, MSEA, Legal League, FORCE, PPEF, AMDC, and Five Star Alliance are the formal organizations serving your profession in the mortgage and housing industries.</p>\n</div>"
       },
       "elements": []
     }
