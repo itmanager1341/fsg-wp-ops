@@ -1,0 +1,30 @@
+{
+  "_authoring_notes": [
+    "Phase 4b-hub Section 2 — Communities grid intro / 'Four professions, one association'.",
+    "Offwhite background to contrast against Section 1 navy hero (matches Memberships hub pattern).",
+    "Brief intro section that immediately leads into the 2x2 community grid below (Section 3).",
+    "Intro paragraph below H2 frames the handoff narrative without explaining individual professions (per Jonathan's flow correction — readers know what they do, the page's job is to show how they fit together)."
+  ],
+  "id": "chub-grid-intro-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "full",
+    "background_background": "classic",
+    "background_color": "#F7F7F5",
+    "padding": {"unit": "px", "top": "60", "right": "40", "bottom": "20", "left": "40", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "40", "right": "20", "bottom": "16", "left": "20", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "chub-grid-intro-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div style=\"max-width:1100px; margin:0 auto;\">\n  <p style=\"color:#c9a040; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:2.5px; margin:0 0 12px;\">The Communities</p>\n  <h2 style=\"font-family:'Roboto Slab', Georgia, serif; font-size:38px; line-height:1.2; font-weight:700; color:#1f365c; text-transform:none; letter-spacing:-0.3px; margin:0 0 16px;\">Four professions, one association.</h2>\n  <p style=\"color:#444; font-size:17px; line-height:1.65; max-width:820px; margin:0;\">Each community is distinct. Each is indispensable. The handoffs between them are where FSI's work happens.</p>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

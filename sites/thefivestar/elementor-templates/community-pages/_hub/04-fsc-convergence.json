@@ -1,0 +1,31 @@
+{
+  "_authoring_notes": [
+    "Phase 4b-hub Section 4 (was 5 before AMDC drop) — Five Star Conference convergence (navy full-bleed).",
+    "The narrative payoff: 'All four communities. One room. Once a year.' Italic on 'Once a year.' reinforces the rarity per mockup.",
+    "4 community badges horizontal at bottom. AMDC badge REMOVED per Jonathan's directive — AMDC is a membership organization, lives on /memberships/ hub, not in the community-row at FSC.",
+    "Date: Sep 1-3, 2026 at The Omni Dallas — matches Phase 2 Events hub.",
+    "Register CTA → external fivestarconference.com/2026/register_now."
+  ],
+  "id": "chub-fsc-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "full",
+    "background_background": "classic",
+    "background_color": "#1F365C",
+    "padding": {"unit": "px", "top": "70", "right": "40", "bottom": "70", "left": "40", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "50", "right": "20", "bottom": "50", "left": "20", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "chub-fsc-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div style=\"max-width:920px; margin:0 auto; text-align:center;\">\n  <p style=\"color:#c9a040; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:2.5px; margin:0 0 20px;\">Five Star Conference</p>\n  <h2 style=\"font-family:'Roboto Slab', Georgia, serif; font-size:42px; line-height:1.2; font-weight:700; color:#ffffff; text-transform:none; letter-spacing:-0.3px; margin:0 0 16px;\">All four communities. <span style=\"color:#cfd5de;\">One room.</span> <em style=\"font-style:italic;\">Once a year.</em></h2>\n  <p style=\"color:#c9a040; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:2px; margin:0 0 20px;\">September 1-3, 2026 &middot; The Omni &middot; Dallas, Texas</p>\n  <p style=\"color:#cfd5de; font-size:17px; line-height:1.65; max-width:720px; margin:0 auto 32px;\">Five Star Conference is the one event where every FSI community converges. Three days of leadership, governance sessions, education, and the cross-community conversations that shape direction for the year ahead.</p>\n  <div style=\"display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:0 0 32px;\">\n    <span style=\"display:inline-block; background:rgba(255,255,255,0.08); color:#ffffff; border:1px solid rgba(255,255,255,0.2); border-radius:20px; padding:6px 14px; font-size:12px; font-weight:600;\">Mortgage Finance</span>\n    <span style=\"display:inline-block; background:rgba(255,255,255,0.08); color:#ffffff; border:1px solid rgba(255,255,255,0.2); border-radius:20px; padding:6px 14px; font-size:12px; font-weight:600;\">Financial Services Law</span>\n    <span style=\"display:inline-block; background:rgba(255,255,255,0.08); color:#ffffff; border:1px solid rgba(255,255,255,0.2); border-radius:20px; padding:6px 14px; font-size:12px; font-weight:600;\">Real Estate</span>\n    <span style=\"display:inline-block; background:rgba(255,255,255,0.08); color:#ffffff; border:1px solid rgba(255,255,255,0.2); border-radius:20px; padding:6px 14px; font-size:12px; font-weight:600;\">Property Preservation</span>\n  </div>\n  <a href=\"https://www.fivestarconference.com/2026/register_now\" target=\"_blank\" rel=\"noopener\" style=\"display:inline-block; background:#c9a040; color:#1f365c; font-weight:700; font-size:15px; letter-spacing:0.5px; padding:14px 36px; border-radius:4px; text-decoration:none; text-transform:uppercase;\">Register for Five Star Conference</a>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

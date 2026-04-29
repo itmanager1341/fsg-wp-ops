@@ -1,0 +1,30 @@
+{
+  "_authoring_notes": [
+    "Phase 2 Events hub Section 1 — Hub intro paragraph + gold border-bottom divider.",
+    "Authored 2026-04-27 PM. Option B clone of existing WPBakery /events/ hub (page 5089) — preserves the existing visual design verbatim per Jonathan's review.",
+    "Element ID prefix: ehub-* (events hub) — distinct from event-detail-page prefixes (velocity-*, llss heroes, etc.).",
+    "Uses .fsi-hub-intro class from fsi-event-styles.php for typography + spacing. The gold rule below is added structurally as a border-bottom on the outer container (matches existing hub render).",
+    "Hub-shape consistency: Memberships hub uses navy full-bleed Alliance hero (a featured-content layout). Events hub uses a quieter intro pattern (no featured event) because all 4 events are visually equal in the stack below — featuring one would distort the calendar/hub function."
+  ],
+  "id": "ehub-intro-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "60", "right": "20", "bottom": "30", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "40", "right": "16", "bottom": "20", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "ehub-intro-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div class=\"fsi-hub-intro\">\n  <p>Five Star Institute produces events for each of the four professions it serves. Each event is built around a specific professional community, with programming shaped by practitioners and content designed for how that community actually works. All four professions converge once a year at Five Star Conference.</p>\n</div>\n\n<hr style=\"border:none; border-top:2px solid #c9a040; max-width:200px; margin:32px auto 0;\" />"
+      },
+      "elements": []
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "_authoring_notes": [
+    "Phase 4a-hub Section 5 — Footer-line. Standard pattern matching RE Pros / Velocity / LLSS: small contact info strip with top border.",
+    "Center-aligned membership@thefivestar.com primary contact + phone. No page-specific tagline needed (the hub-level identity is implicit)."
+  ],
+  "id": "mhub-footer-line-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "20", "right": "20", "bottom": "12", "left": "20", "isLinked": false},
+    "border_border": "solid",
+    "border_width": {"unit": "px", "top": "2", "right": "0", "bottom": "0", "left": "0", "isLinked": false},
+    "border_color": "#DDDDDD",
+    "flex_direction": "column",
+    "flex_align_items": "center"
+  },
+  "elements": [
+    {
+      "id": "mhub-footer-line-text",
+      "elType": "widget",
+      "widgetType": "text-editor",
+      "settings": {
+        "editor": "<p style=\"font-size:14px; text-align:center; margin:0;\"><strong>Five Star Institute Memberships</strong>&nbsp; |&nbsp; <a href=\"mailto:membership@thefivestar.com\">membership@thefivestar.com</a>&nbsp; |&nbsp; (214) 525-6700</p>",
+        "align": "center"
+      },
+      "elements": []
+    }
+  ]
+}

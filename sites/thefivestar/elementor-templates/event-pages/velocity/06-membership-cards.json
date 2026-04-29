@@ -1,0 +1,31 @@
+{
+  "_authoring_notes": [
+    "Velocity Section 6 — Join the Velocity Community + 2 large membership cards (Five Star Alliance + FORCE).",
+    "Cloned from LLSS 06-membership-cards.json on 2026-04-27. Same .fsi-membership-grid + .fsi-membership-card pattern.",
+    "Per Jonathan 2026-04-27: Velocity keeps membership cards (Five Star Alliance + FORCE), distinct from the Charter Member Offer callout in Section 4.",
+    "Card 1 = Five Star Alliance Membership (the new offering launching at Velocity). Card 2 = FORCE Membership (the established credentialed program).",
+    "There is no Section 5 for Velocity (no past-event photo strip applicable for first-format event).",
+    "2026-04-27 PM: FORCE card image populated. Image source: Media Library attachment 5122 'LogoForce1', 480x220 JPG. Five Star Alliance card image still placeholder pending image gather."
+  ],
+  "id": "velocity-membership-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "60", "right": "20", "bottom": "60", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "40", "right": "16", "bottom": "40", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "velocity-membership-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<h2 class=\"fsi-section-heading\">Join the Velocity Community</h2>\n\n<p class=\"fsi-section-intro\">Velocity is one moment in a year-round community. The two memberships below are the primary ways real estate professionals participate &mdash; the new Five Star Alliance for the broader RE professional community, and FORCE for the credentialed agent and broker corps.</p>\n\n<div class=\"fsi-membership-grid\">\n  <div class=\"fsi-membership-card\">\n    <div class=\"fsi-membership-card__image\">\n      <div class=\"fsi-img-placeholder\" style=\"height:220px;\">\n        <p class=\"fsi-img-placeholder__label\">Five Star Alliance Photo</p>\n        <p class=\"fsi-img-placeholder__desc\">Real estate professionals at work or in community. 480x220px JPG.</p>\n      </div>\n    </div>\n    <div class=\"fsi-membership-card__body\">\n      <h3 class=\"fsi-membership-card__title\">Five Star Alliance Membership</h3>\n      <p class=\"fsi-membership-card__text\">Launching at Velocity 2026. The professional community for agents, brokers, and investors building businesses in REO, distressed property, and single-family residential investment. Includes Velocity participation, year-round community access, FSI Offers platform tier benefits, and the FSI RE community directory. Charter Member pricing locked at $300/yr for the first 100 new members; standard rate $495/yr after.</p>\n      <div class=\"fsi-membership-card__cta\">\n        <a href=\"/communities/real-estate-professionals/\" class=\"fsi-btn fsi-btn--primary\">Learn about Five Star Alliance &rarr;</a>\n      </div>\n    </div>\n  </div>\n  <div class=\"fsi-membership-card\">\n    <div class=\"fsi-membership-card__image\">\n      <img src=\"/wp-content/uploads/2026/04/LogoForce1.jpg\" alt=\"FORCE — Federation of REO Certified Experts\" width=\"480\" height=\"220\" loading=\"lazy\" />\n    </div>\n    <div class=\"fsi-membership-card__body\">\n      <h3 class=\"fsi-membership-card__title\">FORCE Membership</h3>\n      <p class=\"fsi-membership-card__text\">The credentialed core of the FSI real estate community for fifteen years. FORCE certification is the recognized credential for agents and brokers working with institutional REO inventory and distressed property. Velocity is FORCE's home event, including FORCE Connect &mdash; structured introductions with the asset managers and disposition professionals who attend as guests of the association.</p>\n      <div class=\"fsi-membership-card__cta\">\n        <a href=\"/memberships/force/\" class=\"fsi-btn fsi-btn--outline\">Learn about FORCE &rarr;</a>\n      </div>\n    </div>\n  </div>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

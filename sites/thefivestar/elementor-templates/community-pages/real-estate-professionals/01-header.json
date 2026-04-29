@@ -1,0 +1,32 @@
+{
+  "_authoring_notes": [
+    "Phase 4b RE Pros Section 1 — Navy hero band. REVISED 2026-04-28 PM per Jonathan's redesign mockup, then re-revised same day to align with FSI Elementor convention.",
+    "Replaces the prior centered-text floating header (which Jonathan flagged as reading like a section header + leaving 600px of dead space).",
+    "Navy hero claims the page immediately. Eyebrow → H1 → one-line value prop. NO CTA in hero (community pages are not conversion pages — conversion happens at tier blocks below).",
+    "**Anchor nav REMOVED** per Jonathan's correction — was not in his locked direction.",
+    "**Font conventions REVERTED to FSI Elementor convention**: bare H1 inherits The7 default (Open Sans Condensed all-caps via The7 specificity). Matches LLSS / Velocity / Events Hub. Roboto Slab serif was a drift introduced on Memberships + Communities hubs that should not have continued onto this page.",
+    "Eyebrow + tagline keep their explicit color/size/transform styles since they are <p> tags (The7 doesn't restyle paragraphs)."
+  ],
+  "id": "repro-header-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "full",
+    "background_background": "classic",
+    "background_color": "#1F365C",
+    "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": true},
+    "padding_mobile": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": true},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "repro-header-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div style=\"max-width:1100px; margin:0 auto; padding:64px 32px 64px;\">\n  <p style=\"color:#c9a040; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:2.5px; margin:0 0 16px;\">Five Star Institute Community</p>\n  <h1 style=\"color:#ffffff; margin:0 0 16px;\">Real Estate Professionals</h1>\n  <p style=\"color:#cfd5de; font-size:18px; line-height:1.55; max-width:780px; margin:0;\">The community for real estate professionals working distressed property, REO, single-family rental, fix and flip, and institutional inventory.</p>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

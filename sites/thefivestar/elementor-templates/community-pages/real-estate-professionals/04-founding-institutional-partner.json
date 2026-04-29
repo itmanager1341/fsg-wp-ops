@@ -1,0 +1,30 @@
+{
+  "_authoring_notes": [
+    "Phase 4b RE Pros Section 4 — Founding Institutional Partner callout. Gold left-border on cream bg.",
+    "Eligibility-gated free tier (asset managers / GSE / HUD / NPL fund managers).",
+    "Visually distinct from the Section 5 Charter Member Offer (gold-fill) — left-border vs solid-fill is a deliberate eligibility-vs-promotion distinction.",
+    "REVISED 2026-04-28 PM per Jonathan's redesign: 'Free, Application-Based' is now an uppercase gold tag (parallel to 'Certification Required' on FORCE) instead of a body-line subtitle. Treats them as the same kind of metadata.",
+    "Email link normalized to thefivestar.com."
+  ],
+  "id": "repro-fip-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "20", "right": "20", "bottom": "20", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "16", "right": "16", "bottom": "16", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "repro-fip-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div style=\"border-left:4px solid #c9a040; padding:24px 28px; background:#fdfcf8; margin-bottom:32px;\">\n  <h3 style=\"color:#1f365c; font-size:22px; font-weight:700; margin:0 0 4px;\">Founding Institutional Partner</h3>\n  <p style=\"color:#c9a040; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; margin:0 0 14px;\">Free, Application-Based</p>\n  <p style=\"color:#444; font-size:15px; line-height:1.6; margin:0 0 12px;\">Asset managers, servicer-side disposition teams, institutional SFR operators, GSE and HUD professionals, and NPL fund managers are eligible for Founding Institutional Partner status through December 31, 2026.</p>\n  <p style=\"color:#444; font-size:15px; line-height:1.6; margin:0 0 12px;\">Founding Institutional Partners receive Five Star Alliance benefits at no cost, are named in the FSI RE community directory, recognized in event materials, and featured in MortgagePoint's RE community coverage.</p>\n  <p style=\"color:#444; font-size:15px; line-height:1.6; margin:0 0 14px;\">This is not a free pass. It is a founding role in the professional network that serves your portfolio. The quality of practitioners you work with is directly shaped by the standards this community sets, and Founding Institutional Partners help set them.</p>\n  <p style=\"margin:0;\"><a href=\"mailto:membership@thefivestar.com\" style=\"color:#1f365c; font-weight:600; font-size:14px;\">Apply for Founding Institutional Partner status &rarr;</a></p>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

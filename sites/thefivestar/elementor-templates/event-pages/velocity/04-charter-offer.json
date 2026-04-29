@@ -1,0 +1,29 @@
+{
+  "_authoring_notes": [
+    "Velocity Section 4 — Charter Member Offer gold callout. Analog to LLSS Section 4 'Next Summit'.",
+    "Cloned from LLSS 04-next-summit.json structure on 2026-04-27. Same .fsi-callout-gold class.",
+    "Offer is a Velocity-2026-only deal: first 100 new Five Star Alliance members at $300/yr locked + 20% off all FSI events. Standard rate $495/yr.",
+    "Primary CTA links to Velocity registration (Charter enrollment is an add-on during checkout). Secondary link explains membership."
+  ],
+  "id": "velocity-charter-offer-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "20", "right": "20", "bottom": "20", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "16", "right": "16", "bottom": "16", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "velocity-charter-offer-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div class=\"fsi-callout-gold\">\n  <p class=\"fsi-callout-gold__eyebrow\">Velocity 2026 Only</p>\n  <h2 class=\"fsi-callout-gold__heading\">Charter Member Offer</h2>\n  <p class=\"fsi-callout-gold__body\">The first 100 new Five Star Alliance members who join at Velocity receive:</p>\n  <p class=\"fsi-callout-gold__body\" style=\"font-size:22px; font-weight:700;\">$300 per year, locked for the life of membership</p>\n  <p class=\"fsi-callout-gold__body\">Plus 20% off all FSI events permanently.</p>\n  <p class=\"fsi-callout-gold__detail\">Once 100 spots are filled, the standard Alliance rate of $495 per year applies. Charter Members receive a permanent Charter Member designation in the FSI RE community directory. Charter Member enrollment is available as an add-on during Velocity registration.</p>\n  <a href=\"https://fivestarglobal.swoogo.com/velocity2026/register_now\" class=\"fsi-btn fsi-btn--primary\">Register for Velocity 2026</a>\n  <br>\n  <a href=\"/communities/real-estate-professionals/\" class=\"fsi-callout-gold__link\">Learn more about membership &rarr;</a>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

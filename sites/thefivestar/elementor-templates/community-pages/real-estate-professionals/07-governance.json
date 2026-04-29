@@ -1,0 +1,30 @@
+{
+  "_authoring_notes": [
+    "Phase 4b RE Pros Section 7 — Governance. Offwhite callout explaining the practitioner-led Advisory Council model.",
+    "This is a Community-template-distinctive section — every community has its own Advisory Council, and the governance structure is part of FSI's institutional identity. Likely recurs across all Community pages (Mortgage Finance, Legal, Prop Pres) with parallel copy.",
+    "Inline-styled per Velocity precedent.",
+    "REVISED 2026-04-28 PM per Jonathan's redesign: H2 'Governance' upgraded with gold rule + Roboto Slab serif (matching other section H2s). Anchor id='governance' added for hero nav target. Tightened padding."
+  ],
+  "id": "repro-governance-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "12", "right": "20", "bottom": "32", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "12", "right": "16", "bottom": "24", "left": "16", "isLinked": false},
+    "flex_direction": "column",
+    "_element_id": "governance"
+  },
+  "elements": [
+    {
+      "id": "repro-governance-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div style=\"background:#f7f7f5; border:1px solid #e0e0dc; border-radius:4px; padding:24px 28px; margin-bottom:32px;\">\n  <h2 style=\"color:#1f365c; font-size:28px; font-weight:700; border-bottom:2px solid #c9a040; padding-bottom:10px; margin:0 0 16px;\">Governance</h2>\n  <p style=\"color:#444; font-size:15px; line-height:1.65; margin:0 0 10px;\">The FSI real estate professional community is governed by a practitioner-led Advisory Council drawn from active FORCE and community members. The Advisory Council shapes event programming, FORCE credentialing standards, and community direction. The Advisory Council Chair holds a representative seat on the Five Star Executive Council, FSI's unified governing body.</p>\n  <p style=\"color:#444; font-size:15px; line-height:1.65; margin:0;\">This is the same governance model that drives every FSI professional community. Practitioners lead. The association serves.</p>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

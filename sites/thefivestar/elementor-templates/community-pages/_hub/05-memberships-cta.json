@@ -1,0 +1,31 @@
+{
+  "_authoring_notes": [
+    "Phase 4b-hub Section 5 — Memberships soft CTA. Inline pill on white bg.",
+    "Per Jonathan's locked decision (2026-04-28 PM): the Communities hub serves Step 2 of the audience flow (community identification). The natural next-step is Step 3 (Five Star Alliance) and Step 4 (specialty memberships). This CTA pulls readers into the Memberships hub — which is where the FSI Alliance funnel lives.",
+    "Visual pattern matches Memberships hub Section 4 'Not sure where you fit?' inline pill — visual consistency across the two hubs reinforces architectural symmetry.",
+    "Copy: 'Want to shape your industry? Explore our Memberships to lend your voice to change that matters.' (Jonathan-provided).",
+    "Routes to /memberships/ — the Memberships hub which presents Five Star Alliance + 6 specialty memberships."
+  ],
+  "id": "chub-memberships-cta-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "full",
+    "background_background": "classic",
+    "background_color": "#FFFFFF",
+    "padding": {"unit": "px", "top": "40", "right": "40", "bottom": "40", "left": "40", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "30", "right": "20", "bottom": "30", "left": "20", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "chub-memberships-cta-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div style=\"max-width:1100px; margin:0 auto; background:#f7f7f5; border:1px solid #e0e0dc; border-radius:6px; padding:24px 32px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;\">\n  <p style=\"color:#1f365c; font-size:16px; line-height:1.55; margin:0; flex:1; min-width:280px;\"><strong>Want to shape your industry?</strong> Explore our Memberships to lend your voice to change that matters.</p>\n  <a href=\"/memberships/\" style=\"display:inline-block; background:#1f365c; color:#fff; font-weight:700; font-size:14px; letter-spacing:0.5px; padding:12px 28px; border-radius:4px; text-decoration:none; text-transform:uppercase; white-space:nowrap;\">Explore Memberships</a>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

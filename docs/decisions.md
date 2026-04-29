@@ -7,6 +7,601 @@ New decisions go at the top.
 
 ---
 
+## 2026-04-28 PM — Phase 4a-hub redesign: Memberships hub literal-foundation hierarchy (Alliance below specialty grid)
+
+**Decision:** Memberships hub (page 5138) restructured in place to use
+spatial layout as the carrier of organizational hierarchy. Six specialty
+memberships sit on top as standing structures; Alliance sits underneath
+as the universal foundation. The previous 1+3+3 layout (Alliance-as-hero
++ 6-card specialty grid) put Alliance above the specialties, which read
+as "Alliance is the headline membership" instead of the intended "Alliance
+is the universal foundation under all of them."
+
+Two intermediate iterations were tried and rejected before landing on the
+foundation-strip layout:
+
+| Iteration | Layout | Rejected because |
+|-----------|--------|------------------|
+| v4 (5:15p) | Alliance umbrella band between hero and specialty grid | Created two navy bands stacked; Alliance still read as "above" specialties |
+| v5 (5:42p) | Alliance integrated as 3-col-spanning featured tile inside specialty grid | Alliance dominated the grid visually; conflated "specialty" with "foundational" |
+| **Final (6:03p)** | Alliance as dedicated foundation strip BELOW the 6-tile grid | Spatial layout communicates "underneath every specialty above" without explanation |
+
+**Final structure (4 sections, ~14.5 KB `_elementor_data`):**
+
+| # | Section | Bg | Notes |
+|---|---------|-----|-------|
+| 01 | Hero | Navy | "PROFESSIONAL MEMBERSHIPS" eyebrow / "The seven memberships that organize this work" H1 / practitioner-focused description naming Alliance as "universal foundation underneath them all" |
+| 02/03 | Specialty grid | Offwhite | 6 tiles in 3-column CSS grid: FORCE / Legal League / NMSA / MSEA / PPEF / AMDC. Each tile: logo + title + community subtitle + description + two buttons (Community ← / → Member Portal). **NO Alliance tile.** |
+| 04 | Alliance foundation strip | Offwhite | Gold "The Foundation" eyebrow / Alliance logo / copy explicitly referencing being "underneath every specialty above" / contact CTA. White card on offwhite palette + gold top accent (matches specialty tiles for visual cohesion while spatial placement establishes the foundation relationship) |
+| 05 | Footer-line | White | Standard pattern |
+
+**Color rhythm:** Navy → Offwhite → Offwhite → White. Single navy band
+(hero only) — addresses the prior "navy dominance" critique that drove
+the v4/v5 iterations.
+
+**Removed from prior layout:**
+- Old Section 02 navy Alliance umbrella band (the v4 attempt)
+- Alliance featured tile from specialty grid (the v5 attempt)
+- Old Section 04 "Not sure where you fit?" CTA (mockup-era; conflated funnel steps)
+- Redundant secondary "Memberships" heading
+
+**Copy fix:** PPEF description corrected from "standards body" to
+"membership organization" (was a factual error inherited from the
+mockup).
+
+**Section JSON files (in-place updates on `membership-pages/_hub/`):**
+
+| File | Status |
+|------|--------|
+| `01-alliance-hero.json` | Updated 2026-04-28 17:51 (filename retained but content is now "seven memberships" hero, not Alliance-focused) |
+| `03-specialty-grid.json` | Updated 2026-04-28 17:52 (6 tiles, no Alliance) |
+| `04-alliance-foundation.json` | NEW 2026-04-28 17:55 (Alliance foundation strip) |
+| `05-footer-line.json` | Unchanged from 2026-04-27 |
+| `02-communities-intro.json` | REMOVED |
+| `04-not-sure-cta.json` (or equivalent) | REMOVED |
+
+**Deployment:** Elementor v4.0.2 data composed from 4 section files,
+prior content backed up to `_elementor_data_backup_*` meta key,
+pushed via `wp eval-file` pipeline, full cache flush (Elementor +
+Varnish + memcached + WP core + WP Rocket). All 10 verification
+criteria passed including new hero copy, Alliance foundation
+positioning + "underneath every specialty above" messaging,
+all 6 specialty tiles present, removal of redundant "Memberships"
+heading and old "Not sure" CTA, single navy band.
+
+**Phase 4a-hub.11 production promotion gate** — still pending Jonathan
+approval. Independent of all other Phase .11 gates. Production ops:
+- Verify all 7 logos in prod media library before push
+- Push 4-section `_elementor_data` via direct meta-write
+- Slug + parent swap of prod Memberships page
+
+**Why this matters as a pattern (transferable to other hubs):**
+spatial layout as communication device — when an organizational
+relationship is "X sits underneath all of Y" or "X is the foundation
+for Y," put X physically below Y in the layout instead of explaining
+the relationship in copy. Reader grasps it immediately without reading.
+
+---
+
+## 2026-04-28 — Phase 4b-hub: Communities hub Elementor in-place swap on page 5108 (revised after Jonathan's flow correction)
+
+**Decision:** Communities hub Elementor-rebuilt **in place** at canonical
+`/communities/` slug. Second in-place swap in the FSI migration (after
+Phase 2 Events hub). Required because page 5108 already has a child
+(`/communities/real-estate-professionals/` page 5109 from Phase 4b RE
+Pros build) — renaming 5108 would break the canonical RE Pros URL.
+
+**Initial build had AMDC band + MortgagePoint strip + membership logos
+on cards. After Jonathan's UI/UX critique + flow correction, the page
+was rebuilt with a tighter scope:**
+
+- AMDC dropped — it's a membership organization, lives on `/memberships/` hub
+- Membership logos + subtitles dropped from cards — communities are broader than memberships
+- Card body copy reframed to community-level (practitioners + lifecycle role), not membership-level
+- MortgagePoint strip dropped — not about communities; lives on its own URL + site footer
+- Soft Memberships CTA added at bottom — pulls Step 2 readers (community identification)
+  toward Step 3 (Five Star Alliance) via /memberships/ hub
+
+**Audience flow underlying the redesign:**
+
+```
+Step 1: Free MortgagePoint subscriber       (industry-curious anyone)
+Step 2: Identify as a community             ← /communities/ hub serves HERE
+Step 3: Join Five Star Alliance             (universal foundation membership)
+Step 4: Join a specialty Membership         (FORCE / NMSA / MSEA / Legal League / PPEF)
+```
+
+The hub's only job is Step 2. Step 3+4 pitching belongs on community
+detail pages and Memberships hub. Anything that conflates the steps is
+funnel skip.
+
+**Final section structure (6 sections, 16,282 B `_elementor_data`):**
+
+| # | Section | Bg | Notes |
+|---|---------|-----|-------|
+| 01 | Hero | Navy | "PROFESSIONAL COMMUNITIES" eyebrow / Roboto Slab serif H1 "The four professions that keep housing moving." (with "housing" italic gold) / tagline |
+| 02 | Grid intro | Offwhite | "THE COMMUNITIES" eyebrow / "Four professions, one association." H2 / "Each community is distinct. Each is indispensable. The handoffs between them are where FSI's work happens." |
+| 03 | 2×2 community grid | Offwhite | 4 cards (Mortgage Finance / Financial Services Law / Real Estate / Property Preservation). Each card: H3 + 1-paragraph community-level body + cream/gold callout ("Where..." parallel structure) + anchor event chips (no month suffix) + Learn More CTA. **NO logos. NO membership subtitles.** Min-height aligned via flex-column + per-row min-heights + margin-top:auto on CTA. |
+| 04 | FSC convergence | Navy | "FIVE STAR CONFERENCE" eyebrow / serif H2 "All four communities. One room. *Once a year.*" / date / 4 community badges (AMDC removed) / Register CTA |
+| 05 | Memberships CTA | White | Inline pill: "Want to shape your industry? Explore our Memberships to lend your voice to change that matters." → /memberships/ |
+| 06 | Footer-line | White | Standard contact strip |
+
+**Color rhythm (post AMDC drop):** Navy → Offwhite → Offwhite → Navy → White → White. 3 surfaces cycling, no consecutive navy bands.
+
+**Card alignment via min-heights:**
+
+| Row | Constraint |
+|-----|-----------|
+| Body paragraph | min-height:130px |
+| Cream/gold callout | min-height:84px |
+| Event chips row | min-height:42px |
+| CTA | margin-top:auto |
+
+**CTA routing:**
+
+| Card | Target | Status |
+|---|---|---|
+| Mortgage Finance Learn More | `/communities/` parent stub | Phase 4b sibling will resolve |
+| Financial Services Law Learn More | `/communities/` parent stub | Phase 4b sibling will resolve |
+| Real Estate Learn More | `/communities/real-estate-professionals/` | ✅ live |
+| Property Preservation Learn More | `/communities/` parent stub | Phase 4b sibling will resolve |
+
+**Anchor event chip routing (no month suffix per Jonathan):**
+
+| Chip | Target |
+|---|---|
+| LLSS | `/events/legal-league-servicer-summit/` ✅ |
+| Velocity | `/events/velocity/` ✅ |
+| Government Forum | external `fivestargovernmentforum.com/2026` ✅ |
+| Five Star Conference | external `fivestarconference.com/2026` ✅ |
+
+**In-place swap technique** (per SOP Lesson #24): direct meta-write to
+5108 with backup at `_elementor_inplace_swap_backup_2026_04_28_165343_*`
+meta keys.
+
+**Verification (server-side curl):**
+- `.elementor.elementor-5108` wrapper ✅
+- All 6 sections ✅
+- 4 card titles correct ✅
+- 0 membership logos in card content ✅
+- 0 AMDC mentions in section content (1 in sitewide footer widget — chrome) ✅
+- 0 MortgagePoint mentions in section content ✅
+- /memberships/ link present (Section 5 CTA) ✅
+- Both child URLs preserved (RE Pros + RE Pros old) ✅
+
+**Cleanup item flagged (sitewide, not blocking):** site footer's
+"Membership Groups" widget link → `/memberships-old/` (post-Phase-4a-hub
+slug-swap drift). Should update to `/memberships/` on staging + prod.
+
+**Phase 4b-hub.11 production promotion gate** — pending Jonathan
+approval. Independent of all other prod gates.
+
+**All four FSI hubs Elementor-native on staging:**
+
+| Template | Page | Status |
+|---|---|---|
+| FSI Event Page (LLSS, Velocity) | 5106, 5107 | ✅ |
+| FSI Community Page (RE Pros) | 5109 | ✅ |
+| FSI Events Hub | 5089 (in-place) | ✅ |
+| FSI Memberships Hub | 5138 | ✅ |
+| FSI Communities Hub | 5108 (in-place) | ✅ |
+
+The structural template work is done. Remaining: individual Phase 4a
+Membership pages (FORCE / Legal League / etc. — 7 greenfield) +
+Phase 4b community siblings (Mortgage Finance / Legal / Prop Pres — 3
+greenfield) + production promotion gates for all staged pages.
+
+---
+
+## 2026-04-27 — Phase 2: Events hub Elementor in-place swap on page 5089
+
+**Decision:** Events hub (page 5089) Elementor-rebuilt **in place** at
+canonical `/events/` slug. **First in-place swap** in the FSI Elementor
+migration (LLSS / Velocity / RE Pros / Memberships hub all used
+create-new + slug-swap pattern). Reason: page 5089 has 4 children
+(LLSS, Velocity, and their `-old` WPBakery variants). Renaming 5089's
+slug to `-old` would have broken all child URLs (e.g.,
+`/events/velocity/` → `/events-old/velocity/`), undoing the canonical
+URLs we shipped in Phases 1.4 + 3.
+
+**In-place swap technique:**
+
+1. Compose new Elementor `_elementor_data` JSON (5,292 bytes / 2 sections)
+2. Backup 5089's current state to `_elementor_inplace_swap_backup_*` meta keys:
+   - `_*_post_content` (the WPBakery shortcodes — 4,841 bytes)
+   - `_*_elementor_data` (was empty)
+   - `_*_elementor_edit_mode` (was empty)
+3. Apply Elementor mode meta: `_elementor_edit_mode='builder'`,
+   `_elementor_template_type='wp-page'`, `_elementor_version='4.0.2'`,
+   `_elementor_pro_version='4.0.2'`
+4. Write new `_elementor_data` via `update_post_meta` + `wp_slash`
+5. Clear `post_content` to empty string (Elementor takes precedence
+   over `post_content` once `_elementor_edit_mode='builder'` is set,
+   but clearing is cleaner for fallback safety)
+6. Standard cache flush sequence (Lesson #16): Elementor `flush_css` +
+   `wp cache flush` + `rm -rf wp-rocket/*` + `WpeCommon::purge_varnish_cache_all()` +
+   `WpeCommon::purge_memcached()`
+7. Trash the unused provisional page 5139 (created during the
+   compose/verify phase before the in-place swap technique was
+   identified as the right approach)
+
+**Verification:**
+
+- `/events/` serves wrapper class `.elementor-5089` ✅
+- `.fsi-hub-intro` + 4 `.fsi-event-card` blocks present ✅
+- 4 child URLs unchanged: `/events/legal-league-servicer-summit/`,
+  `/events/velocity/`, plus the two `-old` variants — all return HTTP 200 ✅
+- `_dt_header_title='enabled'` preserved → "EVENTS" navy page-title bar
+  still renders (matches existing WPBakery design)
+
+**FSI Events Hub template — characteristics:**
+
+- 2 sections (lightest of any migrated FSI page so far)
+- Total `_elementor_data`: 6,292 bytes (vs Memberships hub 18,451 / RE Pros 20,019 / LLSS 22,032 / Velocity 18,178)
+- Total `.elementor-element` count: 6 (4 fewer than Memberships hub)
+- All sections HTML widgets — preserves existing `.fsi-event-card` /
+  `.fsi-event-date` / `.fsi-event-label` design verbatim per Option B
+- `_dt_header_title='enabled'` (other migrated pages used `disabled` but
+  the Events hub looks better with the navy "EVENTS" page-title bar)
+- No bg images, no logos, no widget trees — pure Option B HTML widgets
+
+**SOP Lesson #24 added:** "In-place swap" pattern for hub pages with
+children. When the page being migrated is a parent with child pages,
+use direct meta-write to the existing post ID rather than the
+create-new + slug-swap pattern. Always backup `post_content` +
+`_elementor_data` to timestamped meta keys first. Verify all child
+permalinks resolve post-swap.
+
+**Cross-link audit (8 buttons across 4 cards):**
+
+| Card | Learn More | Register / Join |
+|------|-----------|-----------------|
+| LLSS | `/events/legal-league-servicer-summit/` ✅ live Elementor | `/memberships/financial-services-attorneys/` ⚠️ 404 today (Phase 4a will resolve) |
+| Government Forum | external `fivestargovernmentforum.com/2026` ✅ | external swoogo URL ✅ |
+| Velocity | `/events/velocity/` ✅ live Elementor | external swoogo URL ✅ |
+| Five Star Conference | external `fivestarconference.com/2026` ✅ | external swoogo URL ✅ |
+
+Only one stale internal link (LLSS Join Legal League). Preserved as-is
+for migration faithfulness; Phase 4a will resolve when individual
+Membership pages are built.
+
+**Phase 2.11 production promotion gate** — pending Jonathan approval.
+Independent of Phase 1.11 LLSS, Phase 3.11 Velocity, Phase 4b.11 RE
+Pros, Phase 4a-hub.11 Memberships. Production ops:
+- In-place swap on prod /events/ page (whatever ID it is — likely
+  matches staging 5089)
+- Same technique: backup + meta-write + clear post_content + flush
+- Verify all child URLs unchanged on prod (LLSS, Velocity, etc.)
+
+**Three FSI hubs migration status (all hub-shape pages):**
+
+- Events hub `/events/` ✅ (Phase 2, this entry)
+- Memberships hub `/memberships/` ✅ (Phase 4a-hub, prior entry)
+- Communities hub `/communities/` — stub created Phase 4b; needs
+  authored content when more community children exist
+
+---
+
+## 2026-04-27 — Phase 4a-hub: Memberships hub Elementor at canonical staging slug
+
+**Decision:** Memberships hub (page 2597) Elementor-rebuilt and live at
+canonical staging slug `/memberships/`. New page 5138 establishes the
+**FSI Membership Hub template** — third hub-shape page after Phase 2
+Events hub (pending) and Phase 4b Communities hub (stub at 5108).
+Distinct from the still-pending FSI Membership Page template (Phase 4a
+individual pages for FORCE / Legal League / etc.).
+
+**Operations executed:**
+
+1. Captured WPBakery hub baseline (page 2597) at 1440/768/420 →
+   `visual-baselines/memberships-hub-wpbakery-2026-04-27-{vp}.png`.
+2. Authored 5 section JSON files in
+   `sites/thefivestar/elementor-templates/membership-pages/_hub/`
+   following Jonathan's 10 locked design decisions on the mockup.
+   Element ID prefix `mhub-*`.
+3. Created Elementor page 5138, parent 0, all v4.0.2 meta + `_dt_header_title='disabled'`.
+4. Composed + pushed via `wp eval-file` pipeline. Total
+   `_elementor_data`: 18,451 bytes / 5 sections / 11 `.elementor-element` count.
+5. Slug swap: 2597 → `memberships-old` "(Old WPBakery)"; 5138 →
+   `memberships` canonical.
+
+**FSI Membership Hub template — characteristics:**
+
+- 5 sections (lighter than detail pages: 9 LLSS / 8 Velocity / 8 RE Pros)
+- 1+3+3 layout: featured Alliance hero (navy full-bleed) + 2x3 specialty grid
+- All sections HTML widgets (no widget-tree heroes — hub-page convention)
+- Roboto Slab serif treatment on H1/H2/card H3s — distinguishes hub-typography
+  from detail-pages' Open Sans Condensed default
+- `text-transform:none` explicitly applied to override The7 default
+  uppercase on H1/H2 (lesson #22 below)
+
+**Section structure:**
+
+| # | Section | Bg | Notes |
+|---|---------|-----|-------|
+| 01 | Alliance hero | Navy full-bleed | Membership Foundation eyebrow / Alliance logo (5136) / Five Star Alliance H1 / gold rule / tagline / 4-up benefits (Events / Media / Education / Community — FSI Offers swapped per decision #1) / 2 CTAs (Join → mailto, What's Included → /communities/real-estate-professionals/#alliance-tier) |
+| 02 | Communities intro | Offwhite | Professional Communities eyebrow / "Go deeper in your community" H2 |
+| 03 | Specialty grid 2x3 | Offwhite | 6 cards (FORCE / Legal League / NMSA / MSEA / PPEF / AMDC) — each: logo box, title, community subtitle, description, two buttons (Community ← / → Member Portal). AMDC = single button (cross-community). NO pricing or status badges per decision #3. |
+| 04 | "Not sure where you fit?" CTA | White | Inline (not sticky) — Alliance pitch + GET STARTED → mailto |
+| 05 | Footer-line | White | Standard pattern |
+
+**Key locked design decisions (per Jonathan 2026-04-27):**
+
+1. Swap FSI Offers → Community in Alliance benefits
+2. Keep Roboto Slab serif H1 — visual experiment
+3. NO pricing, NO status badges (cleaner: implicit "apply" framing). Drop "seven principal companies" from PPEF
+4. Adopt mockup community subtitles per card
+5. Two buttons on every card (Community + Member Portal), routing non-RE-Pros community links to `/communities/` stub for now
+6. AMDC single button (cross-community)
+7. Adopt mockup copy verbatim (with PPEF edit)
+8. Inline "Not sure where you fit?" CTA, not sticky
+9. New FORCE COLOR logo uploaded (5137)
+10. JOIN → `mailto:membership@thefivestar.com`
+
+**Logo asset assignments:**
+
+| Card | Asset ID | URL (medium variant) |
+|------|----------|---------------------|
+| Alliance (hero) | 5136 | /wp-content/uploads/2026/04/FS_Alliance_Logo_v2-300x116.png |
+| FORCE | 5137 | /wp-content/uploads/2026/04/FSI-Brand-logo_FORCE_COLOR-300x78.png |
+| Legal League | 5131 | /wp-content/uploads/2026/04/FSI-Brand-logo_LL_COLOR-300x78.png |
+| NMSA | 5127 | /wp-content/uploads/2026/04/FSI-Brand-logo_NMSA_COLOR-300x83.png |
+| MSEA | 5133 | /wp-content/uploads/2026/04/FSI-Brand-logo_MSEA_COLOR-300x83.png |
+| PPEF | 5129 | /wp-content/uploads/2026/04/FSI-Brand-logo_PPEF_COLOR-300x83.png |
+| AMDC | 5126 | /wp-content/uploads/2026/04/FSI-Brand-logo_AMDC_COLOR-300x83.png |
+
+All logos load and render correctly (`naturalWidth/naturalHeight` matches
+URL-specified dimensions; `complete=true` post-scroll on every image).
+
+**The7 heading-uppercase override (SOP Lesson #22):** Initial push
+rendered all H1/H2/H3 as ALL CAPS because The7's CSS applies
+`text-transform: uppercase` globally to headings. Roboto Slab + the
+correct font-family loaded fine, but the visual was broken (mockup
+intent was title-case "Five Star Alliance"). Fix: add explicit
+`text-transform:none` to every heading inline style. Affects any future
+HTML-widget-authored heading on FSI staging — the mu-plugin's heading
+overrides also need an audit but for now the per-section fix works.
+
+**Phase 4a-hub.11 production promotion gate** — pending Jonathan
+approval. Independent of Phase 1.11 LLSS, Phase 3.11 Velocity, Phase
+4b.11 RE Pros. Production ops:
+- `wp post create` page on prod with same Elementor v4.0.2 meta
+- Push 5-section `_elementor_data` via direct meta-write
+- All 7 logos already in prod media library? — verify before push
+- Slug + parent swap of prod Memberships page (whatever ID it is)
+
+**Path forward for the 6 specialty Memberships pages:**
+
+When Phase 4a (individual Membership pages) kicks off, each card's
+"Member Portal" right button will likely stay external (member sites
+own the portal experience). The "Community" left button currently
+routes 4 of 5 to `/communities/` stub — those will route to per-community
+pages (Legal, Mortgage Finance, Prop Pres) once Phase 4b builds them.
+FORCE → RE Pros community already lives.
+
+---
+
+## 2026-04-27 — Phase 4b: Real Estate Professionals Elementor at canonical staging slug + `/communities/` parent created
+
+**Decision:** Phase 4b first-instance build complete on staging. The
+existing RE Pros mockup (page 5087) was Elementor-rebuilt and relocated
+from `/memberships/` to `/communities/`, establishing the FSI Community
+Page template + the `/communities/` URL hierarchy.
+
+**Operations executed:**
+
+1. Created `/communities/` parent (page 5108) — root-level, status
+   publish, `_dt_header_title='disabled'`, minimal stub content. Ready
+   for Phase 4b sibling community pages (Mortgage Finance, Legal,
+   Prop Pres). Nav-wiring deferred per standing rule.
+2. Authored 8 section JSON files in
+   `sites/thefivestar/elementor-templates/community-pages/real-estate-professionals/`.
+   Element ID prefix `repro-*`. Path A (inline styles preserved per
+   Velocity precedent) — class extraction deferred to Phase 4b's 2nd
+   community page or Phase 4a kickoff.
+3. Created new Elementor page 5109 under `/communities/` parent.
+4. Composed + pushed via the proven Python compose + `wp eval-file`
+   pipeline. Total `_elementor_data`: 20,019 bytes / 8 sections / 16
+   `.elementor-element` count (lighter than LLSS/Velocity because no
+   widget-tree hero — all sections are HTML widgets).
+5. Slug + parent swap:
+   - Existing 5087 → `/communities/real-estate-professionals-old/`
+     (renamed + reparented from `/memberships/`)
+   - New 5109 → `/communities/real-estate-professionals/` (canonical)
+6. 301 redirect added via `eps-301-redirects` plugin: source
+   `memberships/real-estate-professionals` → target post 5109. Verified
+   firing (returns HTTP 301 → 200 follow chain). Production unchanged.
+7. Velocity cross-links updated (3 places) from
+   `/memberships/real-estate-professionals/` to
+   `/communities/real-estate-professionals/`:
+   - `velocity/04-charter-offer.json`
+   - `velocity/06-membership-cards.json`
+   - `velocity/09-footer-line.json`
+   Recomposed + pushed Velocity page 5107; rendered HTML verified.
+
+**FSI Community Page template — first-instance characteristics:**
+
+- 8 sections (vs Event Page's 9; no past-event photo strip applies)
+- Centered-text header with gold border-bottom (NO bg-image hero) —
+  deliberate visual distinction from Event pages
+- Pricing-tier-cards is the dominant Section 3 visual (Free / Alliance
+  / FORCE) — pattern likely recurs across all Community pages
+- Two callouts (Founding Institutional Partner gold-left-border +
+  Charter Member Rate gold-fill) — eligibility-vs-promotion contrast
+- Governance section is Community-template-distinctive (every
+  community has practitioner-led Advisory Council)
+- All sections HTML widget per Option B (Velocity precedent)
+
+**Audit pass (Playwright + getComputedStyle, 1440):** 8/8 sections in
+DOM; H1 navy `rgb(31,54,92)`; Charter callout present; FIP callout
+present; The7 page-title bar suppressed; canonical Elementor wrapper
+`.elementor.elementor-5109` present.
+
+**EPS-301 plugin gotcha (worth documenting):** The `eps-301-redirects`
+plugin matches incoming requests against the FULL request URI including
+query string. A cache-buster like `?cb=12345` BREAKS the match (returns
+404). Real users hitting bare URLs are redirected correctly; cache-bust
+testing must hit the bare URL to verify redirect behavior. Documented
+as SOP lesson #20.
+
+**Phase 4b.11 production promotion gate** — pending Jonathan approval.
+Independent of Phase 1.11 LLSS, Phase 3.11 Velocity. Production ops:
+- Replicate `/communities/` parent creation on prod
+- Replicate page 5109 + JSON push on prod
+- Replicate 301 redirect insertion on prod (`eps-301-redirects` is
+  already active on prod per plugin-inventory)
+- Slug + parent swap of prod RE Pros page (if it exists at
+  `/memberships/real-estate-professionals/`) — verify first
+- Cross-link updates to prod Velocity page (when Phase 3.11 ships)
+
+**Path A vs Path B follow-up:** Phase 4b shipped with inline styles
+(Path A). Class-extraction (Path B) is deferred until either (a) Phase
+4b's 2nd community page is authored (Mortgage Finance / Legal / Prop
+Pres) so the recurring patterns are concrete, OR (b) Phase 4a kickoff
+where Membership Page template authoring begins and shared CSS would
+benefit both templates. At that point: rename `fsi-event-styles.php` →
+`fsi-shared-styles.php` and add `.fsi-tier-card*`, `.fsi-callout-light`,
+`.fsi-events-card*` classes via Workflow A.
+
+---
+
+## 2026-04-27 — IA clarification: three parent-child hierarchies, three templates
+
+**Decision:** FSI's Elementor migration is organized as three distinct
+parent-child URL hierarchies, each backed by its own template. This
+clarifies the 2026-04-23 Phase 4 IA-split decision (which named two
+templates — Membership and Community) by adding the Event template
+already proven in Phases 1-3 and locking the parent-child mapping.
+
+| Hierarchy | Parent | Children | Template | Status |
+|-----------|--------|----------|----------|--------|
+| Events | `/events/` (page 5089) | Velocity, LLSS, Five Star Conference, Government Forum, … | **FSI Event Page** (Option B) | Two children migrated (LLSS 2026-04-26, Velocity 2026-04-27); Phase 2 Events hub itself + remaining children pending |
+| Memberships | `/memberships/` (page 2597) | FORCE, Legal League (firms), AMDC, PPEF, NMSA, MSEA, Five Star Alliance | **FSI Membership Page** | Phase 4a — greenfield; none of these pages exist yet on staging |
+| Communities | `/communities/` (NEW) | Real Estate Professionals, Mortgage Finance, Legal, Prop Pres | **FSI Community Page** | Phase 4b — `/communities/` parent doesn't exist; existing RE Pros mockup at `/memberships/real-estate-professionals/` (page 5087) relocates here |
+
+**IA distinction (the reason for two non-event templates):**
+
+- **Memberships** = formal member groups (organizational affinity).
+  FORCE is a credentialed certification program; Legal League is a
+  firm-membership organization. People *belong to* a Membership.
+- **Communities** = profession-based audience cuts (practitioner
+  affinity). "Real Estate Professionals" is the community of agents,
+  brokers, and investors; "Legal" is the broader attorney audience
+  including non-Legal-League practitioners. People *identify with* a
+  Community.
+
+The two hierarchies are related (FORCE membership lives within the RE
+Pros community; Legal League membership lives within the Legal
+community). But URLs and visual templates are distinct because the IA
+intent is distinct.
+
+**Implications for next-phase planning:**
+
+1. **Phase 4b (Community Page template) leads Phase 4a.** The RE Pros
+   mockup at `/memberships/real-estate-professionals/` (page 5087) is
+   already designed and copy-locked. Use it as the visual reference for
+   the FSI Community Page template. First-instance build relocates the
+   page to `/communities/real-estate-professionals/`.
+2. **Phase 4a (Membership Page template) is fully greenfield.** No
+   existing Membership-tier pages exist on staging. Visual design must
+   be drafted before any authoring begins, and must be visually
+   distinct from the Community template (per Jonathan 2026-04-23).
+3. **Cross-hierarchy linking:** Velocity's Charter Offer + Membership
+   Cards + Footer-line all link to `/memberships/real-estate-professionals/`.
+   When the page moves to `/communities/`, those links update
+   accordingly. A 301 redirect from old to new handles any external
+   inbound links.
+
+**Relationship to prior decisions:**
+
+- **2026-04-22 portfolio standardization:** Elementor + Elementor Pro
+  is the forward builder portfolio-wide. Unchanged.
+- **2026-04-23 Phase 4 IA split:** Membership and Community are two
+  distinct templates. Confirmed and extended (Event is a third
+  template, already proven).
+- **2026-04-23 nav-wiring rule:** New nav entries require explicit
+  approval. `/communities/` parent will require fresh nav approval
+  before being added to top-nav. The standing exception is Phase 2
+  Events hub `/conferences/` → `/events/`.
+- **2026-04-26 Option B pattern:** HTML-widget-with-CSS-classes
+  approach is now the architectural default for FSI page authoring.
+  Both Membership and Community templates will use it. Whether the
+  CSS classes live in `fsi-event-styles.php` or a renamed
+  `fsi-shared-styles.php` is a per-template decision (see Phase 4
+  build-plan discussion).
+
+---
+
+## 2026-04-27 — Phase 3 Velocity Elementor at canonical staging slug
+
+**Decision:** Slug swap executed on staging:
+- Page 5088 (WPBakery Velocity) renamed to `velocity-old`, title
+  "Velocity (Old WPBakery)"
+- Page 5107 (Elementor Velocity) renamed to `velocity`, title "Velocity"
+
+**Status:** Live at the canonical staging URL
+`https://thefivestarstg.wpenginepowered.com/events/velocity/`. Production
+unchanged (page never existed on prod at the canonical singular slug —
+Phase 3.11 production promotion is a create-new operation, not a replace).
+
+**Rollback:** WPBakery version preserved at `-old` slug for reference and
+fallback. Trash decision deferred to ~1-2 weeks post-prod-promotion.
+
+**Verification (Playwright + curl with cache-bust):**
+- Canonical URL serves wrapper class `.elementor-5107` with all 8 sections
+  (hero, intro+who-belongs, what-happens, charter-offer, membership-cards,
+  event-details, final-cta, footer-line); no `.fsi-page-wrap` markup
+- `-old` URL serves WPBakery inline-styled markup with "(Old WPBakery)"
+  title and The7 page-title bar (Velocity 5088 had `_dt_header_title='enabled'`)
+- WPE Varnish + memcached + Elementor CSS + WP Rocket all flushed via
+  `WpeCommon::purge_varnish_cache_all()` + `WpeCommon::purge_memcached()` +
+  `Elementor\Plugin::$instance->files_manager->clear_cache()` + `wp cache flush`
+- HubSpot Leadin tracking params auto-appended to swoogo CTA hrefs (same
+  behavior as WPBakery version — not introduced by Elementor)
+
+**Section structure (Velocity-specific deviations from LLSS template):**
+
+| LLSS section | Velocity equivalent |
+|--------------|---------------------|
+| 01 Hero | 01 Hero (Velocity / May 20-21, 2026 / The Westin / swoogo Register CTA) |
+| 02 Intro + Who Belongs | 02 same pattern (FORCE Members gold, Agents/Brokers navy, Asset Managers navy) |
+| 03 What Happens | 03 6 features (LLSS had 4) — no Closing Reception strip |
+| 04 Next Summit gold callout | 04 Charter Member Offer gold callout |
+| 05 Recent Summit photo strip | **SKIPPED** — first-format event, no past Velocity photos in this format |
+| 06 Membership Cards (Firm + Corporate) | 06 Five Star Alliance + FORCE |
+| 07 Event Details | 07 same pattern (When/Where/Questions) |
+| 08 Final CTA | 08 "Join Us in New Orleans" |
+| 09 Footer-line | 09 same pattern (RE Pro Membership / force@ / phone) |
+
+Numeric file prefixes preserved (no renumber across the 05 gap) so the
+LLSS↔Velocity section correspondence stays visible at a glance.
+
+**Quantitative outcomes (vs LLSS Option B as reference):**
+
+| Metric | LLSS (9 sections) | Velocity (8 sections) | Note |
+|--------|-------------------|------------------------|------|
+| `_elementor_data` size | 22,032 B | 18,178 B | -17% (one fewer section) |
+| Total Elementor widgets | 15 | 13 | analogous structure |
+| Total `.elementor-element` count | 27 | 24 | -3 = expected for skipped Section 5 |
+| Total file count | 9 | 8 | |
+
+**Image content TODOs (8 slots — unblocks Phase 3.11 readiness):**
+
+| Slot | Section | Dimensions | Subject |
+|------|---------|------------|---------|
+| Hero bg | 1 | 1900x600 | New Orleans / past Velocity event / FSI RE community moment |
+| Community photo | 2 | 1100x440 | FORCE members in conversation, networking moment |
+| Five Star Alliance card | 6 | 480x220 | RE professionals at work / community moment |
+| FORCE card | 6 | 480x220 | FORCE-certified credential moment / Connect session |
+| Final CTA bg | 8 | 1900x400 | Same as Hero or alternate New Orleans / event shot |
+
+**Next gate:** Phase 3.11 production promotion. Awaiting explicit Jonathan
+approval per the standing production-approval rule. Velocity images need
+to be gathered and populated before the prod gate. Phase 1.11 LLSS
+production promotion runs first (or in parallel).
+
+---
+
 ## 2026-04-26 — Phase 1.4 Step 7: LLSS Elementor at canonical staging slug
 
 **Decision:** Slug swap executed on staging:

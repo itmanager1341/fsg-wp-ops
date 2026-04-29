@@ -1,0 +1,32 @@
+{
+  "_authoring_notes": [
+    "Phase 4a-hub Section 4 — Alliance FOUNDATION STRIP. Sits BELOW the 6-specialty-tile grid.",
+    "Architecture: makes the hierarchy literal. The 6 specialty tiles above are the standing structures (top billing — they're the destination). Alliance sits as the foundation underneath them. Reader doesn't need to be told the relationship; the layout shows it.",
+    "Replaces the prior 'Not sure where you fit?' inline pill (Section 04-not-sure-cta.json — deleted) AND the prior 'Alliance umbrella band on navy' (Section 02-communities-intro.json — also deleted earlier).",
+    "Single Alliance touchpoint on the page now: this foundation strip. Hero tagline still mentions Alliance ('universal foundation underneath them all') but the strip is the conversion location.",
+    "Color logo (ID 5136) on white card in offwhite section — same palette as specialty tiles, gold top accent (4px) marks Alliance as featured/distinct.",
+    "Visually distinct from specialty grid via section-level padding and the 'foundation' framing eyebrow."
+  ],
+  "id": "mhub-alliance-foundation-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "full",
+    "background_background": "classic",
+    "background_color": "#F7F7F5",
+    "padding": {"unit": "px", "top": "8", "right": "40", "bottom": "60", "left": "40", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "8", "right": "20", "bottom": "40", "left": "20", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "mhub-alliance-foundation-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div style=\"max-width:1100px; margin:0 auto;\">\n  <div style=\"background:#fff; border:1px solid #e0e0dc; border-top:4px solid #c9a040; border-radius:6px; padding:28px 32px; display:flex; align-items:center; gap:32px; flex-wrap:wrap;\">\n    <div style=\"flex-shrink:0;\">\n      <img src=\"/wp-content/uploads/2026/04/FS_Alliance_Logo_v2-300x116.png\" alt=\"Five Star Alliance\" width=\"240\" height=\"92\" loading=\"lazy\" style=\"max-width:100%; height:auto;\" />\n    </div>\n    <div style=\"flex:1; min-width:280px;\">\n      <p style=\"color:#c9a040; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; margin:0 0 6px;\">The Foundation</p>\n      <h3 style=\"font-size:24px; font-weight:700; color:#1f365c; margin:0 0 8px;\">Five Star Alliance</h3>\n      <p style=\"color:#444; font-size:14px; line-height:1.6; margin:0;\">The universal membership underneath every specialty above. Alliance is the entry point for every practitioner in this association: events, media, education, and the broader FSI professional network across all four communities.</p>\n    </div>\n    <div style=\"flex-shrink:0;\">\n      <a href=\"mailto:membership@thefivestar.com\" style=\"display:inline-block; background:#1f365c; color:#fff; border:2px solid #1f365c; border-radius:4px; padding:12px 24px; font-weight:700; font-size:13px; text-decoration:none; text-transform:uppercase; letter-spacing:0.5px;\">Contact us about Alliance</a>\n    </div>\n  </div>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

@@ -3,19 +3,53 @@
 Use this as the opening message in the next Claude Desktop project chat.
 Updated at the end of each session with what was completed and what's next.
 
-Last updated: 2026-04-26 (LLSS Elementor LIVE on staging at canonical
-              slug; LLSS image content gathered separately by Jonathan;
-              NEXT: Velocity event page build using Option B template)
-Last completed: Phase 1.4 LLSS rebuild fully through Step 5 + Step 7.
-                All 9 sections rendering at staging canonical slug. Option B
-                pattern proven: 45% smaller _elementor_data, 75% fewer
-                widgets, visual parity with WPBakery via fsi-event-styles.php
-                CSS. Decision logged in decisions.md 2026-04-26.
-Next phase: PHASE 3 — Velocity (page 5088) Elementor rebuild using same
-                Option B template proven for LLSS. In parallel: Jonathan
-                gathering LLSS images per the shotlist below, paste URLs
-                in chat when ready. After Velocity verified + LLSS images
-                placed → Phase 1.11 production promotion approval gate.
+Last updated: 2026-04-29 PM (Phase 4a-hub Memberships hub REDESIGNED on
+              staging — Alliance moved from "hero" position to a
+              foundation strip BELOW the 6-tile specialty grid. Spatial
+              layout now carries the hierarchy: 6 specialty memberships
+              sit on top as standing structures, Alliance sits underneath
+              as the universal foundation, "underneath every specialty
+              above" messaging makes it explicit. Two intermediate
+              iterations (v4 umbrella band, v5 featured tile spanning
+              3 cols) were tried and rejected first. Hero rewritten to
+              "The seven memberships that organize this work." Old
+              "Not sure where you fit?" CTA removed. PPEF copy fixed
+              (membership organization, not standards body). Single
+              navy band (hero only). All 10 verification criteria
+              passed on staging deploy.
+              ALL THREE FSI HUBS Elementor-native: Events ✅ Memberships ✅
+              (redesigned) Communities ✅.
+              NEXT immediate steps: (a) finish any remaining polish
+              on Memberships hub before Phase 4a-hub.11 production
+              promotion; (b) move on to Communities hub — likely
+              the symmetric pattern review (does Communities hub
+              also benefit from a literal-foundation pattern, or is
+              its current layout already correct?). Other open paths:
+              Phase 4a individual Membership pages (7 greenfield),
+              Phase 4b community siblings (3 greenfield: Mortgage
+              Finance / Legal / Prop Pres), remaining LLSS/Velocity
+              image population.
+              CLEANUP FLAGGED: site footer "Membership Groups" widget
+              link → `/memberships-old/` (drift after Phase 4a-hub slug
+              swap). Should update to `/memberships/`.)
+Last completed: Memberships hub redesign deployed to staging
+                (2026-04-28 18:03). Final 4-section structure: hero
+                ("seven memberships") / 6-tile specialty grid /
+                Alliance foundation strip / footer-line. Decision
+                logged in decisions.md 2026-04-28 PM. Page 5138 in
+                place; same staging URL `/memberships/`.
+Next phase: Two-step focus —
+                (1) Complete Memberships hub: visual review by Jonathan
+                    on staging, address any remaining polish, then
+                    Phase 4a-hub.11 production promotion approval gate
+                (2) Move on to Communities hub: review whether the same
+                    spatial-hierarchy pattern improves it (or confirm
+                    its current 6-section layout is final), then Phase
+                    4b-hub.11 production promotion approval gate
+                Background tracks (any session): Phase 4a individual
+                Membership pages, Phase 4b community siblings, LLSS +
+                Velocity image population, footer "Membership Groups"
+                widget link cleanup.
 
 ---
 
@@ -71,8 +105,453 @@ Then confirm you've read them and summarize:
 - Phase 4 IA split (two templates: Memberships + Communities, both at root)
 - Current staging state (canonical LLSS = Elementor 5106, `-old` = WPBakery 5094)
 - What's pending before Phase 1.11 (image content + Lighthouse before-number)
+- **The 2026-04-28 PM Memberships hub redesign** (literal-foundation
+  hierarchy: Alliance moved BELOW the 6-tile specialty grid as a
+  foundation strip; "seven memberships" hero; PPEF copy fixed; v4
+  umbrella band and v5 featured tile both rejected before landing on
+  the foundation strip) — see decisions.md top entry. Final 4-section
+  layout on staging page 5138.
+
+Then read the Memberships hub JSON files to understand the current state:
+- `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/elementor-templates/membership-pages/_hub/01-alliance-hero.json` (filename retained but content is now "seven memberships" hero, not Alliance-focused)
+- `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/elementor-templates/membership-pages/_hub/03-specialty-grid.json` (6 tiles, no Alliance)
+- `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/elementor-templates/membership-pages/_hub/04-alliance-foundation.json` (the new foundation strip)
+- `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/elementor-templates/membership-pages/_hub/05-footer-line.json`
+
+And the Communities hub JSON files for the next focus:
+- `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/elementor-templates/community-pages/_hub/` (6 sections — hero / grid intro / 2x2 communities grid / FSC convergence / Memberships CTA / footer-line)
+
+**Next-step plan:**
+
+1. **Complete Memberships hub.** Live on staging at
+   `https://thefivestarstg.wpenginepowered.com/memberships/`. Ask Jonathan
+   to do a visual review pass; address any remaining polish items;
+   then propose Phase 4a-hub.11 production promotion (separate approval
+   gate). Produce reversible production push plan first.
+2. **Move on to Communities hub.** Live on staging at
+   `https://thefivestarstg.wpenginepowered.com/communities/`. Ask
+   Jonathan: does the 2026-04-28 Memberships hub literal-foundation
+   pattern (Alliance below the grid as "underneath every specialty
+   above") suggest a parallel revision for Communities, or is its
+   current 6-section layout (hero / grid intro / 2x2 community grid /
+   FSC convergence / Memberships CTA / footer-line) correct as-is?
+   The pattern transferable from Memberships hub: **spatial layout as
+   communication** — when an org relationship is "X underneath Y," put
+   X physically below Y. Communities hub doesn't currently have an
+   obvious "X underneath Y" relationship to express, so the answer
+   may be "current layout stands." Confirm with Jonathan, then either
+   iterate or move directly to Phase 4b-hub.11 production promotion.
 
 Do not proceed until that summary is confirmed.
+
+---
+
+## Completed this session (2026-04-28 PM) — Memberships hub redesign (literal-foundation hierarchy)
+
+### Phase 4a-hub redesign ✅ — Alliance moved from hero to foundation strip below specialty grid
+
+The Memberships hub built 2026-04-27 (Alliance featured as hero +
+6-card 2x3 specialty grid below) was redesigned in place on page 5138.
+The previous layout had Alliance "above" the specialties, which read
+as "Alliance is the headline membership" — not the intended "Alliance
+is the universal foundation under all of them." The redesign uses
+spatial layout as the carrier of organizational hierarchy: 6 specialties
+sit on top as standing structures, Alliance sits underneath as the
+foundation strip.
+
+**Iteration sequence (3 attempts before final):**
+
+| Time | Layout | Outcome |
+|------|--------|---------|
+| 5:15p (v4) | Alliance umbrella band between hero and specialty grid | Rejected — two stacked navy bands; Alliance still read as "above" specialties |
+| 5:42p (v5) | Alliance integrated as 3-col-spanning featured tile inside specialty grid | Rejected — Alliance dominated the grid visually; conflated "specialty" with "foundational" |
+| **6:03p (final)** | Alliance as dedicated foundation strip BELOW the 6-tile grid + "underneath every specialty above" copy | Adopted — spatial layout communicates the relationship without explanation |
+
+**Final structure on page 5138 (4 sections, ~14.5 KB `_elementor_data`):**
+
+| # | Section | Bg | Notes |
+|---|---------|-----|-------|
+| 01 | Hero | Navy | "PROFESSIONAL MEMBERSHIPS" eyebrow / "The seven memberships that organize this work" H1 / practitioner-focused description naming Alliance as "universal foundation underneath them all" |
+| 02/03 | Specialty grid | Offwhite | 6 tiles in 3-column CSS grid (FORCE / Legal League / NMSA / MSEA / PPEF / AMDC). NO Alliance tile. |
+| 04 | Alliance foundation strip | Offwhite | Gold "The Foundation" eyebrow / Alliance logo / "underneath every specialty above" copy / contact CTA. White card on offwhite + gold top accent (matches specialty tiles for cohesion; placement establishes foundation relationship). |
+| 05 | Footer-line | White | Standard pattern |
+
+**Color rhythm:** Navy → Offwhite → Offwhite → White. Single navy
+band (hero only) — addresses the prior "navy dominance" critique that
+drove v4/v5.
+
+**Removed in this session:**
+
+- Old Section 02 navy Alliance umbrella band (the v4 attempt)
+- Alliance featured tile from specialty grid (the v5 attempt)
+- Old Section 04 "Not sure where you fit?" CTA (mockup-era; conflated funnel steps)
+- Redundant secondary "Memberships" heading
+
+**Copy fix:** PPEF description corrected from "standards body" to
+"membership organization" (factual error inherited from the mockup).
+
+**Section JSON file updates (in place on `membership-pages/_hub/`):**
+
+| File | Status |
+|------|--------|
+| `01-alliance-hero.json` | Updated 17:51 — filename retained but content is now "seven memberships" hero, not Alliance-focused |
+| `03-specialty-grid.json` | Updated 17:52 — 6 tiles, no Alliance |
+| `04-alliance-foundation.json` | NEW 17:55 — Alliance foundation strip |
+| `05-footer-line.json` | Unchanged |
+| `02-communities-intro.json` | REMOVED |
+| `04-not-sure-cta.json` (or equivalent) | REMOVED |
+
+**Deployment:** Composed 4 section files into single Elementor data,
+backed up prior content with timestamp to `_elementor_data_backup_*`
+meta, pushed via `wp eval-file` pipeline, full cache flush
+(Elementor + Varnish + memcached + WP core + WP Rocket). All 10
+verification criteria passed including: new "seven memberships"
+hero heading, Alliance foundation strip with "The Foundation"
+eyebrow + "underneath every specialty above" messaging, all 6
+specialty tiles present, removal of old "Memberships" heading +
+old "Not sure" CTA, single navy band.
+
+### Documentation updated this session
+
+| File | Change |
+|------|--------|
+| `docs/decisions.md` | NEW top entry "2026-04-28 PM — Phase 4a-hub redesign: Memberships hub literal-foundation hierarchy" |
+| `sites/thefivestar/site-profile.md` | Memberships hub row updated (4 sections; "seven memberships" hero; Alliance foundation strip below grid; PPEF fix; single navy band) |
+| `sites/thefivestar/wpbakery-migration.md` | Memberships staging-state block rewritten for new 4-section hierarchy |
+| `docs/next-chat-handoff.md` | Header dates + completed/next-phase summary; this session block added; prompt summary bullets and immediate-next-steps plan updated |
+| `sites/thefivestar/elementor-templates/membership-pages/_hub/04-alliance-foundation.json` | NEW Alliance foundation strip JSON (3,228 B) |
+| `sites/thefivestar/elementor-templates/membership-pages/_hub/01-alliance-hero.json` | Updated content (hero rewrite) |
+| `sites/thefivestar/elementor-templates/membership-pages/_hub/03-specialty-grid.json` | Updated content (Alliance tile removal) |
+
+### 🛑 Awaiting decision: which path next session?
+
+Per Jonathan's directive at end of session — immediate steps are
+(1) complete Memberships hub, then (2) move on to Communities hub.
+
+1. **Complete Memberships hub.** Live on staging since 2026-04-28 18:03.
+   Visual review by Jonathan; address any remaining polish; then
+   propose Phase 4a-hub.11 production promotion (reversible plan
+   first, separate approval).
+2. **Move on to Communities hub.** Live on staging since 2026-04-28
+   (revised after Jonathan's flow correction). Ask whether the
+   literal-foundation pattern from Memberships transfers. Communities
+   hub doesn't have an obvious "X underneath Y" relationship to
+   express, so current 6-section layout may already stand. Confirm,
+   then either iterate or move to Phase 4b-hub.11 production promotion.
+3. Background tracks (any session): Phase 4a individual Membership
+   pages (7 greenfield, FORCE first), Phase 4b community siblings
+   (3 greenfield), LLSS + Velocity image population, footer
+   "Membership Groups" widget link cleanup.
+
+---
+
+## Completed prior session (2026-04-27 PM) — Phase 4b RE Professionals + IA correction
+
+### Phase 4b first-instance build ✅ — FSI Community Page template established
+
+The existing RE Pros mockup (page 5087) was Elementor-rebuilt and relocated from
+`/memberships/real-estate-professionals/` to the canonical
+`/communities/real-estate-professionals/` URL. This was the first build of the
+**FSI Community Page template** (third of three FSI templates — alongside FSI
+Event Page proven by LLSS+Velocity, and FSI Membership Page still pending Phase 4a).
+
+**Key operations:**
+
+| Step | Result |
+|------|--------|
+| Create `/communities/` parent | Page 5108 (root-level, status publish, _dt_header_title=disabled, stub content) |
+| Capture WPBakery RE Pros baseline | 1440/768/420 saved at `visual-baselines/re-pro-wpbakery-2026-04-27-{vp}.png` |
+| Author 8 section JSON files | `community-pages/real-estate-professionals/` with `repro-*` element IDs |
+| Path A vs Path B | **Path A chosen** (inline styles, Velocity precedent) — class extraction deferred until 2nd community page |
+| Create new Elementor page | Page 5109 under /communities/ parent |
+| Compose + push | 20,019 B `_elementor_data`, 8 sections, 16 `.elementor-element` count (lighter than LLSS/Velocity — no widget-tree hero) |
+| Visual verify | 1440/768/420 saved at `visual-baselines/re-pro-elementor-2026-04-27-{vp}.png`; structural audit 8/8 sections + H1 navy + callouts present |
+| Slug + parent swap | 5087 → `/communities/real-estate-professionals-old/` "(Old WPBakery)"; 5109 → `/communities/real-estate-professionals/` canonical |
+| 301 redirect | `eps-301-redirects` plugin: `memberships/real-estate-professionals` → post 5109; verified via bare-URL curl (HTTP 301 → 200) |
+| Velocity cross-link updates | 3 places (`04-charter-offer.json`, `06-membership-cards.json`, `09-footer-line.json`) updated from `/memberships/...` to `/communities/...`; recomposed + pushed Velocity page 5107; rendered HTML verified |
+
+**FSI Community Page template — characteristics distinct from Event Page:**
+
+| Section | Approach |
+|---------|----------|
+| 01 Header (centered text + gold border-bottom, NO bg image) | HTML widget |
+| 02 Intro (max-width 820px) | HTML widget |
+| 03 Your Path — 3 pricing tier cards (Free/Alliance $495/FORCE $1,495) | HTML widget — **center of gravity, dominant visual** |
+| 04 Founding Institutional Partner (gold left-border on cream) | HTML widget — eligibility-gated free tier |
+| 05 Charter Member Rate (gold-fill callout, Velocity-2026 only) | HTML widget |
+| 06 Events for RE Professionals (2-card grid: Velocity + FSC) | HTML widget |
+| 07 Governance (Offwhite callout, Advisory Council model) | HTML widget — Community-distinctive |
+| 08 Footer-line | HTML widget |
+
+**Quantitative outcomes (vs prior templates):**
+
+| Metric | LLSS (Event) | Velocity (Event) | RE Pros (Community) |
+|--------|--------------|-------------------|---------------------|
+| Sections | 9 | 8 | 8 |
+| `_elementor_data` size | 22,032 B | 18,178 B | 20,019 B |
+| Total widgets | 15 | 13 | 8 |
+| Total `.elementor-element` count | 27 | 24 | 16 |
+| Widget-tree sections | 3 (1, 8, 9) | 3 (1, 8, 9) | 0 (all HTML widget) |
+
+**EPS-301 redirect plugin gotcha (logged as SOP Lesson #20):** The plugin
+matches the FULL request URI including query string. A cache-buster like
+`?cb=12345` BREAKS the match (returns 404). Real users hitting bare URLs
+get the proper 301. When testing post-insert, use bare URL curl, not
+query-string-augmented URL.
+
+### Documentation updates this session (PM)
+
+| File | Change |
+|------|--------|
+| `docs/decisions.md` | NEW top entries: Phase 4b RE Pros at canonical staging slug; IA clarification (3 hierarchies, 3 templates) |
+| `brands/fsi/CLAUDE.md` | "IA structure" section restructured to 3-hierarchy table; Memberships-vs-Communities distinction |
+| `sites/thefivestar/wpbakery-migration.md` | Migration tracker reframed as 3 hierarchies; Communities section populated with RE Pros details |
+| `sites/thefivestar/site-profile.md` | Open issues row updated for Phase 4b completion + Phase 4a/4b siblings |
+| `docs/sops/elementor-json-authoring.md` | Lessons #20-21 added (eps-301 query string gotcha, slug-prefix convention) |
+| `sites/thefivestar/elementor-templates/community-pages/real-estate-professionals/` | NEW: 8 section JSON files |
+| `sites/thefivestar/real-estate-professionals-wpbakery-content.html` | NEW: WPBakery source-of-truth copy reference |
+| `sites/thefivestar/visual-baselines/` | NEW: 6 baselines (re-pro-wpbakery + re-pro-elementor at 1440/768/420) |
+| `sites/thefivestar/elementor-templates/event-pages/velocity/{04-charter-offer,06-membership-cards,09-footer-line}.json` | URL updates: `/memberships/...` → `/communities/...` |
+
+### 🛑 Awaiting decision: which path next session?
+
+Phase 4b first-instance proven. Three options:
+
+1. **Phase 4a — FSI Membership Page template (greenfield).** Author the
+   Membership template by building one of FORCE / Legal League / AMDC / PPEF
+   / NMSA / MSEA / Five Star Alliance. Visually distinct from Community
+   template (already-shipped RE Pros is the contrast benchmark). FORCE is
+   the natural first-instance — credentialed + 15-year-established + the
+   most-referenced membership in existing Velocity + RE Pros copy. ~120-180
+   min including Membership template design pass.
+2. **Phase 4b 2nd instance — Mortgage Finance / Legal / Prop Pres community
+   pages.** Concretizes the recurring CSS patterns and triggers Path B
+   class extraction (`fsi-shared-styles.php` rename + tier-card classes).
+   ~60-90 min per page once the pattern is set.
+3. **Image content for LLSS + Velocity, in parallel.** Unblocks Phase 1.11
+   + Phase 3.11 production promotion gates. ~30 min per event once URLs
+   are pasted in chat.
+4. **Production promotion** of any of: LLSS (Phase 1.11), Velocity (Phase
+   3.11), RE Pros (Phase 4b.11). Each is independent and requires explicit
+   Jonathan approval.
+
+**Recommended sequencing:** option 1 (Phase 4a kickoff with FORCE) — gets
+the third template proven, completes the IA picture, and naturally
+triggers the Path B CSS-class extraction since FORCE is the
+most-referenced membership and the cleanest first-instance.
+
+---
+
+## Completed this session (2026-04-27 AM) — Phase 3 Velocity
+
+### Phase 3 Velocity Elementor build ✅ — second event page proves the Option B template clones cleanly
+
+LLSS established the FSI Event Page template via Option B (Elementor
+structural containers + HTML widgets containing `fsi-page-wrap` markup).
+This session, Velocity (page 5088) was rebuilt as a clone of that
+template. Pattern works.
+
+**Velocity build summary:**
+
+| Step | Result |
+|------|--------|
+| Pull WPBakery source | `velocity-wpbakery-content.html` saved (8,631 B inline-styled HTML) |
+| WPBakery baselines | 1440 / 768 / 420 captured at `visual-baselines/velocity-wpbakery-2026-04-27-{vp}.png` |
+| Section JSON authoring | 8 files in `elementor-templates/event-pages/velocity/` (01,02,03,04,06,07,08,09) — Section 05 photo strip skipped |
+| Element ID convention | `velocity-*` prefix (e.g., `velocity-hero-section`) — collision-safe if exported as saved templates |
+| Page creation on staging | `wp post create` page 5107 slug `velocity-elementor`, parent 5089, `_dt_header_title='disabled'`, all Elementor v4.0.2 meta keys |
+| Compose + push pipeline | Same as LLSS — Python compose script strips authoring-only keys, base64-pushed via `wp eval-file -`, `update_post_meta(_elementor_data, wp_slash($json))`, backup at `_elementor_data_backup_*` meta key, Elementor `files_manager->clear_cache()` |
+| Cache flush | `wp cache flush`, `rm -rf wp-rocket/*`, `WpeCommon::purge_varnish_cache_all()`, `WpeCommon::purge_memcached()` |
+| Visual verify | 1440 / 768 / 420 Elementor baselines saved at `visual-baselines/velocity-elementor-2026-04-27-{vp}.png` |
+| Structural audit | 12/12 pass via Playwright `getComputedStyle` |
+| Slug swap | 5088 → `velocity-old` "(Old WPBakery)", 5107 → `velocity` canonical, verified post-cache-purge with cache-bust query string |
+
+**Section-by-section mapping (LLSS → Velocity):**
+
+| File | Approach | Velocity-specific deviation |
+|------|----------|------------------------------|
+| 01-hero.json | Widget tree (bg image + overlay + Save-the-Date sub-card) | Swapped LLSS subhead (was "Hosted during Government Forum Week"); Velocity has no equivalent secondary descriptor; 3-element card (event-line, tagline, CTA) |
+| 02-intro-who-belongs.json | HTML widget | FORCE Members card uses `.fsi-card-gold` (community core); Agents/Brokers/Investors + Asset Managers use `.fsi-card-navy` |
+| 03-what-happens.json | HTML widget | 6 features (LLSS had 4); no `.fsi-program-full` Closing Reception strip |
+| 04-charter-offer.json | HTML widget (renamed from 04-next-summit) | `.fsi-callout-gold` reused for Charter Member Offer ($300/yr first-100, $495/yr standard) |
+| 05- (skipped) | — | First-format event; no past Velocity photo strip yet. Add post-event if desired. |
+| 06-membership-cards.json | HTML widget | Five Star Alliance (new, launching at Velocity) + FORCE (15-year credentialed program) |
+| 07-event-details.json | HTML widget | When (May 20-21, 2026) / Where (The Westin, New Orleans) / Questions (force@thefivestar.com) |
+| 08-final-cta.json | Widget tree | "Join Us in New Orleans" instead of "Join Us in Washington" |
+| 09-footer-line.json | Widget tree | RE Pro Membership / force@ / phone instead of Legal League contact |
+
+**Quantitative outcomes:**
+
+| Metric | LLSS Option B | Velocity Option B | Δ |
+|--------|---------------|-------------------|---|
+| `_elementor_data` size | 22,032 B | 18,178 B | -17% |
+| Total Elementor widgets | 15 | 13 | -2 |
+| Total `.elementor-element` count in DOM | 27 | 24 | -3 (= skipped Section 5) |
+| Total file count | 9 | 8 | |
+
+**Audit results (12/12 PASS):**
+
+| # | Criterion | Result |
+|---|-----------|--------|
+| 1 | All 8 sections present in DOM | ✅ |
+| 2 | The7 page-title bar suppressed | ✅ (`_dt_header_title='disabled'`) |
+| 3 | Hero H1 "Velocity" white Roboto 42px wt 700 | ✅ |
+| 4 | Hero CTA bg `#C9A040` gold / text `#1F365C` navy / href to swoogo | ✅ |
+| 5 | Final H2 "Join Us in New Orleans" white 26px | ✅ |
+| 6 | `.fsi-card-gold` Offwhite + 4px gold top border | ✅ rgb(247,247,245) + rgb(201,160,64) 4px |
+| 7 | `.fsi-callout-gold` gold bg `rgb(201,160,64)` | ✅ |
+| 8 | Who Belongs: 3 cards (1 gold-top + 2 navy-top) | ✅ |
+| 9 | What Happens: 6 features in 2-col grid | ✅ |
+| 10 | Photo strip items: 0 (Section 5 intentionally skipped) | ✅ |
+| 11 | Membership cards: 2 (Five Star Alliance + FORCE) | ✅ |
+| 12 | DOM count: 24 elementor-elements | ✅ |
+
+**Cache propagation gotcha (logged for future migrations):** First
+post-swap visit via Playwright returned a stale Varnish-cached version
+without the new Elementor markup. `wp cache flush` + `rm -rf wp-rocket/*`
++ `Elementor flush_css` are NOT enough — WPE Varnish has its own layer.
+The fix: also call `WpeCommon::purge_varnish_cache_all()` +
+`WpeCommon::purge_memcached()`. Adding to SOP as lesson #16.
+
+**HubSpot Leadin observation:** swoogo `/register_now` and `/agenda` /
+`/venue` links get tracking params auto-appended at render
+(`?__hstc=...&__hssc=...&__hsfp=...`). Same behavior as the WPBakery
+version on production; not introduced by Elementor.
+
+### Phase 3 Velocity image content TODOs
+
+Five image slots blocking Phase 3.11 production promotion. Workflow same
+as LLSS: Jonathan uploads to Media Library → pastes URLs → AI updates
+the affected JSON files + pushes via the standard pipeline + flushes +
+captures fresh screenshots.
+
+| # | Slot | Section | Dimensions | Subject |
+|---|------|---------|------------|---------|
+| 1 | Hero bg | 1 | 1900x600 | New Orleans / past Velocity event / FSI RE community moment |
+| 2 | Community photo | 2 | 1100x440 | FORCE members in conversation, networking moment |
+| 3 | Five Star Alliance card | 6 | 480x220 | RE professionals at work / community moment |
+| 4 | FORCE card | 6 | 480x220 | FORCE-certified credential moment / Connect session |
+| 5 | Final CTA bg | 8 | 1900x400 | Same as Hero or alternate New Orleans / event shot |
+
+### Documentation updated this session
+
+| File | Change |
+|------|--------|
+| `docs/decisions.md` | NEW top entry "2026-04-27 — Phase 3 Velocity Elementor at canonical staging slug" |
+| `sites/thefivestar/wpbakery-migration.md` | Migration status updated to "First wave (LLSS + Velocity) MIGRATED ON STAGING"; first-wave table entry added for 5088/5107 |
+| `sites/thefivestar/site-profile.md` | Open issues table: Velocity Phase 3.11 row added; Events hub note narrowed (Velocity removed) |
+| `docs/next-chat-handoff.md` | Header dates + completed/next-phase summary; this session block added |
+| `sites/thefivestar/elementor-templates/event-pages/velocity/` | NEW: 8 section JSON files (01,02,03,04,06,07,08,09) |
+| `sites/thefivestar/velocity-wpbakery-content.html` | NEW: WPBakery source-of-truth copy reference (8,631 B) |
+| `sites/thefivestar/visual-baselines/` | NEW: 6 baselines — `velocity-wpbakery-2026-04-27-{1440,768,420}.png` and `velocity-elementor-2026-04-27-{1440,768,420}.png` |
+
+### 🛑 Awaiting decision: which path next session?
+
+Per IA clarification (2026-04-27 decisions.md entry), the next phase is
+**Phase 4b — Community Page template via Real Estate Professionals
+relocation**. The existing RE Pros page is the design reference; it
+moves from `/memberships/` to `/communities/`.
+
+Several options are unblocked, in priority order:
+
+1. **Phase 4b Community Page template — RE Pros first instance.**
+   Relocate page 5087 from `/memberships/real-estate-professionals/` to
+   `/communities/real-estate-professionals/` (canonical), Elementor
+   rebuild via Option B pattern, establish the FSI Community Page
+   template. Includes creating `/communities/` parent. ~90-120 min.
+   See "Phase 4b build plan" block below.
+2. **Image content for both LLSS + Velocity, in parallel.** Jonathan
+   uploads to Media Library, pastes URLs, AI updates JSON + pushes.
+   Unblocks Phase 1.11 + Phase 3.11 production promotion gates. ~30 min
+   per event once URLs are in chat.
+3. **Phase 2 Events hub (page 5089) Elementor migration.** Same Option B
+   template, but different content shape — events hub is a card grid,
+   not a single-event page. Likely requires Elementor Loop Builder or a
+   saved-section per child event.
+4. **SOP write-up: `docs/sops/new-event-page-elementor.md`.** Now that
+   two events are built (LLSS + Velocity), the abstracted pattern is
+   visible and ready to document.
+
+**Recommended sequencing:** option 1 first (Phase 4b unblocks the third
+template proof and produces the visual reference for cross-template
+distinction with Phase 4a), option 2 in parallel as Jonathan gathers
+images, option 3 + 4 follow.
+
+### Phase 4b build plan: Real Estate Professionals (Community template)
+
+**Goal:** establish the FSI Community Page template by Elementor-rebuilding
+the existing RE Pros mockup at its canonical URL.
+
+**Source content (15,859 B, inline-styled WPBakery):**
+- Existing page 5087 at `/memberships/real-estate-professionals/`
+- Saved to repo: `sites/thefivestar/real-estate-professionals-wpbakery-content.html`
+
+**Existing structure (8 logical sections):**
+
+1. Header block: H1 "Real Estate Professionals" + tagline + gold border
+2. Intro: 2-paragraph "why this market needs its own infrastructure"
+3. Your Path: 3 tier cards (Free / Five Star Alliance $495 / FORCE $1,495)
+4. Founding Institutional Partner: gold left-border callout
+5. Charter Member Rate: gold-fill callout (Velocity 2026, $300/yr first 100)
+6. Events for RE Professionals: 2-card grid (Velocity 2026 + FSC 2026)
+7. Governance: Offwhite callout
+8. Footer-line
+
+**Template differences from Event Page:**
+- **Pricing tier cards** are the dominant visual element (Section 3) — events have nothing analogous
+- **Two callouts** (Sections 4 + 5) instead of one — Founding Institutional Partner is eligibility-gated free, Charter Member Offer is paid time-limited
+- **Hero treatment is centered-text-with-gold-border** (no bg image), distinct from event-page full-bleed bg image hero — KEEP this distinction so Community pages read differently from Events at-a-glance
+
+**IA / URL operations (in order):**
+
+1. Create `/communities/` parent on staging (root-level page, slug `communities`, status publish, title "Communities"). Nav-wiring requires separate approval (per standing rule).
+2. Capture WPBakery RE Pros baseline at 1440/768/420 against page 5087 → `visual-baselines/re-pro-wpbakery-2026-04-27-{vp}.png`.
+3. Author 8 section JSON files in `sites/thefivestar/elementor-templates/community-pages/real-estate-professionals/`. Element ID prefix: `repro-*` (per Lesson #18).
+4. Decide CSS dependency path BEFORE authoring (see "Decisions to lock" below):
+   - **Path A** — keep tier-card styling inline in HTML widget (Velocity precedent)
+   - **Path B** — promote to shared CSS classes in `fsi-event-styles.php` → rename to `fsi-shared-styles.php`, deploy via Workflow A. Path B prerequisite ~30 min before any authoring begins.
+5. `wp post create` new Elementor page: parent = `/communities/` (whatever ID we get), slug `real-estate-professionals-elementor`, all v4.0.2 meta + `_dt_header_title='disabled'`.
+6. Compose + push via Python script + `wp eval-file` pipeline (proven on LLSS + Velocity).
+7. Cache flush: `wp cache flush` + `rm -rf wp-rocket/*` + Elementor `flush_css` + **`WpeCommon::purge_varnish_cache_all()` + `WpeCommon::purge_memcached()`** (Lesson #16).
+8. Visual verify at 1440/768/420 + Playwright `getComputedStyle` audit (12-criterion structural pass).
+9. Slug + parent swap when verified:
+   - New Elementor page → slug `real-estate-professionals`, parent = `/communities/` ID, title "Real Estate Professionals" (canonical at `/communities/real-estate-professionals/`)
+   - Existing 5087 → slug `real-estate-professionals-old`, parent stays at 2597 `/memberships/` (or move to communities), title "Real Estate Professionals (Old WPBakery)"
+   - Add 301 redirect from `/memberships/real-estate-professionals/` to `/communities/real-estate-professionals/` via `eps-301-redirects` plugin (preserves any external inbound links + the Velocity page references)
+10. Cache-busted verify on canonical + `-old` URLs.
+11. **Update Velocity links** (3 places) from `/memberships/real-estate-professionals/` to `/communities/real-estate-professionals/`:
+    - `velocity/04-charter-offer.json` (1 link in Charter Offer body)
+    - `velocity/06-membership-cards.json` (1 link in Five Star Alliance card CTA)
+    - `velocity/09-footer-line.json` (1 link in footer-line)
+    - Push updates to Velocity page 5107 + flush.
+12. **Stop at Phase 4b.11 production approval gate** (separate from Phase 1.11 LLSS, Phase 3.11 Velocity).
+
+**Decisions to lock before kicking off:**
+
+1. **Path A (inline styles per Velocity precedent) or Path B (promote to shared CSS classes)?**
+   Strong recommendation **Path B** — Phase 4b adds 4 community pages eventually (RE Pros, Mortgage Finance, Legal, Prop Pres), Phase 4a adds 7 membership pages. Tier-card / pricing-grid / callout patterns will recur. CSS-class reuse pays back fast. Renames `fsi-event-styles.php` → `fsi-shared-styles.php` to signal broader scope.
+2. **`-old` page disposition:** keep at `/memberships/real-estate-professionals-old/` for ~1-2 weeks post-prod (LLSS pattern), or move to `/communities/real-estate-professionals-old/` for parent consistency? Recommend the latter (move with the page; redirect handles old URL).
+3. **301 redirect:** confirm we use `eps-301-redirects` plugin (already active per plugin-inventory) for the `/memberships/real-estate-professionals/` → `/communities/real-estate-professionals/` redirect, not nginx-level WPE config.
+4. **`/communities/` parent page:** what content does it host? Listing of child community pages? Bare hub page? Or just a structural URL anchor with no on-page content? Defer the `/communities/` hub itself to a later Phase 4b iteration; for now create as a stub (status publish, minimal content, `_dt_header_title='disabled'` for clean look).
+5. **Phase 4a Membership template design:** does NOT need to be locked before Phase 4b begins. Phase 4b ships first, then Phase 4a starts with a clear visual contrast benchmark (Community Page rendered) so the Membership Page can be deliberately distinct.
+
+**Image TODOs (Phase 4b.11 prerequisites):**
+
+The existing RE Pros mockup has zero images — it's all text + colored cards. No image slots to populate before production promotion. Hero is centered-text-with-gold-border (no bg image). This is a deliberately image-light page; matches the Membership template's likely scope too.
+
+---
+
+## Completed prior session (2026-04-26)
+
+### Phase 1.4 LLSS Elementor build ✅
+
+Per the 2026-04-26 entries below, LLSS was rebuilt across 9 sections
+using the Option B pattern (Elementor structural containers + HTML
+widgets containing `fsi-page-wrap` markup). All sections rendered;
+slug-swapped at canonical `/events/legal-league-servicer-summit/`
+(page 5106). WPBakery preserved at `-old` (page 5094). Image content
+gathering pending. Phase 1.11 production promotion pending Jonathan
+approval.
 
 ---
 

@@ -85,21 +85,68 @@
 - Do not activate Gutenberg as the editor for WPBakery pages that haven't been
   migrated yet — they render raw shortcodes.
 
-## IA structure for Phase 4 (locked 2026-04-23)
+## IA structure: three parent-child hierarchies, three templates
 
-Phase 4 authors TWO templates, not one. Memberships and Communities are
-distinct IA structures and visually distinct templates.
+FSI's Elementor migration is organized around **three parent-child URL
+hierarchies**, each backed by its own template. Confirmed 2026-04-23 +
+clarified 2026-04-27.
 
-- **`/memberships/`** — existing member groups (FORCE, Legal League, AMDC,
-  PPEF, NMSA, MSEA) plus new Five Star Alliance Membership. Update in place.
-  Template: "FSI Membership Page."
-- **`/communities/`** — NEW subfolder. Children: Mortgage Finance, Legal, RE
-  Pro, Prop Pres (profession-based audience cuts). Greenfield authoring.
-  Template: "FSI Community Page" — visually distinct from Membership per
-  Jonathan's direction.
+| Hierarchy | Parent | Children | Template | Phase |
+|-----------|--------|----------|----------|-------|
+| Events | `/events/` (page 5089, ✅ Elementor since 2026-04-27 PM via in-place swap) | Velocity ✅, Legal League Servicer Summit ✅, Five Star Conference (external), Government Forum (external) | **FSI Event Page** + **FSI Events Hub** | Phase 1.4 (LLSS) ✅, Phase 3 (Velocity) ✅, Phase 2 (Events hub) ✅ |
+| Memberships | `/memberships/` (page 5138, ✅ Elementor hub since 2026-04-27 PM) | **FORCE**, Legal League (firms), AMDC, PPEF, NMSA, MSEA, Five Star Alliance | **FSI Membership Page** + **FSI Memberships Hub** ✅ | Phase 4a-hub (hub) ✅; Phase 4a (individual pages — greenfield) pending |
+| Communities | `/communities/` (page 5108, ✅ Elementor hub since 2026-04-28) | **Real Estate Professionals** ✅, Mortgage Finance, Legal, Prop Pres | **FSI Community Page** + **FSI Communities Hub** ✅ | Phase 4b-hub (hub) ✅; Phase 4b (RE Pros first instance) ✅; siblings (Mortgage Finance / Legal / Prop Pres) pending |
 
-`/memberships/` keeps its existing URL structure and parent nav entry;
-`/communities/` requires fresh nav approval before wiring.
+**Critical IA distinction:**
+
+- **Memberships** = formal member groups (organizational affinity).
+  FORCE is a credentialed certification program; Legal League is a
+  firm-membership organization; etc. People belong to a Membership.
+- **Communities** = profession-based audience cuts (practitioner
+  affinity). "Real Estate Professionals" is a community of agents,
+  brokers, and investors; "Legal" is the broader attorney audience
+  including non-Legal-League practitioners; etc. People identify with
+  a Community.
+
+The two hierarchies ARE related (FORCE membership belongs to the RE
+Professionals community; Legal League membership belongs to the Legal
+community). But the URLs and templates are distinct because the IA
+intent is distinct.
+
+**Current staging state (as of 2026-04-27 PM):**
+
+- `/memberships/` (2597) exists as a parent. **No member-tier child
+  pages** — Phase 4a authors all 7 (FORCE, Legal League firms, AMDC,
+  PPEF, NMSA, MSEA, Five Star Alliance) greenfield. The previous mis-
+  located RE Pros page (5087) was relocated to `/communities/` on
+  2026-04-27.
+- `/communities/` parent (5108) created 2026-04-27 as a stub. Nav-wiring
+  deferred per standing rule. **First child page live:** Real Estate
+  Professionals (Elementor page 5109) at canonical
+  `/communities/real-estate-professionals/`. Old WPBakery preserved at
+  `/communities/real-estate-professionals-old/` (5087, relocated +
+  renamed). 301 redirect from `/memberships/real-estate-professionals/`
+  to canonical via `eps-301-redirects` plugin.
+- Other community children (Mortgage Finance, Legal, Prop Pres) — not
+  yet authored. Phase 4b's 2nd-instance build is the natural trigger to
+  extract shared CSS classes from inline-styled RE Pros sections.
+
+**Nav-wiring (per the standing rule):**
+
+- `/memberships/` keeps its existing parent nav entry.
+- `/communities/` requires fresh nav approval before being wired anywhere.
+- Velocity replaces `/events/velocity/` (already Elementor); Five Star
+  Conference and other events follow.
+
+**Visual differentiation between Membership and Community templates:**
+
+Per Jonathan's 2026-04-23 direction, the two templates should be
+visually distinct so users can tell at a glance whether they're on a
+formal membership page (organizational) or a community page
+(professional). The existing RE Pros mockup at
+`/memberships/real-estate-professionals/` is the design reference for
+the **Community** template. The Membership template is a separate
+design (FORCE / Legal League / etc.) — not yet drafted.
 
 ## Transition state notes
 
@@ -127,15 +174,29 @@ distinct IA structures and visually distinct templates.
   — The7's panel labels make it impossible to spot without trial-and-error.
   Phase 1.4 builds feature-grid "icons" via Image (64×64) + Heading + Text
   inside a container instead. Same visual outcome, theme-agnostic.
-- **Option B pattern for FSI event pages (2026-04-26):** Use ONE Elementor
-  HTML widget per content section, containing the existing `fsi-page-wrap`
-  CSS-class markup (`.fsi-card-gold`, `.fsi-grid-3`, `.fsi-callout-gold`,
-  `.fsi-membership-card`, `.fsi-photo-strip`, etc.). `fsi-event-styles.php`
-  mu-plugin handles the visual design. Keep widget trees only for sections
-  with bg-image + overlay (Hero, Final CTA). Net result: visual parity
-  with WPBakery design, 45% smaller `_elementor_data`, 75% fewer widgets.
-  See `docs/decisions.md` 2026-04-26 entry. **Apply this pattern to Phase 2
-  (Events hub) and Phase 3 (Velocity) authoring.**
+- **Option B pattern for FSI event pages (2026-04-26, proven across LLSS
+  and Velocity 2026-04-27):** Use ONE Elementor HTML widget per content
+  section, containing the existing `fsi-page-wrap` CSS-class markup
+  (`.fsi-card-gold`, `.fsi-grid-3`, `.fsi-callout-gold`,
+  `.fsi-membership-card`, `.fsi-photo-strip`, etc.).
+  `fsi-event-styles.php` mu-plugin handles the visual design. Keep
+  widget trees only for sections with bg-image + overlay (Hero, Final
+  CTA) and tiny structural strips (Footer-line). Net result: visual
+  parity with WPBakery design, 45% smaller `_elementor_data`, 75% fewer
+  widgets. See `docs/decisions.md` 2026-04-26 + 2026-04-27 entries.
+  **Phase 3 Velocity build (2026-04-27) confirmed the template clones
+  cleanly to a second event with section-skip flexibility.** Apply this
+  pattern to Phase 2 (Events hub) and reuse for any future event-page
+  authoring.
+- **Phase 3 Velocity completed on staging (2026-04-27):** Page 5107 at
+  canonical slug `/events/velocity/`, page 5088 preserved at
+  `/events/velocity-old/`. 8 sections (Section 5 photo strip skipped —
+  first-format event, no past-Velocity photos applicable). Charter
+  Member Offer occupies the gold-callout slot (analog to LLSS Section
+  4 Next Summit). Five Star Alliance + FORCE membership cards in
+  Section 6. Phase 3.11 production promotion pending (a) 5 image slots
+  populated, (b) Jonathan approval. The production-approval rule is
+  unchanged: per-page-promotion approval, no exceptions.
 - **Image-swap workflow for HTML widget placements (2026-04-26):**
   1. Upload to Media Library via WP Admin (or `wp media import` CLI)
   2. Get the URL from Media Library "Copy URL"

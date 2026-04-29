@@ -1,0 +1,32 @@
+{
+  "_authoring_notes": [
+    "Velocity Section 9 — small footer-line strip with contact info / inline links.",
+    "Cloned from LLSS 09-footer-line.json on 2026-04-27. Same widget-tree (single text-editor inside boxed container with top border).",
+    "Links: RE Professional Membership (Five Star Alliance lander), force@thefivestar.com (RE community contact), (214) 525-6700."
+  ],
+  "id": "velocity-footer-line-section",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "20", "right": "20", "bottom": "12", "left": "20", "isLinked": false},
+    "border_border": "solid",
+    "border_width": {"unit": "px", "top": "2", "right": "0", "bottom": "0", "left": "0", "isLinked": false},
+    "border_color": "#DDDDDD",
+    "flex_direction": "column",
+    "flex_align_items": "center"
+  },
+  "elements": [
+    {
+      "id": "velocity-footer-line-text",
+      "elType": "widget",
+      "widgetType": "text-editor",
+      "settings": {
+        "editor": "<p style=\"font-size:14px; text-align:center; margin:0;\"><strong>Velocity 2026</strong>&nbsp; |&nbsp; Five Star Institute&nbsp; |&nbsp; <a href=\"/communities/real-estate-professionals/\">RE Professional Membership</a>&nbsp; |&nbsp; <a href=\"mailto:force@thefivestar.com\">force@thefivestar.com</a>&nbsp; |&nbsp; (214) 525-6700</p>",
+        "align": "center"
+      },
+      "elements": []
+    }
+  ]
+}

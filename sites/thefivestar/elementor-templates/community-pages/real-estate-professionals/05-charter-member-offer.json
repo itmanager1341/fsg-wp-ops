@@ -1,0 +1,30 @@
+{
+  "_authoring_notes": [
+    "Phase 4b RE Pros Section 5 — Charter Member Rate gold-fill callout (Velocity 2026 only).",
+    "Same offer as Velocity Section 4 — first 100 new Five Star Alliance members at $300/yr locked + 20% off all FSI events.",
+    "REVISED 2026-04-28 PM per Jonathan's redesign: tightened internal padding; price bumped to 24px (was 22px) to read as the hero of this section. Anchor id='charter-member' added for hero nav target.",
+    "Inline-styled per Velocity precedent. Future cleanup: extract to .fsi-callout-gold class."
+  ],
+  "id": "repro-charter-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "12", "right": "20", "bottom": "20", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "12", "right": "16", "bottom": "16", "left": "16", "isLinked": false},
+    "flex_direction": "column",
+    "_element_id": "charter-member"
+  },
+  "elements": [
+    {
+      "id": "repro-charter-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div style=\"background:#c9a040; border-radius:6px; padding:28px 28px; margin-bottom:32px; text-align:center;\">\n  <p style=\"text-transform:uppercase; font-size:13px; font-weight:700; letter-spacing:2px; color:#3d2e00; margin:0 0 8px;\">Limited Offer at Velocity 2026</p>\n  <h2 style=\"color:#1f365c; font-size:28px; font-weight:700; margin:0 0 10px;\">Charter Member Rate</h2>\n  <p style=\"color:#1f365c; font-size:16px; line-height:1.55; max-width:700px; margin:0 auto 6px;\">The first 100 new Five Star Alliance members who join at Velocity receive:</p>\n  <p style=\"color:#1f365c; font-size:24px; font-weight:700; margin:0 0 6px;\">$300 per year, locked for the life of membership</p>\n  <p style=\"color:#1f365c; font-size:16px; margin:0 0 14px;\">Plus 20% off all FSI events permanently.</p>\n  <p style=\"color:#3d2e00; font-size:14px; line-height:1.55; max-width:640px; margin:0 auto 18px;\">Once 100 spots are filled, the standard Alliance rate of $495 per year applies. Charter Members receive a permanent Charter Member designation in the FSI RE community directory. Charter Member enrollment is available as an add-on during Velocity registration.</p>\n  <p style=\"margin:0;\"><a href=\"https://fivestarglobal.swoogo.com/velocity2026/register_now\" style=\"display:inline-block; background:#1f365c; color:#fff; font-weight:700; font-size:15px; padding:13px 32px; border-radius:4px; text-decoration:none; text-transform:uppercase; letter-spacing:0.5px;\">Register for Velocity 2026</a></p>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

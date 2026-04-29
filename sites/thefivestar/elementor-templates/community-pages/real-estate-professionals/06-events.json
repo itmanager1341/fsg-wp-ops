@@ -1,0 +1,30 @@
+{
+  "_authoring_notes": [
+    "Phase 4b RE Pros Section 6 — Events for RE Professionals. 2-card grid (Velocity 2026 + Five Star Conference 2026).",
+    "Note: Velocity card link uses swoogo register_now (external). FSC card link uses /conferences/ (existing FSI URL — should update to /events/conferences/ once Phase 2 Events hub migration completes).",
+    "Visually parallels Velocity's 06-membership-cards section but with event cards instead of membership cards — same Option B HTML widget approach.",
+    "REVISED 2026-04-28 PM per Jonathan's redesign: H2 underline switched from gray (#ddd) to gold (#c9a040). Anchor id='events' added for hero nav target. Tightened padding."
+  ],
+  "id": "repro-events-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "12", "right": "20", "bottom": "20", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "12", "right": "16", "bottom": "16", "left": "16", "isLinked": false},
+    "flex_direction": "column",
+    "_element_id": "events"
+  },
+  "elements": [
+    {
+      "id": "repro-events-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<h2 style=\"color:#1f365c; font-size:28px; font-weight:700; border-bottom:2px solid #c9a040; padding-bottom:10px; margin:0 0 24px;\">Events for RE Professionals</h2>\n\n<div class=\"fsi-grid-2\" style=\"display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:48px;\">\n  <div style=\"background:#1f365c; color:#fff; border-radius:6px; padding:24px; text-align:center;\">\n    <p style=\"color:#c9a040; font-size:13px; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;\">Community Launch</p>\n    <h3 style=\"color:#fff; margin-bottom:4px;\">Velocity 2026</h3>\n    <p style=\"color:#cfd5de; margin-bottom:12px;\">May 20-21 &nbsp;|&nbsp; New Orleans, Louisiana</p>\n    <p style=\"color:#cfd5de; font-size:14px; margin-bottom:16px;\">Two days of education, working sessions, and the events that define this community: FORCE Connect, the Asset Manager Panel, the Five Star Alliance launch, the FSI Offers platform launch, and the Charter Member offer for the first 100 Alliance signups.</p>\n    <p><a href=\"https://fivestarglobal.swoogo.com/velocity2026/register_now\" style=\"display:inline-block; background:#c9a040; color:#1f365c; font-weight:700; padding:10px 28px; border-radius:4px; text-decoration:none;\">Register for Velocity</a></p>\n  </div>\n\n  <div style=\"background:#f7f7f5; border:1px solid #e0e0dc; border-radius:6px; padding:24px; text-align:center;\">\n    <p style=\"color:#888; font-size:13px; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;\">All Communities</p>\n    <h3 style=\"margin-bottom:4px;\">Five Star Conference 2026</h3>\n    <p style=\"color:#666; margin-bottom:12px;\">September 1-3 &nbsp;|&nbsp; Dallas, Texas</p>\n    <p style=\"color:#666; font-size:14px; margin-bottom:16px;\">Every FSI professional community converges at Five Star Conference. Three days of cross-community leadership, education, FORCE Connect, and the industry conversations that define direction. FORCE members receive complimentary registration.</p>\n    <p><a href=\"/conferences/\" style=\"display:inline-block; background:#1f365c; color:#fff; font-weight:700; padding:10px 28px; border-radius:4px; text-decoration:none;\">Learn More</a></p>\n  </div>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

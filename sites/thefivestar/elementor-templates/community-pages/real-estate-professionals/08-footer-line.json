@@ -1,0 +1,28 @@
+{
+  "_authoring_notes": [
+    "Phase 4b RE Pros Section 8 — Footer-line strip. Center-aligned contact info with top border.",
+    "Differs from Event Page footer-line (which is widget-tree single text-editor): RE Pros footer is HTML widget because it contains 2 paragraphs (italic tagline + inline links list).",
+    "URLs normalized: thefivestarstg.wpenginepowered.com → thefivestar.com, fsioffers.com kept (separate FSI Offers product domain), membership@thefivestar.com normalized."
+  ],
+  "id": "repro-footer-line-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "20", "right": "20", "bottom": "20", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "16", "right": "16", "bottom": "16", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "repro-footer-line-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div style=\"text-align:center; border-top:2px solid #ddd; padding:28px 0 12px;\">\n  <p><em>Five Star Institute &nbsp;|&nbsp; Real Estate Professional Community</em></p>\n  <p style=\"margin-top:8px;\">\n    <a href=\"https://thefivestar.com\">thefivestar.com</a> &nbsp;&nbsp;|&nbsp;&nbsp;\n    <a href=\"https://fsioffers.com\">fsioffers.com</a> &nbsp;&nbsp;|&nbsp;&nbsp;\n    <a href=\"mailto:membership@thefivestar.com\">membership@thefivestar.com</a> &nbsp;&nbsp;|&nbsp;&nbsp;\n    (214) 525-6700\n  </p>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

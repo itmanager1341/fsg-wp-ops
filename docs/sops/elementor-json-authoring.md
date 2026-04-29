@@ -29,12 +29,36 @@ sites/thefivestar/
       kit-test-page-5099.json
       <widget-type>.json (per type)
     event-pages/                          # One subdirectory per event page (URL slug = directory name)
-      legal-league-servicer-summit/       # Phase 1.4 LLSS section sources
+      legal-league-servicer-summit/       # Phase 1.4 LLSS — 9 sections (2026-04-26)
         01-hero.json
         02-intro-who-belongs.json
-        ...09-footer-line.json
-      velocity/                            # Phase 3 Velocity (next session)
-      events/                              # Phase 2 Events hub (later)
+        03-what-happens.json
+        04-next-summit.json
+        05-recent-summit-strip.json
+        06-membership-cards.json
+        07-event-details.json
+        08-final-cta.json
+        09-footer-line.json
+      velocity/                           # Phase 3 Velocity — 8 sections (2026-04-27, Section 5 skipped)
+        01-hero.json
+        02-intro-who-belongs.json
+        03-what-happens.json
+        04-charter-offer.json             # Velocity-specific (analog to LLSS 04-next-summit.json)
+        06-membership-cards.json          # Five Star Alliance + FORCE
+        07-event-details.json
+        08-final-cta.json
+        09-footer-line.json
+      events/                             # Phase 2 Events hub (later)
+    membership-pages/                     # Phase 4a Membership template (FORCE, Legal League firms, AMDC, etc.)
+      force/                              # Phase 4a — greenfield (planned)
+      legal-league/                       # Phase 4a — greenfield (planned)
+      five-star-alliance/                 # Phase 4a — greenfield (planned)
+      ...                                  # AMDC, PPEF, NMSA, MSEA
+    community-pages/                      # Phase 4b Community template (profession pages)
+      real-estate-professionals/          # Phase 4b — first-instance (relocates existing 5087 mockup from /memberships/)
+      mortgage-finance/                   # Phase 4b — greenfield (planned)
+      legal/                              # Phase 4b — greenfield (planned)
+      prop-pres/                          # Phase 4b — greenfield (planned)
   visual-baselines/                       # Pre/post screenshots from verification runs
     kit-test-post-roundtrip-2026-04-25.png
 ```
@@ -479,3 +503,151 @@ was last modified 2025-11-04 — five months stale relative to staging).
       `_authoring_notes`. When the CSS source ever retires, plan a
       separate migration step to move the rules into the kit Custom CSS
       block.
+16. **WPE Varnish + memcached require explicit purge after slug swap or
+    `_elementor_data` push** (verified 2026-04-27 on Phase 3 Velocity
+    slug swap). The standard cache-flush sequence (`wp cache flush`,
+    `rm -rf wp-rocket/*`, `Elementor flush_css`) is NOT sufficient — WPE
+    has its own Varnish HTTP cache and memcached object-cache layers
+    that survive those calls. First post-swap visit served the OLD
+    cached page; cache-busted curl revealed the new content was live in
+    the DB. Add to the flush sequence:
+    ```php
+    if (class_exists("WpeCommon")) {
+      WpeCommon::purge_varnish_cache_all();
+      WpeCommon::purge_memcached();
+    }
+    ```
+    Or per-page:
+    ```php
+    WpeCommon::purge_varnish_cache($post_id);
+    ```
+    Always run a cache-busted verify (`?cb=$RANDOM`) AFTER the purge
+    before declaring the swap successful. If the cache-bust shows new
+    content but the bare URL shows old, you have a Varnish miss to
+    backfill — wait ~30s and re-check, or hit the bare URL once to
+    repopulate.
+17. **Page-create + slug-swap workflow proven across 2 events**
+    (LLSS 2026-04-26, Velocity 2026-04-27). Repeatable pattern:
+    1. `wp_insert_post` with parent + provisional slug (`<event>-elementor`)
+       and status=publish
+    2. `update_post_meta` for `_elementor_edit_mode='builder'`,
+       `_elementor_template_type='wp-page'`,
+       `_elementor_version='4.0.2'`,
+       `_elementor_pro_version='4.0.2'`,
+       `_dt_header_title='disabled'` (suppress The7 page-title bar),
+       `_elementor_data='[]'` (empty initial)
+    3. Compose section JSONs (Python script: load each
+       `[0-9][0-9]-*.json` in numeric order, strip authoring-only keys
+       `{_authoring_notes, _TODO, _NOTE, _comment, _meta}`, output as
+       JSON array)
+    4. Push via `wp eval-file -` running base64-decode +
+       `update_post_meta($id, '_elementor_data', wp_slash($json))`
+       with timestamped backup at `_elementor_data_backup_*` meta key
+    5. `Elementor\Plugin::$instance->files_manager->clear_cache()`
+    6. `wp cache flush` + `rm -rf wp-rocket/*`
+    7. **(Lesson #16)** `WpeCommon::purge_varnish_cache_all()` +
+       `WpeCommon::purge_memcached()`
+    8. Visual verify at 1440/768/420 (Playwright + getComputedStyle audit)
+    9. Slug swap when verified: original page → `<slug>-old` w/ "(Old
+       WPBakery)" title; new page → canonical slug
+    10. `flush_rewrite_rules(false)` + repeat the cache-purge steps
+    11. Cache-busted verify on canonical + `-old` URLs
+    Total wall-clock for a same-template clone (e.g., LLSS → Velocity):
+    ~60-90 min.
+18. **Element ID convention: prefix with the page slug** (e.g.,
+    `velocity-hero-section`, `llss-hero-section` — not just
+    `hero-section`). Prevents collisions if section JSONs ever get
+    exported as Elementor library templates and shared across pages.
+    Verified 2026-04-27 on Velocity build — using `velocity-*` prefix
+    means the LLSS and Velocity sections can coexist in the same
+    `elementor_library` post type without ID conflicts.
+19. **Numeric file prefixes preserve cross-event correspondence even
+    when sections are skipped** (verified 2026-04-27 on Velocity, which
+    skipped Section 5 photo strip). Files are named `01-hero.json`,
+    `02-intro-who-belongs.json`, etc. Velocity has no `05-*.json` —
+    Section 5 is intentionally absent. The composer script globs
+    `[0-9][0-9]-*.json` and sorts, which handles the gap automatically.
+    Don't renumber across the gap — losing the LLSS↔Velocity
+    correspondence (e.g., "section 6 is always membership cards") makes
+    cross-event reasoning harder.
+20. **`eps-301-redirects` plugin matches the FULL request URI including
+    query string** (verified 2026-04-27 during Phase 4b RE Pros
+    relocation). A cache-buster like `?cb=12345` BREAKS the match —
+    returns 404 instead of 301. Bare URLs work fine; real user requests
+    redirect correctly. When testing redirect behavior post-insert,
+    hit the bare URL with curl, NOT a query-string-augmented URL. To
+    bypass Cloudflare/Varnish without adding a query string, use a
+    different host header, force-disable curl's local cache, or simply
+    wait for cache TTL.
+    - Wrong: `curl -sI ".../memberships/real-estate-professionals/?cb=$RANDOM"` → 404
+    - Right: `curl -sI ".../memberships/real-estate-professionals/"` → 301
+    - The eps-301 source (line 510) compares `rtrim(trim($url_request), '/') === self::format_from_url(trim($from))` — neither side strips the query string, so any `?param=value` blocks the match.
+    - Insert format for `wp_0edpxsjfuc_redirects`: `url_from` = relative path WITHOUT leading slash and WITHOUT trailing slash (e.g., `memberships/real-estate-professionals`); `url_to` = post ID (with `type='post'`) or absolute URL (with `type='url'`); `status` = `'301'`.
+21. **Element-ID slug-prefix convention applies across all templates**
+    (verified 2026-04-27). LLSS uses `*` (no prefix, deterministic
+    section names like `hero-section`); Velocity uses `velocity-*`;
+    RE Pros uses `repro-*`. Going forward, ALL new builds use the
+    page-slug prefix. The earliest LLSS sections that lack prefix
+    are grandfathered (renaming would require recomposing + pushing).
+22. **The7 forces `text-transform:uppercase` on H1/H2/H3 globally**
+    (verified 2026-04-27 PM on Memberships hub build). When authoring
+    HTML widgets that include heading tags, the headings inherit
+    The7's uppercase rule even if the inline style doesn't ask for it.
+    Mockup intent: title-case "Five Star Alliance" → rendered: ALL CAPS
+    "FIVE STAR ALLIANCE". Fix: add explicit
+    `text-transform:none` (or `text-transform:capitalize` for
+    title-case-on-lowercase-input) to every heading inline style in
+    HTML widget content. Verified working on hub `<h1>`, `<h2>`, `<h3>`
+    after fix. Lesson applies to any HTML-widget-authored heading
+    going forward; widget-tree Heading widgets via Elementor's `heading`
+    widgetType honor the kit's Custom CSS properly without this
+    override (kit CSS doesn't set uppercase). Documented in
+    `the7-elementor-specificity-notes.md` extension as well.
+23. **Mockup-derived hub layouts can use serif headings (Roboto Slab)
+    while detail pages use the kit default (Open Sans Condensed)**
+    (introduced 2026-04-27 PM on Memberships hub). Roboto Slab is the
+    kit Secondary typography token (15px section intro at default,
+    scales up via inline `font-size`). Use it for hub-page hero H1 +
+    section H2/H3 to visually distinguish hub-shape pages from
+    detail-shape pages without adding new font loads. The7 forces
+    fontFamily based on element type — but inline `font-family:'Roboto
+    Slab', Georgia, serif;` overrides cleanly because The7's selector
+    is on `.elementor-heading-title` not on inline `<h1>` tags within
+    HTML widgets. Detail pages stay on the default for now.
+24. **In-place swap pattern for hub pages with children**
+    (introduced 2026-04-27 on Phase 2 Events hub). When the page being
+    migrated is a parent with child pages, the create-new + slug-swap
+    pattern (used on LLSS / Velocity / RE Pros / Memberships hub)
+    BREAKS child URLs because WordPress builds child permalinks from
+    parent_slug + child_slug. Renaming `events` → `events-old` would
+    have changed `/events/velocity/` to `/events-old/velocity/`,
+    undoing canonical URLs we shipped in earlier phases.
+    **In-place swap technique:**
+    1. Compose new `_elementor_data` JSON via the standard Python
+       composer
+    2. Backup the current page state to timestamped meta keys:
+       ```
+       update_post_meta($id, '_elementor_inplace_swap_backup_YYYY_MM_DD_HHMMSS_post_content', $old_post_content);
+       update_post_meta($id, '_elementor_inplace_swap_backup_*_elementor_data', $old_elementor_data);
+       update_post_meta($id, '_elementor_inplace_swap_backup_*_elementor_edit_mode', $old_edit_mode);
+       ```
+    3. Apply Elementor mode meta:
+       ```
+       update_post_meta($id, '_elementor_edit_mode', 'builder');
+       update_post_meta($id, '_elementor_template_type', 'wp-page');
+       update_post_meta($id, '_elementor_version', '4.0.2');
+       update_post_meta($id, '_elementor_pro_version', '4.0.2');
+       update_post_meta($id, '_elementor_data', wp_slash($json));
+       ```
+    4. Clear `post_content` (Elementor takes precedence with edit_mode='builder',
+       but clearing is cleaner for fallback safety):
+       `wp_update_post(['ID'=>$id, 'post_content'=>'']);`
+    5. Standard cache-flush sequence (Lesson #16)
+    6. Verify ALL child permalinks resolve post-swap (HTTP 200 on each)
+    **Atomic rollback:** restore from the backup meta keys.
+    **When to use create-new + slug-swap vs in-place swap:**
+    - Create-new + slug-swap: page has NO children, OR moving the
+      page to a different parent (Phase 4b RE Pros relocate)
+    - In-place swap: page has children whose URLs depend on the
+      parent slug (Events hub, possibly Memberships parent in future
+      iterations once Phase 4a builds individual member pages under it)

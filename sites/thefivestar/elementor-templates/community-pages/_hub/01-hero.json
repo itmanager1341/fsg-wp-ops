@@ -1,0 +1,33 @@
+{
+  "_authoring_notes": [
+    "Phase 4b-hub Section 1 — Communities Hero (navy full-bleed).",
+    "Per Jonathan's locked decisions on the mockup audit (2026-04-28):",
+    "  #1: Lifecycle strip dropped — was 'too on the nose' for trade-association readers who already know what their professions do. The headline carries the framing; the cards do the rest.",
+    "  #9: Numbered chips below H1+tagline ALSO dropped (confirmed since lifecycle strip is going away — chips were redundant with the strip).",
+    "Element ID prefix: chub-* (communities hub).",
+    "Hero typography: serif H1 (Roboto Slab) consistent with Memberships hub. Hub-shape pages use serif; detail pages use Open Sans Condensed."
+  ],
+  "id": "chub-hero-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "full",
+    "flex_direction": "column",
+    "flex_align_items": "center",
+    "background_background": "classic",
+    "background_color": "#1F365C",
+    "padding": {"unit": "px", "top": "80", "right": "40", "bottom": "80", "left": "40", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "60", "right": "20", "bottom": "60", "left": "20", "isLinked": false}
+  },
+  "elements": [
+    {
+      "id": "chub-hero-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div style=\"max-width:920px; margin:0 auto; text-align:center;\">\n  <p style=\"color:#c9a040; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:2.5px; margin-bottom:24px;\">Professional Communities</p>\n  <h1 style=\"font-family:'Roboto Slab', Georgia, serif; font-size:54px; line-height:1.15; font-weight:700; color:#ffffff; text-transform:none; letter-spacing:-0.5px; margin:0 0 24px;\">The four professions that keep housing moving.</h1>\n  <p style=\"color:#cfd5de; font-size:18px; line-height:1.65; max-width:740px; margin:0 auto;\">Five Star Institute organizes and connects the servicers, attorneys, real estate professionals, and preservation specialists who form the operational backbone of the mortgage and housing industries.</p>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

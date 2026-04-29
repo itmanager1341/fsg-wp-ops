@@ -1,0 +1,28 @@
+{
+  "_authoring_notes": [
+    "Velocity Section 3 — 'What Happens at Velocity' intro + 6-feature 2-col grid.",
+    "Cloned from LLSS 03-what-happens.json on 2026-04-27. LLSS had 4 features + .fsi-program-full Closing Reception strip. Velocity has 6 features and no closing reception strip in the source — preserved that structural difference.",
+    "Each .fsi-feature is a left-gold-bordered card per fsi-event-styles.php conventions (matches Velocity WPBakery's inline 'border-left:4px solid #c9a040' styling)."
+  ],
+  "id": "velocity-what-happens-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "60", "right": "20", "bottom": "60", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "40", "right": "16", "bottom": "40", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "velocity-what-happens-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<h2 class=\"fsi-section-heading\">What Happens at Velocity</h2>\n\n<div class=\"fsi-grid-2\">\n  <div class=\"fsi-feature\">\n    <h4>FORCE Connect</h4>\n    <p>Credentialed agents sit down with the asset managers and disposition professionals who attend as guests of the association. Not a reception. A structured format built for direct professional introductions between practitioners and the institutional professionals who manage REO portfolios.</p>\n  </div>\n  <div class=\"fsi-feature\">\n    <h4>Asset Manager Panel</h4>\n    <p>Servicer-side professionals on stage discussing how they build and manage their practitioner networks. Direct audience Q&amp;A.</p>\n  </div>\n  <div class=\"fsi-feature\">\n    <h4>FSI Offers Platform Launch</h4>\n    <p>Live demonstration and on-stage signup. Cash offer aggregation, website visitor intelligence, property marketing tools, and skip trace. The free tier is open to anyone. Paid membership unlocks the full platform.</p>\n  </div>\n  <div class=\"fsi-feature\">\n    <h4>Four General Sessions and Two Breakouts</h4>\n    <p>Covering REO, SFR, fix-and-flip, tech you can use in your business, and alternative revenue strategies.</p>\n  </div>\n  <div class=\"fsi-feature\">\n    <h4>90-Day Action Plan Workshop</h4>\n    <p>Leave with a business development plan and an accountability partner.</p>\n  </div>\n  <div class=\"fsi-feature\">\n    <h4>FORCE Certification Enrollment</h4>\n    <p>Enroll at Velocity pricing. Spotlight session covers credential overview, member success stories, and the path to certification.</p>\n  </div>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}
