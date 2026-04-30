@@ -24,13 +24,15 @@ all subsequent staging shipments.
 
 | Check | Status | Action |
 |---|---|---|
-| `fsi-event-styles.php` mu-plugin on prod | ❌ NOT PRESENT | F1 |
+| `fsi-event-styles.php` mu-plugin on prod | ✅ deployed (after incident + workflow fix) | F1 done 2026-04-30 18:08 |
 | `eps-301-redirects` plugin on prod | ✅ active | none |
-| Elementor on prod | 4.0.3 (staging 4.0.2) | F4 decision |
+| Elementor on prod | 4.0.3 (staging 4.0.2) | F4 accept |
 | Elementor Pro on prod | 4.0.2 (matches staging) | none |
-| Active kit on prod | ID 4004, modified **2025-11-04** (5+ months stale) | F3 |
-| 11 media assets on prod | ❌ ALL MISSING (DB + filesystem) | F2 |
+| Active kit on prod | ID 4004, settings promoted from staging | F3 done 2026-04-30 18:43 (backup at `_elementor_page_settings_backup_2026_04_30_184340`) |
+| 11 media assets on prod | ✅ all 11 registered | F2 done (Jonathan via WP Admin); FORCE + LL got `-scaled-1` suffix from name conflict, flagged for Wave 1 Step 2 |
 | `/communities/` parent on prod | does not exist | created in step 4b-hub.11 |
+
+**Foundation status as of 2026-04-30 PM:** F1, F2, F3 all complete. F4 = accept version drift, no action. Wave 1 unblocked.
 
 **Prod page IDs (resolved 2026-04-30):**
 
@@ -60,6 +62,12 @@ If staging WP-CLI fails: `ssh thefivestarstg 'wp core download --skip-content'`.
 ---
 
 # F1: Deploy `fsi-event-styles.php` mu-plugin to production
+
+**STATUS as of 2026-04-30 18:08:** ✅ DONE. Mu-plugin live on prod. md5 parity local + staging + prod = `4814b1f8b145c8381bc40c46f53b2f3e`. Skip this section unless re-deploying. Original runbook below preserved for reference + post-mortem context.
+
+**INCIDENT NOTE:** the first F1 attempt deleted WP core from prod (rsync `--delete` reached install root because `SRC_PATH` defaulted to repo root). Recovered via `wp core download --skip-content --force`. Workflow fixed in `thefivestar-wp` commit `e9db426` (`SRC_PATH: wp-content/` + `REMOTE_PATH: wp-content/`). Retry succeeded with corrected workflow. See `decisions.md` 2026-04-30 entry for full incident detail. **Going forward:** F1 (and any future deploy) only operates inside `wp-content/`; install-root WP core is physically out of rsync scope.
+
+---
 
 **Risk:** 🟡 Medium (adds a CSS-only mu-plugin; staging-validated for weeks)
 **Reversible via:** git revert + GHA deploy
@@ -134,6 +142,10 @@ gh workflow run "Deploy to WP Engine" --ref main --field environment=production
 ---
 
 # F2: Upload 11 media assets to production
+
+**STATUS as of 2026-04-30 14:38:** ✅ DONE. All 11 assets registered on prod with attachment records + responsive variants. Jonathan uploaded via WP Admin → Media → Add New (Path A from this runbook). FORCE_COLOR + LL_COLOR got `-scaled-1` filename suffixes due to name conflicts; **this requires resolution before Wave 1 Step 2** (Memberships hub references the un-suffixed filenames). See section JSONs at `sites/thefivestar/elementor-templates/membership-pages/_hub/03-specialty-grid.json`. Either re-upload without conflict OR URL-rewrite at deploy time. Non-blocking for F1/F3.
+
+---
 
 **Risk:** 🟢 Safe (additive; no overwrites)
 **Reversible via:** delete attachments via WP Admin Media or `wp post delete <id>`
@@ -250,6 +262,10 @@ curl -sI 'https://thefivestar.com/wp-content/uploads/2026/04/FS_Alliance_Logo_v2
 ---
 
 # F3: Promote Elementor kit (staging → prod)
+
+**STATUS as of 2026-04-30 18:43:** ✅ DONE. Prod kit 4004 now has 17 custom_colors (10 legacy preserved + 7 fsi*), system_colors at FSI brand values (primary `#1F365C`, secondary `#C9A040`), custom_css with heading scoping, container_widths 1100/768/480. Pre-state HTML diff on 5 sample prod pages: 4 had ZERO byte diff, 1 (/velocity/ which is the deprecation candidate page 4436) had -756 bytes from regenerated CSS query strings + container_width adjustment + dropped Bangers/Comic Book font face declarations. Atomic rollback at meta key `_elementor_page_settings_backup_2026_04_30_184340`. Skip this section unless re-promoting; original runbook below preserved for reference.
+
+---
 
 **Risk:** 🔴 High (kit changes affect EVERY Elementor page on prod, not just our migrated ones)
 **Reversible via:** restore from `_elementor_page_settings_backup_*` meta key

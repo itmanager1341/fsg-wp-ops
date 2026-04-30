@@ -3,16 +3,33 @@
 Use this as the opening message in the next Claude Desktop project chat.
 Updated at the end of each session with what was completed and what's next.
 
-Last updated: 2026-04-30 PM (Phase 3 Velocity TEMPLATE A REVISION
-              applied on staging. Three template-level changes
-              supersede the 2026-04-26 Option B Conversion Hero
-              pattern: (1) image-only hero (no overlay, no overlay
-              text, sr-only H1 only); (2) 3-col WHEN/REGISTER/WHERE
-              info bar in offwhite below the hero; (3) 20/20 padding
-              cap on every body section (40px combined gaps everywhere).
-              Velocity hero image populated (attachment 5143). Five
-              Star Alliance card image populated (attachment 5144).
-              Section 2 intro now anchored by H2 "Two days. One
+Last updated: 2026-04-30 EVENING (Foundation work F1-F3 ALL DONE on
+              prod. Wave 1 Phase .11 promotions are now unblocked.
+
+              ⚠️ INCIDENT + RECOVERY: F1 first attempt deleted WP
+              core from prod (rsync --delete reached install root
+              because SRC_PATH defaulted to repo root). Recovered in
+              ~3 min via `wp core download --skip-content --force`.
+              Workflow fixed in thefivestar-wp commit e9db426
+              (SRC_PATH=wp-content/, REMOTE_PATH=wp-content/, plus
+              path corrections in .deployignore). F1 retry succeeded
+              cleanly. F3 then promoted staging kit to prod (4
+              of 5 sample pages had ZERO byte HTML diff vs pre-state;
+              the 1 with diff was the deprecation candidate Velocity
+              4436 page, expected). See decisions.md 2026-04-30 entry
+              for full incident detail.
+
+              ALSO ON STAGING (cycle continues): Phase 3 Velocity
+              TEMPLATE A REVISION applied 2026-04-30 PM. Three
+              template-level changes supersede the 2026-04-26 Option B
+              Conversion Hero pattern: (1) image-only hero (no overlay,
+              no overlay text, sr-only H1 only); (2) 3-col
+              WHEN/REGISTER/WHERE info bar in offwhite below the hero;
+              (3) 20/20 padding cap on every body section (40px
+              combined gaps everywhere). Velocity hero image populated
+              (staging attachment 5143, prod attachment 5099). Five
+              Star Alliance card image populated (staging 5144, prod
+              5100). Section 2 intro now anchored by H2 "Two days. One
               community."
               SAME REVISION MUST PROPAGATE TO LLSS before Phase 1.11
               prod promotion so prod ships consistent FSI Event Page
@@ -32,28 +49,32 @@ Last updated: 2026-04-30 PM (Phase 3 Velocity TEMPLATE A REVISION
               - Pre-existing em-dash violations in 3 specialty card
                 subtitles + 5 image alt-text strings + 3 CSS comments
                 in fsi-event-styles.php)
-Last completed: Velocity Template A revision deployed (2026-04-30 ~12:54).
-                9 sections at 20/20 padding cap (40px gaps everywhere).
-                Hero image-only, no overlay, sr-only H1 for SEO. New
-                3-col info bar (WHEN | REGISTER | WHERE) in offwhite.
-                Hero + Alliance card images live (5143 + 5144). Decision
-                logged in decisions.md 2026-04-30 PM. Page 5107 in place;
-                same staging URL `/events/velocity/`. Both Memberships hub
-                hero copy revision (2026-04-29 AM) and Communities hub
-                Template C alignment (2026-04-29 PM) also shipped this
-                cycle.
-Next phase: Production promotion sequencing. See "Production promotion
-                plan" block below. Highest-leverage paths in order:
-                (1) Apply Template A revision to LLSS (pre-flight for
-                    Phase 1.11 LLSS + ensures consistent prod event-page
-                    pattern with Velocity)
-                (2) Populate remaining Velocity image slots (Section 2
-                    community photo re-register + Section 8 Final CTA bg)
-                (3) Phase 1.11 LLSS production promotion (gate)
-                (4) Phase 3.11 Velocity production promotion (gate)
-                (5) Phase 4a-hub.11 Memberships hub production promotion
-                (6) Phase 4b-hub.11 Communities hub production promotion
-                (7) Phase 2.11 Events hub + Phase 4b.11 RE Pros
+Last completed: Foundation F3 (kit promotion) shipped on prod
+                2026-04-30 18:43. Backup at meta key
+                `_elementor_page_settings_backup_2026_04_30_184340` on
+                kit 4004. Kit now has 17 custom_colors (10 legacy
+                preserved + 7 fsi*), system_colors at FSI brand,
+                custom_css with heading scoping. F1 (mu-plugin) was
+                done at 18:08 after the incident-and-fix cycle. F2
+                (11 media uploads) done by Jonathan via WP Admin.
+                F4 (Elementor version drift): accepted (4.0.3 prod /
+                4.0.2 staging — schema-compatible).
+Next phase: Wave 1 Phase .11 production promotions. Foundation work
+                complete. Per Jonathan's reordering: Velocity 3.11 →
+                Memberships 4a-hub.11 → Communities 4b-hub.11 → Events
+                2.11 → RE Pros 4b.11. LLSS Template A revision + Phase
+                1.11 LLSS in Wave 2 (later session).
+                Wave 1 Step 1 (Velocity 3.11) is the next gate: requires
+                attachment ID remap (staging IDs → prod IDs) before
+                pushing the section payload to prod page-create. Runbook
+                at docs/sops/fsi-production-promotion.md "Wave 1, Step 1"
+                section has the full plan + executable commands.
+                IMPORTANT pre-Wave-1-Step-2 cleanup: 2 Memberships hub
+                logo assets (FORCE_COLOR + LL_COLOR) on prod have
+                `-scaled-1` filename suffixes from upload name conflict.
+                Section JSONs reference the un-suffixed paths (will
+                404). Resolve before Wave 1 Step 2: either re-upload
+                without conflict OR URL-rewrite at deploy time.
                 Background tracks: Phase 4a individual Membership pages
                 (7 greenfield, FORCE first), Phase 4b community siblings
                 (3 greenfield), em-dash cleanup, footer widget link fix.

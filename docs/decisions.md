@@ -7,6 +7,95 @@ New decisions go at the top.
 
 ---
 
+## 2026-04-30 — Foundation work F1-F3: prod-promotion enabling steps
+
+Wave 1 is now unblocked. Three foundation steps completed against thefivestar.com production today.
+
+### F1 (mu-plugin deploy): INCIDENT + RECOVERY + RETRY SUCCESS
+
+**Operation:** deploy `fsi-event-styles.php` (CSS-only mu-plugin) to prod via the GHA workflow.
+
+**Incident on first attempt (2026-04-30 ~14:25):** the WPE GHA action defaults to syncing the repo root to the install root with `rsync --delete`. Our repo's root contains only `wp-content/` (plus `.deployignore`, `CLAUDE.md`, `README.md`), so rsync removed everything else at the install root: `wp-admin/`, `wp-includes/`, `wp-blog-header.php`, `wp-load.php`, `wp-settings.php`, `index.php`, all root `wp-*.php` files, `license.txt`, `readme.html`, `apple-touch-icon*.png`, `favicon.ico`, `xmlrpc.php`. Site returned 500 on every page except homepage (which served stale Varnish 200). Recovery via `wp core download --skip-content --force` directly on prod restored core in ~3 minutes; pre-deploy WPE backup `3258a2de-ccf5-485e-adb9-ae2a584352c2` retained as additional insurance.
+
+**Why staging deploys never tripped this:** staging install has all WP core files present despite multiple deploys via the same workflow. Either WPE auto-restores core (some self-healing), or earlier staging deploys had different config. Worth a separate audit but not blocking.
+
+**Fix (commit `e9db426` in `thefivestar-wp`):** restrict deploy to `wp-content/` scope.
+- `deploy.yml`: add `SRC_PATH: wp-content/` and `REMOTE_PATH: wp-content/` to both staging and prod deploy steps. rsync now physically cannot reach install root.
+- `.deployignore`: rewrite all paths relative to `wp-content/` (drop `wp-content/` prefix). Drop `_wpeprivate/` (out of scope now). Add 5 WPE-managed mu-plugin subdirectories explicitly (`force-strong-passwords/`, `wpe-cache-plugin/`, `wpe-update-source-selector/`, `wpe-wp-sign-on-plugin/`, `wpengine-common/`) as defense-in-depth.
+
+**Retry (with corrected workflow + fresh prod backup `2e6781fd-3529-4b6b-af48-de99ddf511fe`):** clean success in 37s. mu-plugin md5 parity local + staging + prod = `4814b1f8b145c8381bc40c46f53b2f3e`. WP core intact, all WPE-managed files preserved, all sample pages return content.
+
+**SOP update needed:** `fsi-production-promotion.md` F1 section should be updated to reference the corrected `deploy.yml` config and call out WP core preservation as a verification step. Adding to next session's task list.
+
+### F2 (media uploads): completed via WP Admin
+
+11 assets uploaded by Jonathan via WP Admin → Media → Add New. All 11 registered with proper attachment records + responsive variants. Two had filename collisions (FORCE_COLOR and LL_COLOR) that WP auto-suffixed with `-scaled-1` — flagged for Wave 1 Step 2 (Memberships hub) since section JSONs reference the un-suffixed filenames. Resolution path: re-upload without name conflict OR URL-rewrite at deploy time; not blocking F1/F3.
+
+| Asset | Prod ID | Notes |
+|------|---------|-------|
+| Velocity_Conference_2026_Hero_1900-x-600.jpg | 5099 | clean |
+| FSAlliance_Logo_480-x-220.jpg | 5100 | clean |
+| Community-Velocity4.jpg | 5101 | clean |
+| LogoForce1.jpg | 5098 (5102 dup) | clean |
+| FS_Alliance_Logo_v2.png | 5103 | clean |
+| FSI-Brand-logo_AMDC_COLOR.png | 5109 | clean |
+| FSI-Brand-logo_NMSA_COLOR.png | 5108 | clean |
+| FSI-Brand-logo_PPEF_COLOR.png | 5107 | clean |
+| FSI-Brand-logo_MSEA_COLOR.png | 5105 | clean |
+| FSI-Brand-logo_FORCE_COLOR | 5104 | **filename mismatch** `-scaled-1.png` |
+| FSI-Brand-logo_LL_COLOR | 5106 | **filename mismatch** `-scaled-1.png` |
+
+### F3 (kit promotion): SUCCESS
+
+**Operation:** direct meta-write of staging kit `_elementor_page_settings` (3953 B JSON, 17 custom_colors + 4 system_colors + 1 custom_typography + 4 system_typography + 989 B custom_css + container_widths) to prod kit (post 4004) via `wp eval-file`.
+
+**Pre-flight:** fresh prod backup `5fed8e17-0ce0-4af6-a749-5d6bac5b20fc` (1 min). Pre-state HTML capture of 5 sample prod pages (`/education/`, `/velocity/`, `/five-star-access/`, `/memberships/`, `/events/`).
+
+**Push:** completed cleanly. Pre-write backup at `_elementor_page_settings_backup_2026_04_30_184340` on kit 4004 (atomic rollback available indefinitely). Cache flush sequence per Lesson #16.
+
+**Post-state verification (HTML diff vs pre-state):**
+
+| Page | Pre size | Post size | Diff |
+|------|----------|-----------|------|
+| /education/ | 147997 | 147997 | 0 |
+| /velocity/ (4436 deprecation candidate) | 141040 | 140284 | -756 |
+| /five-star-access/ | 121811 | 121811 | 0 |
+| /memberships/ | 120862 | 120862 | 0 |
+| /events/ | 106044 | 106044 | 0 |
+
+4 of 5 pages have ZERO byte diff. The 756-byte diff on /velocity/ resolves to: (a) per-page CSS `?ver=` query string updates (Elementor regenerates per-page CSS after kit change — expected), (b) `dtLocal.elementor.settings.container_width: 1140 → 1100` (matches our intentional kit change), (c) the `<style id='elementor-pro-custom-fonts-inline-css'>` block for Bangers / Comic Book Bold / Comic Book Regular fonts is no longer injected. Audit: only 2 prod pages reference these fonts (4436 Velocity + 4497 Exit Intent) and both are on the wpbakery-migration.md deprecation list — acceptable font fallback to system fonts.
+
+**Resulting prod kit state:**
+- 17 custom_colors (10 legacy preserved + 7 fsi* added)
+- system_colors: primary `#1F365C` (FSI navy), secondary `#C9A040` (FSI gold), text `#444444`, accent `#666666`
+- custom_css present (heading color/size scoping per kit spec)
+- container_width: 1100 / 768 / 480
+
+**Foundation status going into Wave 1:**
+
+| Step | Status | Notes |
+|------|--------|-------|
+| F1 mu-plugin deploy | ✅ done (after incident + workflow fix + retry) | Workflow fix committed in `thefivestar-wp` `e9db426` |
+| F2 media uploads | ✅ done (with FORCE/LL filename caveat for Wave 1 Step 2) | 11/11 registered |
+| F3 kit promotion | ✅ done | Backup at `_elementor_page_settings_backup_2026_04_30_184340` |
+| F4 Elementor version drift | accept (4.0.3 prod / 4.0.2 staging) | No action |
+
+**Backups in chronological order (atomic rollback insurance):**
+
+| Time | Backup ID | Description |
+|------|-----------|-------------|
+| 2026-04-30 ~14:25 | `3258a2de-ccf5-485e-adb9-ae2a584352c2` | Pre-F1 (first attempt, the one that broke prod) |
+| 2026-04-30 ~17:30 | `4edeef14-cf4b-4530-8af1-d0518a480c02` | Pre-deploy.yml-fix (staging) |
+| 2026-04-30 ~18:00 | `2e6781fd-3529-4b6b-af48-de99ddf511fe` | Pre-F1-retry (corrected workflow) |
+| 2026-04-30 ~18:43 | `5fed8e17-0ce0-4af6-a749-5d6bac5b20fc` | Pre-F3 |
+
+Atomic rollback meta keys on prod kit 4004:
+- `_elementor_page_settings_backup_2026_04_30_184340` (full pre-F3 kit settings)
+
+**Lessons added to elementor-json-authoring.md:** pending; will batch with Wave 1 Step 1 work.
+
+---
+
 ## 2026-04-30 PM — Phase 3 Velocity Template A REVISION: image-only hero + 3-col info bar + 20/20 padding cap
 
 **Decision:** Phase 3 Velocity (page 5107) re-themed with three template-level
