@@ -10,8 +10,8 @@
   "settings": {
     "content_width": "boxed",
     "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
-    "padding": {"unit": "px", "top": "60", "right": "20", "bottom": "60", "left": "20", "isLinked": false},
-    "padding_mobile": {"unit": "px", "top": "40", "right": "16", "bottom": "40", "left": "16", "isLinked": false},
+    "padding": {"unit": "px", "top": "20", "right": "20", "bottom": "20", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "20", "right": "16", "bottom": "20", "left": "16", "isLinked": false},
     "flex_direction": "column"
   },
   "elements": [

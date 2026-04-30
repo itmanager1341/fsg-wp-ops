@@ -30,8 +30,8 @@
     "background_overlay_color": "#1F365C",
     "background_overlay_opacity": {"unit": "px", "size": 0.85, "sizes": []},
     "_NOTE": "Overlay color hardcoded per v4+The7 workaround. Opacity explicit 0.85.",
-    "padding": {"unit": "px", "top": "80", "right": "40", "bottom": "80", "left": "40", "isLinked": false},
-    "padding_mobile": {"unit": "px", "top": "60", "right": "20", "bottom": "60", "left": "20", "isLinked": false}
+    "padding": {"unit": "px", "top": "20", "right": "40", "bottom": "20", "left": "40", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "20", "right": "20", "bottom": "20", "left": "20", "isLinked": false}
   },
   "elements": [
     {

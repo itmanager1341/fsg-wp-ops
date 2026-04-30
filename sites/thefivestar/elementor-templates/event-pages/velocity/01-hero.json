@@ -1,9 +1,13 @@
 {
   "_authoring_notes": [
-    "Velocity Section 1 — Hero. Cloned from LLSS 01-hero.json on 2026-04-27 per Phase 3 plan.",
+    "Velocity Section 1: Hero. Cloned from LLSS 01-hero.json on 2026-04-27 per Phase 3 plan.",
     "Element IDs use velocity-* prefix to avoid collisions if exported as saved templates.",
-    "Background image TODO — needs 1900x600 photo (New Orleans / past Velocity event / FSI RE community moment). Until image is set, hero renders with overlay color only over default background.",
-    "Save-the-Date sub-card retained from LLSS pattern. No subhead used here (LLSS had 'Hosted during Government Forum Week'; Velocity has no equivalent secondary descriptor)."
+    "2026-04-30 hero image populated. Asset: Media Library attachment 5143 (Velocity_Conference_2026_Hero_1900-x-600.jpg), 1900x600 JPG, 264 KB, properly registered.",
+    "2026-04-30 PM TEMPLATE A REVISION (refined per Jonathan 2026-04-30): Hero is IMAGE-ONLY. No visible H1, no date strap, no tagline, NO navy overlay. The artwork carries the complete identity (Velocity wordmark + 'May 20-21, 2026 · The Westin, New Orleans' date + 'A FORCE Conference' subtitle + 'BUILD MOMENTUM TOGETHER IN THE BIG EASY' tagline are all baked into the image). Anything overlaid was redundant noise.",
+    "SR-ONLY H1 retained for SEO/screen readers via inline-styled sr-only HTML widget (position:absolute off-screen). Page semantics intact; visual is image-only.",
+    "Overlay REMOVED entirely (was 0.85 then 0.5). The image was designed without an overlay in mind.",
+    "Practical info (date, location, register CTA) moved to a 3-column info bar in Section 01b directly below the hero. Order: WHEN | REGISTER | WHERE.",
+    "This Template A revision SHOULD propagate to LLSS, Government Forum, and FSC event pages for visual consistency. Pending Jonathan approval to apply to LLSS next session."
   ],
   "id": "velocity-hero-section",
   "elType": "container",
@@ -18,115 +22,29 @@
     "flex_align_items": "center",
     "background_background": "classic",
     "background_image": {
-      "url": "",
-      "id": "",
-      "_TODO": "Upload 1900x600px Velocity hero image to Media Library; populate url + id"
+      "url": "https://thefivestarstg.wpenginepowered.com/wp-content/uploads/2026/04/Velocity_Conference_2026_Hero_1900-x-600.jpg",
+      "id": 5143,
+      "size": "",
+      "alt": "Velocity Conference 2026 hero",
+      "source": "library"
     },
     "background_position": "center center",
     "background_size": "cover",
     "background_repeat": "no-repeat",
     "background_attachment": "scroll",
-    "background_overlay_background": "classic",
-    "background_overlay_color": "#1F365C",
-    "background_overlay_opacity": {"unit": "px", "size": 0.85, "sizes": []},
-    "_NOTE": "Overlay hardcoded per v4+The7 binding workaround. Opacity explicit 0.85.",
-    "padding": {"unit": "px", "top": "100", "right": "40", "bottom": "100", "left": "40", "isLinked": false},
-    "padding_mobile": {"unit": "px", "top": "70", "right": "20", "bottom": "70", "left": "20", "isLinked": false}
+    "_NOTE": "Overlay REMOVED entirely 2026-04-30 PM (was 0.85 navy, then 0.5 navy). Image is shown as designed.",
+    "padding": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": true},
+    "padding_mobile": {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": true}
   },
   "elements": [
     {
-      "id": "velocity-hero-inner",
-      "elType": "container",
-      "isInner": true,
+      "id": "velocity-hero-sr-h1",
+      "elType": "widget",
+      "widgetType": "html",
       "settings": {
-        "content_width": "boxed",
-        "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
-        "flex_direction": "column",
-        "flex_align_items": "center",
-        "flex_gap": {"unit": "px", "size": 20, "column": "20", "row": "20"}
+        "html": "<h1 style=\"position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;\">Velocity 2026: a FORCE Conference. May 20-21, 2026 at The Westin, New Orleans.</h1>"
       },
-      "elements": [
-        {
-          "id": "velocity-hero-h1",
-          "elType": "widget",
-          "widgetType": "heading",
-          "settings": {
-            "title": "Velocity",
-            "header_size": "h1",
-            "align": "center",
-            "title_color": "#FFFFFF"
-          },
-          "elements": []
-        },
-        {
-          "id": "velocity-hero-save-the-date-card",
-          "elType": "container",
-          "isInner": true,
-          "settings": {
-            "content_width": "boxed",
-            "boxed_width": {"unit": "px", "size": 720, "sizes": []},
-            "flex_direction": "column",
-            "flex_align_items": "center",
-            "flex_gap": {"unit": "px", "size": 12, "column": "12", "row": "12"},
-            "background_background": "classic",
-            "background_color": "rgba(0, 0, 0, 0.28)",
-            "padding": {"unit": "px", "top": "32", "right": "32", "bottom": "32", "left": "32", "isLinked": true},
-            "padding_mobile": {"unit": "px", "top": "24", "right": "20", "bottom": "24", "left": "20", "isLinked": false},
-            "border_radius": {"unit": "px", "top": "6", "right": "6", "bottom": "6", "left": "6", "isLinked": true},
-            "margin": {"unit": "px", "top": "16", "right": "0", "bottom": "0", "left": "0", "isLinked": false}
-          },
-          "elements": [
-            {
-              "id": "velocity-hero-event-line",
-              "elType": "widget",
-              "widgetType": "text-editor",
-              "settings": {
-                "editor": "<p style=\"font-size:19px; line-height:1.4; margin-bottom:0; font-weight:600;\"><strong>May 20-21, 2026</strong>&nbsp; |&nbsp; The Westin, New Orleans</p>",
-                "align": "center",
-                "text_color": "#FFFFFF"
-              },
-              "elements": []
-            },
-            {
-              "id": "velocity-hero-tagline",
-              "elType": "widget",
-              "widgetType": "text-editor",
-              "settings": {
-                "editor": "<p style=\"font-size:21px; line-height:1.4; margin-top:8px; margin-bottom:0;\">The annual gathering of the FSI real estate professional community.</p>",
-                "align": "center",
-                "text_color": "#FFFFFF"
-              },
-              "elements": []
-            },
-            {
-              "id": "velocity-hero-cta",
-              "elType": "widget",
-              "widgetType": "button",
-              "settings": {
-                "text": "Register for Velocity 2026",
-                "link": {
-                  "url": "https://fivestarglobal.swoogo.com/velocity2026/register_now",
-                  "is_external": "true",
-                  "nofollow": ""
-                },
-                "align": "center",
-                "size": "custom",
-                "typography_typography": "custom",
-                "typography_font_size": {"unit": "px", "size": 16, "sizes": []},
-                "typography_font_weight": "700",
-                "button_text_color": "#1F365C",
-                "background_color": "#C9A040",
-                "hover_color": "#1F365C",
-                "button_background_hover_color": "#B8922E",
-                "_NOTE": "Hardcoded brand colors per v4+The7 button-binding workaround.",
-                "text_padding": {"unit": "px", "top": "14", "right": "36", "bottom": "14", "left": "36", "isLinked": false},
-                "border_radius": {"unit": "px", "top": "4", "right": "4", "bottom": "4", "left": "4", "isLinked": true}
-              },
-              "elements": []
-            }
-          ]
-        }
-      ]
+      "elements": []
     }
   ]
 }

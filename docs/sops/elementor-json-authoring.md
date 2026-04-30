@@ -651,3 +651,79 @@ was last modified 2025-11-04 — five months stale relative to staging).
     - In-place swap: page has children whose URLs depend on the
       parent slug (Events hub, possibly Memberships parent in future
       iterations once Phase 4a builds individual member pages under it)
+25. **Compose-from-disk is canonical; compose-from-DB-and-patch is a
+    deviation** (verified 2026-04-29 on Memberships hub hero copy edit).
+    The SOP step 3 of Lesson #17 says "load each [0-9][0-9]-*.json in
+    numeric order, strip authoring keys, output as JSON array." That
+    treats the on-disk section files as the unambiguous source of truth.
+    A shortcut approach (read live `_elementor_data` from DB, swap one
+    section, write back) works functionally when on-disk and deployed
+    are byte-identical for untouched sections, but masks any drift that
+    may exist. Always use the canonical compose-from-disk pipeline.
+    **Verification step before push:** the compose script should diff
+    the on-disk-composed payload against the deployed `_elementor_data`
+    by section ID; report which sections are ADDED / REMOVED / CHANGED
+    / unchanged. If any section is "unchanged" but has on-disk diffs
+    not present in deployed, that's a drift surface to investigate
+    before pushing.
+26. **New-section file naming + glob update** (verified 2026-04-30 on
+    Velocity 01b-info-bar.json). When inserting a new section that
+    doesn't fit the original 01-09 numeric scheme (e.g., Velocity's
+    info bar that sits between hero and Section 2), name it
+    `01b-<slug>.json` (lexically sorts after `01-` and before `02-`).
+    The default compose glob `[0-9][0-9]-*.json` only matches
+    two-digit-prefix files and skips `01b-`. Update the compose glob
+    to `[0-9]*.json` to pick up letter-suffixed files; natural
+    lexical sort handles the order. Document the new section's
+    Velocity-specific status in `_authoring_notes` if it has no
+    LLSS analog (so future LLSS Template A revision picks up the
+    parallel section file at the right slot).
+27. **Template-level changes need explicit propagation plans**
+    (verified 2026-04-30 on Velocity Template A revision). When a
+    page-template change is decided (e.g., "image-only hero + 3-col
+    info bar + 20/20 padding cap" supersedes the 2026-04-26 Option B
+    Conversion Hero), the change applies to every page using that
+    template. For FSI Event Page template (Template A): LLSS + Velocity
+    are FSI-hosted and need the change; Government Forum + FSC are
+    external and don't. Document the propagation plan in `decisions.md`
+    at the time the change is decided, NOT when each page is updated;
+    that way pages don't drift template patterns silently between
+    revisions. Tag deployed pages that haven't been updated yet (e.g.,
+    LLSS pre-Template-A-revision) with a `🟡 Pending Template A
+    revision` flag in `site-profile.md` Open Issues until they catch up.
+28. **Image-only hero with sr-only H1** (verified 2026-04-30 on
+    Velocity). When the hero IMAGE itself contains the title (embossed
+    wordmark + decorative typography baked into the artwork), don't
+    overlay a visible H1. The visible H1 will be redundant and the
+    overlay text vs. image text creates double-exposure. Two
+    requirements still apply:
+    - **SEO/accessibility:** keep an H1 in the DOM. Use a sr-only
+      HTML widget with inline-styled hidden h1:
+      `<h1 style="position:absolute; left:-9999px; width:1px;
+      height:1px; overflow:hidden;">…</h1>`. Screen readers + search
+      engines pick it up; sighted users don't.
+    - **Hero overlay color:** typically remove entirely (was 0.85 navy,
+      tested at 0.5 navy, settled at no overlay). Image was designed
+      without overlay in mind; don't tint.
+    - **Section padding:** 0/0 (image is the section content; no padding
+      around the image).
+29. **20/20 padding cap rule for FSI event pages** (decided 2026-04-30
+    after audit revealed 80-140px combined inter-section gaps in the
+    original Velocity build). Standardize body-section vertical padding
+    at 20px top + 20px bottom. Combined adjacent-section gap = 40px.
+    Hero (0/0) + info bar (20/20) and footer-line (20/12) are exceptions.
+    **Why cumulative-gap math matters:** per-section padding is misleading
+    in audits; the user-visible gap is the SUM of section A's bottom
+    padding + section B's top padding + any margins on the first/last
+    children of either section. A standard 20/20 cap removes the surprise
+    of compounding paddings. Visual section separation comes from bg
+    color rhythm (offwhite vs white vs navy bands) and section-heading
+    underlines, not padding inflation.
+30. **Cumulative gap audit before claiming "consistent rhythm"**
+    (lesson learned 2026-04-30). When auditing visual padding/spacing,
+    compute the CUMULATIVE gap between adjacent sections, not just the
+    per-section padding. Format:
+    `gap_AB = padding_A_bottom + padding_B_top + margin_A_last_child + margin_B_first_child`.
+    If the user reports "wasted space," the audit must show the
+    cumulative gap, not the per-section number. Quoting "60/60" when
+    the visual gap is 120px+ is misleading.

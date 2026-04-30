@@ -1,0 +1,34 @@
+{
+  "_authoring_notes": [
+    "Velocity Section 1b: 3-column INFO BAR. Sits directly below the hero image.",
+    "Layout (per Jonathan 2026-04-30): WHEN | REGISTER | WHERE. Center column is the gold Register CTA; flanked by date and location.",
+    "Image-only hero above carries the brand identity; this strip carries the practical info + conversion path. Mid-page Section 8 Final CTA is the second/repeated CTA touchpoint per Template A.",
+    "Mobile responsive: 3-col grid stacks to single column at <=768px via inline <style> block in the HTML widget.",
+    "Eyebrow + primary text styling matches the hub-page pattern (gold uppercase eyebrow + navy primary text).",
+    "Register CTA renders as styled <a> inside the HTML widget rather than an Elementor button widget; visual identical, simpler markup, consistent with the rest of the cell content.",
+    "Renamed from 01b-register-cta.json on 2026-04-30 PM after Jonathan refined the section to the 3-col info bar."
+  ],
+  "id": "velocity-info-bar-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "full",
+    "background_background": "classic",
+    "background_color": "#F7F7F5",
+    "padding": {"unit": "px", "top": "20", "right": "20", "bottom": "20", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "20", "right": "16", "bottom": "20", "left": "16", "isLinked": false},
+    "flex_direction": "column",
+    "flex_align_items": "center"
+  },
+  "elements": [
+    {
+      "id": "velocity-info-bar-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<style>\n.fsi-velocity-info-bar { display:grid; grid-template-columns:repeat(3, 1fr); gap:32px; align-items:center; max-width:1100px; margin:0 auto; }\n.fsi-velocity-info-bar__cell { text-align:center; }\n.fsi-velocity-info-bar__eyebrow { color:#c9a040; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:2.5px; margin:0 0 8px; }\n.fsi-velocity-info-bar__primary { color:#1f365c; font-size:20px; font-weight:700; line-height:1.3; margin:0; }\n.fsi-velocity-info-bar__btn { display:inline-block; background:#c9a040; color:#1f365c; font-weight:700; font-size:15px; letter-spacing:0.5px; text-transform:uppercase; padding:14px 28px; border-radius:4px; text-decoration:none; }\n.fsi-velocity-info-bar__btn:hover { background:#b8922e; color:#1f365c; }\n@media (max-width:768px) { .fsi-velocity-info-bar { grid-template-columns:1fr; gap:28px; } }\n</style>\n<div class=\"fsi-velocity-info-bar\">\n  <div class=\"fsi-velocity-info-bar__cell\">\n    <p class=\"fsi-velocity-info-bar__eyebrow\">When</p>\n    <p class=\"fsi-velocity-info-bar__primary\">May 20-21, 2026</p>\n  </div>\n  <div class=\"fsi-velocity-info-bar__cell\">\n    <a href=\"https://fivestarglobal.swoogo.com/velocity2026/register_now\" target=\"_blank\" rel=\"noopener\" class=\"fsi-velocity-info-bar__btn\">Register for Velocity 2026</a>\n  </div>\n  <div class=\"fsi-velocity-info-bar__cell\">\n    <p class=\"fsi-velocity-info-bar__eyebrow\">Where</p>\n    <p class=\"fsi-velocity-info-bar__primary\">The Westin<br />New Orleans, LA</p>\n  </div>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

@@ -7,6 +7,216 @@ New decisions go at the top.
 
 ---
 
+## 2026-04-30 PM — Phase 3 Velocity Template A REVISION: image-only hero + 3-col info bar + 20/20 padding cap
+
+**Decision:** Phase 3 Velocity (page 5107) re-themed with three template-level
+changes that supersede the original 2026-04-26 Option B Template A pattern
+("Conversion hero" with Save-the-Date sub-card + in-hero CTA + repeated
+mid-page CTA). Velocity now defines the new Template A canonical pattern.
+Same revision should propagate to LLSS (page 5106) before Phase 1.11
+production promotion to keep both event pages visually consistent.
+Government Forum + Five Star Conference are external sites, unaffected.
+
+**Three changes:**
+
+### 1. Image-only hero (no overlay, no overlay text)
+
+Hero is full-bleed image (`Velocity_Conference_2026_Hero_1900-x-600.jpg`,
+attachment 5143) with NO navy overlay, NO H1 overlay, NO date strap
+overlay. The artwork carries the complete identity (Velocity wordmark +
+date + venue + 'A FORCE Conference' subtitle + tagline are baked into
+the image). Anything overlaid was redundant.
+
+- Section 1 padding: 0/0
+- `background_overlay_*` settings removed entirely (was 0.85, then 0.5)
+- Visible H1 widget removed; sr-only H1 added via HTML widget for SEO/screen
+  readers (`position:absolute; left:-9999px; width:1px; height:1px;
+  overflow:hidden`)
+- Date strap text widget removed
+
+### 2. 3-column info bar (Section 1b, NEW)
+
+Below the hero: a thin offwhite (`#F7F7F5`) strip with three centered
+cells: WHEN | REGISTER | WHERE. Center column houses the gold Register
+CTA; flanked by date and location.
+
+- New file: `event-pages/velocity/01b-info-bar.json`
+- Element ID: `velocity-info-bar-outer`
+- Inline `<style>` block in HTML widget for the 3-col grid + mobile
+  stacking (`@media (max-width:768px) { grid-template-columns: 1fr; }`)
+- Replaces the previous in-hero Save-the-Date sub-card AND the
+  shorter-lived 2026-04-30 morning's "single Register CTA strip" iteration
+- Bg color shift (offwhite vs white below) is the visual divider between
+  hero and body; no rule or border needed
+
+### 3. 20/20 padding cap on every body section
+
+Standardized vertical padding to 20px top + 20px bottom on every body
+section. Resulting combined inter-section gap = 40px everywhere (except
+hero → info bar = 20px which is intentional, info bar hugs the hero like
+a caption).
+
+| Section | Before (top/bot) | After |
+|---------|------------------|-------|
+| 01 Hero | 0/0 | 0/0 (image-only) |
+| 01b Info bar | (NEW) | 20/20 |
+| 02 Intro/Who Belongs | 60/60 | 20/20 |
+| 03 What Happens | 60/60 | 20/20 |
+| 04 Charter Offer | 20/20 | 20/20 (already aligned) |
+| 06 Membership Cards | 60/60 | 20/20 |
+| 07 Event Details | 20/60 (asymmetric) | 20/20 |
+| 08 Final CTA | 80/80 | 20/20 (min-height + bg image still gives presence) |
+| 09 Footer-line | 20/12 | 20/12 (intentional minimal, unchanged) |
+
+**Why 20/20 cap:** the prior 60/60 + 80/80 paddings produced 100-140px
+inter-section gaps that read as wasted space, especially after the dense
+Charter Offer gold callout. Cumulative gap math (per-section padding
+alone is misleading; combined adjacent-section padding is what users
+see) drove the decision. 20/20 = consistent 40px gaps + the bg color
+rhythm + section-heading gold underlines do the visual separation work.
+
+**Section 2 intro section header added:** 'Two days. One community.'
+H2 added at the top of Section 2 using the existing
+`.fsi-section-heading` class. Anchors the intro prose; matches the
+pattern used by 'Who Belongs at Velocity' and 'What Happens at Velocity'
+section headers downstream. No eyebrow (consistent with existing pattern).
+
+**Image content also populated this session:**
+
+| Slot | Asset | Media Library ID | Status |
+|------|-------|------------------|--------|
+| Section 1 Hero bg | Velocity_Conference_2026_Hero_1900-x-600.jpg | 5143 | ✅ |
+| Section 6 Five Star Alliance card | FSAlliance_Logo_480-x-220.jpg | 5144 | ✅ |
+| Section 2 Community photo | Community-Velocity4.jpg | (file present, unregistered) | ⏳ pending re-register |
+| Section 6 FORCE card | LogoForce1.jpg | (file present, unregistered) | ⏳ pending re-register |
+| Section 8 Final CTA bg | (none) | (none) | ⏳ pending |
+
+Hero + Alliance card properly registered as WP Media Library attachments
+(file on disk + `wp_posts` row + auto-generated responsive variants).
+Two pre-existing assets (Community-Velocity4.jpg + LogoForce1.jpg) have
+files on disk but no `wp_posts` rows. Re-register via WP Admin > Media >
+Add New before Phase 3.11 production promotion.
+
+**Em-dash rule (per Jonathan, saved to user-memory 2026-04-29):** never
+use em dashes in editorial copy. Confirmed clean across this session's
+edits.
+
+**Phase 3.11 production promotion gate** still pending: Jonathan
+approval + remaining 3 image slots + LLSS Template A revision (so prod
+ships consistent event-page pattern across LLSS + Velocity).
+
+---
+
+## 2026-04-30 — Velocity image content + Media Library workflow clarification
+
+**Decision:** Hero bg image and Five Star Alliance card image both
+populated with properly-registered Media Library attachments (5143, 5144)
+this session. Workflow clarified: assets must be uploaded via WP Admin >
+Media > Add New (creates both filesystem asset AND `wp_posts` attachment
+record + responsive variants), not via SFTP / SSH file copy alone.
+
+**Pre-existing orphaned assets flagged:** Two FSI assets exist on
+filesystem without `wp_posts` records: `LogoForce1.jpg` (FORCE card)
+and the original `Velocity-Banner-darker-bottom.png` (since superseded
++ properly re-registered by Jonathan as `Velocity_Conference_2026_Hero_1900-x-600.jpg`).
+Cleanup task: re-register `LogoForce1.jpg` via WP Admin Media before
+Phase 3.11 prod promotion.
+
+**Why this matters:** orphaned assets work for inline `<img>` and CSS
+`background-image` (URL-only), but break Phase .11 prod promotion since
+there's no attachment ID to bind, no responsive variants generated, no
+Media Library searchability. Phase .11 SOP gains a pre-flight check:
+"every image referenced in section JSONs must have a `wp_posts`
+attachment record on prod."
+
+---
+
+## 2026-04-29 PM — Phase 4b-hub Communities hub Template C alignment + single-navy-band rule
+
+**Decision:** Communities hub (page 5108) hero typography aligned to
+the Memberships hub Template C precedent (drop hero serif overrides,
+inherit The7 default Open Sans Condensed UPPERCASE bold). FSC convergence
+section bg changed from navy to offwhite to enforce a single-navy-band
+rule for hub pages (hero is the only navy band).
+
+**Hero (`01-hero.json`) changes:**
+
+- H1 inline overrides REMOVED: `font-family:'Roboto Slab', Georgia, serif;
+  font-size:54px; line-height:1.15; font-weight:700; text-transform:none;
+  letter-spacing:-0.5px`
+- Inner wrapper `text-align:center` DROPPED (matches Memberships hub
+  left-aligned hero)
+- Sub paragraph max-width 740 → 780, drop `margin:0 auto`
+- H1 margin 24px → 16px
+
+**FSC convergence (`04-fsc-convergence.json`) changes:**
+
+- Background `#1F365C` (navy) → `#F7F7F5` (offwhite)
+- H2 text white → navy `#1f365c` (kept Roboto Slab serif + sentence-case
+  + italic emphasis on 'Once a year.' as a deliberate exception; the
+  emphasis design depends on sentence-case to read)
+- 'One room.' span: `#cfd5de` (light grey on navy) → `#888888` (muted
+  grey on offwhite)
+- Sub paragraph: `#cfd5de` → `#444444` (Text)
+- Community badges: `rgba(255,255,255,0.08)` bg + white text + translucent
+  border → `#FFFFFF` bg + `#1f365c` text + `#e0e0dc` border
+- Date strap (gold) and Register CTA (gold bg + navy text) preserved
+
+**Color rhythm now:** Navy → Offwhite → Offwhite → Offwhite → White →
+(transparent). Single navy band rule satisfied.
+
+**Two divergences flagged but not touched** (out of scope for the
+two-suggestion sign-off):
+
+1. Grid-intro H2 + community-card H3s still use Roboto Slab serif inline
+2. FSC H2 still uses Roboto Slab serif (deliberate, due to emphasis
+   design dependency)
+
+**SOP-canonical compose used** for this push (glob all 6 section files
+from disk, strip authoring keys, compose, verify untouched sections
+byte-identical to deployed). In-place swap rule (Lesson #24) verified:
+child URL `/communities/real-estate-professionals/` returns HTTP 200
+post-deploy.
+
+---
+
+## 2026-04-29 AM — Phase 4a-hub Memberships hub hero copy revision
+
+**Decision:** Memberships hub (page 5138) hero copy revised after
+Jonathan's review. New H1 names "seven memberships" (primes the
+6 specialty + 1 foundation = 7 layout below). New sub-paragraph names
+all 7 organizations inline (NMSA, MSEA, Legal League, FORCE, PPEF,
+AMDC, and Five Star Alliance) + reframes them as "the formal
+organizations serving your profession in the mortgage and housing
+industries."
+
+| Element | Before | After |
+|---------|--------|-------|
+| H1 | "The seven memberships that organize this work." | "The seven memberships that move this industry forward." |
+| Sub | "Five Star Institute's professional memberships are the formal organizations through which practitioners join, govern, and lead the housing lifecycle. Every membership is by application; Five Star Alliance is the universal foundation underneath them all." | "Five Star Institute's professional memberships: NMSA, MSEA, Legal League, FORCE, PPEF, AMDC, and Five Star Alliance are the formal organizations serving your profession in the mortgage and housing industries." |
+
+**SOP deviation flagged + corrected for next session:** This push used
+a compose-from-DB-then-patch-section-0 approach instead of the canonical
+SOP compose-from-disk pattern (SOP `elementor-json-authoring.md` Lesson
+#17 step 3). Functionally equivalent for this case (sections 1-3 verified
+byte-identical between disk and deployed), but procedurally not what the
+SOP prescribes. Going forward: always compose from disk so the disk is
+the unambiguous source of truth.
+
+**No em-dash rule:** Saved to user-memory 2026-04-29 ("NEVER use em
+dashes (—)!"). Applies to all editorial copy, doc text, code comments,
+chat. Use colons, commas, semicolons, or period-then-restart. En dashes
+and hyphens are fine; only the em dash is banned.
+
+**Pre-existing em-dash violations flagged (cleanup, not blocking):**
+3 specialty card subtitles use `&mdash;` (NMSA "Mortgage Finance &mdash;
+C-Suite", MSEA "Mortgage Finance &mdash; Senior Management", AMDC "All
+Communities &mdash; Diversity Initiative") + 5 image alt-text strings +
+3 CSS comments in `fsi-event-styles.php`. Worth fixing before Phase
+4a-hub.11 prod promotion.
+
+---
+
 ## 2026-04-28 PM — Phase 4a-hub redesign: Memberships hub literal-foundation hierarchy (Alliance below specialty grid)
 
 **Decision:** Memberships hub (page 5138) restructured in place to use

@@ -1,10 +1,11 @@
 {
   "_authoring_notes": [
-    "Velocity Section 2 — Intro paragraphs + community photo + 'Who Belongs at Velocity' 3-card grid.",
+    "Velocity Section 2: Intro paragraphs + community photo + 'Who Belongs at Velocity' 3-card grid.",
     "Cloned from LLSS 02-intro-who-belongs.json on 2026-04-27. Same Option B pattern (HTML widget inside boxed Elementor container).",
     "Card pattern matches LLSS: first card uses .fsi-card-gold (gold top border = community core), other two use .fsi-card-navy.",
     "FORCE Members = Velocity's credentialed core (analog to Legal League Member Firms).",
-    "2026-04-27 PM: Community photo populated. Image source: Media Library attachment 5110 'Community Velocity4', 1100x440 JPG. URL kept relative (/wp-content/uploads/...) to survive staging→prod promotion without wp elementor replace_urls intervention."
+    "2026-04-27 PM: Community photo populated. Image source: Media Library attachment 5110 'Community Velocity4', 1100x440 JPG. URL kept relative (/wp-content/uploads/...) to survive staging->prod promotion without wp elementor replace_urls intervention.",
+    "2026-04-30 PM: Padding tightened from 60/60 to 20/20 desktop (40/40 to 20/20 mobile) per the 20/20 cap rule. Added section H2 'Two days. One community.' at the top of the HTML widget to anchor the intro prose, matching the existing 'Who Belongs at Velocity' section-heading pattern (H2 + gold underline, no eyebrow)."
   ],
   "id": "velocity-intro-outer",
   "elType": "container",
@@ -12,8 +13,8 @@
   "settings": {
     "content_width": "boxed",
     "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
-    "padding": {"unit": "px", "top": "60", "right": "20", "bottom": "60", "left": "20", "isLinked": false},
-    "padding_mobile": {"unit": "px", "top": "40", "right": "16", "bottom": "40", "left": "16", "isLinked": false},
+    "padding": {"unit": "px", "top": "20", "right": "20", "bottom": "20", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "20", "right": "16", "bottom": "20", "left": "16", "isLinked": false},
     "flex_direction": "column"
   },
   "elements": [
@@ -22,7 +23,7 @@
       "elType": "widget",
       "widgetType": "html",
       "settings": {
-        "html": "<div class=\"fsi-intro\">\n  <p>Velocity is where the FSI real estate professional community comes together. Two days of education, structured introductions, and the industry relationships that build real careers in REO, distressed property, and single-family residential investment.</p>\n  <p style=\"margin-top:12px;\">The 2026 conference marks a milestone: the public launch of FSI Offers and the debut of the Five Star Alliance membership.</p>\n</div>\n\n<div class=\"fsi-image-block\">\n  <img src=\"/wp-content/uploads/2026/04/Community-Velocity4.jpg\" alt=\"FORCE members at Velocity — community moment\" width=\"1100\" height=\"440\" loading=\"lazy\" />\n</div>\n\n<h2 class=\"fsi-section-heading\">Who Belongs at Velocity</h2>\n\n<div class=\"fsi-grid-3\">\n  <div class=\"fsi-card-gold\">\n    <h3 class=\"fsi-card__title\">FORCE Members</h3>\n    <p class=\"fsi-card__text\">The credentialed core of the community. FORCE-certified agents and brokers built this over 15 years. Velocity is your home event. FORCE Connect gives you direct, structured time with the institutional professionals who attend as guests of the association.</p>\n  </div>\n  <div class=\"fsi-card-navy\">\n    <h3 class=\"fsi-card__title\">Agents, Brokers, and Investors</h3>\n    <p class=\"fsi-card__text\">Real estate professionals building businesses in REO, distressed assets, and single-family residential investment. If your career touches institutional inventory or alternative transaction structures, this is your professional community.</p>\n  </div>\n  <div class=\"fsi-card-navy\">\n    <h3 class=\"fsi-card__title\">Asset Managers and Disposition Teams</h3>\n    <p class=\"fsi-card__text\">Servicer-side and third-party asset managers overseeing REO portfolios and distressed disposition. Velocity is built around the practitioner network you rely on. Structured access to credentialed professionals is built into the program.</p>\n  </div>\n</div>"
+        "html": "<h2 class=\"fsi-section-heading\">Two days. One community.</h2>\n\n<div class=\"fsi-intro\">\n  <p>Velocity is where the FSI real estate professional community comes together. Two days of education, structured introductions, and the industry relationships that build real careers in REO, distressed property, and single-family residential investment.</p>\n  <p style=\"margin-top:12px;\">The 2026 conference marks a milestone: the public launch of FSI Offers and the debut of the Five Star Alliance membership.</p>\n</div>\n\n<div class=\"fsi-image-block\">\n  <img src=\"/wp-content/uploads/2026/04/Community-Velocity4.jpg\" alt=\"FORCE members at Velocity — community moment\" width=\"1100\" height=\"440\" loading=\"lazy\" />\n</div>\n\n<h2 class=\"fsi-section-heading\">Who Belongs at Velocity</h2>\n\n<div class=\"fsi-grid-3\">\n  <div class=\"fsi-card-gold\">\n    <h3 class=\"fsi-card__title\">FORCE Members</h3>\n    <p class=\"fsi-card__text\">The credentialed core of the community. FORCE-certified agents and brokers built this over 15 years. Velocity is your home event. FORCE Connect gives you direct, structured time with the institutional professionals who attend as guests of the association.</p>\n  </div>\n  <div class=\"fsi-card-navy\">\n    <h3 class=\"fsi-card__title\">Agents, Brokers, and Investors</h3>\n    <p class=\"fsi-card__text\">Real estate professionals building businesses in REO, distressed assets, and single-family residential investment. If your career touches institutional inventory or alternative transaction structures, this is your professional community.</p>\n  </div>\n  <div class=\"fsi-card-navy\">\n    <h3 class=\"fsi-card__title\">Asset Managers and Disposition Teams</h3>\n    <p class=\"fsi-card__text\">Servicer-side and third-party asset managers overseeing REO portfolios and distressed disposition. Velocity is built around the practitioner network you rely on. Structured access to credentialed professionals is built into the program.</p>\n  </div>\n</div>"
       },
       "elements": []
     }

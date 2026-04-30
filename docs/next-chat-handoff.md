@@ -3,53 +3,60 @@
 Use this as the opening message in the next Claude Desktop project chat.
 Updated at the end of each session with what was completed and what's next.
 
-Last updated: 2026-04-29 PM (Phase 4a-hub Memberships hub REDESIGNED on
-              staging — Alliance moved from "hero" position to a
-              foundation strip BELOW the 6-tile specialty grid. Spatial
-              layout now carries the hierarchy: 6 specialty memberships
-              sit on top as standing structures, Alliance sits underneath
-              as the universal foundation, "underneath every specialty
-              above" messaging makes it explicit. Two intermediate
-              iterations (v4 umbrella band, v5 featured tile spanning
-              3 cols) were tried and rejected first. Hero rewritten to
-              "The seven memberships that organize this work." Old
-              "Not sure where you fit?" CTA removed. PPEF copy fixed
-              (membership organization, not standards body). Single
-              navy band (hero only). All 10 verification criteria
-              passed on staging deploy.
+Last updated: 2026-04-30 PM (Phase 3 Velocity TEMPLATE A REVISION
+              applied on staging. Three template-level changes
+              supersede the 2026-04-26 Option B Conversion Hero
+              pattern: (1) image-only hero (no overlay, no overlay
+              text, sr-only H1 only); (2) 3-col WHEN/REGISTER/WHERE
+              info bar in offwhite below the hero; (3) 20/20 padding
+              cap on every body section (40px combined gaps everywhere).
+              Velocity hero image populated (attachment 5143). Five
+              Star Alliance card image populated (attachment 5144).
+              Section 2 intro now anchored by H2 "Two days. One
+              community."
+              SAME REVISION MUST PROPAGATE TO LLSS before Phase 1.11
+              prod promotion so prod ships consistent FSI Event Page
+              pattern.
               ALL THREE FSI HUBS Elementor-native: Events ✅ Memberships ✅
-              (redesigned) Communities ✅.
-              NEXT immediate steps: (a) finish any remaining polish
-              on Memberships hub before Phase 4a-hub.11 production
-              promotion; (b) move on to Communities hub — likely
-              the symmetric pattern review (does Communities hub
-              also benefit from a literal-foundation pattern, or is
-              its current layout already correct?). Other open paths:
-              Phase 4a individual Membership pages (7 greenfield),
-              Phase 4b community siblings (3 greenfield: Mortgage
-              Finance / Legal / Prop Pres), remaining LLSS/Velocity
-              image population.
-              CLEANUP FLAGGED: site footer "Membership Groups" widget
-              link → `/memberships-old/` (drift after Phase 4a-hub slug
-              swap). Should update to `/memberships/`.)
-Last completed: Memberships hub redesign deployed to staging
-                (2026-04-28 18:03). Final 4-section structure: hero
-                ("seven memberships") / 6-tile specialty grid /
-                Alliance foundation strip / footer-line. Decision
-                logged in decisions.md 2026-04-28 PM. Page 5138 in
-                place; same staging URL `/memberships/`.
-Next phase: Two-step focus —
-                (1) Complete Memberships hub: visual review by Jonathan
-                    on staging, address any remaining polish, then
-                    Phase 4a-hub.11 production promotion approval gate
-                (2) Move on to Communities hub: review whether the same
-                    spatial-hierarchy pattern improves it (or confirm
-                    its current 6-section layout is final), then Phase
-                    4b-hub.11 production promotion approval gate
-                Background tracks (any session): Phase 4a individual
-                Membership pages, Phase 4b community siblings, LLSS +
-                Velocity image population, footer "Membership Groups"
-                widget link cleanup.
+              (redesigned, hero copy revised) Communities ✅ (Template C
+              alignment applied). NOW READY FOR PRODUCTION PROMOTION
+              SEQUENCING — see "Production promotion plan" block below.
+              CLEANUP FLAGGED:
+              - LLSS Template A revision (apply Velocity 2026-04-30
+                pattern to LLSS before Phase 1.11)
+              - 3 image slots remaining on Velocity (Section 2
+                community photo + FORCE card re-register +
+                Section 8 Final CTA bg)
+              - Footer "Membership Groups" widget link drift to
+                /memberships-old/
+              - Pre-existing em-dash violations in 3 specialty card
+                subtitles + 5 image alt-text strings + 3 CSS comments
+                in fsi-event-styles.php)
+Last completed: Velocity Template A revision deployed (2026-04-30 ~12:54).
+                9 sections at 20/20 padding cap (40px gaps everywhere).
+                Hero image-only, no overlay, sr-only H1 for SEO. New
+                3-col info bar (WHEN | REGISTER | WHERE) in offwhite.
+                Hero + Alliance card images live (5143 + 5144). Decision
+                logged in decisions.md 2026-04-30 PM. Page 5107 in place;
+                same staging URL `/events/velocity/`. Both Memberships hub
+                hero copy revision (2026-04-29 AM) and Communities hub
+                Template C alignment (2026-04-29 PM) also shipped this
+                cycle.
+Next phase: Production promotion sequencing. See "Production promotion
+                plan" block below. Highest-leverage paths in order:
+                (1) Apply Template A revision to LLSS (pre-flight for
+                    Phase 1.11 LLSS + ensures consistent prod event-page
+                    pattern with Velocity)
+                (2) Populate remaining Velocity image slots (Section 2
+                    community photo re-register + Section 8 Final CTA bg)
+                (3) Phase 1.11 LLSS production promotion (gate)
+                (4) Phase 3.11 Velocity production promotion (gate)
+                (5) Phase 4a-hub.11 Memberships hub production promotion
+                (6) Phase 4b-hub.11 Communities hub production promotion
+                (7) Phase 2.11 Events hub + Phase 4b.11 RE Pros
+                Background tracks: Phase 4a individual Membership pages
+                (7 greenfield, FORCE first), Phase 4b community siblings
+                (3 greenfield), em-dash cleanup, footer widget link fix.
 
 ---
 
@@ -73,6 +80,7 @@ Continuing FSG Media WP ops. Before responding, read these files in order:
 12. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/amaaonline/site-profile.md`
 13. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/docs/sops/ssh-session-startup.md`
 14. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/docs/sops/elementor-json-authoring.md`
+14a. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/docs/sops/fsi-production-promotion.md` (the prod-promotion runbook — read in full before any Phase .11 work)
 
 15. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/llss-elementor-build-spec.md` (look at top "Updated 2026-04-26: Option B pattern" block first)
 16. `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/llss-wpbakery-content.html` (authoritative copy reference)
@@ -107,10 +115,39 @@ Then confirm you've read them and summarize:
 - What's pending before Phase 1.11 (image content + Lighthouse before-number)
 - **The 2026-04-28 PM Memberships hub redesign** (literal-foundation
   hierarchy: Alliance moved BELOW the 6-tile specialty grid as a
-  foundation strip; "seven memberships" hero; PPEF copy fixed; v4
-  umbrella band and v5 featured tile both rejected before landing on
-  the foundation strip) — see decisions.md top entry. Final 4-section
-  layout on staging page 5138.
+  foundation strip; v4 umbrella band and v5 featured tile both rejected
+  before landing on the foundation strip) — see decisions.md.
+- **The 2026-04-29 AM Memberships hub hero copy revision**: H1 "The
+  seven memberships that move this industry forward." + sub naming
+  all 7 memberships inline. Saved em-dash rule to user-memory.
+- **The 2026-04-29 PM Communities hub Template C alignment**: hero serif
+  overrides dropped (inherits The7 default Open Sans Condensed UPPERCASE);
+  FSC convergence section bg navy → offwhite (single-navy-band rule).
+- **The 2026-04-30 PM Velocity Template A revision** (the big template-
+  level change): image-only hero with no overlay + 3-col info bar
+  (WHEN | REGISTER | WHERE) below hero + 20/20 padding cap on every body
+  section. Same revision MUST propagate to LLSS before Phase 1.11. See
+  decisions.md top entry. SOP lessons #25-30 capture the workflow
+  details (compose-from-disk discipline, file naming, propagation plan,
+  sr-only H1 pattern, padding cap, cumulative-gap audit).
+- **The current production promotion plan** in next-chat-handoff.md
+  ("Production promotion plan" block) AND the detailed runbook at
+  `docs/sops/fsi-production-promotion.md` (executable step-by-step,
+  including F1-F4 foundation work, Wave 1 phase .11 operations with
+  exact commands + pre-flight + verification + rollback for each).
+  Wave 1 order (per Jonathan 2026-04-30): Velocity 3.11 → Memberships
+  4a-hub.11 → Communities 4b-hub.11 → Events 2.11 → RE Pros 4b.11.
+  LLSS Template A revision + Phase 1.11 LLSS pushed to Wave 2 (later
+  session). Memberships hub uses create-new + slug-swap pattern (renames
+  prod 2597 to memberships-old) per Jonathan's direction.
+- **Prod pre-flight findings (2026-04-30):** 11 media assets ALL
+  MISSING on prod, fsi-event-styles.php mu-plugin NOT PRESENT on prod,
+  prod kit (4004) is 5+ months stale vs staging, Elementor versions
+  drift slight (prod 4.0.3/4.0.2 vs staging 4.0.2/4.0.2 — accept).
+  Resolved prod page IDs match staging IDs for the most part (Events
+  5089, Velocity 5088, Memberships 2597, RE Pros 5087); /communities/
+  doesn't exist on prod yet. See `docs/sops/fsi-production-promotion.md`
+  pre-flight section for the full table.
 
 Then read the Memberships hub JSON files to understand the current state:
 - `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/elementor-templates/membership-pages/_hub/01-alliance-hero.json` (filename retained but content is now "seven memberships" hero, not Alliance-focused)
@@ -146,7 +183,140 @@ Do not proceed until that summary is confirmed.
 
 ---
 
-## Completed this session (2026-04-28 PM) — Memberships hub redesign (literal-foundation hierarchy)
+## Production promotion plan (current as of 2026-04-30 PM)
+
+**The non-negotiable rule (verbatim from `CLAUDE.md`):** Never run any
+operation on production without explicit per-stage approval from
+Jonathan. Blanket session approval ≠ production approval. Approval to
+run on staging ≠ production approval. Steps 5+6 of the gate (ask in
+chat, wait for explicit "yes") have no exceptions.
+
+### Pre-flight before any prod push (every Phase .11)
+
+1. **Verify the kit is on prod.** `wp post get <kit_id> --field=post_modified`
+   on prod vs staging. If prod kit is stale, promote kit FIRST.
+2. **Verify mu-plugin `fsi-event-styles.php` is on prod.** The deployed
+   pages use its CSS classes. Without it, sections render unstyled.
+   Promote via Workflow A (`thefivestar-wp` repo → GitHub Actions).
+3. **Verify all referenced media assets exist on prod** as proper
+   attachment records (file on disk + `wp_posts` row + responsive
+   variants). Use `wp post list --post_type=attachment --s=<slug>`
+   on prod for each asset referenced in section JSONs. Re-upload via
+   Media > Add New if missing.
+4. **Verify all 7 logos in prod media library** (Alliance, FORCE,
+   Legal League, NMSA, MSEA, PPEF, AMDC) for Memberships hub promotion.
+5. **Capture pre-state baseline** at 1440/768/420 of the prod URL being
+   replaced (rollback reference).
+
+### Suggested promotion order (each gate independent)
+
+| # | Phase | Page(s) | Pattern | Pre-reqs |
+|---|-------|---------|---------|----------|
+| 0 | LLSS Template A revision | LLSS staging (page 5106) | Apply Velocity 2026-04-30 changes (image-only hero + 3-col info bar + 20/20 padding). Pre-Phase-1.11 work. | LLSS hero image, LLSS info-bar copy decisions |
+| 1 | **1.11 LLSS** | prod LLSS (create-new) | Create-new + slug-swap. Same pipeline as staging. 8 image slots populated first. | Kit on prod, mu-plugin on prod, all images registered, Template A revision applied to staging-5106 |
+| 2 | **3.11 Velocity** | prod Velocity (create-new) | Create-new + slug-swap. Same pipeline. 3 image slots populated first (Section 2 community + FORCE re-register + Section 8 final CTA bg). | Kit on prod, mu-plugin on prod, all images registered, LLSS already shipped (consistency) |
+| 3 | **4a-hub.11 Memberships hub** | prod Memberships (in-place swap on existing parent OR create-new) | Decide based on prod parent's child pages: if any children exist, in-place swap (Lesson #24); else create-new + slug-swap. | All 7 logos on prod, em-dash cleanup, kit on prod |
+| 4 | **4b-hub.11 Communities hub** | prod Communities (create new parent + content) OR in-place swap if parent exists | Likely create-new since `/communities/` likely doesn't exist on prod. Then in-place swap on the new parent for the hub Elementor data. | RE Pros 4b.11 should ship in same window so /communities/ tree is coherent |
+| 5 | **2.11 Events hub** | prod /events/ (in-place swap) | In-place swap on prod page 5089 (or whatever prod ID is). Backup post_content + _elementor_data + edit_mode to timestamped meta keys. Verify all 4 child URLs HTTP 200 post-swap. | LLSS + Velocity already shipped (children will be Elementor-native by then) |
+| 6 | **4b.11 RE Pros** | prod RE Pros (relocate from /memberships/ to /communities/) | Create `/communities/` parent on prod, create RE Pros Elementor at canonical, slug + parent swap of existing prod RE Pros (if exists), 301 redirect via eps-301-redirects. | /communities/ parent created |
+
+### Per-promotion runbook template
+
+For each Phase .11:
+
+1. State operation + risk level (most are 🟡 Medium; in-place swaps on
+   pages with children are 🔴 High)
+2. Run pre-flight checks above
+3. Execute on prod via the same `wp eval-file -` + `update_post_meta`
+   pipeline used on staging
+4. Backup prior state to `_elementor_data_backup_*` (or
+   `_elementor_inplace_swap_backup_*` for in-place swaps) timestamped
+   meta keys
+5. Cache flush sequence (Lesson #16): Elementor `flush_css` +
+   `wp cache flush` + `rm -rf wp-rocket/*` + `WpeCommon::purge_varnish_cache_all()`
+   + `WpeCommon::purge_memcached()`
+6. Verify on prod: cache-busted curl + bare URL + child URL preservation
+   (for in-place swaps) + Playwright screenshot at 1440
+7. Report results back to Jonathan
+8. Trash `-old` rollback pages on prod ~1-2 weeks post-promotion if no
+   regressions surface
+
+### Open question on prod parent IDs
+
+Most prod pages don't have IDs that match staging (staging used
+new-page IDs like 5106, 5107, 5138 created during the migration; prod
+either has no equivalent or has different historical IDs). Pre-flight
+SQL on prod:
+
+```bash
+ssh thefivestar 'wp post list --post_type=page \
+  --fields=ID,post_title,post_status,post_name \
+  --posts_per_page=200 --format=csv'
+```
+
+Resolves prod IDs for: events hub, memberships hub, communities hub
+(if exists), RE Pros (if exists), LLSS (if exists), Velocity (if
+exists). Drives whether each Phase .11 is create-new or in-place swap.
+
+---
+
+## Completed this session (2026-04-30 PM) — Phase 3 Velocity Template A revision + image content
+
+### Changes deployed to page 5107 (`/events/velocity/`)
+
+**Three template-level changes (decisions.md 2026-04-30 PM entry):**
+
+1. **Image-only hero.** Save-the-Date sub-card removed entirely (date+location, tagline, in-hero Register CTA all gone). Navy overlay removed (was 0.85, then 0.5, now none). Visible H1 removed; sr-only H1 retained for SEO. Section 1 padding 0/0.
+2. **3-col info bar (Section 1b NEW).** Below the hero, offwhite `#F7F7F5` strip with WHEN | REGISTER | WHERE cells. Center column houses gold Register CTA. New file `01b-info-bar.json`. Inline `<style>` block for grid + mobile stacking.
+3. **20/20 padding cap.** Every body section standardized to 20px top + 20px bottom. Combined inter-section gaps = 40px everywhere (except hero → info bar = 20px, intentional).
+
+**Image content populated:**
+
+| Slot | Asset | ID | Status |
+|------|-------|-----|--------|
+| Hero bg | Velocity_Conference_2026_Hero_1900-x-600.jpg | 5143 | ✅ properly registered |
+| FS Alliance card | FSAlliance_Logo_480-x-220.jpg | 5144 | ✅ properly registered |
+
+**Section 2 H2 added:** "Two days. One community." anchors the intro section. Uses the existing `.fsi-section-heading` class (no eyebrow, matches "Who Belongs at Velocity" / "What Happens at Velocity" pattern downstream).
+
+### SOP lessons added (elementor-json-authoring.md #25-30)
+
+| # | Lesson |
+|---|--------|
+| 25 | Compose-from-disk is canonical; compose-from-DB-and-patch is a deviation. Always glob section files from disk + diff against deployed before push. |
+| 26 | New-section file naming + glob update (e.g., `01b-` for inserted section + glob change to `[0-9]*.json`). |
+| 27 | Template-level changes need explicit propagation plans (Velocity Template A revision must reach LLSS before Phase 1.11). |
+| 28 | Image-only hero with sr-only H1 (SEO + a11y intact, no visual overlay text). |
+| 29 | 20/20 padding cap rule for FSI event pages (40px combined gaps). |
+| 30 | Cumulative-gap audit before claiming "consistent rhythm" (per-section padding alone is misleading). |
+
+### Documentation updated this session
+
+| File | Change |
+|------|--------|
+| `docs/decisions.md` | NEW top entries: 2026-04-30 PM Velocity Template A revision; 2026-04-30 image content + Media Library workflow; 2026-04-29 PM Communities hub Template C alignment; 2026-04-29 AM Memberships hub hero copy revision |
+| `docs/sops/elementor-json-authoring.md` | Lessons #25-30 added |
+| `sites/thefivestar/site-profile.md` | Velocity row updated (Template A revision); LLSS row tagged with pending revision; Communities hub row updated (Template C alignment) |
+| `sites/thefivestar/elementor-templates/event-pages/velocity/01-hero.json` | Save-the-Date sub-card removed; padding 100/100 → 0/0; overlay removed; sr-only H1 added |
+| `sites/thefivestar/elementor-templates/event-pages/velocity/01b-info-bar.json` | NEW (renamed from `01b-register-cta.json`); 3-col WHEN/REGISTER/WHERE info bar |
+| `sites/thefivestar/elementor-templates/event-pages/velocity/02-intro-who-belongs.json` | Padding 60/60 → 20/20; H2 "Two days. One community." added |
+| `sites/thefivestar/elementor-templates/event-pages/velocity/03-what-happens.json` | Padding 60/60 → 20/20 |
+| `sites/thefivestar/elementor-templates/event-pages/velocity/06-membership-cards.json` | Padding 60/60 → 20/20; Alliance card image populated (5144); FORCE LogoForce1.jpg orphan-asset status flagged |
+| `sites/thefivestar/elementor-templates/event-pages/velocity/07-event-details.json` | Padding 20/60 (asymmetric) → 20/20 |
+| `sites/thefivestar/elementor-templates/event-pages/velocity/08-final-cta.json` | Padding 80/80 → 20/20 |
+
+### 🛑 Awaiting decision: which path next session?
+
+Two options for next session, in priority order:
+
+1. **LLSS Template A revision (pre-Phase-1.11 work).** Apply the Velocity 2026-04-30 pattern to LLSS (page 5106): strip Save-the-Date sub-card from hero, drop overlay, add sr-only H1, add new `01b-info-bar.json` with WHEN | REGISTER | WHERE columns and LLSS-specific URL/copy, standardize all sections to 20/20 padding cap, add intro section H2. ~45-60 min. Unblocks Phase 1.11 LLSS production promotion.
+2. **Phase 1.11 LLSS production promotion (gate).** Produce reversible-plan + pre-flight checklist for prod push. Requires (1) above to be complete, plus 8 LLSS image slots populated, plus Jonathan approval. Production promotion gate is independent per the rule.
+
+Recommended order: option 1 first (template parity), option 2 follows.
+
+---
+
+## Completed prior session (2026-04-28 PM) — Memberships hub redesign (literal-foundation hierarchy)
 
 ### Phase 4a-hub redesign ✅ — Alliance moved from hero to foundation strip below specialty grid
 
