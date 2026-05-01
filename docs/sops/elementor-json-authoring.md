@@ -776,3 +776,25 @@ was last modified 2025-11-04 — five months stale relative to staging).
       -d '{"description":"...","notification_emails":["lazyj@ljimpressions.com"]}' \
       "https://api.wpengineapi.com/v1/installs/$ID/backups"
     ```
+35. **IA-change slug-swaps do NOT get 301 redirects** (lesson learned
+    2026-05-01 during Wave 1 Step 5). When a page moves because the
+    information architecture changed (e.g., RE Pros moving from
+    `/memberships/` to `/communities/`), the old URL is intentionally
+    dead — do not add a 301 redirect. A redirect would signal to users and
+    search engines that the old categorization was valid; the IA change
+    is the point. Only add redirects when an existing canonical URL with
+    real SEO equity or known external inbound links is being renamed (e.g.,
+    a top-level event page changing its slug). In the FSI migration, the
+    `/memberships/*` child URLs were all killed by the memberships hub
+    slug-swap in Wave 1 Step 2; none of them get redirects. The 404 is
+    correct.
+36. **Every create-new page must set `_dt_header_title=disabled`** unless it
+    is deliberately using The7's page-title bar (e.g., events hub page 5089
+    uses `enabled` to show the navy "EVENTS" bar). The7 defaults to showing
+    its own H1 + breadcrumb bar when this meta is absent, which duplicates the
+    heading inside the Elementor hero and breaks the layout. Set it in the
+    `wp_insert_post` block, not just in the data-push block, so it is never
+    lost if the two steps are separated. Pages already set correctly: 5113
+    (memberships hub), 5114 (communities hub), 5089 (events hub — `enabled`).
+    Page 5115 (RE Pros) required a post-hoc fix on 2026-05-01 after omitting
+    this line when deviating from the runbook script.

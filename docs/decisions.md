@@ -7,6 +7,38 @@ New decisions go at the top.
 
 ---
 
+## 2026-05-01 — Wave 1 Step 4: Phase 2.11 Events hub SHIPPED to production
+
+**Operation:** in-place swap on existing prod page 5089 (preserves child URLs /events/velocity/ and /events/velocity-old/).
+
+**Backup:** WPE checkpoint ID `39912795-28d6-495e-8bb0-1cfaa657b3b8` (status: completed) taken immediately before swap.
+
+**Atomic rollback keys (prod 5089):** `_elementor_inplace_swap_backup_2026_05_01_044450_*` (post_content, elementor_data, edit_mode).
+
+**Meta applied:** `_elementor_edit_mode=builder`, `_elementor_template_type=wp-page`, `_elementor_version=4.0.3`, `_elementor_pro_version=4.0.2`, `_dt_header_title=enabled` (preserves "EVENTS" navy page-title bar).
+
+**Payload:** 6,292 B, 2 sections (`ehub-intro-outer`, `ehub-events-list-outer`). Composed from on-disk JSON (`event-pages/events/01-hub-intro.json` + `02-event-cards.json`), round-trip verified on staging before push.
+
+**Verification:** /events/ HTTP 200, Elementor `ehub-` IDs in rendered HTML, no `vc_row`, no staging URLs. /events/velocity/ HTTP 200, /events/velocity-old/ HTTP 200 (child hierarchy intact). LLSS link `/events/legal-league-servicer-summit/` is 404 on prod pending Phase 1.11 (expected).
+
+**Live URL:** https://thefivestar.com/events/
+
+---
+
+## 2026-05-01 — Wave 1 Step 5: Phase 4b.11 RE Pros SHIPPED to production
+
+**Operation:** create-new + slug-swap. New page 5115 created under parent 5114 (communities hub) at provisional slug `real-estate-professionals-elementor`, populated with 8 sections, then renamed to `real-estate-professionals`.
+
+**Payload:** 23,351 B, 8 sections (`repro-header`, `repro-intro`, `repro-tiers`, `repro-fip`, `repro-charter`, `repro-events`, `repro-governance`, `repro-footer-line`). No images; no staging URLs.
+
+**Old WPBakery page:** 5087 preserved at `/memberships-old/real-estate-professionals/` (orphaned when memberships slug-swap happened in Wave 1 Step 2).
+
+**No redirect needed** from `/memberships/real-estate-professionals/`. That URL was intentionally killed by the Wave 1 Step 2 memberships slug-swap. RE Pros is a community, not a membership — the old path should 404.
+
+**Live URL:** https://thefivestar.com/communities/real-estate-professionals/
+
+---
+
 ## 2026-04-30 EVENING — Wave 1 Steps 1-3 SHIPPED to production
 
 Three Phase .11 production promotions completed in sequence after F1-F3 foundation work. Per Jonathan's reordering, LLSS Template A revision + Phase 1.11 LLSS pushed to Wave 2 (next session); Wave 1 prioritized Velocity → Memberships hub → Communities hub.

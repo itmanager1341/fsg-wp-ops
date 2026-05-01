@@ -1,0 +1,48 @@
+{
+  "id": "ehub-intro-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {
+      "unit": "px",
+      "size": 1100,
+      "sizes": []
+    },
+    "padding": {
+      "unit": "px",
+      "top": "60",
+      "right": "20",
+      "bottom": "30",
+      "left": "20",
+      "isLinked": false
+    },
+    "padding_mobile": {
+      "unit": "px",
+      "top": "40",
+      "right": "16",
+      "bottom": "20",
+      "left": "16",
+      "isLinked": false
+    },
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "ehub-intro-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div class=\"fsi-hub-intro\">\n  <p>Five Star Institute produces events for each of the four professions it serves. Each event is built around a specific professional community, with programming shaped by practitioners and content designed for how that community actually works. All four professions converge once a year at Five Star Conference.</p>\n</div>\n\n<hr style=\"border:none; border-top:2px solid #c9a040; max-width:200px; margin:32px auto 0;\" />"
+      },
+      "elements": []
+    }
+  ],
+  "_authoring_notes": [
+    "Phase 2 Events hub Section 1: intro paragraph + gold divider line.",
+    "HTML widget inside a full-width container. Offwhite or white bg (container bg default -- no explicit bg set).",
+    "Source extracted from staging page 5089 _elementor_data 2026-04-30 after in-place swap (done 2026-04-27 PM).",
+    "fsi-hub-intro class: styled by fsi-event-styles.php mu-plugin.",
+    "Followed by an HR divider styled inline."
+  ]
+}
