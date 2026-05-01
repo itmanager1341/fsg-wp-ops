@@ -3,81 +3,94 @@
 Use this as the opening message in the next Claude Desktop project chat.
 Updated at the end of each session with what was completed and what's next.
 
-Last updated: 2026-04-30 EVENING (Foundation work F1-F3 ALL DONE on
-              prod. Wave 1 Phase .11 promotions are now unblocked.
+Last updated: 2026-04-30 EVENING (Foundation F1-F3 + Wave 1 Steps 1-3
+              ALL DONE on production today.
 
-              ⚠️ INCIDENT + RECOVERY: F1 first attempt deleted WP
-              core from prod (rsync --delete reached install root
-              because SRC_PATH defaulted to repo root). Recovered in
-              ~3 min via `wp core download --skip-content --force`.
-              Workflow fixed in thefivestar-wp commit e9db426
-              (SRC_PATH=wp-content/, REMOTE_PATH=wp-content/, plus
-              path corrections in .deployignore). F1 retry succeeded
-              cleanly. F3 then promoted staging kit to prod (4
-              of 5 sample pages had ZERO byte HTML diff vs pre-state;
-              the 1 with diff was the deprecation candidate Velocity
-              4436 page, expected). See decisions.md 2026-04-30 entry
-              for full incident detail.
+              LIVE ON PROD:
+              - https://thefivestar.com/events/velocity/   (page 5110, Elementor)
+              - https://thefivestar.com/memberships/       (page 5113, Elementor)
+              - https://thefivestar.com/communities/       (page 5114, Elementor)
 
-              ALSO ON STAGING (cycle continues): Phase 3 Velocity
-              TEMPLATE A REVISION applied 2026-04-30 PM. Three
-              template-level changes supersede the 2026-04-26 Option B
-              Conversion Hero pattern: (1) image-only hero (no overlay,
-              no overlay text, sr-only H1 only); (2) 3-col
-              WHEN/REGISTER/WHERE info bar in offwhite below the hero;
-              (3) 20/20 padding cap on every body section (40px
-              combined gaps everywhere). Velocity hero image populated
-              (staging attachment 5143, prod attachment 5099). Five
-              Star Alliance card image populated (staging 5144, prod
-              5100). Section 2 intro now anchored by H2 "Two days. One
-              community."
-              SAME REVISION MUST PROPAGATE TO LLSS before Phase 1.11
-              prod promotion so prod ships consistent FSI Event Page
-              pattern.
-              ALL THREE FSI HUBS Elementor-native: Events ✅ Memberships ✅
-              (redesigned, hero copy revised) Communities ✅ (Template C
-              alignment applied). NOW READY FOR PRODUCTION PROMOTION
-              SEQUENCING — see "Production promotion plan" block below.
-              CLEANUP FLAGGED:
-              - LLSS Template A revision (apply Velocity 2026-04-30
-                pattern to LLSS before Phase 1.11)
-              - 3 image slots remaining on Velocity (Section 2
-                community photo + FORCE card re-register +
-                Section 8 Final CTA bg)
-              - Footer "Membership Groups" widget link drift to
-                /memberships-old/
-              - Pre-existing em-dash violations in 3 specialty card
-                subtitles + 5 image alt-text strings + 3 CSS comments
-                in fsi-event-styles.php)
-Last completed: Foundation F3 (kit promotion) shipped on prod
-                2026-04-30 18:43. Backup at meta key
-                `_elementor_page_settings_backup_2026_04_30_184340` on
-                kit 4004. Kit now has 17 custom_colors (10 legacy
-                preserved + 7 fsi*), system_colors at FSI brand,
-                custom_css with heading scoping. F1 (mu-plugin) was
-                done at 18:08 after the incident-and-fix cycle. F2
-                (11 media uploads) done by Jonathan via WP Admin.
-                F4 (Elementor version drift): accepted (4.0.3 prod /
-                4.0.2 staging — schema-compatible).
-Next phase: Wave 1 Phase .11 production promotions. Foundation work
-                complete. Per Jonathan's reordering: Velocity 3.11 →
-                Memberships 4a-hub.11 → Communities 4b-hub.11 → Events
-                2.11 → RE Pros 4b.11. LLSS Template A revision + Phase
-                1.11 LLSS in Wave 2 (later session).
-                Wave 1 Step 1 (Velocity 3.11) is the next gate: requires
-                attachment ID remap (staging IDs → prod IDs) before
-                pushing the section payload to prod page-create. Runbook
-                at docs/sops/fsi-production-promotion.md "Wave 1, Step 1"
-                section has the full plan + executable commands.
-                IMPORTANT pre-Wave-1-Step-2 cleanup: 2 Memberships hub
-                logo assets (FORCE_COLOR + LL_COLOR) on prod have
-                `-scaled-1` filename suffixes from upload name conflict.
-                Section JSONs reference the un-suffixed paths (will
-                404). Resolve before Wave 1 Step 2: either re-upload
-                without conflict OR URL-rewrite at deploy time.
+              Old WPBakery versions preserved at -old slugs:
+              - /events/velocity-old/   (5088)
+              - /memberships-old/       (2597)
+              (No /communities-old/ — /communities/ didn't exist on prod
+              previously.)
+
+              Plus: Memberships nav repoint (TFSI item 2622 + Footer
+              item 2779 → 5113) so top-nav reads "MEMBERSHIPS" again.
+
+              ⚠️ INCIDENT + RECOVERY (resolved): F1 first attempt deleted
+              WP core from prod via rsync --delete. Fix shipped in
+              thefivestar-wp commit e9db426 (deploy.yml SRC_PATH +
+              REMOTE_PATH = wp-content/). All subsequent deploys safe.
+
+              REMAINING IN WAVE 1 (next session):
+              - Step 4: Phase 2.11 Events hub IN-PLACE SWAP on prod 5089.
+                In-place because /events/ has 4 child URLs to preserve
+                (/events/velocity/, /events/velocity-old/, /events/
+                legal-league-servicers-summit/, plus any other event
+                children). CRITICAL VERIFY post-swap: all child URLs
+                must still HTTP 200 (per SOP Lesson #24).
+              - Step 5: Phase 4b.11 RE Pros. Create new RE Pros under
+                /communities/ (parent prod page 5114 from Step 3),
+                slug+parent swap of existing prod 5087 to /communities/
+                real-estate-professionals-old/, add 301 redirect via
+                eps-301-redirects from memberships/real-estate-
+                professionals → new prod ID. This resolves the broken
+                /communities/real-estate-professionals/ link in the
+                Communities hub Step 3 ship.
+
+              WAVE 2 (later session):
+              - LLSS Template A revision on staging (apply Velocity
+                2026-04-30 pattern: image-only hero + 3-col info bar +
+                20/20 padding cap)
+              - Phase 1.11 LLSS prod promotion (create-new at canonical
+                singular slug; no collision with prod 3579 plural-slug)
+
+              CLEANUP FLAGGED (non-blocking):
+              - 3 image slots remaining on STAGING Velocity (Section 2
+                community photo + FORCE card re-register + Section 8
+                Final CTA bg). NOT blocking prod since we already
+                shipped without them. Section 2 + 8 placeholders still
+                show on prod /events/velocity/.
+              - LogoForce1.jpg on prod (5102) is duplicate alongside
+                5098. Pick one + delete other before Wave 2 LLSS work.
+              - Pre-existing em-dash violations in 3 Memberships hub
+                specialty card subtitles + 5 image alt-text strings +
+                3 CSS comments in fsi-event-styles.php. (Visible on
+                prod /memberships/ now since hub is live.)
+              - Velocity slug-swap may also have stranded nav refs
+                pointing to old page 5088 (now velocity-old). Velocity
+                isn't in TFSI top-nav so unlikely; worth a quick audit
+                in Wave 2 prep.
+              - Footer "Velocity" link if any (audit in Wave 2 prep).
+
+              ALL THREE FSI HUBS now Elementor-native AND live on PROD:
+              Velocity ✅ Memberships hub ✅ Communities hub ✅
+              Events hub still WPBakery on prod (Wave 1 Step 4).
+
+Last completed: Wave 1 Step 3.5 nav repoint shipped on prod ~21:30
+                (TFSI item 2622 + Footer Menu item 2779 both repointed
+                from object_id 2597 → 5113). Top-nav now correctly
+                shows "MEMBERSHIPS" linking to https://thefivestar.com
+                /memberships/. Cumulative day's prod work: F1
+                mu-plugin (after incident + fix), F2 11 media uploads,
+                F3 kit promotion, Wave 1 Steps 1+2+3 plus 3.5 nav fix.
+
+Next phase: WAVE 1 STEP 4 (Phase 2.11 Events hub) is the next gate.
+                IN-PLACE swap pattern (NOT create-new + slug-swap)
+                because prod 5089 has child URLs that depend on parent
+                slug. SOP runbook at docs/sops/fsi-production-promotion
+                .md "Wave 1, Step 4" section has executable commands.
+                After Step 4: WAVE 1 STEP 5 (Phase 4b.11 RE Pros)
+                resolves the broken /communities/real-estate-
+                professionals/ link from Step 3 ship.
+                Then WAVE 2: LLSS Template A revision + Phase 1.11 LLSS.
                 Background tracks: Phase 4a individual Membership pages
                 (7 greenfield, FORCE first), Phase 4b community siblings
-                (3 greenfield), em-dash cleanup, footer widget link fix.
+                (3 greenfield: Mortgage Finance / Legal / Prop Pres),
+                em-dash cleanup, Velocity image slot completion.
 
 ---
 
@@ -151,24 +164,30 @@ Then confirm you've read them and summarize:
   decisions.md top entry. SOP lessons #25-30 capture the workflow
   details (compose-from-disk discipline, file naming, propagation plan,
   sr-only H1 pattern, padding cap, cumulative-gap audit).
-- **The current production promotion plan** in next-chat-handoff.md
-  ("Production promotion plan" block) AND the detailed runbook at
-  `docs/sops/fsi-production-promotion.md` (executable step-by-step,
-  including F1-F4 foundation work, Wave 1 phase .11 operations with
-  exact commands + pre-flight + verification + rollback for each).
-  Wave 1 order (per Jonathan 2026-04-30): Velocity 3.11 → Memberships
-  4a-hub.11 → Communities 4b-hub.11 → Events 2.11 → RE Pros 4b.11.
-  LLSS Template A revision + Phase 1.11 LLSS pushed to Wave 2 (later
-  session). Memberships hub uses create-new + slug-swap pattern (renames
-  prod 2597 to memberships-old) per Jonathan's direction.
-- **Prod pre-flight findings (2026-04-30):** 11 media assets ALL
-  MISSING on prod, fsi-event-styles.php mu-plugin NOT PRESENT on prod,
-  prod kit (4004) is 5+ months stale vs staging, Elementor versions
-  drift slight (prod 4.0.3/4.0.2 vs staging 4.0.2/4.0.2 — accept).
-  Resolved prod page IDs match staging IDs for the most part (Events
-  5089, Velocity 5088, Memberships 2597, RE Pros 5087); /communities/
-  doesn't exist on prod yet. See `docs/sops/fsi-production-promotion.md`
-  pre-flight section for the full table.
+- **The 2026-04-30 EVENING Wave 1 Steps 1-3 SHIPPED block** in
+  decisions.md (top entry). Captures all the prod operations that ran
+  this evening: Velocity 3.11 + Memberships hub 4a-hub.11 + Communities
+  hub 4b-hub.11 + nav repoint 3.5. Includes prod page IDs, attachment
+  ID maps, and atomic rollback meta keys.
+- **The 2026-04-30 F1 incident + recovery + workflow fix** (one entry
+  below in decisions.md). Critical context: deploy.yml in
+  thefivestar-wp was fixed to restrict rsync to wp-content/ scope.
+  Future deploys are safe; original deploy config would have repeated
+  the WP-core-deletion incident.
+- **Wave 1 Steps 4 + 5 are the next-session focus.** SOP runbook at
+  `docs/sops/fsi-production-promotion.md` "Wave 1, Step 4" and "Wave 1,
+  Step 5" have full executable plans. Step 4 = in-place swap on prod
+  5089 (Events hub) with critical child-URL preservation verification.
+  Step 5 = RE Pros relocation from /memberships/ to /communities/ +
+  301 redirect.
+- **Lessons #31-34 in elementor-json-authoring.md** — added this
+  session: SRC_PATH/REMOTE_PATH discipline, WP `-scaled` + `-1`
+  filename behavior, slug-swap nav-item audit pattern, WPE backup API
+  notification_emails requirement.
+- **Pre-flight already done; foundation work is COMPLETE on prod.**
+  Don't need to re-run F1-F3. Don't need to re-audit prod page IDs.
+  Don't need to re-upload media. Just need to execute Wave 1 Steps 4
+  and 5 against the runbook.
 
 Then read the Memberships hub JSON files to understand the current state:
 - `/Users/jonathanhughes/Development/itmanager1341/fsg-wp-ops/sites/thefivestar/elementor-templates/membership-pages/_hub/01-alliance-hero.json` (filename retained but content is now "seven memberships" hero, not Alliance-focused)
@@ -204,7 +223,7 @@ Do not proceed until that summary is confirmed.
 
 ---
 
-## Production promotion plan (current as of 2026-04-30 PM)
+## Production promotion plan (current as of 2026-04-30 EVENING)
 
 **The non-negotiable rule (verbatim from `CLAUDE.md`):** Never run any
 operation on production without explicit per-stage approval from
@@ -212,34 +231,66 @@ Jonathan. Blanket session approval ≠ production approval. Approval to
 run on staging ≠ production approval. Steps 5+6 of the gate (ask in
 chat, wait for explicit "yes") have no exceptions.
 
+### Status snapshot
+
+**Foundation work:** F1 ✅ + F2 ✅ + F3 ✅ + F4 (accept). All complete on prod.
+
+**Wave 1:**
+
+| # | Phase | Status | URL on prod |
+|---|---|---|---|
+| 1 | 3.11 Velocity | ✅ DONE 2026-04-30 ~19:50 | https://thefivestar.com/events/velocity/ (page 5110) |
+| 2 | 4a-hub.11 Memberships hub | ✅ DONE 2026-04-30 ~20:30 | https://thefivestar.com/memberships/ (page 5113) |
+| 3 | 4b-hub.11 Communities hub | ✅ DONE 2026-04-30 ~21:20 | https://thefivestar.com/communities/ (page 5114, not nav-wired) |
+| 3.5 | TFSI + Footer Menu nav repoint | ✅ DONE 2026-04-30 ~21:30 | items 2622 + 2779 → 5113 |
+| **4** | **2.11 Events hub** | **⏳ NEXT** | in-place swap on prod 5089 (4 child URLs to preserve) |
+| 5 | 4b.11 RE Pros | ⏳ pending | new under /communities/ + 5087 relocation + 301 redirect |
+
+**Wave 2 (later session):**
+
+| # | Phase | Page | Pattern |
+|---|---|---|---|
+| 6 | LLSS Template A revision | LLSS staging 5106 | Apply Velocity 2026-04-30 pattern: image-only hero + 3-col info bar + 20/20 padding cap |
+| 7 | 1.11 LLSS | prod | Create-new at canonical singular slug `/events/legal-league-servicer-summit/`. No collision with prod 3579 plural-slug |
+
 ### Pre-flight before any prod push (every Phase .11)
 
-1. **Verify the kit is on prod.** `wp post get <kit_id> --field=post_modified`
-   on prod vs staging. If prod kit is stale, promote kit FIRST.
-2. **Verify mu-plugin `fsi-event-styles.php` is on prod.** The deployed
-   pages use its CSS classes. Without it, sections render unstyled.
-   Promote via Workflow A (`thefivestar-wp` repo → GitHub Actions).
-3. **Verify all referenced media assets exist on prod** as proper
-   attachment records (file on disk + `wp_posts` row + responsive
-   variants). Use `wp post list --post_type=attachment --s=<slug>`
-   on prod for each asset referenced in section JSONs. Re-upload via
-   Media > Add New if missing.
-4. **Verify all 7 logos in prod media library** (Alliance, FORCE,
-   Legal League, NMSA, MSEA, PPEF, AMDC) for Memberships hub promotion.
-5. **Capture pre-state baseline** at 1440/768/420 of the prod URL being
-   replaced (rollback reference).
+1. ✅ kit on prod (F3 complete)
+2. ✅ mu-plugin on prod (F1 complete)
+3. **Verify all referenced media assets exist on prod** as proper attachment records. Use `wp post list --post_type=attachment --s=<slug>` on prod for each asset referenced in section JSONs.
+4. **Verify all 7 logos in prod media library** (only relevant for Memberships hub which is already done — F2 complete).
+5. **Capture pre-state baseline** of the prod URL being replaced (rollback reference).
+6. **Take fresh WPE backup before each prod-touching step** (incident discipline since 2026-04-30 morning F1 incident).
 
-### Suggested promotion order (each gate independent)
+### Active prod page IDs (resolved 2026-04-30)
 
-| # | Phase | Page(s) | Pattern | Pre-reqs |
-|---|-------|---------|---------|----------|
-| 0 | LLSS Template A revision | LLSS staging (page 5106) | Apply Velocity 2026-04-30 changes (image-only hero + 3-col info bar + 20/20 padding). Pre-Phase-1.11 work. | LLSS hero image, LLSS info-bar copy decisions |
-| 1 | **1.11 LLSS** | prod LLSS (create-new) | Create-new + slug-swap. Same pipeline as staging. 8 image slots populated first. | Kit on prod, mu-plugin on prod, all images registered, Template A revision applied to staging-5106 |
-| 2 | **3.11 Velocity** | prod Velocity (create-new) | Create-new + slug-swap. Same pipeline. 3 image slots populated first (Section 2 community + FORCE re-register + Section 8 final CTA bg). | Kit on prod, mu-plugin on prod, all images registered, LLSS already shipped (consistency) |
-| 3 | **4a-hub.11 Memberships hub** | prod Memberships (in-place swap on existing parent OR create-new) | Decide based on prod parent's child pages: if any children exist, in-place swap (Lesson #24); else create-new + slug-swap. | All 7 logos on prod, em-dash cleanup, kit on prod |
-| 4 | **4b-hub.11 Communities hub** | prod Communities (create new parent + content) OR in-place swap if parent exists | Likely create-new since `/communities/` likely doesn't exist on prod. Then in-place swap on the new parent for the hub Elementor data. | RE Pros 4b.11 should ship in same window so /communities/ tree is coherent |
-| 5 | **2.11 Events hub** | prod /events/ (in-place swap) | In-place swap on prod page 5089 (or whatever prod ID is). Backup post_content + _elementor_data + edit_mode to timestamped meta keys. Verify all 4 child URLs HTTP 200 post-swap. | LLSS + Velocity already shipped (children will be Elementor-native by then) |
-| 6 | **4b.11 RE Pros** | prod RE Pros (relocate from /memberships/ to /communities/) | Create `/communities/` parent on prod, create RE Pros Elementor at canonical, slug + parent swap of existing prod RE Pros (if exists), 301 redirect via eps-301-redirects. | /communities/ parent created |
+| URL | Prod page ID |
+|---|---|
+| /events/ (Events hub, still WPBakery — Wave 1 Step 4 target) | 5089 |
+| /events/velocity/ | 5110 (NEW Elementor) |
+| /events/velocity-old/ | 5088 (preserved WPBakery) |
+| /events/legal-league-servicers-summit/ (existing prod LLSS at plural slug) | 3579 (parent 2683) |
+| /memberships/ | 5113 (NEW Elementor) |
+| /memberships-old/ | 2597 (preserved WPBakery) |
+| /memberships/real-estate-professionals/ (currently still under /memberships/, Wave 1 Step 5 target) | 5087 |
+| /communities/ | 5114 (NEW Elementor, no nav-wired) |
+| /communities/real-estate-professionals/ | (404, will resolve when Wave 1 Step 5 ships) |
+| Active Elementor kit | 4004 (post_modified updated 2026-04-30 18:43) |
+
+### Per-promotion runbook template
+
+For each Phase .11:
+
+1. State operation + risk level (most are 🟡 Medium; in-place swaps on pages with children are 🔴 High)
+2. Take fresh WPE backup
+3. Run pre-flight checks above
+4. Execute on prod via `wp eval-file -` + `update_post_meta` pipeline (per `elementor-json-authoring.md` Lesson #17)
+5. Backup prior state to `_elementor_data_backup_*` (or `_elementor_inplace_swap_backup_*` for in-place swaps) timestamped meta keys
+6. Cache flush sequence (Lesson #16): Elementor `flush_css` + `wp cache flush` + `rm -rf wp-rocket/*` + `WpeCommon::purge_varnish_cache_all()` + `WpeCommon::purge_memcached()`
+7. Verify on prod: cache-busted curl + bare URL + child URL preservation (for in-place swaps)
+8. **If create-new + slug-swap:** run "Post-slug-swap nav audit" from `fsi-production-promotion.md` SOP (Lesson #33)
+9. Report results back to Jonathan
+10. Trash `-old` rollback pages on prod ~1-2 weeks post-promotion if no regressions surface
 
 ### Per-promotion runbook template
 
@@ -281,7 +332,64 @@ exists). Drives whether each Phase .11 is create-new or in-place swap.
 
 ---
 
-## Completed this session (2026-04-30 PM) — Phase 3 Velocity Template A revision + image content
+## Completed this session (2026-04-30 EVENING) — Foundation F1-F3 + Wave 1 Steps 1-3 + nav repoint LIVE on PROD
+
+Long, high-stakes session. Foundation work + 3 of 5 Wave 1 phase .11 promotions shipped to production.
+
+### Foundation work shipped to prod
+
+| Step | Time | Result |
+|---|---|---|
+| F1 mu-plugin | 18:08 | `fsi-event-styles.php` md5 parity local + staging + prod ✅ (after incident + workflow fix in `thefivestar-wp` `e9db426`) |
+| F2 11 media uploads | by 14:38 + 20:14 (FORCE/LL re-upload) | All 11 prod attachments registered with clean filenames |
+| F3 kit promotion | 18:43 | Prod kit 4004: 17 custom_colors (10 legacy + 7 fsi*), system_colors at FSI brand, custom_css with heading scoping. Backup at `_elementor_page_settings_backup_2026_04_30_184340`. 4 of 5 sample prod pages ZERO byte HTML diff vs pre-state. |
+| F4 version drift | (no action) | Accept Elementor 4.0.3 prod / 4.0.2 staging |
+
+### Wave 1 phase .11 promotions shipped to prod
+
+| Step | Phase | Prod page ID | Pattern |
+|---|---|---|---|
+| 1 | 3.11 Velocity | 5110 | create-new + slug-swap (5088 → velocity-old) |
+| 2 | 4a-hub.11 Memberships hub | 5113 | create-new + slug-swap (2597 → memberships-old) |
+| 3 | 4b-hub.11 Communities hub | 5114 | single create-and-populate (no swap; /communities/ didn't exist before) |
+| 3.5 | TFSI + Footer Menu nav repoint | items 2622 + 2779 | repoint object_id 2597 → 5113 (post-slug-swap nav fix) |
+
+### Critical incident + recovery (resolved)
+
+F1 first attempt at ~14:25 deleted WP core from prod via rsync `--delete` (the WPE GHA action defaults to syncing repo root → install root; our repo only tracks `wp-content/`). Site returned 500 on most pages. Recovered in ~3 min via `wp core download --skip-content --force` directly on prod. Workflow fixed in `thefivestar-wp` commit `e9db426`: added `SRC_PATH: wp-content/` + `REMOTE_PATH: wp-content/` to `deploy.yml`, rewrote `.deployignore` paths relative to wp-content/. F1 retry with corrected workflow succeeded cleanly. All subsequent deploys safe.
+
+### SOP lessons added (elementor-json-authoring.md #31-34)
+
+| # | Lesson |
+|---|--------|
+| 31 | WP `--delete` rsync deploys must restrict SRC_PATH/REMOTE_PATH to prevent WP-core deletion |
+| 32 | WP Media Library `-scaled` + `-1` filename suffix behavior (the `-1` is the dangerous one — it propagates to variant filenames) |
+| 33 | Slug-swap nav-item audit (after any prod slug-swap that renames a page, audit nav menu items and repoint via update_post_meta) |
+| 34 | WPE backup API requires `notification_emails` field (our `scripts/wpe-backup.sh` wrapper omitted it) |
+
+### Documentation updated this session
+
+| File | Change |
+|------|--------|
+| `docs/decisions.md` | NEW top entry: 2026-04-30 EVENING Wave 1 Steps 1-3 SHIPPED. Plus F1-F3 entry already present below it. |
+| `docs/sops/fsi-production-promotion.md` | Steps 1-3 marked DONE in-place. NEW "Post-slug-swap nav audit" section between Step 3 and Step 4. |
+| `docs/sops/elementor-json-authoring.md` | Lessons #31-34 added |
+| `docs/next-chat-handoff.md` | Header dates + completed/next-phase summary; this completed-session block added; Production promotion plan block updated to current state with prod page IDs |
+| `sites/thefivestar/site-profile.md` | Open Issues row updates: Velocity / Memberships hub / Communities hub / fsi-event-styles.php / footer widget all marked ✅ Done with prod URLs and rollback meta keys |
+| `thefivestar-wp` repo | Commit `e9db426` (deploy.yml fix) — already on main + deployed |
+
+### 🛑 Awaiting decision: which path next session?
+
+1. **Wave 1 Step 4 (Phase 2.11 Events hub)** — in-place swap on prod 5089. 🔴 High risk because the page has child URLs (/events/velocity/, /events/velocity-old/, /events/legal-league-servicers-summit/, etc.) that depend on the parent slug. SOP runbook has the executable plan.
+2. **Wave 1 Step 5 (Phase 4b.11 RE Pros)** — relocate from /memberships/ to /communities/ + 301 redirect. Resolves the broken /communities/real-estate-professionals/ link from the Communities hub Step 3 ship.
+3. **Wave 2 Step 6 (LLSS Template A revision on staging)** — apply Velocity 2026-04-30 pattern to LLSS staging (pre-Phase-1.11 work).
+4. **Wave 2 Step 7 (Phase 1.11 LLSS prod)** — create-new + slug-swap. After Step 6.
+
+Recommended sequencing: Step 4 → Step 5 (close out Wave 1 — both finish the prod hub-shape work) → Step 6 (Wave 2 staging prep) → Step 7 (Wave 2 prod gate).
+
+---
+
+## Completed prior session (2026-04-30 PM) — Phase 3 Velocity Template A revision + image content
 
 ### Changes deployed to page 5107 (`/events/velocity/`)
 

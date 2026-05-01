@@ -377,6 +377,10 @@ ssh thefivestar "wp eval 'update_post_meta(get_option(\"elementor_active_kit\"),
 
 # Wave 1, Step 1: Phase 3.11 Velocity production promotion
 
+**STATUS as of 2026-04-30 ~19:50:** ✅ DONE. New prod page 5110 at canonical `/events/velocity/`. Old WPBakery 5088 preserved at `/events/velocity-old/`. Backup `834949a1-6720-42ce-8dc9-4bddf772081e` + atomic `_elementor_data_backup_2026_04_30_193938` on prod page 5110.
+
+---
+
 **Risk:** 🟡 Medium (create-new + slug-swap; existing prod 5088 preserved)
 **Pre-reqs:** F1 ✅ + F2 (Velocity assets registered: Velocity_Conference_2026_Hero, FSAlliance_Logo, Community-Velocity4, LogoForce1) + F3 ✅
 **Reversible via:** slug-swap back (reverse the operation) + delete the new page
@@ -571,6 +575,12 @@ ssh thefivestar 'wp cache flush && rm -rf /nas/content/cache/wp-rocket/thefivest
 
 # Wave 1, Step 2: Phase 4a-hub.11 Memberships hub production promotion
 
+**STATUS as of 2026-04-30 ~20:30:** ✅ DONE. New prod page 5113 at canonical `/memberships/`. Old WPBakery 2597 preserved at `/memberships-old/`. Backup `4b7f4e62-dd2d-421f-96dc-1a2f80fcb9d9` + atomic `_elementor_data_backup_2026_04_30_202430` on prod page 5113. Followed by Step 3.5 nav repoint (TFSI menu item 2622 + Footer Menu item 2779 both repointed from object_id 2597 → 5113).
+
+**Pre-flight cleanup that happened during this step:** FORCE_COLOR + LL_COLOR logos had `-scaled-1` filename suffix from name-collision on prod upload. Jonathan trashed and re-uploaded clean. New prod attachment IDs: 5112 (FORCE_COLOR), 5111 (LL_COLOR). Section JSONs work as-authored.
+
+---
+
 **Risk:** 🟡 Medium (create-new + slug-swap per Jonathan 2026-04-30; existing prod 2597 preserved)
 **Pre-reqs:** F1 ✅ + F2 (7 logos registered: FS_Alliance_Logo_v2, FSI-Brand-logo_*_COLOR x6) + F3 ✅
 **Pages affected:** Creates new prod page; renames existing prod 2597 (`/memberships/`) → `/memberships-old/`
@@ -623,6 +633,10 @@ EOF
 
 # Wave 1, Step 3: Phase 4b-hub.11 Communities hub production promotion
 
+**STATUS as of 2026-04-30 ~21:20:** ✅ DONE. New prod page 5114 at canonical `/communities/`. Single create-and-populate op (no slug-swap needed). Backup `590aec49-e7e3-4154-ac9d-7bdf3dac69a0`. Per the standing nav-wiring rule, /communities/ is published but NOT added to top-nav.
+
+---
+
 **Risk:** 🟡 Medium (creates new `/communities/` parent — does not exist on prod)
 **Pre-reqs:** F1 ✅ + F2 ✅ + F3 ✅
 **Pages affected:** Creates new `/communities/` parent on prod (no slug-swap needed since no existing /communities/)
@@ -654,6 +668,50 @@ PHP
 
 # Nav-wiring: STOP. Per the standing rule (decisions.md 2026-04-23), DO NOT add /communities/ to top-nav without explicit approval.
 ```
+
+---
+
+# Post-slug-swap nav audit (REQUIRED after any Phase .11 that renames a page)
+
+**Why this exists:** WP nav menu items reference pages by post ID. When a slug-swap renames an existing page (e.g., 2597 → `memberships-old`), nav items still pointing to that post ID will display the renamed page's title ("Memberships (Old WPBakery)") and link to the renamed URL. Lesson learned 2026-04-30 during Wave 1 Step 2 → Step 3.5 sequence.
+
+**When to run:** any Phase .11 that uses create-new + slug-swap (Steps 1, 2; future LLSS 1.11). NOT needed for in-place swap (no rename) or pure create-new (no existing page).
+
+**Find nav items pointing to the renamed page:**
+
+```bash
+cat <<'PHP' | ssh thefivestar 'wp eval-file -' | grep -v Deprecated
+<?php
+$RENAMED_OLD_ID = <old_page_id>;  # e.g., 2597 (now memberships-old)
+$NEW_PAGE_ID = <new_page_id>;     # e.g., 5113 (the new memberships)
+
+global $wpdb;
+$rows = $wpdb->get_results($wpdb->prepare("
+  SELECT p.ID, p.post_title, m1.meta_value AS object_type, m2.meta_value AS object_id
+  FROM {$wpdb->posts} p
+  LEFT JOIN {$wpdb->postmeta} m1 ON p.ID = m1.post_id AND m1.meta_key = '_menu_item_type'
+  LEFT JOIN {$wpdb->postmeta} m2 ON p.ID = m2.post_id AND m2.meta_key = '_menu_item_object_id'
+  WHERE p.post_type = 'nav_menu_item' AND p.post_status = 'publish' AND m2.meta_value = %s
+", (string)$RENAMED_OLD_ID), ARRAY_A);
+foreach ($rows as $r) echo "  Item ID={$r['ID']} title={$r['post_title']} object_id={$r['object_id']}\n";
+PHP
+```
+
+**Repoint each item (per `how-we-update-the-site.md` nav gotcha — never `wp_update_nav_menu_item` for partial updates):**
+
+```bash
+cat <<EOF | ssh thefivestar 'wp eval-file -'
+<?php
+foreach ([<item_id_1>, <item_id_2>] as \$item_id) {
+    update_post_meta(\$item_id, '_menu_item_object_id', '<new_page_id>');
+}
+wp_cache_flush();
+if (class_exists('WpeCommon')) { WpeCommon::purge_varnish_cache_all(); WpeCommon::purge_memcached(); }
+EOF
+ssh thefivestar 'wp cache flush && rm -rf /nas/content/cache/wp-rocket/thefivestar.com/*'
+```
+
+**Verify:** load home page + footer; confirm nav text reads correctly + links resolve to new URL.
 
 ---
 

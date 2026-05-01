@@ -727,3 +727,52 @@ was last modified 2025-11-04 — five months stale relative to staging).
     If the user reports "wasted space," the audit must show the
     cumulative gap, not the per-section number. Quoting "60/60" when
     the visual gap is 120px+ is misleading.
+31. **WP `--delete` rsync deploys must restrict SRC_PATH/REMOTE_PATH**
+    (incident 2026-04-30). The `wpengine/github-action-wpe-site-deploy@v3`
+    action defaults `SRC_PATH` and `REMOTE_PATH` to `.` (repo root → install
+    root). With `rsync --delete`, anything in destination not in source gets
+    deleted. If your repo only tracks `wp-content/` (typical), running this
+    against prod will DELETE WP core (`wp-admin/`, `wp-includes/`, root
+    `wp-*.php` files, `index.php`, etc.) on first prod deploy. Recovery via
+    `wp core download --skip-content --force` directly on the install (~3 min).
+    **Fix:** always set `SRC_PATH: wp-content/` + `REMOTE_PATH: wp-content/` so
+    rsync physically cannot reach install root. `.deployignore` patterns then
+    become relative to wp-content/ (no `wp-content/` prefix). See
+    `thefivestar-wp` commit `e9db426`.
+32. **WP Media Library `-scaled` + `-1` filename suffixes** (lesson
+    learned 2026-04-30 during F2 + Wave 1 Step 2). When you upload an image
+    >2560px on the longest side, WP saves the original AND creates a
+    downsized `-scaled` version that becomes the "main" file. **Variant
+    filenames stay clean** (e.g., `foo-scaled.png` main → `foo-300x78.png`,
+    `foo-1024x266.png` variants). NO `-scaled` suffix in variant filenames.
+    BUT if a name conflict exists at upload time (file already on disk OR
+    another attachment with the same name), WP appends `-1` to the WHOLE
+    filename pattern. The `-1` then propagates into every variant filename:
+    `foo-scaled-1.png` main → `foo-scaled-1-300x78.png` variant. **Fix for
+    name conflict:** trash the offending attachment, clear orphan files
+    on disk if any, re-upload. **`-scaled` alone is harmless** — variants
+    stay clean. Only `-1` (or `-2`, `-3`, etc.) is the problem.
+33. **Slug-swap nav-item audit** (lesson learned 2026-04-30 during Wave 1
+    Steps 2 → 3.5). After any prod slug-swap that renames an existing page
+    (e.g., 2597 → `memberships-old`), audit nav menu items for references to
+    the renamed page's post ID. Nav items pointing to that ID will display
+    the renamed-page's new title (e.g., "Memberships (Old WPBakery)") AND
+    link to the renamed URL (e.g., `/memberships-old/`). Repoint via
+    `update_post_meta($item_id, '_menu_item_object_id', $new_id)` —
+    NEVER use `wp_update_nav_menu_item` for partial updates (clears other
+    fields). Affects every Phase .11 that uses create-new + slug-swap. NOT
+    needed for in-place swap (no rename). See `fsi-production-promotion.md`
+    "Post-slug-swap nav audit" section for the executable query + fix.
+34. **WPE backup API requires `notification_emails`** (lesson learned
+    2026-04-30 during F1 setup). The WPE Hosting API endpoint
+    `POST /installs/{id}/backups` requires a `notification_emails` field in
+    the JSON body. Our `scripts/wpe-backup.sh` wrapper omitted it. Fix is
+    to add `"notification_emails": ["lazyj@ljimpressions.com"]` to the
+    POST body. Update the wrapper script before next backup invocation.
+    Direct curl pattern that works:
+    ```
+    curl -sf -X POST -H "Authorization: Basic $WPE_CREDS" \
+      -H "Content-Type: application/json" \
+      -d '{"description":"...","notification_emails":["lazyj@ljimpressions.com"]}' \
+      "https://api.wpengineapi.com/v1/installs/$ID/backups"
+    ```

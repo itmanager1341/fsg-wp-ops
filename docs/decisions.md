@@ -7,6 +7,119 @@ New decisions go at the top.
 
 ---
 
+## 2026-04-30 EVENING — Wave 1 Steps 1-3 SHIPPED to production
+
+Three Phase .11 production promotions completed in sequence after F1-F3 foundation work. Per Jonathan's reordering, LLSS Template A revision + Phase 1.11 LLSS pushed to Wave 2 (next session); Wave 1 prioritized Velocity → Memberships hub → Communities hub.
+
+### Wave 1 Step 1 — Phase 3.11 Velocity ✅
+
+**Operation:** create-new + slug-swap on prod. New page 5110 created with composed Velocity sections (9 sections, 17,636 B `_elementor_data`) at provisional slug `velocity-elementor`. After verification, slug-swap: prod 5088 → `velocity-old` (title "Velocity (Old WPBakery)"), 5110 → `velocity` (title "Velocity").
+
+**Attachment ID remap (staging → prod):**
+
+| Asset | Staging ID | Prod ID |
+|---|---|---|
+| Velocity_Conference_2026_Hero_1900-x-600.jpg | 5143 | 5099 |
+| FSAlliance_Logo_480-x-220.jpg | 5144 | 5100 |
+| Community-Velocity4.jpg | (orphan) | 5101 |
+| LogoForce1.jpg | (orphan) | 5098 |
+
+URL remap: `thefivestarstg.wpenginepowered.com` → `thefivestar.com`.
+
+**Verification:** all 9 sections render, hero bg image in compiled per-page CSS, info bar present (WHEN | REGISTER | WHERE), date strap, Section 2 H2 "Two days. One community.", zero leftover staging URLs. Bare URL HTTP 200 (Varnish flushed clean).
+
+**Backups:** WPE `834949a1-6720-42ce-8dc9-4bddf772081e` (pre-Wave-1-Step-1) + atomic `_elementor_data_backup_2026_04_30_193938` on prod page 5110.
+
+**Live:** https://thefivestar.com/events/velocity/. Old at https://thefivestar.com/events/velocity-old/.
+
+### Wave 1 Step 2 — Phase 4a-hub.11 Memberships hub ✅
+
+**Pre-flight cleanup (Jonathan):** the FORCE_COLOR + LL_COLOR logos uploaded earlier landed at `-scaled-1` filenames due to name conflicts on prod. Section JSONs reference un-suffixed paths. Resolution: Jonathan trashed the 2 attachments (5104 + 5106) and re-uploaded clean. New attachments 5112 (FORCE_COLOR) + 5111 (LL_COLOR) registered with clean filenames matching staging URL pattern. Net effect: section JSONs work as-authored with no URL rewrite.
+
+**Operation:** create-new + slug-swap on prod. New page 5113 created with composed Memberships hub sections (4 sections, 14,506 B `_elementor_data`) at provisional slug `memberships-elementor`. After verification, slug-swap: prod 2597 → `memberships-old` (title "Memberships (Old WPBakery)"), 5113 → `memberships` (title "Memberships").
+
+**No attachment ID remap needed** — the Memberships hub references all 7 logos via inline `<img>` URLs (no Elementor-bound attachment IDs to remap).
+
+**Verification:** all 4 sections render, H1 "seven memberships that move this industry forward", sub naming all 7 (NMSA / MSEA / Legal League / FORCE / PPEF / AMDC / Five Star Alliance), 6 specialty tile titles present, 7 logo URLs all HTTP 200, Alliance foundation strip with "underneath every specialty above" copy. Zero leftover staging URLs.
+
+**Backups:** WPE `4b7f4e62-dd2d-421f-96dc-1a2f80fcb9d9` + atomic `_elementor_data_backup_2026_04_30_202430` on prod page 5113.
+
+**Live:** https://thefivestar.com/memberships/. Old at https://thefivestar.com/memberships-old/.
+
+**Updated prod attachment ID map for Memberships hub:**
+
+| Asset | Prod ID |
+|---|---|
+| FS_Alliance_Logo_v2.png | 5103 |
+| FSI-Brand-logo_FORCE_COLOR.png | **5112** (was 5104, re-uploaded clean) |
+| FSI-Brand-logo_LL_COLOR.png | **5111** (was 5106, re-uploaded clean) |
+| FSI-Brand-logo_NMSA_COLOR.png | 5108 |
+| FSI-Brand-logo_MSEA_COLOR.png | 5105 |
+| FSI-Brand-logo_PPEF_COLOR.png | 5107 |
+| FSI-Brand-logo_AMDC_COLOR.png | 5109 |
+
+### Wave 1 Step 3 — Phase 4b-hub.11 Communities hub ✅
+
+**Operation:** single create-and-populate (no slug-swap needed — `/communities/` did not exist on prod pre-shipment). New page 5114 created at canonical slug `communities` with composed Communities hub sections (6 sections, 16,001 B `_elementor_data`) populated in one operation. URL remap only (staging → prod domain); no attachment IDs to remap.
+
+**Verification:** all 6 sections render, H1 "four professions that keep housing moving", all 4 community card titles (Mortgage Finance / Financial Services Law / Real Estate / Property Preservation), FSC convergence "All four communities" present, Memberships CTA link to /memberships/ present. Internal RE Pros community link points to `/communities/real-estate-professionals/` which currently 404s on prod (will resolve when Wave 1 Step 5 ships).
+
+**Backups:** WPE `590aec49-e7e3-4154-ac9d-7bdf3dac69a0` + page can be deleted entirely as rollback (URL becomes 404 again, pre-state).
+
+**Live:** https://thefivestar.com/communities/. Per the standing nav-wiring rule, /communities/ has NOT been added to top-nav. Page is published but discoverable only by direct URL or from /communities/real-estate-professionals/ (when 4b.11 ships).
+
+### Wave 1 Step 3.5 — TFSI + Footer Menu nav repoint ✅
+
+**Issue:** the Memberships slug-swap (Step 2) renamed prod page 2597 to "Memberships (Old WPBakery)". Two nav menu items pointed to page 2597:
+
+| Menu item ID | Menu | Display before | Display after |
+|---|---|---|---|
+| 2622 | TFSI (top nav, primary/mobile/bottom locations) | "MEMBERSHIPS (OLD WPBAKERY)" (auto-pulled from renamed page title) | "MEMBERSHIPS" (auto-pulled from new page 5113 "Memberships") |
+| 2779 | Footer Menu | "Membership Groups" → /memberships-old/ | "Membership Groups" → /memberships/ |
+
+**Fix:** repointed `_menu_item_object_id` from 2597 → 5113 on both items via `update_post_meta` (per `how-we-update-the-site.md` nav gotcha — never use `wp_update_nav_menu_item` for partial updates).
+
+**Verification:** prod home page renders "Memberships" 3× (one per nav location); footer link to `https://thefivestar.com/memberships/` confirmed.
+
+**Lesson learned:** any prod slug-swap that renames a page MUST be followed by a nav-item audit. Pages referenced by nav menus will display the renamed-page's title until the menu item is repointed. Adding to elementor-json-authoring.md as Lesson #33 + to fsi-production-promotion.md SOP as a post-slug-swap verification step.
+
+### Wave 1 Step 4 (Events hub) + Step 5 (RE Pros) — REMAINING
+
+**Step 4 Phase 2.11 Events hub:** in-place swap on prod page 5089 (NOT create-new + slug-swap, because 5089 has child URLs `/events/velocity/`, `/events/velocity-old/`, `/events/legal-league-servicers-summit/` that depend on parent slug). Per SOP Lesson #24. CRITICAL VERIFY post-swap: all child URLs return HTTP 200.
+
+**Step 5 Phase 4b.11 RE Pros:** create new RE Pros under /communities/ (parent 5114 from Step 3), then slug+parent swap of existing prod 5087 (currently at `/memberships/real-estate-professionals/`) to `/communities/real-estate-professionals-old/`. Add 301 redirect via `eps-301-redirects` from `memberships/real-estate-professionals` → new RE Pros prod ID. Resolves the broken RE Pros community link in the Communities hub Step 3 ship.
+
+### Backups in chronological order (Wave 1 day, all atomic-rollback insurance)
+
+| Time | Backup ID | Purpose |
+|---|---|---|
+| 2026-04-30 ~14:25 | `3258a2de-ccf5-485e-adb9-ae2a584352c2` | Pre-F1 first attempt |
+| 2026-04-30 ~17:30 | `4edeef14-cf4b-4530-8af1-d0518a480c02` | Pre-deploy.yml-fix (staging) |
+| 2026-04-30 ~18:00 | `2e6781fd-3529-4b6b-af48-de99ddf511fe` | Pre-F1-retry |
+| 2026-04-30 ~18:43 | `5fed8e17-0ce0-4af6-a749-5d6bac5b20fc` | Pre-F3 |
+| 2026-04-30 ~19:38 | `834949a1-6720-42ce-8dc9-4bddf772081e` | Pre-Wave-1-Step-1 (Velocity) |
+| 2026-04-30 ~20:23 | `4b7f4e62-dd2d-421f-96dc-1a2f80fcb9d9` | Pre-Wave-1-Step-2 (Memberships hub) |
+| 2026-04-30 ~21:15 | `590aec49-e7e3-4154-ac9d-7bdf3dac69a0` | Pre-Wave-1-Step-3 (Communities hub) |
+
+Atomic rollback meta keys on prod (in addition to WPE backups):
+- `_elementor_page_settings_backup_2026_04_30_184340` on prod kit 4004 (full pre-F3 kit settings)
+- `_elementor_data_backup_2026_04_30_193938` on prod page 5110 (Velocity)
+- `_elementor_data_backup_2026_04_30_202430` on prod page 5113 (Memberships hub)
+
+### What's live on prod after Wave 1 Steps 1-3
+
+| URL | Page ID | Status |
+|---|---|---|
+| https://thefivestar.com/events/velocity/ | 5110 | Elementor (NEW) |
+| https://thefivestar.com/events/velocity-old/ | 5088 | WPBakery (preserved fallback) |
+| https://thefivestar.com/memberships/ | 5113 | Elementor (NEW) |
+| https://thefivestar.com/memberships-old/ | 2597 | WPBakery (preserved fallback) |
+| https://thefivestar.com/communities/ | 5114 | Elementor (NEW, no nav-wired) |
+| https://thefivestar.com/communities/real-estate-professionals/ | (none, 404) | Wave 1 Step 5 will resolve |
+| https://thefivestar.com/events/ | 5089 | WPBakery still — Wave 1 Step 4 will in-place swap |
+
+---
+
 ## 2026-04-30 — Foundation work F1-F3: prod-promotion enabling steps
 
 Wave 1 is now unblocked. Three foundation steps completed against thefivestar.com production today.
