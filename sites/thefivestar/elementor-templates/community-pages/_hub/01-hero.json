@@ -13,7 +13,6 @@
   "settings": {
     "content_width": "full",
     "flex_direction": "column",
-    "flex_align_items": "center",
     "background_background": "classic",
     "background_color": "#1F365C",
     "padding": {"unit": "px", "top": "80", "right": "40", "bottom": "80", "left": "40", "isLinked": false},
@@ -25,7 +24,7 @@
       "elType": "widget",
       "widgetType": "html",
       "settings": {
-        "html": "<div style=\"max-width:920px; margin:0 auto;\">\n  <p style=\"color:#c9a040; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:2.5px; margin:0 0 16px;\">Professional Communities</p>\n  <h1 style=\"color:#ffffff; margin:0 0 16px;\">The four professions that keep housing moving.</h1>\n  <p style=\"color:#cfd5de; font-size:18px; line-height:1.55; max-width:780px; margin:0;\">Five Star Institute organizes and connects the servicers, attorneys, real estate professionals, and preservation specialists who form the operational backbone of the mortgage and housing industries.</p>\n</div>"
+        "html": "<div style=\"max-width:920px;\">\n  <p style=\"color:#c9a040; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:2.5px; margin:0 0 16px;\">Professional Communities</p>\n  <h1 style=\"color:#ffffff; margin:0 0 16px;\">The four professions that keep housing moving.</h1>\n  <p style=\"color:#cfd5de; font-size:18px; line-height:1.55; max-width:780px; margin:0;\">Five Star Institute organizes and connects the servicers, attorneys, real estate professionals, and preservation specialists who form the operational backbone of the mortgage and housing industries.</p>\n</div>"
       },
       "elements": []
     }

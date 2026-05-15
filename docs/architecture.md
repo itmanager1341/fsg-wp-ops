@@ -71,8 +71,8 @@ WP core, third-party plugins, and uploads are never tracked.
 
 | Layer | Detail |
 |-------|--------|
-| Theme | The7 v6.9.4 (Dream-Theme), **WPBakery mode** |
-| Page builder | WPBakery Page Builder |
+| Theme | The7 v14.3.0 (Dream-Theme) — Hello Elementor migration planned; see `sites/thefivestar/theme-migration.md` |
+| Page builder | **Elementor + Elementor Pro 4.0.2** (forward); WPBakery maintenance-only |
 | SEO | All in One SEO Pro 4.8.6.2 + add-on suite |
 | Performance | WP Rocket (needs update from 2.6.1) |
 | Ads | Advanced Ads Pro + AMP Ads + GAM + Sticky + Tracking |
@@ -82,9 +82,11 @@ WP core, third-party plugins, and uploads are never tracked.
 | PHP (prod) | 8.2 |
 | PHP (stg/dev) | 8.4 |
 
-The7 is set to WPBakery mode (confirmed in Theme Settings screenshot).
-Elementor is installed but Elementor Pro is deactivated — decision pending.
-Classic Editor + Classic Widgets must remain active for WPBakery.
+Elementor 4.0.2 and Elementor Pro 4.0.2 are active (2026-04-22 portfolio standardization decision).
+Elementor Global Kit v1 is live on staging; brand color + typography tokens partially promoted to production.
+WPBakery remains active for legacy pages; Classic Editor + Classic Widgets stay active until all WPBakery
+pages are retired. The7 Theme Settings page-builder mode is left as WPBakery — Elementor pages work
+regardless of this setting. Hello Elementor theme migration is planned as a separate phase.
 
 ---
 
@@ -117,6 +119,7 @@ Classic Editor + Classic Widgets must remain active for WPBakery.
 | Date | Decision | Rationale |
 |------|----------|-----------|
 | 2026-04 | thefivestar-wp is reference impl | Prove pattern before rolling to AMAA + MP |
-| 2026-04 | WPBakery stays as FSI page builder | Content locked in shortcodes; migration = full rebuild |
+| ~~2026-04~~ | ~~WPBakery stays as FSI page builder~~ | Superseded 2026-04-22 — Elementor is forward builder |
+| 2026-04-22 | Elementor + Elementor Pro as sole forward builder | WPBakery maintenance-only; migrate as pages are touched |
 | 2026-04 | AIOSEO Pro over Yoast | Paid investment; Yoast is redundant and will be removed |
 | 2026-04 | PHP 8.4 on FSI stg/dev | Test forward compat before prod upgrade |

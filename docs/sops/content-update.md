@@ -18,19 +18,28 @@ No git involved for standard content. Git is for code only.
 
 ---
 
-## Page builder: WPBakery
+## Page builder
 
-All page layouts on thefivestar.com use WPBakery Page Builder.
-- Edit via WP Admin → Pages/Posts → Backend Editor
+### Elementor pages (new standard — all pages built after 2026-04-22)
+
+- Edit via WP Admin → Edit with Elementor
+- For structural section changes, use the JSON authoring workflow:
+  `docs/sops/elementor-json-authoring.md`
+- Minor text/link edits can be made directly in the Elementor editor
+
+### WPBakery pages (legacy/maintenance — existing pages not yet migrated)
+
+- Edit via WP Admin → Pages/Posts → Backend Editor (Classic Editor)
 - Do NOT switch a WPBakery page to the Gutenberg block editor — it will
-  render raw shortcode text on the frontend.
-- Classic Editor plugin must remain active.
+  render raw shortcode text on the frontend
+- Do NOT create new pages in WPBakery — new pages use Elementor only
+- Classic Editor plugin must remain active while WPBakery pages exist
 
 ---
 
 ## Standard article flow
 
-1. Draft in WP Admin → Posts → Add New (Classic Editor / WPBakery)
+1. Draft in WP Admin → Posts → Add New (Classic Editor for WPBakery-based posts; Elementor for Elementor pages)
 2. Fill in AIOSEO fields: Focus Keyphrase, Meta Title, Meta Description
 3. Set Featured Image (1200×630 px minimum)
 4. Preview before publish
@@ -60,6 +69,7 @@ Then purge WPE server cache: portal → Caching → Clear All
 
 Forms are managed in HubSpot portal and embedded via the HubSpot plugin.
 To add or change a form:
+
 1. Create/edit the form in HubSpot
 2. In WP: use the HubSpot block or shortcode to embed
 3. Test on staging (`thefivestarstg`) before production

@@ -1,0 +1,31 @@
+{
+  "_authoring_notes": [
+    "Events hub Section 0: hero band. Authored 2026-05-01.",
+    "Follows Template C pattern (communities/memberships hub precedent): full-bleed navy, eyebrow + H1 + tagline, left-aligned, _dt_header_title=disabled.",
+    "H1 inherits The7 default (Open Sans Condensed bold UPPERCASE). Sentence-case source renders as all-caps.",
+    "Intro paragraph section (01-hub-intro.json) dropped — sub copy here replaces it. Payload is now hero + event cards only.",
+    "Eyebrow/sub keep explicit color/size/transform — The7 does not restyle <p> tags."
+  ],
+  "id": "ehub-hero-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "full",
+    "flex_direction": "column",
+    "background_background": "classic",
+    "background_color": "#1F365C",
+    "padding": {"unit": "px", "top": "80", "right": "40", "bottom": "80", "left": "40", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "60", "right": "20", "bottom": "60", "left": "20", "isLinked": false}
+  },
+  "elements": [
+    {
+      "id": "ehub-hero-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div style=\"max-width:920px;\">\n  <p style=\"color:#c9a040; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:2.5px; margin:0 0 16px;\">FSI Events</p>\n  <h1 style=\"color:#ffffff; margin:0 0 16px;\">The rooms that matter.</h1>\n  <p style=\"color:#cfd5de; font-size:18px; line-height:1.55; max-width:780px; margin:0;\">Each event is built around a professional community, with programming shaped by practitioners. All four communities converge once a year at Five Star Conference.</p>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}
