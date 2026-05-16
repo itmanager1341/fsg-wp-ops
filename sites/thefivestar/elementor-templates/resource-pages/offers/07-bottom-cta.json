@@ -1,0 +1,31 @@
+{
+  "_authoring_notes": [
+    "FSI Offers Section 8 — Bottom CTA. 2-card grid (Free / Alliance) for final-position conversion.",
+    "Mirrors v2 mockup pattern. Cream bg outer with two white cards centered.",
+    "Left card: Try the free tool → fsioffers.com. Right card: Join Alliance → mailto.",
+    "Right card primary CTA (navy bg) since Alliance is the conversion goal. Left card secondary CTA (outline)."
+  ],
+  "id": "offers-bottom-cta-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "background_background": "classic",
+    "background_color": "#F7F7F5",
+    "padding": {"unit": "px", "top": "32", "right": "20", "bottom": "32", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "24", "right": "16", "bottom": "24", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "offers-bottom-cta-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div style=\"display:grid; grid-template-columns:1fr 1fr; gap:20px; max-width:920px; margin:0 auto;\">\n\n  <div style=\"background:#fff; border:1px solid #e0e0dc; border-radius:4px; padding:32px 28px; text-align:center;\">\n    <h3 style=\"color:#1f365c; font-size:22px; font-weight:700; margin:0 0 12px;\">Try the free tool</h3>\n    <p style=\"color:#444; font-size:14.5px; line-height:1.6; margin:0 0 22px;\">Start with unlimited cash offer aggregation. No membership required. Auto-provisioned hosted page included.</p>\n    <p style=\"margin:0;\"><a href=\"https://fsioffers.com\" style=\"display:inline-block; background:transparent; color:#1f365c; font-weight:700; font-size:14px; padding:12px 24px; border:2px solid #1f365c; border-radius:3px; text-decoration:none; text-transform:uppercase; letter-spacing:0.5px;\">Go to fsioffers.com</a></p>\n  </div>\n\n  <div style=\"background:#fff; border:1px solid #e0e0dc; border-radius:4px; padding:32px 28px; text-align:center;\">\n    <h3 style=\"color:#1f365c; font-size:22px; font-weight:700; margin:0 0 12px;\">Join Five Star Alliance</h3>\n    <p style=\"color:#444; font-size:14.5px; line-height:1.6; margin:0 0 22px;\">Activate the full platform and unlock the rest of FSI membership: MortgagePoint, education, event discounts, and community standing.</p>\n    <p style=\"margin:0;\"><a href=\"mailto:membership@thefivestar.com\" style=\"display:inline-block; background:#1f365c; color:#ffffff; font-weight:700; font-size:14px; padding:14px 26px; border-radius:3px; text-decoration:none; text-transform:uppercase; letter-spacing:0.5px;\">Contact Membership</a></p>\n  </div>\n\n</div>\n\n<style>\n  @media (max-width: 768px) {\n    #offers-bottom-cta-outer div[style*='grid-template-columns:1fr 1fr'] {\n      grid-template-columns: 1fr !important;\n    }\n  }\n</style>"
+      },
+      "elements": []
+    }
+  ]
+}

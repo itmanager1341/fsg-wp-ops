@@ -1,0 +1,30 @@
+{
+  "_authoring_notes": [
+    "FSI Offers Section 3 — Capabilities. 3-card grid: Cash Offers / Lead Intelligence / Marketing & Follow-Up.",
+    "Card pattern: white bg, 1px border, 4px gold top accent bar (matches FSI tile aesthetic).",
+    "Each card has H3 + body + availability footer (small caps).",
+    "Availability footer surfaces the gating: Free at every tier vs Unlocked at Five Star Alliance.",
+    "Inline-styled per Path A precedent."
+  ],
+  "id": "offers-capabilities-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "20", "right": "20", "bottom": "32", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "16", "right": "16", "bottom": "24", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "offers-capabilities-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<h2 style=\"color:#1f365c; font-size:28px; font-weight:700; border-bottom:2px solid #c9a040; padding-bottom:10px; margin:0 0 28px;\">What FSI Offers Does</h2>\n<p style=\"color:#444; font-size:16px; line-height:1.6; max-width:780px; margin:0 0 28px;\">A single platform covering the three jobs every real estate professional needs done: generate offers, identify the people on your site, and stay in front of them until they transact.</p>\n\n<div style=\"display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;\">\n\n  <!-- CARD 1: CASH OFFERS -->\n  <div style=\"position:relative; background:#fff; border:1px solid #e0e0dc; border-top:4px solid #c9a040; border-radius:4px; padding:28px 24px;\">\n    <h3 style=\"color:#1f365c; font-size:20px; font-weight:700; margin:0 0 12px;\">Cash Offers</h3>\n    <p style=\"color:#444; font-size:14.5px; line-height:1.6; margin:0 0 18px;\">Aggregate competitive cash offers from active institutional buyers on any property address. Unlimited submissions. A working tool for listing conversations, off-market opportunities, and investor outreach.</p>\n    <p style=\"color:#888; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; margin:0;\">Free at every tier</p>\n  </div>\n\n  <!-- CARD 2: LEAD INTELLIGENCE -->\n  <div style=\"position:relative; background:#fff; border:1px solid #e0e0dc; border-top:4px solid #c9a040; border-radius:4px; padding:28px 24px;\">\n    <h3 style=\"color:#1f365c; font-size:20px; font-weight:700; margin:0 0 12px;\">Lead Intelligence</h3>\n    <p style=\"color:#444; font-size:14.5px; line-height:1.6; margin:0 0 18px;\">Identify the people visiting your site. Names, phone numbers, email, browsing behavior, session replay, and property-level data including valuation and equity estimates. Skip trace built in.</p>\n    <p style=\"color:#888; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; margin:0;\">Unlocked at Five Star Alliance</p>\n  </div>\n\n  <!-- CARD 3: MARKETING & FOLLOW-UP -->\n  <div style=\"position:relative; background:#fff; border:1px solid #e0e0dc; border-top:4px solid #c9a040; border-radius:4px; padding:28px 24px;\">\n    <h3 style=\"color:#1f365c; font-size:20px; font-weight:700; margin:0 0 12px;\">Marketing &amp; Follow-Up</h3>\n    <p style=\"color:#444; font-size:14.5px; line-height:1.6; margin:0 0 18px;\">Hosted website, single-property pages, landing page builder, embeddable widgets, and CRM automation that routes leads where you actually work them. The full marketing stack, ready on day one.</p>\n    <p style=\"color:#888; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; margin:0;\">Unlocked at Five Star Alliance</p>\n  </div>\n\n</div>\n\n<style>\n  @media (max-width: 768px) {\n    #offers-capabilities-outer .e-con-inner > .elementor-widget-html div[style*='grid-template-columns:repeat(3'] {\n      grid-template-columns: 1fr !important;\n    }\n  }\n</style>"
+      },
+      "elements": []
+    }
+  ]
+}

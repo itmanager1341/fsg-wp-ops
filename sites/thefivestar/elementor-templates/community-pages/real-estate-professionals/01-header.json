@@ -24,7 +24,7 @@
       "elType": "widget",
       "widgetType": "html",
       "settings": {
-        "html": "<div style=\"max-width:1100px; padding:64px 0;\">\n  <p style=\"color:#c9a040; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:2.5px; margin:0 0 16px;\">Five Star Institute Community</p>\n  <h1 style=\"color:#ffffff; margin:0 0 16px;\">Real Estate Professionals</h1>\n  <p style=\"color:#cfd5de; font-size:18px; line-height:1.55; max-width:780px; margin:0;\">The community for real estate professionals working distressed property, REO, single-family rental, fix and flip, and institutional inventory.</p>\n</div>"
+        "html": "<div style=\"max-width:1100px; margin:0 auto; padding:64px 20px;\">\n  <p style=\"color:#c9a040; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:2.5px; margin:0 0 16px;\">Five Star Institute Community</p>\n  <h1 style=\"color:#ffffff; margin:0 0 16px;\">Real Estate Professionals</h1>\n  <p style=\"color:#cfd5de; font-size:18px; line-height:1.55; max-width:780px; margin:0;\">The community for real estate professionals working distressed property, REO, single-family rental, fix and flip, and institutional inventory.</p>\n</div>"
       },
       "elements": []
     }

@@ -1,0 +1,28 @@
+{
+  "_authoring_notes": [
+    "FSI Offers Section 9 — Footer-line. Mirrors RE Pros 08-footer-line exactly: center-aligned contact info with top border.",
+    "Tagline differs (FSI Offers Platform vs Real Estate Professional Community) to match this page's scope.",
+    "URLs production-normalized (thefivestar.com / fsioffers.com / membership@thefivestar.com)."
+  ],
+  "id": "offers-footer-line-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "padding": {"unit": "px", "top": "20", "right": "20", "bottom": "20", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "16", "right": "16", "bottom": "16", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "offers-footer-line-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div style=\"text-align:center; border-top:2px solid #ddd; padding:28px 0 12px;\">\n  <p><em>Five Star Institute &nbsp;|&nbsp; FSI Offers Platform</em></p>\n  <p style=\"margin-top:8px;\">\n    <a href=\"https://thefivestar.com\">thefivestar.com</a> &nbsp;&nbsp;|&nbsp;&nbsp;\n    <a href=\"https://fsioffers.com\">fsioffers.com</a> &nbsp;&nbsp;|&nbsp;&nbsp;\n    <a href=\"mailto:membership@thefivestar.com\">membership@thefivestar.com</a> &nbsp;&nbsp;|&nbsp;&nbsp;\n    (214) 525-6700\n  </p>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}
