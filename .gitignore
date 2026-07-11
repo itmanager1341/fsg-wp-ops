@@ -3,6 +3,11 @@
 .env.local
 .env.*.local
 
+# Google service-account keys
+*.sa.json
+*-sa.json
+gcp-*.json
+
 # direnv local overrides
 .envrc.local
 

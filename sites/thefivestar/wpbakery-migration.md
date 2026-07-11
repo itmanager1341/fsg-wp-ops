@@ -1,5 +1,65 @@
 # WPBakery → Elementor Migration Tracker: thefivestar.com
 
+## Current state (2026-05-16)
+
+**Wave 1 production migration COMPLETE.** Five core pages now Elementor on prod:
+
+| URL | Prod ID | Shipped | How |
+|---|---|---|---|
+| /events/ | 5089 | 2026-05-01 | In-place swap (Wave 1 Step 4) |
+| /events/velocity/ | 5110 | 2026-04-30 | Create-new + slug-swap (Wave 1 Step 1) |
+| /memberships/ | 5113 | 2026-04-30 | Create-new + slug-swap (Wave 1 Step 2) |
+| /communities/ | 5114 | 2026-04-30 | Single create + populate (Wave 1 Step 3, no swap — URL didn't exist) |
+| /communities/real-estate-professionals/ | 5115 | 2026-05-01 | Create-new + slug-swap (Wave 1 Step 5) |
+
+**Resource Page template established 2026-05-16:**
+
+| URL | Prod ID | Shipped | How |
+|---|---|---|---|
+| /resources/offers/ | 5127 | 2026-05-16 | Single create + populate |
+
+Resource Pages live alongside event-pages / community-pages / membership-pages as the fourth FSI template type. First instance: FSI Offers.
+
+**Membership Page template established 2026-05-18:**
+
+| URL | Prod ID | Shipped | How |
+|---|---|---|---|
+| /memberships/alliance/ | 5128 | 2026-05-18 | Single create + populate (Phase 4a first instance) |
+
+Membership Page template pattern: white centered hero (no background image), gold H2 border-bottom, inline Path A styles. Visually distinct from Community Page template (navy full-bleed hero).
+
+**Still pending production promotion:**
+
+| Page | Staging ID | Phase | Blocker |
+|---|---|---|---|
+| Legal League Servicer Summit | 5106 | Phase 1.11 | Template A revision pending (apply 2026-04-30 Velocity pattern); image content gathering |
+| 6 remaining Membership pages (FORCE, Legal League, NMSA, MSEA, PPEF, AMDC) | — | Phase 4a | Alliance template proven; 6 builds remain |
+| 3 Community sibling pages (Mortgage Finance, Legal, Prop Pres) | — | Phase 4b (2nd+) | Authoring; will trigger Path B CSS class extraction |
+
+**Old WPBakery preserved as rollback:**
+
+| URL | Prod ID | Original of |
+|---|---|---|
+| /events/velocity-old/ | 5088 | Velocity (Wave 1 Step 1 rollback) |
+| /memberships-old/ | 2597 | Memberships hub (Wave 1 Step 2 rollback) |
+| /memberships-old/real-estate-professionals/ | 5087 | RE Pros, orphaned under 2597 by Memberships slug-swap. /memberships/real-estate-professionals/ is intentionally 404 — RE Pros is a community, not a membership. |
+
+**Architectural pattern (locked):**
+
+Option B (Elementor structural container + HTML widget per content section, containing `fsi-page-wrap` markup styled by `fsi-event-styles.php`). Hero + Final CTA stay as Elementor widget trees (bg image + overlay benefit from Elementor primitives). Inline-styled cards / callouts within HTML widgets (Path A) until 2nd community sibling triggers extraction to shared classes (Path B).
+
+**See `docs/decisions.md`** for the full ship history (top entries cover the 2026-04-30 → 2026-05-16 production push sequence).
+
+**See `site-profile.md` → Production page ID map** for per-environment ID source-of-truth.
+
+---
+
+## Historical migration plan
+
+Below this line is the original migration tracker from 2026-04-22 through 2026-04-28. Retained as historical reference. The "First migration wave" table at the bottom (Velocity + LLSS) is now partially completed — Velocity migrated; LLSS still staging-only.
+
+---
+
 Decision basis: `docs/decisions.md` 2026-04-22 portfolio standardization
 (Elementor + Elementor Pro is the forward builder; WPBakery retires as
 migration completes).

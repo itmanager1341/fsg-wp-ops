@@ -1,0 +1,30 @@
+{
+  "_authoring_notes": [
+    "Phase 4a Alliance page — Section 07 GOVERNANCE. Gray box with governance structure prose.",
+    "Short section. Establishes that Alliance-level members are not excluded from governance — they just don't have advisory council eligibility.",
+    "Closing line 'Practitioners lead. The association serves.' is brand-canonical. Do not alter."
+  ],
+  "id": "alliance-gov-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "background_background": "classic",
+    "background_color": "#FFFFFF",
+    "padding": {"unit": "px", "top": "0", "right": "20", "bottom": "48", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "0", "right": "16", "bottom": "32", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "alliance-gov-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div style=\"background:#f7f7f5; border:1px solid #e0e0dc; border-radius:4px; padding:28px 24px;\">\n  <h2 style=\"color:#1f365c; margin-bottom:12px;\">Governance</h2>\n  <p>Each FSI professional community is governed by a practitioner-led Advisory Council. Those councils, alongside the Editorial Advisory Board, Events Committees, and Education Committees, feed into the Five Star Executive Council, the association's unified governing body. Community membership at any level above Five Star Alliance carries advisory council eligibility.</p>\n  <p style=\"margin-top:10px;\">Practitioners lead. The association serves.</p>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

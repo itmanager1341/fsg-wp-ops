@@ -1,0 +1,31 @@
+{
+  "_authoring_notes": [
+    "Phase 4a Alliance page — Section 08 FOOTER LINE. Page-level contact strip, not the site footer.",
+    "Gray border-top divider, centered italic brand line, then contact links on second line.",
+    "Links: thefivestar.com, fsioffers.com, membership email, phone.",
+    "Not nav-wired to site footer. This is an in-page content section only."
+  ],
+  "id": "alliance-footer-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "background_background": "classic",
+    "background_color": "#FFFFFF",
+    "padding": {"unit": "px", "top": "0", "right": "20", "bottom": "20", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "0", "right": "16", "bottom": "16", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "alliance-footer-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div style=\"text-align:center; border-top:2px solid #ddd; padding:28px 0 12px;\">\n  <p><em>Five Star Institute &nbsp;|&nbsp; Five Star Alliance Membership</em></p>\n  <p style=\"margin-top:8px;\">\n    <a href=\"https://thefivestar.com\">thefivestar.com</a> &nbsp;&nbsp;|&nbsp;&nbsp;\n    <a href=\"https://fsioffers.com\">fsioffers.com</a> &nbsp;&nbsp;|&nbsp;&nbsp;\n    <a href=\"mailto:membership@thefivestar.com\">membership@thefivestar.com</a> &nbsp;&nbsp;|&nbsp;&nbsp;\n    (214) 525-6700\n  </p>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "_authoring_notes": [
+    "Phase 4a Alliance page — Section 01 INTRO. Two-paragraph prose establishing Alliance's role in the FSI ecosystem.",
+    "Max-width 820px centered within 1100px container — standard narrow read column.",
+    "Padding: 48px top/bottom creates breathing room between hero divider and What's Included section."
+  ],
+  "id": "alliance-intro-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "background_background": "classic",
+    "background_color": "#FFFFFF",
+    "padding": {"unit": "px", "top": "48", "right": "20", "bottom": "48", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "32", "right": "16", "bottom": "32", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "alliance-intro-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div style=\"max-width:820px; margin:0 auto;\">\n  <p>The mortgage and real estate industry runs on relationships. Between servicers and attorneys. Between asset managers and agents. Between policymakers and the practitioners who implement their decisions. Five Star Institute is where those relationships are built, sustained, and led.</p>\n  <p style=\"margin-top:12px;\">Five Star Alliance is the membership that puts every professional on the same floor. Servicers, attorneys, agents, investors, and property services professionals join through Alliance and unlock the full Five Star Institute network: the events, the media platform, the education, and the four professional communities that organize this industry.</p>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

@@ -2,7 +2,19 @@
 
 Site: thefivestar.com
 Created: 2026-05-14
-Status: **Planning** — not yet approved for execution
+Status: **SUPERSEDED (2026-06-16) by the clone-and-cutover rebuild plan.**
+
+> ⚠️ **Do NOT execute this plan's in-place theme swap.** As of the 2026-06-16 rebuild
+> decisions (`docs/decisions.md`; full R0–R7 plan at
+> `~/.claude/plans/review-all-our-work-delegated-boot.md`), thefivestar.com moves to Hello
+> Elementor via **clone-and-cutover**: production is cloned to `thefivestardev`, rebuilt on
+> Hello Elementor with native-widget templates, then promoted back via WPE Copy Environment.
+> The theme is **never** switched in place on production (that would strip chrome from any
+> un-migrated WPBakery page). Canonical rebuild plan:
+> `docs/fivestar/development/rebuild-plan.md`. This file is retained for its Phase T1 inventory
+> method and the The7-capability replacement table, which the rebuild still uses. **Phase T5
+> below is void** — see the banner there. URL/redirect/asset handling lives in
+> `url-preservation-plan.md`.
 
 ---
 
@@ -69,6 +81,8 @@ to Elementor. This is the primary blocker for the theme swap.
 - [ ] Mega Menu plugin verified as functional under Hello Elementor (or replacement identified)
 - [ ] The7 CPTs audited — list of active pages using Portfolio, Testimonials, Team, etc.
 - [ ] WPBakery page disposition decided (migrate, trash, or fallback plan selected)
+- [ ] URL preservation & redirect plan reviewed (`url-preservation-plan.md`) — Tier 1/2
+      slugs preserved, Tier 3 LMS redirects staged, asset-migration rule applied
 - [ ] Kit-test canary page (`/kit-test/`) verified visually under Hello Elementor on dev
 
 ---
@@ -157,17 +171,14 @@ Once The7 is removed from dev, clean up the kit:
 4. Verify Mega Menu on staging
 5. Verify any WPBakery pages still on staging (they should render with the Elementor header/footer)
 
-### Phase T5 — Production (approval gate)
+### Phase T5 — Production (approval gate) — ❌ VOID
 
-Per the standing approval gate:
-
-1. State operation and risk level: 🟡 Medium — theme switch affects all pages site-wide
-2. Staging ✅ confirmed
-3. STOP — report staging verification results
-4. Ask: "Staging confirmed ✅ — ready to run on production. Approve?"
-5. Wait for explicit approval from Jonathan
-6. Switch theme on production via WP Admin → Appearance → Themes → Hello Elementor → Activate
-7. Verify production: all Elementor pages, header/footer, Mega Menu, WPBakery pages
+> **Do not execute.** This described an in-place theme swap on the live production install,
+> which the 2026-06-16 clone-and-cutover decision replaces. Under the current model, Hello
+> Elementor is activated inside the `thefivestardev` sandbox and reaches production only via
+> **WPE Copy Environment promote-back** (rebuild plan phases R6→R7), behind the standing
+> production approval gate. There is no "Appearance → Themes → Activate" step on production.
+> See `url-preservation-plan.md` and the R0–R7 rebuild plan.
 
 ---
 

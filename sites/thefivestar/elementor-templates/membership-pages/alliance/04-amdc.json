@@ -1,0 +1,32 @@
+{
+  "_authoring_notes": [
+    "Phase 4a Alliance page — Section 04 AMDC. Cross-community layer box, visually lighter than specialty cards above.",
+    "Sits below the 2x2 specialty grid as a continuation of the Beyond Alliance section.",
+    "AMDC is not a specialty credential — it spans all four communities. Gray box treatment (not gold-bordered card) marks it as a different tier.",
+    "Language: 'Complimentary for Alliance members.' (not 'Free') — brand standard confirmed 2026-05-18.",
+    "Padding: 24px top (gap from grid above), 48px bottom (space before Charter Member)."
+  ],
+  "id": "alliance-amdc-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "background_background": "classic",
+    "background_color": "#FFFFFF",
+    "padding": {"unit": "px", "top": "24", "right": "20", "bottom": "48", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "16", "right": "16", "bottom": "32", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "alliance-amdc-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div style=\"background:#f7f7f5; border:1px solid #e0e0dc; border-radius:4px; padding:20px 24px;\">\n  <p style=\"color:#888; font-size:13px; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;\">Cross-Community Layer</p>\n  <h3 style=\"color:#1f365c; margin-bottom:6px;\">AMDC</h3>\n  <p style=\"color:#444; font-size:14px; margin-bottom:10px;\">The Association of Mortgage Diversity and Culture spans all four professional communities. Complimentary for Alliance members. $5,000 Associate Membership for organizational engagement.</p>\n  <p style=\"margin:0;\"><a href=\"https://mortgagediversitycouncil.com\" style=\"color:#1f365c; font-weight:600;\">Visit AMDC &rarr;</a></p>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

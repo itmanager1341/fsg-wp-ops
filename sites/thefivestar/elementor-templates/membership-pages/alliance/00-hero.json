@@ -1,0 +1,32 @@
+{
+  "_authoring_notes": [
+    "Phase 4a Alliance page — Section 00 HERO. First instance of FSI Membership Page template.",
+    "Plain white centered hero: gold eyebrow, H1, italic tagline, 3px gold border-bottom divider.",
+    "No background image. Intentional visual distinction from Community template (full-bleed navy hero).",
+    "Membership template pattern: white background, text-only hero, gold rule separating header from body.",
+    "Element ID prefix: alliance-"
+  ],
+  "id": "alliance-hero-outer",
+  "elType": "container",
+  "isInner": false,
+  "settings": {
+    "content_width": "boxed",
+    "boxed_width": {"unit": "px", "size": 1100, "sizes": []},
+    "background_background": "classic",
+    "background_color": "#FFFFFF",
+    "padding": {"unit": "px", "top": "0", "right": "20", "bottom": "0", "left": "20", "isLinked": false},
+    "padding_mobile": {"unit": "px", "top": "0", "right": "16", "bottom": "0", "left": "16", "isLinked": false},
+    "flex_direction": "column"
+  },
+  "elements": [
+    {
+      "id": "alliance-hero-html",
+      "elType": "widget",
+      "widgetType": "html",
+      "settings": {
+        "html": "<div style=\"text-align:center; padding:40px 0 36px; border-bottom:3px solid #c9a040;\">\n  <p style=\"text-transform:uppercase; font-size:13px; letter-spacing:1.5px; color:#c9a040; margin-bottom:6px;\">Five Star Institute Membership</p>\n  <h1 style=\"color:#1f365c;\">Five Star Alliance</h1>\n  <p><em>The universal membership for every mortgage and real estate professional.</em></p>\n</div>"
+      },
+      "elements": []
+    }
+  ]
+}

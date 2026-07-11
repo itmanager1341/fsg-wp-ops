@@ -23,7 +23,16 @@ curl "https://www.googleapis.com/pagespeedonline/v5/runPagespeed\
 
 ## Baseline scores
 
-_Populate after first audit run._
+**Capture status (2026-06-17, R0):** BLOCKED — PageSpeed Insights anonymous quota is
+exhausted; the API needs a key. Add `PAGESPEED_API_KEY` to `.env` (Google Cloud → enable
+"PageSpeed Insights API" on the `mortgagepoint` project → create an API key), or run the six
+target URLs manually at <https://pagespeed.web.dev>. This is the **pre-rebuild** baseline and
+must be captured before R1 clone/cutover work changes anything.
+
+**Target URLs (homepage + top-5 by organic traffic, per `seo-baseline.md`):**
+`/`, `/five-star-conference/`, `/careers/`, `/contact/`, `/five-star-academy/`, `/events/`.
+
+_Populate the tables below after the audit run._
 
 ### Mobile
 

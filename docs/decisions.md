@@ -7,6 +7,79 @@ New decisions go at the top.
 
 ---
 
+## 2026-05-18 — Five Star Alliance page CREATED on prod (Phase 4a, first Membership Page template instance)
+
+**Operation:** single create + populate on prod. New page at `/memberships/alliance/` (parent 5113). No slug-swap needed — URL did not previously exist on prod.
+
+- **Prod page ID: 5128.** Staging page ID: 5146 (parent 5138).
+- Meta: `_elementor_edit_mode=builder`, `_elementor_template_type=wp-page`, `_elementor_version=4.0.3`, `_elementor_pro_version=4.0.2`, `_dt_header_title=disabled`.
+- Payload: **9 sections, 22,024 B `_elementor_data`**. Composed from `sites/thefivestar/elementor-templates/membership-pages/alliance/`. Backup key: `_elementor_data_backup_2026_05_18_172158` (prior was empty `[]`). Clean rollback: `wp post delete 5128 --force`.
+- Section order: hero (white centered, gold border-bottom) → intro prose → what's included (navy card, 2x3 benefit grid) → beyond alliance (2x2 specialty cards: FORCE/Legal League/NMSA+MSEA/PPEF) → AMDC (cross-community gray box) → charter member (gold callout, Velocity 2026 offer) → events (2x2 event cards) → governance (gray box) → footer-line.
+- **FSI Membership Page template — first instance.** Visual pattern: white hero (no background image) distinguishes Membership template from Community template (navy full-bleed hero). H2 border-bottom gold (`#c9a040`), not gray.
+- Copy decisions locked: FORCE card links to `fivestarforce.com` (no FORCE membership page exists yet); NMSA/MSEA combined card with two outbound links; AMDC = "Complimentary for Alliance members." (not "Free"); `fsi-grid-2` class removed from all grids (inline styles only, Path A).
+- Charter Member section is time-sensitive: offer expires when Velocity 2026 (May 20-21) ends or 100 spots fill. Remove or replace after event.
+- No nav wiring. Page is live at the URL but not linked from top-nav or footer per standing rule.
+- **Live:** https://thefivestar.com/memberships/alliance/
+
+---
+
+## 2026-05-21 — FSI Offers Free tier content fix (Hosted Page removed)
+
+In-place `_elementor_data` update on prod page 5127 (`/resources/offers/`).
+
+- **Change:** Removed "Hosted Page" benefit card from the Start Free tier in `04-your-tier.json`. Hosted Page is an Alliance-tier benefit (correctly listed in the Alliance card as "Hosted Website"); it was erroneously duplicated in the Free tier.
+- **Description text updated:** "Every signup gets an auto-provisioned hosted page." removed. Cash Offers card copy absorbed into description: "Cash offer aggregation on every property in the country. Unlimited addresses, real competitive offers from active institutional buyers. The simplest way to experience the platform."
+- **Grid removed:** 2-col benefit grid dropped from Free tier entirely. Single CTA follows description directly.
+- Backup: `_elementor_data_backup_2026_05_21_105506` on page 5127.
+- **Live:** https://thefivestar.com/resources/offers/
+
+---
+
+## 2026-05-16 — FSI Offers page CREATED on prod + RE Pros cross-link update
+
+Two-operation prod push session. Resource-page template established as a new template type alongside event-pages / community-pages / membership-pages.
+
+### Operation 1: New FSI Offers page on prod (page 5127) ✅
+
+- Created under `/resources/` parent (page 9), slug `offers`, title "FSI Offers", post_author 816, status publish.
+- Meta: `_elementor_edit_mode=builder`, `_elementor_template_type=wp-page`, `_elementor_version=4.0.3`, `_elementor_pro_version=4.0.3`, `_dt_header_title=disabled`.
+- Payload: **8 sections, 20,660 B `_elementor_data`**, MD5 `1eea33569019fd5d89f1b0e1fb56224a`. Composed from on-disk JSON (`sites/thefivestar/elementor-templates/resource-pages/offers/`). Same compose-and-push pipeline as RE Pros / Velocity.
+- Section order: hero (navy, centered) → intro → capabilities (3-card) → your path (2-tier ladder) → alliance extras (4-card) → ROI (navy callout) → bottom CTA (2-card) → footer-line.
+- **2-tier ladder only** (Free + Alliance). FORCE tier authored initially, then removed per Jonathan: "FORCE membership is not a simple click." FORCE upsell handled via cross-link from /communities/real-estate-professionals/ to this page (Operation 2). 
+- Velocity launch callout authored initially, then removed: redundant with Velocity itself shipping in days.
+- Audience explicitly named in hero subhead ("built for real estate professionals"). Page links from /communities/real-estate-professionals/; the primary funnel is RE pros.
+- **Resource Page template — first instance** under new `resource-pages/` directory.
+- Backup: prior `_elementor_data` was empty `[]` (new page, nothing to restore from). Clean rollback path: `wp post delete 5127 --force`.
+- **Live:** https://thefivestar.com/resources/offers/
+
+### Operation 2: RE Pros prod 5115 in-place content update ✅
+
+In-place `_elementor_data` meta update on existing prod page 5115 (no slug change, no post_content change, no parent change).
+
+- Payload: **8 sections, 23,493 B `_elementor_data`**, MD5 `fe3a3416f67e89243f7a6daac5ccf9ec`. Net delta from 5/1 ship: **+141 bytes** for the three fixes below.
+- Three changes:
+  1. **Cross-link to FSI Offers:** inline "Learn more →" link added to Alliance tier's "FSI Offers Platform" sub-card. Relative URL `/resources/offers/`. Lightest-touch single-paragraph addition.
+  2. **Hero margin fix:** section 01 inner div changed from `max-width:1100px; padding:64px 0;` (flush-left to viewport edge) to `max-width:1100px; margin:0 auto; padding:64px 20px;` (centered with mobile breathing room). Brought header alignment into consistency with the rest of the FSI hub navy hero pattern (which Jonathan confirmed had already been corrected separately in prod for Memberships hub / Communities hub / Velocity).
+  3. **Em-dashes removed:** two `&mdash;` instances in the FORCE tier description text replaced with commas + participial phrasing. Per the locked rule below.
+- Backup meta key: `_elementor_data_backup_2026_05_16_16_01_59` on page 5115. Rollback = single `update_post_meta` call.
+- **Live:** https://thefivestar.com/communities/real-estate-professionals/
+
+### Em-dash rule (strict, FSI brand-wide)
+
+**Never use em-dashes (—, &mdash;) in FSI copy.** Use commas, periods, or restructured sentences. Saved to user-memory at the start of this session. Applies to all FSI properties (thefivestar.com + content originating from FSI editorial). Pre-existing em-dashes encountered during touch-edits get cleaned up in-flight (as they were on RE Pros FORCE tier today); pages not touched in a session are not back-audited unless explicitly requested.
+
+### Repo–prod tracking gap (process)
+
+During pre-flight for Operation 2, discovered that RE Pros prod 5115 already existed (created 2026-05-01 per Wave 1 Step 5) but `next-chat-handoff.md` in context still reflected the pre-5/1 state and listed 5115 as a "404 placeholder." The handoff doc was stale — `decisions.md` correctly recorded the 5/1 ship, but the handoff wasn't synchronized.
+
+**Decision:** prod ships MUST update both `decisions.md` AND `next-chat-handoff.md` in the same commit. Adding to `fsi-production-promotion.md` SOP as a post-ship documentation step. Source-of-truth pattern preserved: decisions.md = historical record (append-only), site-profile.md = current state, next-chat-handoff.md = session-to-session continuity.
+
+### Production page ID map (new section in site-profile.md)
+
+Per Jonathan: "i'm surprised it's not reflected in the repo." Section JSON content is repo-tracked; per-environment WP page IDs were not. Now they are. See `sites/thefivestar/site-profile.md` "Production page ID map" section as source of truth.
+
+---
+
 ## 2026-05-01 — Wave 1 Step 4: Phase 2.11 Events hub SHIPPED to production
 
 **Operation:** in-place swap on existing prod page 5089 (preserves child URLs /events/velocity/ and /events/velocity-old/).
@@ -1844,3 +1917,28 @@ hostname as a username. Explicit entries are unambiguous and correct.
 
 **Lesson:** In SSH config, `%h` in HostName expands from the alias; `%h` in User
 expands from the final hostname. They are not the same token in practice.
+
+---
+
+## 2026-06-16 — Exclude the Academy LMS post types from the rebuild
+
+**Decision:** Do NOT migrate the ~75 "Five Star Academy" LMS URLs (22 courses,
+21 seminars, 6 certifications, plus the topic/profession/access taxonomies) into the
+new Hello Elementor build. They will be set inactive and their media deleted on the
+existing site. **Tentative — pending final confirmation.**
+
+**Rationale:**
+These `/blog/course/*`, `/blog/seminar/*`, `/blog/certification/*` URLs are static
+image pages, not a functioning LMS (no enrollment/delivery — that's the separate
+fivestaracademy.com instance). Semrush shows them driving ~zero organic traffic; only
+the catalog landing pages (`/courses/`, `/certifications/`, `/five-star-academy/`)
+get any, and those are real `page`s, kept in scope.
+
+**Consequences:**
+- New site ships with **no LMS plugin and no course/seminar/certification CPTs.**
+- The catalog landing pages stay and remain the must-preserve set.
+- **Redirect requirement:** when the CPT URLs are retired, add 301s via the active
+  301 Redirects plugin (`/blog/course/*` → `/courses/`, `/blog/seminar/*` →
+  `/events/`, `/blog/certification/*` → `/certifications/`) so they don't 404. Low
+  SEO stakes (~no traffic) but avoids dead links and crawl errors.
+- Re-confirm before deletion is irreversible; deleting media is destructive.
