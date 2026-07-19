@@ -21,12 +21,25 @@ come across. It is the SEO gate for the cutover.
 | Semrush pages by traffic share | `audits/2026-06-16-semrush-pages.csv` |
 | Refresh tooling | `scripts/semrush-export.sh`, `scripts/gsc-export.sh` |
 
-## Redirect tooling
+## Redirect tooling (verified on prod 2026-07-11, R0)
 
-Two redirect plugins are currently active — `aioseo-redirects` (AIOSEO Redirects, part
-of the AIOSEO Pro suite) and `eps-301-redirects` (301 Redirects 2.84). **Consolidate on
-AIOSEO Redirects** going forward and migrate any existing rules out of `eps-301-redirects`
-before retiring it. All new rules below go in AIOSEO Redirects as **301 (permanent)**.
+The redirect landscape is messier than assumed — audited state:
+
+- `eps-301-redirects` — **active**, but its rules option (`eps_redirects_redirects`) is **empty `[]`**.
+- `aioseo-redirects` — **INACTIVE plugin**, yet its table holds **2 enabled 301s**
+  (`/memberships/real-estate-professionals/` → `/communities/real-estate-professionals/`;
+  `/conferences/` → `/events/`). Because the plugin is off, **whether these actually fire is
+  unverified** — test on the clone (R1).
+- `wp_…_redirects` (plain table) — **2 active rules, being hit**: `network-groups` → post 2597
+  (301, 5,489 hits) and `reif` → fivestarconference.com/2025/REIF (**302 temp**, 498 hits).
+
+Full dump: `audits/2026-07-11-redirects.csv`.
+
+**Action (R2):** pick ONE active redirect manager, verify which of the 4 existing rules truly
+fire (curl on the clone), migrate all live redirects into it, and put the Tier 3 LMS redirects
+there too. `eps-301-redirects` is the sensible target (already active) — but confirm the 2
+AIOSEO-table redirects still fire first, or they'll be silently lost at cutover. All new rules
+are **301 (permanent)** except the intentionally-temporary `reif` 302.
 
 ---
 

@@ -1942,3 +1942,74 @@ get any, and those are real `page`s, kept in scope.
   `/events/`, `/blog/certification/*` → `/certifications/`) so they don't 404. Low
   SEO stakes (~no traffic) but avoids dead links and crawl errors.
 - Re-confirm before deletion is irreversible; deleting media is destructive.
+
+---
+
+## 2026-07-11 — Collapse thefivestar.com to single-site; retire the /mediakit/ subsite
+
+**Decision:** thefivestar.com production is a **live WordPress multisite** (`MULTISITE=1`) with
+two sites: blog_id 1 (`thefivestar.com/`, the main site) and blog_id 6
+(`thefivestar.com/mediakit/`, the advertising media kit — 28 pages). The rebuild will
+**collapse it to a single site** and **retire /mediakit/ entirely** (301 all `/mediakit/*`
+→ `/`, drop the subsite, remove multisite from wp-config).
+
+**Context / due diligence:** Owner recollection was "multisite was cancelled / not needed,"
+but the config showed it active. The /mediakit/ subsite is the **advertising media kit** (rate
+cards, audience data, print/digital advertising, MortgagePoint Magazine, Black Book, REO Red
+Book, email blasts, sponsored content) — FSI *and* MortgagePoint ad-sales collateral. It has
+**zero organic traffic** (Semrush) but that does not measure direct/sales-link usage. This risk
+(breaking live advertiser links) was surfaced explicitly; owner confirmed **retire anyway**
+(2026-07-11), i.e. it is superseded/unused.
+
+**Consequences:**
+- **Where it happens: on the CLONE, not prod.** R1 clones the full network prod → dev; the
+  single-site collapse + /mediakit/ retirement happen on the disposable clone. Prod stays
+  multisite (untouched safety net) until promote-back at R7 cutover.
+- New post-R1 step (author `runbooks/r1b-collapse-singlesite.md`): on the clone — record the
+  subsite (done: `audits/2026-07-11-mediakit-subsite-inventory.csv`), add a wildcard 301
+  `/mediakit/(.*)` → `/`, `wp site delete` blog_id 6, remove `MULTISITE`/`SUBDOMAIN_INSTALL`/
+  network constants from wp-config, drop the network tables (`wp_blogs`, `wp_site`,
+  `wp_sitemeta`, `wp_0edpxsjfuc_6_*`), confirm `is_multisite()` false.
+- The `/mediakit/*` 301 lands on prod at cutover (carried in the clone's redirect table).
+- **Reversibility:** all destructive steps run on the clone; prod is intact until cutover, which
+  itself is reversible via WPE checkpoint restore. 301 target `/` is provisional — reconsider
+  `/contact/` if a sales-reachable landing is preferred.
+
+---
+
+## 2026-07-11 — Authoring approach: natural-language → native-widget Elementor JSON
+
+**Decision:** Rebuild pages as **native Elementor widgets** (Heading, Text Editor, Button,
+Image, Image Box, Icon Box, containers/flexbox) bound to Global Kit `__globals__`, generated as
+`_elementor_data` JSON from **natural-language page specs** and pushed via the existing pipeline
+(compose section JSON → base64 → `wp eval-file -` over SSH → `update_post_meta`). Retire the
+"Option B" HTML-widget + `fsi-event-styles.php` workaround for all rebuilt pages.
+
+**Why:** Native-widget JSON gives both fast, version-controlled, NL-driven authoring *and*
+GUI-editable output for non-technical editors — unlike the HTML-embed blobs (not editable,
+mu-plugin-dependent). Confirms decision 2026-06-16 (14036) and makes it operational.
+
+**Scope correction (important):** The 16 pages the R2 disposition marked **LEAVE** ("already
+Elementor") are **HTML-embed Option B**, not native — verified: Alliance sections are 9×
+`"widgetType":"html"`. They therefore require **REFACTOR to native widgets**, same as the 14
+WPBakery **MIGRATE** pages. **R4 worklist = all 30 published pages → native.** ("LEAVE" in the
+disposition CSV should be read as "REFACTOR — Elementor shell exists, body is HTML-embed.")
+
+**Method split (hybrid):**
+- **Pages/sections:** natural language → native-widget JSON → push (code). GUI-editable result.
+- **Header / Footer / Mega Menu:** GUI Elementor Pro Theme Builder (display conditions +
+  registration are unreliable via code), then export JSON to repo. (R3.)
+- **Global Kit:** direct meta-write (Lessons #3–6). (R5.)
+
+**Prerequisites / constraints:**
+1. **Native-widget schema reference library** — extend `sites/thefivestar/elementor-templates/widget-references/`
+   by capturing each widget's real settings schema from an Elementor-built instance (as done for
+   `image-box.json` off kit-test page 5099). This is the ground truth that prevents blank/default
+   widgets. Elementor 4.1.4 — schema is version-sensitive.
+2. `__globals__` bind only **after Hello Elementor is active** (The7 breaks them, Lesson #12) —
+   so native-widget authoring is **post-R3**.
+3. Existing `elementor-templates/**` HTML-embed JSON becomes **reference / source-of-copy only**.
+
+**Validation:** a **spike** on one page (Contact, ID 13 — simple, high-traffic) proves the
+NL→native-JSON→push workflow before committing all 30. Gate R4 on spike success; if the schema
+fight is worse than expected, reassess (fall back to GUI-authored family templates cloned per page).

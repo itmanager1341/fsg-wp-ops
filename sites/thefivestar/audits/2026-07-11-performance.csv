@@ -1,0 +1,13 @@
+url,strategy,performance,seo,LCP,CLS,TBT
+"/","mobile",25,92,"11.7 s","0.1","1,860 ms"
+"/","desktop",41,92,"4.0 s","0.001","910 ms"
+"/five-star-conference/","mobile",27,100,"11.2 s","0.07","2,360 ms"
+"/five-star-conference/","desktop",58,100,"2.5 s","0.026","530 ms"
+"/careers/","mobile",35,92,"9.0 s","0.45","240 ms"
+"/careers/","desktop",41,92,"1.5 s","0.369","1,090 ms"
+"/contact/","mobile",37,100,"16.1 s","0","830 ms"
+"/contact/","desktop",62,100,"2.0 s","0.03","540 ms"
+"/five-star-academy/","mobile",44,100,"19.6 s","0","450 ms"
+"/five-star-academy/","desktop",70,100,"1.4 s","0.009","420 ms"
+"/events/","mobile",56,85,"5.0 s","0.134","350 ms"
+"/events/","desktop",85,85,"1.2 s","0.024","260 ms"

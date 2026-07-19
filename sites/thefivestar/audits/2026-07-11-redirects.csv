@@ -1,0 +1,5 @@
+source_table,url_from,url_to,status,type,hits,firing_note
+aioseo_redirects,/memberships/real-estate-professionals/,/communities/real-estate-professionals/,301,url,,"aioseo-redirects plugin INACTIVE — enabled=1 in table; verify it actually fires on the clone (R1)"
+aioseo_redirects,/conferences/,/events/,301,url,,"aioseo-redirects plugin INACTIVE — verify fires on clone (R1)"
+wp_redirects,network-groups,2597,301,post,5489,"active; slug->post_id; heavily hit (5489)"
+wp_redirects,reif,https://www.fivestarconference.com/2025/REIF,302,url,498,"active; 302 TEMP (event-year specific) — reassess at rebuild"

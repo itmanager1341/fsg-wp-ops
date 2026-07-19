@@ -92,15 +92,22 @@ The regression oracle must be captured **before** anything changes.
 - **Activate Hello**, then full HTTP-200 sweep of the entire R0 URL inventory on the temp domain.
 - **Gate R3**: Hello active; chrome matches baseline; 200-sweep passes; PHP log clean (on 8.2).
 
-### R4 — Build native reusable templates + migrate/trash pages (on the clone)
-This is the core of the "new approach" — see Template design principles above.
-- **Author one native, user-editable reusable Elementor template per family** (Event / Membership / Community / Resource) using native widgets + `__globals__` kit bindings, saved to the Elementor Library (and Theme Builder where a CPT loop applies). These templates are the deliverable an editor clones to make new pages. The existing `elementor-templates/**` JSON is the **source of copy/structure reference**, not the deploy artifact.
-- **Rebuild the 7 live Elementor pages** (Events hub, Velocity, Memberships hub, Communities hub, RE Professionals, FSI Offers, Alliance) from their family templates as native widgets, replacing the HTML-embed Option B bodies. Clone preserves post + attachment IDs, so URLs and media references are intact (no F2-style image-ID remap).
-- **Migrate** the remaining MIGRATE-list WPBakery pages into native templates.
-- **Trash** the approved deprecation list (reversible — clone trash + disposable clone).
-- **Finish the pending pipeline** on native templates: LLSS, 6 remaining Membership pages, 3 Community siblings.
-- **Retire `fsi-event-styles.php`** for standard templates once no rebuilt page depends on it (keep only if a not-yet-rebuilt legacy page still needs it).
-- **Gate R4**: zero active WPBakery pages (re-run T1, expect empty); standard pages are native editable widgets (spot-open in Elementor UI to confirm no raw-HTML-blob sections remain); WPBakery plugin chain deactivated; full 200-sweep + visual regression passes.
+### R4 — Re-author all pages to native widgets via NL→JSON (on the clone)
+Authoring approach fixed by decision **2026-07-11** — see `runbooks/r4-page-rebuild.md`.
+**Worklist = all 30 published pages → native widgets** (R2 disposition + trash already done):
+- **14 MIGRATE** — WPBakery → native.
+- **16 "LEAVE" = REFACTOR** — these are HTML-embed Option B (verified: Alliance = 9× `widgetType:html`),
+  NOT native. They must be re-authored to native widgets too, not left as-is.
+- **Method:** natural-language page spec → **native-widget `_elementor_data` JSON** (Heading, Text
+  Editor, Button, Image, Image Box, Icon Box, containers) + `__globals__` kit bindings → push via
+  the existing compose→base64→`wp eval-file -`→`update_post_meta` pipeline. Result is GUI-editable.
+- **Prereq:** finish the **native-widget schema reference library** (`widget-references/`) captured
+  from real Elementor instances — ground truth so generated JSON doesn't render blank. `__globals__`
+  work only now (Hello active). Existing `elementor-templates/**` HTML-embed JSON = copy/structure reference only.
+- **R4.0 SPIKE (gate):** prove the workflow on **one page (Contact, 13)** before the other 29.
+- **Retire `fsi-event-styles.php`** once no rebuilt page depends on it.
+- **Gate R4**: spike validated; zero `widgetType:html`/`[vc_row` bodies on the 30 pages (spot-open in
+  Elementor UI — native editable widgets); full 200-sweep + visual regression passes.
 
 ### R5 — Global Kit cleanup (on the clone, The7 gone) — `theme-migration.md` T3
 Only possible now (Lesson #12: The7 was what broke `__globals__`).
