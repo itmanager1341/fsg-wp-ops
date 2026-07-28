@@ -1,0 +1,37 @@
+# themortgagepoint.com robots.txt
+# Managed via fsg-wp-ops. Deployed as a physical file at web root.
+# Revert: delete /nas/content/live/mortgagepoint/robots.txt (AIOSEO virtual returns).
+# Last updated: 2026-07-28
+
+User-agent: *
+Disallow: /wp-admin/
+Allow: /wp-admin/admin-ajax.php
+Disallow: /wp-content/ajax-handler.php
+Disallow: /wp-json/
+Disallow: /*?s=
+Disallow: /*/feed/
+Crawl-delay: 10
+
+# Competitive-intel crawlers — heavy load, no traffic value — throttle hard
+User-agent: AhrefsBot
+Crawl-delay: 30
+
+User-agent: SemrushBot
+Crawl-delay: 30
+
+User-agent: MJ12bot
+Crawl-delay: 30
+
+User-agent: DotBot
+Crawl-delay: 30
+
+# Pure scrapers — no referral value — block
+User-agent: Bytespider
+Disallow: /
+
+User-agent: ImagesiftBot
+Disallow: /
+
+Sitemap: https://themortgagepoint.com/news-sitemap.xml
+Sitemap: https://themortgagepoint.com/sitemap.xml
+Sitemap: https://themortgagepoint.com/sitemap.rss
