@@ -1,18 +1,45 @@
 # themortgagepoint.com robots.txt
 # Managed via fsg-wp-ops. Deployed as a physical file at web root.
 # Revert: delete /nas/content/live/mortgagepoint/robots.txt (AIOSEO virtual returns).
+# Article permalinks are /YYYY/MM/DD/slug/ — date paths must NEVER be disallowed.
 # Last updated: 2026-07-28
 
-User-agent: *
-Disallow: /wp-admin/
-Allow: /wp-admin/admin-ajax.php
-Disallow: /wp-content/ajax-handler.php
-Disallow: /wp-json/
-Disallow: /*?s=
-Disallow: /*/feed/
-Crawl-delay: 10
+# ── AI training / scraper crawlers: blocked (they honor robots.txt) ──
+# Assistant/search bots (ChatGPT-User, OAI-SearchBot, PerplexityBot) are intentionally
+# left ALLOWED (they fall under the * group) so they can cite content and refer readers.
+# Google-Extended / Applebot-Extended are AI-training opt-out tokens: they do NOT affect
+# Googlebot/Applebot search ranking, and are not separate fetchers (no load change).
+User-agent: GPTBot
+Disallow: /
 
-# Competitive-intel crawlers — heavy load, no traffic value — throttle hard
+User-agent: CCBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: ImagesiftBot
+Disallow: /
+
+# ── Competitive-intel crawlers: heavy load, no traffic value — throttle hard ──
 User-agent: AhrefsBot
 Crawl-delay: 30
 
@@ -25,12 +52,19 @@ Crawl-delay: 30
 User-agent: DotBot
 Crawl-delay: 30
 
-# Pure scrapers — no referral value — block
-User-agent: Bytespider
-Disallow: /
-
-User-agent: ImagesiftBot
-Disallow: /
+# ── Everyone else (incl. Googlebot, Bingbot, ChatGPT-User, OAI-SearchBot, PerplexityBot) ──
+User-agent: *
+Disallow: /wp-admin/
+Allow: /wp-admin/admin-ajax.php
+Disallow: /wp-content/ajax-handler.php
+Disallow: /wp-json/
+Disallow: /*?s=
+Disallow: /feed/
+Disallow: /*/feed/
+Disallow: /comments/feed/
+Disallow: /*?replytocom=
+Disallow: /tag/
+Crawl-delay: 10
 
 Sitemap: https://themortgagepoint.com/news-sitemap.xml
 Sitemap: https://themortgagepoint.com/sitemap.xml
